@@ -1,0 +1,37 @@
+version: "Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)"
+options: "8f91f5c080ee05dfa082fbbdc06113a444cc9a4781f02ab54a8aa8fd08142ceb"
+build_start_time: [1674147772, 953933000]
+build_end_time: [1674147778, 752382993]
+inputs:
+  ? "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Compression/Compression.swift"
+  : [1674146375, 306519269]
+  ? "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Compression/WSCompression.swift"
+  : [1674146375, 306790828]
+  ? "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/DataBytes/Data+Extensions.swift"
+  : [1674146375, 307020187]
+  "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Engine/Engine.swift": [1674146375, 307264089]
+  "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Engine/NativeEngine.swift": [1674146375, 307449817]
+  "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Engine/WSEngine.swift": [1674146375, 307641744]
+  ? "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/FoundationHTTPHandler.swift"
+  : [1674146375, 307863712]
+  ? "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/FoundationHTTPServerHandler.swift"
+  : [1674146375, 308047771]
+  ? "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/FrameCollector.swift"
+  : [1674146375, 308193683]
+  "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/Framer.swift": [1674146375, 308380126]
+  "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/HTTPHandler.swift": [1674146375, 308968544]
+  ? "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/StringHTTPHandler.swift"
+  : [1674146375, 309268951]
+  ? "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Security/FoundationSecurity.swift"
+  : [1674146375, 309660911]
+  "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Security/Security.swift": [1674146375, 309796333]
+  "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Server/Server.swift": [1674146375, 309982776]
+  ? "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Server/WebSocketServer.swift"
+  : [1674146375, 310147762]
+  ? "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Starscream/WebSocket.swift"
+  : [1674146375, 310496330]
+  ? "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Transport/FoundationTransport.swift"
+  : [1674146375, 310732841]
+  ? "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Transport/TCPTransport.swift"
+  : [1674146375, 310911178]
+  "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Transport/Transport.swift": [1674146375, 311064958]

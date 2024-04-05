@@ -1,0 +1,6 @@
+framework module TeneasyChatSDK_iOS {
+  umbrella header "TeneasyChatSDK_iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

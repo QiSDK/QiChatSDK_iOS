@@ -1,0 +1,4 @@
+module TeneasyChatSDK_iOS {
+    header "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.build/TeneasyChatSDK_iOS-Swift.h"
+    requires objc
+}

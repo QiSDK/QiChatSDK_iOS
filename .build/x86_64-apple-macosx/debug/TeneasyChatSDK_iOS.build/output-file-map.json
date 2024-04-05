@@ -1,0 +1,17 @@
+{
+  "": {
+    "swift-dependencies": "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.build/master.swiftdeps"
+  },
+  "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/TeneasyChatSDK_iOS/Classes/ReplaceMe.swift": {
+    "dependencies": "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.build/Classes/ReplaceMe.d",
+    "object": "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.build/Classes/ReplaceMe.swift.o",
+    "swiftmodule": "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.build/Classes/ReplaceMe~partial.swiftmodule",
+    "swift-dependencies": "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.build/Classes/ReplaceMe.swiftdeps"
+  },
+  "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/TeneasyChatSDK_iOS/Classes/libTest.swift": {
+    "dependencies": "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.build/Classes/libTest.d",
+    "object": "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.build/Classes/libTest.swift.o",
+    "swiftmodule": "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.build/Classes/libTest~partial.swiftmodule",
+    "swift-dependencies": "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.build/Classes/libTest.swiftdeps"
+  }
+}

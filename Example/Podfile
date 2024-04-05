@@ -1,0 +1,27 @@
+use_frameworks!
+
+platform :ios, '10.0'
+
+target 'TeneasyChatSDK_iOS_Example' do
+  pod 'TeneasyChatSDK_iOS', :path => '../'
+  pod 'SwiftDate', '~> 6.3.1'
+  #pod 'SwiftProtobuf', '~> 1.20.3'
+  #pod 'TeneasyChatSDK_iOS', :git => 'https://github.com/tianxuefeng/TeneasyChatSDK_iOS.git'
+  target 'TeneasyChatSDK_iOS_Tests' do
+    inherit! :search_paths
+
+    pod 'FBSnapshotTestCase' , '~> 2.1.4'
+  
+  end
+end
+
+post_install do |installer| #解决Xcode14编译问题
+        installer.generated_projects.each do |project|
+            project.targets.each do |target|
+                target.build_configurations.each do |config|
+                        config.build_settings["DEVELOPMENT_TEAM"] = "TJM8W7CS7Y"
+                        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+                end
+            end
+        end
+end

@@ -1,0 +1,347 @@
+{
+  "builtTestProducts" : [
+
+  ],
+  "copyCommands" : {
+
+  },
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.Starscream-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "importPath" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Compression/Compression.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Compression/WSCompression.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/DataBytes/Data+Extensions.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Engine/Engine.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Engine/NativeEngine.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Engine/WSEngine.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/FoundationHTTPHandler.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/FoundationHTTPServerHandler.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/FrameCollector.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/Framer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/HTTPHandler.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/StringHTTPHandler.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Security/FoundationSecurity.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Security/Security.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Server/Server.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Server/WebSocketServer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Starscream/WebSocket.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Transport/FoundationTransport.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Transport/TCPTransport.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Transport/Transport.swift"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "Starscream",
+      "moduleOutputPath" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.swiftmodule",
+      "objects" : [
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Compression/Compression.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Compression/WSCompression.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/DataBytes/Data+Extensions.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Engine/Engine.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Engine/NativeEngine.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Engine/WSEngine.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Framer/FoundationHTTPHandler.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Framer/FoundationHTTPServerHandler.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Framer/FrameCollector.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Framer/Framer.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Framer/HTTPHandler.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Framer/StringHTTPHandler.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Security/FoundationSecurity.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Security/Security.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Server/Server.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Server/WebSocketServer.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Starscream/WebSocket.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Transport/FoundationTransport.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Transport/TCPTransport.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Transport/Transport.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "x86_64-apple-macosx10.10",
+        "-swift-version",
+        "5",
+        "-enable-batch-mode",
+        "-index-store-path",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-g",
+        "-j6",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-module-cache-path",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Starscream-Swift.h",
+        "-color-diagnostics",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib"
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Compression/Compression.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Compression/WSCompression.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/DataBytes/Data+Extensions.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Engine/Engine.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Engine/NativeEngine.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Engine/WSEngine.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Framer/FoundationHTTPHandler.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Framer/FoundationHTTPServerHandler.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Framer/FrameCollector.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Framer/Framer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Framer/HTTPHandler.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Framer/StringHTTPHandler.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Security/FoundationSecurity.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Security/Security.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Server/Server.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Server/WebSocketServer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Starscream/WebSocket.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Transport/FoundationTransport.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Transport/TCPTransport.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build/Transport/Transport.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.swiftmodule"
+        }
+      ],
+      "sources" : [
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Compression/Compression.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Compression/WSCompression.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/DataBytes/Data+Extensions.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Engine/Engine.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Engine/NativeEngine.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Engine/WSEngine.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/FoundationHTTPHandler.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/FoundationHTTPServerHandler.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/FrameCollector.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/Framer.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/HTTPHandler.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Framer/StringHTTPHandler.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Security/FoundationSecurity.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Security/Security.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Server/Server.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Server/WebSocketServer.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Starscream/WebSocket.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Transport/FoundationTransport.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Transport/TCPTransport.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/checkouts/Starscream/Sources/Transport/Transport.swift"
+      ],
+      "tempsPath" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.TeneasyChatSDK_iOS-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "importPath" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/TeneasyChatSDK_iOS/Classes/ReplaceMe.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/TeneasyChatSDK_iOS/Classes/libTest.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/Starscream.swiftmodule"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "TeneasyChatSDK_iOS",
+      "moduleOutputPath" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.swiftmodule",
+      "objects" : [
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.build/Classes/ReplaceMe.swift.o",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.build/Classes/libTest.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "x86_64-apple-macosx10.10",
+        "-swift-version",
+        "5",
+        "-enable-batch-mode",
+        "-index-store-path",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-g",
+        "-j6",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-module-cache-path",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.build/TeneasyChatSDK_iOS-Swift.h",
+        "-color-diagnostics",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib"
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.build/Classes/ReplaceMe.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.build/Classes/libTest.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.swiftmodule"
+        }
+      ],
+      "sources" : [
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/TeneasyChatSDK_iOS/Classes/ReplaceMe.swift",
+        "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/TeneasyChatSDK_iOS/Classes/libTest.swift"
+      ],
+      "tempsPath" : "/Users/tianmolin/Desktop/Teneasy/TeneasyChatSDK/TeneasyChatSDK_iOS/.build/x86_64-apple-macosx/debug/TeneasyChatSDK_iOS.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "testDiscoveryCommands" : {
+
+  }
+}
