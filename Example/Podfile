@@ -3,10 +3,10 @@ use_frameworks!
 platform :ios, '10.0'
 
 target 'TeneasyChatSDK_iOS_Example' do
-  #pod 'TeneasyChatSDK_iOS', :path => '../'
+  pod 'TeneasyChatSDK_iOS', :path => '../'
   pod 'SwiftDate', '~> 6.3.1'
   #pod 'SwiftProtobuf', '~> 1.20.3'
-  pod 'TeneasyChatSDK_iOS', :git => 'https://github.com/QiSDK/QiChatSDK_iOS.git'
+  #pod 'TeneasyChatSDK_iOS', :git => 'https://github.com/QiSDK/QiChatSDK_iOS.git'
   target 'TeneasyChatSDK_iOS_Tests' do
     inherit! :search_paths
 
