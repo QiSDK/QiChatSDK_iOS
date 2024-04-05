@@ -17,12 +17,12 @@ TeneasyChatSDK_iOS is available through [CocoaPods](https://cocoapods.org). To i
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'TeneasyChatSDK_iOS'
+pod 'TeneasyChatSDK_iOS', :git => 'https://repo.xdev.stream/xiaofu/TeneasyChatSDK_iOS.git'
 ```
 
 ## Author
 
-7938813, tianxuefeng2010@gmail.com
+XiaoFu
 
 ## License
 

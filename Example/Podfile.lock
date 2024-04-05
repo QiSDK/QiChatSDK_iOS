@@ -7,14 +7,14 @@ PODS:
   - Starscream (4.0.4)
   - SwiftDate (6.3.1)
   - SwiftProtobuf (1.20.3)
-  - TeneasyChatSDK_iOS (1.0.2):
+  - TeneasyChatSDK_iOS (1.0.4):
     - Starscream (= 4.0.4)
     - SwiftProtobuf (~> 1.20.3)
 
 DEPENDENCIES:
   - FBSnapshotTestCase (~> 2.1.4)
   - SwiftDate (~> 6.3.1)
-  - TeneasyChatSDK_iOS (from `../`)
+  - TeneasyChatSDK_iOS (from `https://github.com/QiSDK/QiChatSDK_iOS.git`)
 
 SPEC REPOS:
   trunk:
@@ -25,15 +25,20 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   TeneasyChatSDK_iOS:
-    :path: "../"
+    :git: https://github.com/QiSDK/QiChatSDK_iOS.git
+
+CHECKOUT OPTIONS:
+  TeneasyChatSDK_iOS:
+    :commit: 4cbe3f8cd66fd5f6e8a28238814f564f7db94c9f
+    :git: https://github.com/QiSDK/QiChatSDK_iOS.git
 
 SPEC CHECKSUMS:
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftDate: 72d28954e8e1c6c1c0f917ccc8005e4f83c7d4b2
   SwiftProtobuf: b02b5075dcf60c9f5f403000b3b0c202a11b6ae1
-  TeneasyChatSDK_iOS: cbdbe4195fb1b803fff5226a8e559bf48daf8a1c
+  TeneasyChatSDK_iOS: 179a8b98a41ee8623b229012d39366e1bcc163e6
 
-PODFILE CHECKSUM: 60e686ea63ddff02b71e5a2c68c715ecb64f0eda
+PODFILE CHECKSUM: 13615dbdca9ab94d4f6c1592e14f2815b8de0064
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.14.2
