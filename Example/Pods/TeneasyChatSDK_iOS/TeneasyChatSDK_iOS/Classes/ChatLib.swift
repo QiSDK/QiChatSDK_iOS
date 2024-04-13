@@ -30,7 +30,7 @@ public protocol teneasySDKDelegate : AnyObject{
 open class ChatLib {
     public private(set) var text = "Teneasy Chat SDK 启动"
     private var baseUrl = "wss://csapi.xdev.stream/v1/gateway/h5?token="
-    var websocket: WebSocket?
+    private var websocket: WebSocket?
     var isConnected = false
     // weak var delegate: WebSocketDelegate?
     public weak var delegate: teneasySDKDelegate?
@@ -39,7 +39,7 @@ open class ChatLib {
     private var msgList: [UInt64: CommonMessage] = [:]
     var chatId: Int64 = 0
     var token: String = ""
-    var session = Session()
+    private var session = Session()
     
     private var myTimer: Timer?
     private var sessionTime: Int = 0
@@ -82,12 +82,15 @@ open class ChatLib {
         let dt = Int(date.timeIntervalSince1970 * 1000)
         let urlStr = "\(baseUrl + cert)&userid=\(self.userId)&ty=\(Api_Common_ClientType.userApp.rawValue)&dt=\(dt)&sign=\(self.sign)&rd=\(rd)"
         guard let url = URL(string: urlStr) else { return }
+        print(url)
         let request = URLRequest(url: url)
         // request.setValue("chat,superchat", forHTTPHeaderField: "Sec-WebSocket-Protocol")
-        websocket = WebSocket(request: request)
-        websocket?.request.timeoutInterval = 5 // Sets the timeout for the connection
-        websocket?.delegate = self
-        websocket?.connect()
+        self.websocket = WebSocket(request: request)
+        self.websocket?.request.timeoutInterval = 5 // Sets the timeout for the connection
+        self.websocket?.delegate = self
+        
+        self.websocket?.connect()
+
         
         /* 添加header的办法
          request.setValue("someother protocols", forHTTPHeaderField: "Sec-WebSocket-Protocol")

@@ -19,8 +19,7 @@ post_install do |installer| #解决Xcode14编译问题
         installer.generated_projects.each do |project|
             project.targets.each do |target|
                 target.build_configurations.each do |config|
-                        config.build_settings["DEVELOPMENT_TEAM"] = "TJM8W7CS7Y"
-                        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+                        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
                 end
             end
         end
