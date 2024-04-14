@@ -40,5 +40,6 @@ TODO: Add long description of the pod here.
    s.frameworks = 'UIKit'#, 'MapKit'
    s.dependency 'Starscream', '4.0.4'
    s.dependency 'SwiftProtobuf', '~> 1.20.3'
+   s.dependency 'Alamofire'
    # pod 'SwiftProtobuf', '~> 1.0'
 end

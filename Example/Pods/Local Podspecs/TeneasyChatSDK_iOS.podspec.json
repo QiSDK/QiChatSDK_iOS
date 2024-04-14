@@ -26,6 +26,9 @@
     ],
     "SwiftProtobuf": [
       "~> 1.20.3"
+    ],
+    "Alamofire": [
+
     ]
   }
 }
