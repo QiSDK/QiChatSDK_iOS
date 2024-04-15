@@ -10,30 +10,37 @@ import Alamofire
 
 
 public protocol lineLibDelegate : AnyObject{
-    //收到消息
-    func useTheLine(line: Any)
+    func useTheLine(line: String)
     func lineError(error: String)
 }
 
-struct LineLib{
+public struct LineLib{
+    
+   public init(_ urlStrings: [String], delegate: lineLibDelegate? = nil) {
+       self.delegate = delegate
+       self.urlStrings = urlStrings
+    }
   
-    var delegate: lineLibDelegate?
-    func getLine(urlStrings: [String]){
+    private var delegate: lineLibDelegate?
+    private var urlStrings: [String] = [""]
+   public func getLine(){
          var foundLine = false
         for urlString in urlStrings {
             if (foundLine){
                 break
             }
             
-            AF.request(urlString).response { response in
+            AF.request(urlString){ $0.timeoutInterval = 1}.response { response in
 
                 switch response.result {
                 case let .success(value):
                     //let contents = String(data: value, encoding: .utf8)
                     
-                    if let v = value, v.count > 5{
+                    if let v = value, v.count > 1{
                         foundLine = true
-                        delegate?.useTheLine(line: urlString)
+                        //delegate?.useTheLine(line: response.request?.url?.baseURL?.absoluteString ?? "")
+                        print(response.request?.url?.host ?? "")
+                        delegate?.useTheLine(line: "csapi.xdev.stream")
                     }
                   
                     break
@@ -41,10 +48,6 @@ struct LineLib{
                     print(error)
                     
                 }
-            }
-            
-            if !foundLine{
-                delegate?.lineError(error: "没有可用线路")
             }
         }
     }

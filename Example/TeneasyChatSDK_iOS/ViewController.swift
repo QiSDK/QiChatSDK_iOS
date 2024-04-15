@@ -10,14 +10,14 @@ import UIKit
 import TeneasyChatSDK_iOS
 import SwiftDate
 
-class ViewController: UIViewController, teneasySDKDelegate {
+class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
+    
     @IBOutlet weak var tvChatView: UITextView!
     var lib = ChatLib()
     var payLoadId: UInt64 = 0
     var lastMessage: CommonMessage? = nil
     
     var send = false
-    
     func connected(c: Gateway_SCHi) {
         print("token:\(c.token)")
         let autoMsg = lib.composeALocalMessage(textMsg: "你好，我是客服小福")
@@ -113,9 +113,6 @@ class ViewController: UIViewController, teneasySDKDelegate {
     
     func workChanged(msg: Gateway_SCWorkerChanged){
         tvChatView.text.append(msg.workerName)
-        
-        
-        
     }
     
     override func viewDidLoad() {
@@ -124,10 +121,22 @@ class ViewController: UIViewController, teneasySDKDelegate {
         tvChatView.isUserInteractionEnabled = true
         tvChatView.isScrollEnabled = true
         
-        initSDK()
+        let lines = ["https://www.baidu.com", "https://csapi.xdev.stream/1.txt", "https://www.jiudux2.com/1.txt"]
+        let lineLib = LineLib(lines, delegate: self)
+        lineLib.getLine()
     }
     
-    func initSDK(){
+    func useTheLine(line: String){
+        initSDK(baseUrl: line)
+    }
+    
+    func lineError(error: String){
+        tvChatView.text.append(error)
+    }
+    
+    func initSDK(baseUrl: String){
+        var wssUrl = "wss://" + baseUrl + "/v1/gateway/h5?token="
+        
         //从网页端把chatId和token传进sdk,2692944494603
         /*
          老token，一直有效，很好
@@ -140,7 +149,7 @@ class ViewController: UIViewController, teneasySDKDelegate {
         /*
                1125324  1125397 1125417
                 */
-        lib = ChatLib(userId: 1125324, cert: "CCcQARgOICIowqaSjeIw.9rO3unQwFrUUa-vJ6HvUQAbiAZN7XWBbaE_Oyd48C0Ae4xhzWWSriIGZZdVSvOajS1h_RFlQHZiFzadgBBuwDQ", baseUrl: "wss://csapi.xdev.stream/v1/gateway/h5?token=", sign: "9zgd9YUc")
+        lib = ChatLib(userId: 1125324, cert: "CCcQARgOICIowqaSjeIw.9rO3unQwFrUUa-vJ6HvUQAbiAZN7XWBbaE_Oyd48C0Ae4xhzWWSriIGZZdVSvOajS1h_RFlQHZiFzadgBBuwDQ", baseUrl: wssUrl, sign: "9zgd9YUc")
         lib.callWebsocket()
         lib.delegate = self
     }
