@@ -121,7 +121,7 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
         tvChatView.isUserInteractionEnabled = true
         tvChatView.isScrollEnabled = true
         
-        let lines = ["https://www.baidu.com", "https://csapi.xdev.stream/1.txt", "https://www.jiudux2.com/1.txt"]
+        let lines = ["https://csapi.xdev.stream/1.txt", "https://csapi.xdev.stream/verify", "https://www.jiudux2.com/1.txt"]
         let lineLib = LineLib(lines, delegate: self)
         lineLib.getLine()
     }
@@ -135,7 +135,7 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
     }
     
     func initSDK(baseUrl: String){
-        var wssUrl = "wss://" + baseUrl + "/v1/gateway/h5?token="
+        let wssUrl = "wss://" + baseUrl + "/v1/gateway/h5?token="
         
         //从网页端把chatId和token传进sdk,2692944494603
         /*

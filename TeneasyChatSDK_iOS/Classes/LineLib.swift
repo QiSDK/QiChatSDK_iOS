@@ -34,13 +34,16 @@ public struct LineLib{
 
                 switch response.result {
                 case let .success(value):
-                    //let contents = String(data: value, encoding: .utf8)
+                 
+                    //   let contents = String(data: value, encoding: .utf8)
                     
-                    if let v = value, v.count > 1{
+                    if let v = value,  String(data: v, encoding: .utf8)!.contains("10010") {
                         foundLine = true
-                        //delegate?.useTheLine(line: response.request?.url?.baseURL?.absoluteString ?? "")
-                        print(response.request?.url?.host ?? "")
-                        delegate?.useTheLine(line: "csapi.xdev.stream")
+                        
+                        let line = response.request?.url?.host ?? ""
+                        delegate?.useTheLine(line: line)
+                        print(line)
+                        //delegate?.useTheLine(line: "csapi.xdev.stream")
                     }
                   
                     break
