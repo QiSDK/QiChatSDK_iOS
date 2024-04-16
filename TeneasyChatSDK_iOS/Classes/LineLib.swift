@@ -25,12 +25,13 @@ public struct LineLib{
     private var urlStrings: [String] = [""]
    public func getLine(){
          var foundLine = false
+        var triedTimes = 0
         for urlString in urlStrings {
             if (foundLine){
                 break
             }
             
-            AF.request(urlString){ $0.timeoutInterval = 1}.response { response in
+            AF.request(urlString){ $0.timeoutInterval = 2}.response { response in
 
                 switch response.result {
                 case let .success(value):
@@ -44,12 +45,20 @@ public struct LineLib{
                         delegate?.useTheLine(line: line)
                         print(line)
                         //delegate?.useTheLine(line: "csapi.xdev.stream")
+                    }else{
+                        triedTimes += 1
+                        if triedTimes == urlStrings.count{
+                            delegate?.lineError(error: "无可用线路")
+                        }
                     }
                   
                     break
                 case let .failure(error):
                     print(error)
-                    
+                    triedTimes += 1
+                    if triedTimes == urlStrings.count{
+                        delegate?.lineError(error: "无可用线路")
+                    }
                 }
             }
         }
