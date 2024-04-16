@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'TeneasyChatSDK_iOS'
-  s.version          = '1.0.4'
+  s.version          = '1.1.0'
   s.summary          = 'A short description of TeneasyChatSDK_iOS.'
 
 # This description is used to generate tags and improve search results.
@@ -24,8 +24,8 @@ TODO: Add long description of the pod here.
   s.homepage         = 'https://github.com/7938813/TeneasyChatSDK_iOS'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { '7938813' => 'tianxuefeng2010@gmail.com' }
-  s.source           = { :git => 'https://github.com/7938813/TeneasyChatSDK_iOS.git', :tag => s.version.to_s }
+  s.author           = { '7938813' => 'xiaofu2024' }
+  s.source           = { :git => 'https://github.com/QiSDK/QiChatSDK_iOS.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'
