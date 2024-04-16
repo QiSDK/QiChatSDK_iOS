@@ -387,8 +387,9 @@ open class ChatLib {
                 failedToSend()
             } else {
                 callWebsocket()
-                result.Code = 1006
-                result.Message = "会话超过\(maxSessionMinutes)分钟，需要重新进入"
+                result.Code = 1004
+                //result.Message = "会话超过\(maxSessionMinutes)分钟，需要重新进入"
+                result.Message = "Socket 出错"
                 delegate?.systemMsg(result: result)
                 failedToSend()
             }
@@ -409,6 +410,7 @@ open class ChatLib {
     private func failedToSend(){
         if let msg = sendingMsg{
             delegate?.msgReceipt(msg: msg, payloadId: payloadId, errMsg: nil)
+            sendingMsg = nil
         }
     }
     

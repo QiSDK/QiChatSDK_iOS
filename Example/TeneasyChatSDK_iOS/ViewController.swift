@@ -120,8 +120,8 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
         tvChatView.text = "teneasy chat sdk 初始化\n正在连接。。。\n"
         tvChatView.isUserInteractionEnabled = true
         tvChatView.isScrollEnabled = true
-        
-        let lines = ["https://csapi.xdev.stream/1.txt", "https://csapi.xdev.stream/verify/d", "https://www.jiudux2.com/1.txt", "https://csapi.xdev.stream/verify/d2", "https://csapi.xdev.stream/verifybd", "https://csapi.xdev.stream/verify", "https://csapi.xdev.stream/verify/d4", "https://csapi.xdev.stream/verify/d5"]
+        //https://csapi.hfxg.xyz //csapi.xdev.stream
+        let lines = ["https://csapi.xdev.stream/1.txt", "https://csapi.xdev.stream/verify/d", "https://www.jiudux2.com/1.txt", "https://csapi.xdev.stream/verify/d2", "https://csapi.xdev.stream/verifybd", "https://csapi.xdev.stream/verify", "https://csapi.xdev.stream/verify/d4", "https://csapi.xdev.stream/verify/d5", "https://csapi.hfxg.xyz"]
         let lineLib = LineLib(lines, delegate: self)
         lineLib.getLine()
     }

@@ -43,7 +43,7 @@ public struct LineLib{
                         
                         let line = response.request?.url?.host ?? ""
                         delegate?.useTheLine(line: line)
-                        print("使用线路：\(line)")
+                        print(line)
                         //delegate?.useTheLine(line: "csapi.xdev.stream")
                     }else{
                         triedTimes += 1
