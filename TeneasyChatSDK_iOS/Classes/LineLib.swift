@@ -41,7 +41,13 @@ public struct LineLib{
                     
                     var f = false
                     if value != nil{
-                        let contents = String(data: value!, encoding: .utf8)
+                        //没有加密
+                        //let contents = String(data: value!, encoding: .utf8)
+                        
+                        //有加密，需解密
+                        let base64 = String(data: value!, encoding: .utf8)
+                        let contents = base64ToString(base64String: base64!)
+                        
                         if let base = contents, base.contains("VITE_API_BASE_URL"){
                             if let c = AppConfig.deserialize(from: contents) {
                                 var lineStrs: [String] = []
@@ -53,6 +59,9 @@ public struct LineLib{
                                     }
                                 }
                                 step2(lineStrs: lineStrs, index: triedTimes)
+
+                                let config = response.request?.url?.host ?? ""
+                                debugPrint("正常config：\(config)")
                             }
                         }
                     }
@@ -95,13 +104,13 @@ public struct LineLib{
                        let line = response.request?.url?.host ?? ""
                        if !LineLib.usedLine{
                            delegate?.useTheLine(line: line)
-                           print("使用线路：\(line)")
+                           debugPrint("使用线路：\(line)")
                            LineLib.usedLine = true
                        }
                        //delegate?.useTheLine(line: "csapi.xdev.stream")
                    }else{
                        triedTimes += 1
-                       if triedTimes == lineStrs.count && index == urlStrings.count{
+                       if triedTimes == lineStrs.count && (index + 1) == urlStrings.count{
                            delegate?.lineError(error: "无可用线路")
                        }
                    }
@@ -110,7 +119,7 @@ public struct LineLib{
                case let .failure(error):
                    print(error)
                    triedTimes += 1
-                   if triedTimes == lineStrs.count && index == urlStrings.count{
+                   if triedTimes == lineStrs.count && (index + 1) == urlStrings.count{
                        delegate?.lineError(error: "无可用线路")
                    }
                }

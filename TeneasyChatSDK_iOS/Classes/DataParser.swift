@@ -53,3 +53,12 @@ func decodeBase64ToString(_ base64Data: Data) -> String? {
   }
   return decodedString
 }
+
+func base64ToString(base64String: String) -> String? {
+    if let data = Data(base64Encoded: base64String) {
+        if let decodedString = String(data: data, encoding: .utf8) {
+            return decodedString
+        }
+    }
+    return nil
+}

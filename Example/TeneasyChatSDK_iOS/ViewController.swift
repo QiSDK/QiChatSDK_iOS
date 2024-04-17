@@ -120,11 +120,17 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
         tvChatView.text = "teneasy chat sdk 初始化\n正在连接。。。\n"
         tvChatView.isUserInteractionEnabled = true
         tvChatView.isScrollEnabled = true
-        //https://csapi.hfxg.xyz //csapi.xdev.stream
         //https://qlqiniu.quyou.tech/gw3config.json
     //https://ydqlacc.weletter05.com/gw3config.json
-        let lines = ["https://dtest/gw3config.json", "https://qlqiniu.quyou.tech/gw3config.json", "https://ddtest/gw3config.json",  "https://ydqlacc.weletter05.com/gw3config.json", "https://ddtest/gw3config.json", "https://ddtest.com/gw3config.json", "https://ddtest.x/gw3config.json", "https://ddtest.cx/verify/d5", "https://ddtest.net/gw3config.json"]
-        //let lines = ["https://ydqlacc.weletter05.com/gw3config.json"]
+        //let lines = ["https://dtest/gw3config.json", "https://qlqiniu.quyou.tech/gw3config.json", "https://ddtest/gw3config.json",  "https://ydqlacc.weletter05.com/gw3config.json", "https://ddtest/gw3config.json", "https://ddtest.com/gw3config.json", "https://ddtest.x/gw3config.json", "https://ddtest.cx/verify/d5", "https://ddtest.net/gw3config.json"]
+        
+        //"https://ydqlacc.weletter05.com/gw3config.json",
+        //生产的线路
+        //let lines = ["https://qlqiniu.quyou.tech/gw1config.json","https://ydqlacc.weletter05.com/gw1config.json"]
+        
+        //测试的线路
+        let lines = ["https://qlqiniu.quyou.tech/gw3config.json","https://ydqlacc.weletter05.com/gw3config.json"]
+        
         let lineLib = LineLib(lines, delegate: self)
         lineLib.getLine()
     }
