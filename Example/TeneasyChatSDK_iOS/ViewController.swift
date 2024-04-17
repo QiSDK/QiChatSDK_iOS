@@ -122,14 +122,14 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
         tvChatView.isScrollEnabled = true
         //https://qlqiniu.quyou.tech/gw3config.json
     //https://ydqlacc.weletter05.com/gw3config.json
-        //let lines = ["https://dtest/gw3config.json", "https://qlqiniu.quyou.tech/gw3config.json", "https://ddtest/gw3config.json",  "https://ydqlacc.weletter05.com/gw3config.json", "https://ddtest/gw3config.json", "https://ddtest.com/gw3config.json", "https://ddtest.x/gw3config.json", "https://ddtest.cx/verify/d5", "https://ddtest.net/gw3config.json"]
+        let lines = ["https://dtest/gw3config.json", "https://qlqiniu.quyou.tech/gw3config.json", "https://ddtest/gw3config.json",  "https://ydqlacc.weletter05.com/gw3config.json", "https://ddtest/gw3config.json", "https://ddtest.com/gw3config.json", "https://qlqiniu.quyou.tech/gw3config.json","https://ydqlacc.weletter05.com/gw3config.json", "https://ddtest.net/gw3config.json"]
         
         //"https://ydqlacc.weletter05.com/gw3config.json",
         //生产的线路
         //let lines = ["https://qlqiniu.quyou.tech/gw1config.json","https://ydqlacc.weletter05.com/gw1config.json"]
         
         //测试的线路
-        let lines = ["https://qlqiniu.quyou.tech/gw3config.json","https://ydqlacc.weletter05.com/gw3config.json"]
+        //let lines = ["https://qlqiniu.quyou.tech/gw3config.json","https://ydqlacc.weletter05.com/gw3config.json"]
         
         let lineLib = LineLib(lines, delegate: self)
         lineLib.getLine()

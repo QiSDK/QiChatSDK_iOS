@@ -61,7 +61,7 @@ public struct LineLib{
                                 step2(lineStrs: lineStrs, index: triedTimes)
 
                                 let config = response.request?.url?.host ?? ""
-                                debugPrint("正常config：\(config)")
+                                debugPrint("txt：\(config)")
                             }
                         }
                     }
