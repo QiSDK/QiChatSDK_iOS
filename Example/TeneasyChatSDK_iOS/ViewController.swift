@@ -123,7 +123,7 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
         //https://csapi.hfxg.xyz //csapi.xdev.stream
         //https://qlqiniu.quyou.tech/gw3config.json
     //https://ydqlacc.weletter05.com/gw3config.json
-        let lines = ["https://csapi.xdev.stream/1.txt", "https://qlqiniu.quyou.tech/gw3config.json", "https://www.jiudux2.com/1.txt", "https://ydqlacc.weletter05.com/gw3config.json", "https://csapi.xdev.stream/verifybd", "https://csapi.xdev.stream/verify", "https://csapi.xdev.stream/verify/d4", "https://csapi.xdev.stream/verify/d5", "https://csapi.hfxg.xyz"]
+        let lines = ["https://dtest/gw3config.json", "https://qlqiniu.quyou.tech/gw3config.json", "https://ddtest/gw3config.json",  "https://ydqlacc.weletter05.com/gw3config.json", "https://ddtest/gw3config.json", "https://ddtest.com/gw3config.json", "https://ddtest.x/gw3config.json", "https://ddtest.cx/verify/d5", "https://ddtest.net/gw3config.json"]
         //let lines = ["https://ydqlacc.weletter05.com/gw3config.json"]
         let lineLib = LineLib(lines, delegate: self)
         lineLib.getLine()

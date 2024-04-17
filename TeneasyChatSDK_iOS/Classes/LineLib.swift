@@ -19,10 +19,12 @@ public struct LineLib{
     public init(_ urlStrings: [String], delegate: lineLibDelegate? = nil) {
         self.delegate = delegate
         self.urlStrings = urlStrings
+        LineLib.usedLine = false
     }
     
     private var delegate: lineLibDelegate?
     private var urlStrings = [String]()
+    private static var usedLine = false
     
     
     public func getLine(){
@@ -91,8 +93,11 @@ private func step2(lineStrs: [String]){
                        foundLine = true
                        
                        let line = response.request?.url?.host ?? ""
-                       delegate?.useTheLine(line: line)
-                       print("使用线路：\(line)")
+                       if !LineLib.usedLine{
+                           delegate?.useTheLine(line: line)
+                           print("使用线路：\(line)")
+                           LineLib.usedLine = true
+                       }
                        //delegate?.useTheLine(line: "csapi.xdev.stream")
                    }else{
                        triedTimes += 1
