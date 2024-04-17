@@ -48,11 +48,11 @@ public struct LineLib{
                                 for l in c.lines{
                                     if l.VITE_API_BASE_URL.contains("https"){
                                         lineStrs.append(l.VITE_API_BASE_URL + "/verify")
+                                        foundLine = true
+                                        f = true
                                     }
                                 }
                                 step2(lineStrs: lineStrs, index: triedTimes)
-                                foundLine = true
-                                f = true
                             }
                         }
                     }
