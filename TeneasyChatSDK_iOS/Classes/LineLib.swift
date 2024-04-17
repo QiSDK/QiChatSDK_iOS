@@ -50,7 +50,7 @@ public struct LineLib{
                                         lineStrs.append(l.VITE_API_BASE_URL + "/verify")
                                     }
                                 }
-                                step2(lineStrs: lineStrs)
+                                step2(lineStrs: lineStrs, index: triedTimes)
                                 foundLine = true
                                 f = true
                             }
@@ -75,7 +75,7 @@ public struct LineLib{
         }
     }
     
-private func step2(lineStrs: [String]){
+    private func step2(lineStrs: [String], index: Int){
         
         var foundLine = false
        var triedTimes = 0
@@ -101,7 +101,7 @@ private func step2(lineStrs: [String]){
                        //delegate?.useTheLine(line: "csapi.xdev.stream")
                    }else{
                        triedTimes += 1
-                       if triedTimes == urlStrings.count{
+                       if triedTimes == lineStrs.count && index == urlStrings.count{
                            delegate?.lineError(error: "无可用线路")
                        }
                    }
@@ -110,7 +110,7 @@ private func step2(lineStrs: [String]){
                case let .failure(error):
                    print(error)
                    triedTimes += 1
-                   if triedTimes == urlStrings.count{
+                   if triedTimes == lineStrs.count && index == urlStrings.count{
                        delegate?.lineError(error: "无可用线路")
                    }
                }
