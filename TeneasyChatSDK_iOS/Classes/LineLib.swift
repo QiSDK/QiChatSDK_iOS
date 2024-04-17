@@ -16,15 +16,17 @@ public protocol lineLibDelegate : AnyObject{
 
 public struct LineLib{
     
-   public init(_ urlStrings: [String], delegate: lineLibDelegate? = nil) {
-       self.delegate = delegate
-       self.urlStrings = urlStrings
+    public init(_ urlStrings: [String], delegate: lineLibDelegate? = nil) {
+        self.delegate = delegate
+        self.urlStrings = urlStrings
     }
-  
+    
     private var delegate: lineLibDelegate?
-    private var urlStrings: [String] = [""]
-   public func getLine(){
-         var foundLine = false
+    private var urlStrings = [String]()
+    
+    
+    public func getLine(){
+        var foundLine = false
         var triedTimes = 0
         for urlString in urlStrings {
             if (foundLine){
@@ -32,26 +34,33 @@ public struct LineLib{
             }
             
             AF.request(urlString){ $0.timeoutInterval = 2}.response { response in
-
                 switch response.result {
                 case let .success(value):
-                 
-                    //   let contents = String(data: value, encoding: .utf8)
                     
-                    if let v = value,  String(data: v, encoding: .utf8)!.contains("10010") {
-                        foundLine = true
-                        
-                        let line = response.request?.url?.host ?? ""
-                        delegate?.useTheLine(line: line)
-                        print("使用线路：\(line)")
-                        //delegate?.useTheLine(line: "csapi.xdev.stream")
-                    }else{
+                    var f = false
+                    if value != nil{
+                        let contents = String(data: value!, encoding: .utf8)
+                        if let base = contents, base.contains("VITE_API_BASE_URL"){
+                            if let c = AppConfig.deserialize(from: contents) {
+                                var lineStrs: [String] = []
+                                for l in c.lines{
+                                    if l.VITE_API_BASE_URL.contains("https"){
+                                        lineStrs.append(l.VITE_API_BASE_URL + "/verify")
+                                    }
+                                }
+                                step2(lineStrs: lineStrs)
+                                foundLine = true
+                                f = true
+                            }
+                        }
+                    }
+                    if !f{
                         triedTimes += 1
                         if triedTimes == urlStrings.count{
                             delegate?.lineError(error: "无可用线路")
                         }
                     }
-                  
+                    
                     break
                 case let .failure(error):
                     print(error)
@@ -62,5 +71,45 @@ public struct LineLib{
                 }
             }
         }
+    }
+    
+private func step2(lineStrs: [String]){
+        
+        var foundLine = false
+       var triedTimes = 0
+       for urlString in lineStrs {
+           
+           if (foundLine){
+               break
+           }
+           
+           AF.request(urlString){ $0.timeoutInterval = 2}.response { response in
+
+               switch response.result {
+               case let .success(value):
+                   if let v = value,  String(data: v, encoding: .utf8)!.contains("10010") {
+                       foundLine = true
+                       
+                       let line = response.request?.url?.host ?? ""
+                       delegate?.useTheLine(line: line)
+                       print("使用线路：\(line)")
+                       //delegate?.useTheLine(line: "csapi.xdev.stream")
+                   }else{
+                       triedTimes += 1
+                       if triedTimes == urlStrings.count{
+                           delegate?.lineError(error: "无可用线路")
+                       }
+                   }
+                 
+                   break
+               case let .failure(error):
+                   print(error)
+                   triedTimes += 1
+                   if triedTimes == urlStrings.count{
+                       delegate?.lineError(error: "无可用线路")
+                   }
+               }
+           }
+       }
     }
 }

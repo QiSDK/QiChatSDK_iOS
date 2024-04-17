@@ -29,7 +29,7 @@ func loadFromLocal<T: Decodable>(_ filename: String) -> T {
 }
 
 func load<T: Decodable>(_ data: Data) -> T {
-    let data =  Data(data)
+   // let data =  Data(data)
    
     do {
         let decoder = JSONDecoder()
@@ -39,3 +39,17 @@ func load<T: Decodable>(_ data: Data) -> T {
     }
 }
 
+func encodeStringToBase64(_ base64String: String) -> Data? {
+ 
+  guard let data = Data(base64Encoded: base64String, options: .ignoreUnknownCharacters) else {
+    return nil
+  }
+  return data
+}
+
+func decodeBase64ToString(_ base64Data: Data) -> String? {
+  guard let decodedString = String(data: base64Data, encoding: .utf8) else {
+    return nil
+  }
+  return decodedString
+}
