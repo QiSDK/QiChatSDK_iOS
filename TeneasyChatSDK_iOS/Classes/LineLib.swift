@@ -20,12 +20,13 @@ public struct LineLib{
         self.delegate = delegate
         self.urlStrings = urlStrings
         LineLib.usedLine = false
+        LineLib.retryTimes = 0
     }
     
     private var delegate: lineLibDelegate?
     private var urlStrings = [String]()
     private static var usedLine = false
-    
+    private static var retryTimes = 0
     
     public func getLine(){
         var foundLine = false
@@ -68,7 +69,7 @@ public struct LineLib{
                     if !f{
                         triedTimes += 1
                         if triedTimes == urlStrings.count{
-                            delegate?.lineError(error: "无可用线路")
+                            failedAndRetry()
                         }
                     }
                     
@@ -77,7 +78,7 @@ public struct LineLib{
                     print(error)
                     triedTimes += 1
                     if triedTimes == urlStrings.count{
-                        delegate?.lineError(error: "无可用线路")
+                        failedAndRetry()
                     }
                 }
             }
@@ -111,7 +112,7 @@ public struct LineLib{
                    }else{
                        triedTimes += 1
                        if triedTimes == lineStrs.count && (index + 1) == urlStrings.count{
-                           delegate?.lineError(error: "无可用线路")
+                           failedAndRetry()
                        }
                    }
                  
@@ -120,10 +121,20 @@ public struct LineLib{
                    print(error)
                    triedTimes += 1
                    if triedTimes == lineStrs.count && (index + 1) == urlStrings.count{
-                       delegate?.lineError(error: "无可用线路")
+                       failedAndRetry()
                    }
                }
            }
        }
+    }
+    
+    private func failedAndRetry(){
+        if LineLib.retryTimes < 3{
+            LineLib.retryTimes += 1
+            delegate?.lineError(error: "线路获取失败，重试\(LineLib.retryTimes)")
+            getLine()
+        }else{
+            delegate?.lineError(error: "无可用线路")
+        }
     }
 }

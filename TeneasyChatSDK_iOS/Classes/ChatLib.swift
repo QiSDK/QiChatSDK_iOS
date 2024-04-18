@@ -308,66 +308,7 @@ open class ChatLib {
         sendingMsg = msg
         doSend(payload_Id: payloadId)
     }
-    
-    /// 对消息进行更新，删除，重发等操作
-    /// - Parameters:
-    ///   - msg: 是一个CommonMessage
-    ///   - payloadId: 消息列表中的payloadId
-    ///   - act: 操作动作枚举
-    /*public func operateMsg(msg: CommonMessage, payloadId: UInt64, act: Gateway_Action){
-        // 第三层
-        var cSendMsg = Gateway_CSSendMessage()
-        
-        
-        cSendMsg.msg = msg
-        var cSendMsgData: Data? = nil
-        do{
-            cSendMsgData = try cSendMsg.serializedData()
-        }catch{
-            
-        }
-        guard let cMsg = cSendMsgData else { return }
-        
-        // 第四层
-        var payLoad = Gateway_Payload()
-        payLoad.data = cMsg
-        payLoad.act = act
-        self.payloadId += 1
-        payLoad.id = payloadId
-        
-        var cbinaryData: Data? = nil
-        do {
-            cbinaryData = try payLoad.serializedData()
-        }catch{
-            
-        }
-        guard let binaryData = cbinaryData else { return }
-        // 临时放到一个变量
-        //sendingMsg = msg
-        send(binaryData: binaryData)
-    }*/
-    
-    /*private func resendMsg(msg: CommonMessage, payloadId: Int) {
-        // 第三层
-        var cSendMsg = Gateway_CSSendMessage()
-        cSendMsg.msg = msg
-        // Serialize to binary protobuf format:
-        let cSendMsgData: Data = try! cSendMsg.serializedData()
-        
-        // 第四层
-        var payLoad = Gateway_Payload()
-        payLoad.data = cSendMsgData
-        payLoad.act = .cssendMsg
-        self.payloadId = UInt64(payloadId)
-        payLoad.id = self.payloadId!
-        let binaryData: Data = try! payLoad.serializedData()
-        
-        // 临时放到一个变量
-        sendingMsg = msg
-        
-        send(binaryData: binaryData)
-    }*/
-    
+ 
     private func sendHeartBeat() {
         let array: [UInt8] = [0]
 
@@ -424,7 +365,7 @@ open class ChatLib {
         print("通信SDK 断开连接")
     }
     
-    private func serilizeSample() {
+   /*private func serilizeSample() {
         var info = CommonPhoneNumber()
         info.countryCode = 65
         info.nationalNumber = 99999
@@ -440,7 +381,7 @@ open class ChatLib {
 
         // Deserialize from JSON format from `jsonData`
         let receivedFromJSON = try! CommonPhoneNumber(jsonUTF8Data: jsonData)
-    }
+    }*/
 }
 
 // MARK: - WebSocketDelegate
@@ -473,7 +414,7 @@ extension ChatLib: WebSocketDelegate {
             print("received text: \(text)")
         case .binary(let data):
             if data.count == 1 {
-                print("在别处登录了 A")
+                //print("在别处登录了 A")
                 if let d = String(data: data, encoding: .utf8) {
                     // Attempt to convert the data to a UTF-8 string, and if successful, execute the block inside the 'if' statement.
      
@@ -500,7 +441,7 @@ extension ChatLib: WebSocketDelegate {
                 print("new payloadID:" + String(payloadId))
                 if payLoad.act == .screcvMsg {
                     let scMsg = try? Gateway_SCRecvMessage(serializedData: msgData)
-                    var msg = scMsg?.msg
+                    let msg = scMsg?.msg
                     if msg != nil {
                         if (msg!.msgOp == .msgOpDelete){
                             //msg?.msgID = -1

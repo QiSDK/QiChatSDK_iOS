@@ -140,7 +140,7 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
     }
     
     func lineError(error: String){
-        tvChatView.text.append(error)
+        tvChatView.text.append(error + "\n")
     }
     
     func initSDK(baseUrl: String){
