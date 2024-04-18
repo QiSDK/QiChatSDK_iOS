@@ -11,7 +11,7 @@ import Alamofire
 
 public protocol lineLibDelegate : AnyObject{
     func useTheLine(line: String)
-    func lineError(error: String)
+    func lineError(error: Result)
 }
 
 public struct LineLib{
@@ -43,11 +43,11 @@ public struct LineLib{
                     var f = false
                     if value != nil{
                         //没有加密
-                        //let contents = String(data: value!, encoding: .utf8)
+                        let contents = String(data: value!, encoding: .utf8)
                         
                         //有加密，需解密
-                        let base64 = String(data: value!, encoding: .utf8)
-                        let contents = base64ToString(base64String: base64!)
+                        //let base64 = String(data: value!, encoding: .utf8)
+                        //let contents = base64ToString(base64String: base64!)
                         
                         if let base = contents, base.contains("VITE_API_BASE_URL"){
                             if let c = AppConfig.deserialize(from: contents) {
@@ -129,12 +129,17 @@ public struct LineLib{
     }
     
     private func failedAndRetry(){
+        var result = Result()
         if LineLib.retryTimes < 3{
             LineLib.retryTimes += 1
-            delegate?.lineError(error: "线路获取失败，重试\(LineLib.retryTimes)")
+            result.Code = 1009
+            result.Message = "线路获取失败，重试\(LineLib.retryTimes)"
+            delegate?.lineError(error: result)
             getLine()
         }else{
-            delegate?.lineError(error: "无可用线路")
+            result.Code = 1008
+            result.Message = "无可用线路"
+            delegate?.lineError(error: result)
         }
     }
 }

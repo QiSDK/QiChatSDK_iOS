@@ -137,10 +137,11 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
     
     func useTheLine(line: String){
         initSDK(baseUrl: line)
+        tvChatView.text.append(line + "\n")
     }
     
-    func lineError(error: String){
-        tvChatView.text.append(error + "\n")
+    func lineError(error: Result){
+        tvChatView.text.append(error.Message + "\n")
     }
     
     func initSDK(baseUrl: String){
