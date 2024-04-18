@@ -43,11 +43,11 @@ public struct LineLib{
                     var f = false
                     if value != nil{
                         //没有加密
-                        let contents = String(data: value!, encoding: .utf8)
+                        //let contents = String(data: value!, encoding: .utf8)
                         
                         //有加密，需解密
-                        //let base64 = String(data: value!, encoding: .utf8)
-                        //let contents = base64ToString(base64String: base64!)
+                        let base64 = String(data: value!, encoding: .utf8)
+                        let contents = base64ToString(base64String: base64!)
                         
                         if let base = contents, base.contains("VITE_API_BASE_URL"){
                             if let c = AppConfig.deserialize(from: contents) {
@@ -108,7 +108,6 @@ public struct LineLib{
                            debugPrint("使用线路：\(line)")
                            LineLib.usedLine = true
                        }
-                       //delegate?.useTheLine(line: "csapi.xdev.stream")
                    }else{
                        triedTimes += 1
                        if triedTimes == lineStrs.count && (index + 1) == urlStrings.count{
