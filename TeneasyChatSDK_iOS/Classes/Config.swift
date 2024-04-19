@@ -20,8 +20,10 @@ struct AppConfig: Codable, HandyJSON  {
     var lines: [Line] = []
 }
 
-struct Line: Codable, HandyJSON  {
-    var VITE_API_BASE_URL: String = ""
-    var VITE_WSS_HOST: String = ""
-    var VITE_IMG_URL: String = ""
+ public struct Line: Codable, HandyJSON  {
+     public init() {
+    }
+     public var VITE_API_BASE_URL: String = ""
+     public  var VITE_WSS_HOST: String = ""
+     public var VITE_IMG_URL: String = ""
 }

@@ -122,22 +122,24 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
         tvChatView.isScrollEnabled = true
         //https://qlqiniu.quyou.tech/gw3config.txt
     //https://ydqlacc.weletter05.com/gw3config.txt
-        let lines = ["https://dtest/gw3config.txt", "https://qlqiniu.quyou.tech/gw3config.txt", "https://ddtest/gw3config.txt",  "https://ydqlacc.weletter05.com/gw3config.txt", "https://ddtest/gw3config.txt", "https://ddtest.com/gw3config.txt", "https://qlqiniu.quyou.tech/gw3config.txt","https://ydqlacc.weletter05.com/gw3config.txt", "https://ddtest.net/gw3config.txt"]
+        //let lines = ["https://dtest/gw3config.txt", "https://qlqiniu.quyou.tech/gw3config.txt", "https://ddtest/gw3config.txt",  "https://ydqlacc.weletter05.com/gw3config.txt", "https://ddtest/gw3config.txt", "https://ddtest.com/gw3config.txt", "https://qlqiniu.quyou.tech/gw3config.txt","https://ydqlacc.weletter05.com/gw3config.txt", "https://ddtest.net/gw3config.txt"]
         
         //"https://ydqlacc.weletter05.com/gw3config.txt",
         //生产的线路
         //let lines = ["https://qlqiniu.quyou.tech/gw1config.txt","https://ydqlacc.weletter05.com/gw1config.txt"]
         
         //测试的线路
-        //let lines = ["https://qlqiniu.quyou.tech/gw3config.txt","https://ydqlacc.weletter05.com/gw3config.txt"]
+        let lines = ["https://qlqiniu.quyou.tech/gw3config.txt","https://ydqlacc.weletter05.com/gw3config.txt"]
         
         let lineLib = LineLib(lines, delegate: self)
         lineLib.getLine()
     }
     
-    func useTheLine(line: String){
-        initSDK(baseUrl: line)
-        tvChatView.text.append(line + "\n")
+    func useTheLine(line: Line){
+        tvChatView.text.append("api " + line.VITE_API_BASE_URL + "\n")
+        tvChatView.text.append("img " + line.VITE_IMG_URL + "\n")
+        tvChatView.text.append("wss " + line.VITE_WSS_HOST + "\n")
+        initSDK(baseUrl: line.VITE_WSS_HOST)
     }
     
     func lineError(error: Result){

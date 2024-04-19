@@ -10,7 +10,7 @@ import Alamofire
 
 
 public protocol lineLibDelegate : AnyObject{
-    func useTheLine(line: String)
+    func useTheLine(line: Line)
     func lineError(error: Result)
 }
 
@@ -18,25 +18,25 @@ public struct LineLib{
     
     public init(_ urlStrings: [String], delegate: lineLibDelegate? = nil) {
         self.delegate = delegate
-        self.urlStrings = urlStrings
+        self.txtList = urlStrings
         LineLib.usedLine = false
         LineLib.retryTimes = 0
     }
     
     private var delegate: lineLibDelegate?
-    private var urlStrings = [String]()
+    private var txtList = [String]()
     private static var usedLine = false
     private static var retryTimes = 0
     
     public func getLine(){
         var foundLine = false
-        var triedTimes = 0
-        for urlString in urlStrings {
-            if (foundLine){
+        var myIndex = 0
+        for txtUrl in txtList {
+            if (LineLib.usedLine){
                 break
             }
             
-            AF.request(urlString){ $0.timeoutInterval = 2}.response { response in
+            AF.request(txtUrl){ $0.timeoutInterval = 2}.response { response in
                 switch response.result {
                 case let .success(value):
                     
@@ -51,33 +51,32 @@ public struct LineLib{
                         
                         if let base = contents, base.contains("VITE_API_BASE_URL"){
                             if let c = AppConfig.deserialize(from: contents) {
-                                var lineStrs: [String] = []
+                                var lineStrs: [Line] = []
                                 for l in c.lines{
                                     if l.VITE_API_BASE_URL.contains("https"){
-                                        lineStrs.append(l.VITE_API_BASE_URL + "/verify")
+                                        //lineStrs.append(l.VITE_API_BASE_URL )
                                         foundLine = true
                                         f = true
+                                        lineStrs.append(l)
                                     }
                                 }
-                                step2(lineStrs: lineStrs, index: triedTimes)
-
+                                step2(lines: lineStrs, index: myIndex)
                                 let config = response.request?.url?.host ?? ""
                                 debugPrint("txt：\(config)")
                             }
                         }
                     }
+                    myIndex += 1
                     if !f{
-                        triedTimes += 1
-                        if triedTimes == urlStrings.count{
+                        if myIndex == txtList.count{
                             failedAndRetry()
                         }
                     }
-                    
                     break
                 case let .failure(error):
                     print(error)
-                    triedTimes += 1
-                    if triedTimes == urlStrings.count{
+                    myIndex += 1
+                    if myIndex == txtList.count{
                         failedAndRetry()
                     }
                 }
@@ -85,32 +84,32 @@ public struct LineLib{
         }
     }
     
-    private func step2(lineStrs: [String], index: Int){
+    private func step2(lines: [Line], index: Int){
         
         var foundLine = false
-       var triedTimes = 0
-       for urlString in lineStrs {
+       var myStep2Index = 0
+       for line in lines {
            
            if (foundLine){
                break
            }
            
-           AF.request(urlString){ $0.timeoutInterval = 2}.response { response in
+           AF.request("\(line.VITE_API_BASE_URL)/verify"){ $0.timeoutInterval = 2}.response { response in
 
                switch response.result {
                case let .success(value):
                    if let v = value,  String(data: v, encoding: .utf8)!.contains("10010") {
                        foundLine = true
                        
-                       let line = response.request?.url?.host ?? ""
+                       //let line = response.request?.url?.host ?? ""
                        if !LineLib.usedLine{
                            delegate?.useTheLine(line: line)
-                           debugPrint("使用线路：\(line)")
+                           //debugPrint("使用线路：\(line)")
                            LineLib.usedLine = true
                        }
                    }else{
-                       triedTimes += 1
-                       if triedTimes == lineStrs.count && (index + 1) == urlStrings.count{
+                       myStep2Index += 1
+                       if myStep2Index == lines.count && (index + 1) == txtList.count{
                            failedAndRetry()
                        }
                    }
@@ -118,8 +117,8 @@ public struct LineLib{
                    break
                case let .failure(error):
                    print(error)
-                   triedTimes += 1
-                   if triedTimes == lineStrs.count && (index + 1) == urlStrings.count{
+                   myStep2Index += 1
+                   if myStep2Index == lines.count && (index + 1) == txtList.count{
                        failedAndRetry()
                    }
                }
@@ -128,6 +127,9 @@ public struct LineLib{
     }
     
     private func failedAndRetry(){
+        if LineLib.usedLine{
+            return
+        }
         var result = Result()
         if LineLib.retryTimes < 3{
             LineLib.retryTimes += 1
