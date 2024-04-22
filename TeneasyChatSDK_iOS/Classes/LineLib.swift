@@ -16,18 +16,21 @@ public protocol lineLibDelegate : AnyObject{
 
 public struct LineLib{
     
-    public init(_ urlStrings: [String], delegate: lineLibDelegate? = nil) {
+    public init(_ urlStrings: [String], delegate: lineLibDelegate? = nil, tenantId: Int) {
         self.delegate = delegate
         self.txtList = urlStrings
         LineLib.usedLine = false
         LineLib.retryTimes = 0
+        self.tenantId = tenantId
+        bodyStr = ["gnsId": "wcs", "tenantId": tenantId]
     }
     
     private var delegate: lineLibDelegate?
     private var txtList = [String]()
     private static var usedLine = false
     private static var retryTimes = 0
-    
+     var bodyStr: Parameters? = nil
+    private var tenantId: Int? = 0
     public func getLine(){
         var foundLine = false
         var myIndex = 0
@@ -93,14 +96,20 @@ public struct LineLib{
            if (foundLine){
                break
            }
+           //{"gnsId":"wcs","tenantId":123}
+
+   
+           //let verifyBody = VerifyBody(gnsId: "wcs", tenantId: 123)
            
-           AF.request("\(line.VITE_API_BASE_URL)/verify"){ $0.timeoutInterval = 2}.response { response in
+           let url = "\(line.VITE_API_BASE_URL)/v1/api/verify"
+
+           AF.request(url, method: .post, parameters: bodyStr,  encoding: JSONEncoding.default) { $0.timeoutInterval = 2 }.response { response in
 
                switch response.result {
                case let .success(value):
-                   if let v = value,  String(data: v, encoding: .utf8)!.contains("10010") {
+                   //let ddd = String(data: value!, encoding: .utf8)
+                   if let v = value,  String(data: v, encoding: .utf8)!.contains("tenantId\":\(self.tenantId ?? 0)") {
                        foundLine = true
-                       
                        //let line = response.request?.url?.host ?? ""
                        if !LineLib.usedLine{
                            LineLib.usedLine = true

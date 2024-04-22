@@ -6,3 +6,7 @@
 //
 
 import Foundation
+struct VerifyBody : Encodable{
+    let gnsId: String
+    let tenantId: Int
+}

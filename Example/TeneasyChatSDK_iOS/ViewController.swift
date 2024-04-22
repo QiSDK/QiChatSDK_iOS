@@ -129,9 +129,10 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
         //let lines = ["https://qlqiniu.quyou.tech/gw1config.txt","https://ydqlacc.weletter05.com/gw1config.txt"]
         
         //测试的线路
+        //let lines = ["https://qlqiniu.quyou.tech/gw3config.txt","https://ydqlacc.weletter05.com/gw3config.txt"]
         let lines = ["https://qlqiniu.quyou.tech/gw3config.txt","https://ydqlacc.weletter05.com/gw3config.txt"]
         
-        let lineLib = LineLib(lines, delegate: self)
+        let lineLib = LineLib(lines, delegate: self, tenantId: 123)
         lineLib.getLine()
     }
     
