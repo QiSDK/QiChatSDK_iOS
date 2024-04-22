@@ -103,9 +103,9 @@ public struct LineLib{
                        
                        //let line = response.request?.url?.host ?? ""
                        if !LineLib.usedLine{
+                           LineLib.usedLine = true
                            delegate?.useTheLine(line: line)
                            //debugPrint("使用线路：\(line)")
-                           LineLib.usedLine = true
                        }
                    }else{
                        myStep2Index += 1
