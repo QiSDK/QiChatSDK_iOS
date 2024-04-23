@@ -32,7 +32,6 @@ public struct LineLib{
      var bodyStr: Parameters? = nil
     private var tenantId: Int? = 0
     public func getLine(){
-        var foundLine = false
         var myIndex = 0
         for txtUrl in txtList {
             if (LineLib.usedLine){
@@ -57,8 +56,6 @@ public struct LineLib{
                                 var lineStrs: [Line] = []
                                 for l in c.lines{
                                     if l.VITE_API_BASE_URL.contains("https"){
-                                        //lineStrs.append(l.VITE_API_BASE_URL )
-                                        foundLine = true
                                         f = true
                                         lineStrs.append(l)
                                     }
@@ -96,13 +93,8 @@ public struct LineLib{
            if (foundLine){
                break
            }
-           //{"gnsId":"wcs","tenantId":123}
-
-   
-           //let verifyBody = VerifyBody(gnsId: "wcs", tenantId: 123)
            
            let url = "\(line.VITE_API_BASE_URL)/v1/api/verify"
-
            AF.request(url, method: .post, parameters: bodyStr,  encoding: JSONEncoding.default) { $0.timeoutInterval = 2 }.response { response in
 
                switch response.result {
