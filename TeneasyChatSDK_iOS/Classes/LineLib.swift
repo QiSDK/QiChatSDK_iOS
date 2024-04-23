@@ -48,21 +48,21 @@ public struct LineLib{
                         //let contents = String(data: value!, encoding: .utf8)
                         
                         //有加密，需解密
-                        let base64 = String(data: value!, encoding: .utf8)
-                        let contents = base64ToString(base64String: base64!)
-                        
-                        if let base = contents, base.contains("VITE_API_BASE_URL"){
-                            if let c = AppConfig.deserialize(from: contents) {
-                                var lineStrs: [Line] = []
-                                for l in c.lines{
-                                    if l.VITE_API_BASE_URL.contains("https"){
-                                        f = true
-                                        lineStrs.append(l)
+                        //let base64 = String(data: value!, encoding: .utf8)
+                        if let base64 = String(data: value!, encoding: .utf8) {
+                            if let contents = base64ToString(base64String: base64), contents.contains("VITE_API_BASE_URL") {
+                                if let c = AppConfig.deserialize(from: contents) {
+                                    var lineStrs: [Line] = []
+                                    for l in c.lines{
+                                        if l.VITE_API_BASE_URL.contains("https"){
+                                            f = true
+                                            lineStrs.append(l)
+                                        }
                                     }
+                                    step2(lines: lineStrs, index: myIndex)
+                                    let config = response.request?.url?.host ?? ""
+                                    debugPrint("txt：\(config)")
                                 }
-                                step2(lines: lineStrs, index: myIndex)
-                                let config = response.request?.url?.host ?? ""
-                                debugPrint("txt：\(config)")
                             }
                         }
                     }
