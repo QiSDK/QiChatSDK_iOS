@@ -37,8 +37,8 @@ public struct LineLib{
             if (LineLib.usedLine){
                 break
             }
-            
-            AF.request(txtUrl){ $0.timeoutInterval = 2}.response { response in
+            let r = 1...100000
+            AF.request("\(txtUrl)?\(r)"){ $0.timeoutInterval = 2}.response { response in
                 switch response.result {
                 case let .success(value):
                     
@@ -93,8 +93,8 @@ public struct LineLib{
            if (foundLine){
                break
            }
-           
-           let url = "\(line.VITE_API_BASE_URL)/v1/api/verify"
+           let r = 1...100000
+           let url = "\(line.VITE_API_BASE_URL)/v1/api/verify?\(r)"
            AF.request(url, method: .post, parameters: bodyStr,  encoding: JSONEncoding.default) { $0.timeoutInterval = 2 }.response { response in
 
                switch response.result {
@@ -106,7 +106,7 @@ public struct LineLib{
                        if !LineLib.usedLine{
                            LineLib.usedLine = true
                            delegate?.useTheLine(line: line)
-                           //debugPrint("使用线路：\(line)")
+                           debugPrint("使用线路：\(line)")
                        }
                    }else{
                        myStep2Index += 1
