@@ -32,7 +32,7 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
             lib.reConnect()
         }
         tvChatView.text.append("\n发送图片！ ImageUrl: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQKV-3KPDbUgVdqjfEb3HK_SvGjcPYVl7n7KGCwBL6&s\n\n")
-        lib.sendMessage(msg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQKV-3KPDbUgVdqjfEb3HK_SvGjcPYVl7n7KGCwBL6&s", type: .msgImg)
+        lib.sendMessage(msg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQKV-3KPDbUgVdqjfEb3HK_SvGjcPYVl7n7KGCwBL6&s", type: .msgImg, consultId: 100)
         print(c.workerID)
         
     }
@@ -209,7 +209,7 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
             }
         
                 tvChatView.text.append("\n发送一个视频！ VideoUrl: https://www.youtube.com/watch?v=wbFHmblw9J8\n\n")
-                lib.sendMessage(msg: "https://www.youtube.com/watch?v=wbFHmblw9J8", type: .msgVideo)
+                lib.sendMessage(msg: "https://www.youtube.com/watch?v=wbFHmblw9J8", type: .msgVideo, consultId: 100)
         
         if let msg = lastMessage{
             lib.resendMsg(msg: msg, payloadId: payLoadId)

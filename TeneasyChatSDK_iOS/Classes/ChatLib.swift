@@ -51,6 +51,7 @@ open class ChatLib {
     private var userId: Int32 = 0
     private var sign: String = ""
     private var cert: String = ""
+    private var consultId: Int64 = 0
     //wss://csapi.xdev.stream/v1/gateway/h5?token=CH0QARji9w4gogEor4i7mc0x.PKgbr4QAEspllbvDx7bg8RB_qDhkWozBKgWtoOPfVmlTfPbd8nyBZk9uyQvjj-3F6MXHyE9GmZvj0_PRTm_tDA&userid=1125324&ty=104&dt=1705583047601&sign=&rd=1019737
     
 //   public enum MsgType{
@@ -136,8 +137,9 @@ open class ChatLib {
         }
     }
     
-    public func sendMessage(msg: String, type: CommonMessageFormat, replyMsgId: Int64? = 0) {
+    public func sendMessage(msg: String, type: CommonMessageFormat, consultId: Int64, replyMsgId: Int64? = 0) {
         self.replyMsgId = replyMsgId ?? 0
+        self.consultId = consultId;
         // 发送信息的封装，有四层
         // payload -> CSSendMessage -> common message -> CommonMessageContent
         switch type{
@@ -165,6 +167,7 @@ open class ChatLib {
         //content.data = "d"
         
         var msg = CommonMessage()
+        msg.consultID = self.consultId
         //msg.content = content
         msg.chatID = 0//2692944494609
         msg.msgID = msgId
@@ -182,6 +185,7 @@ open class ChatLib {
         
         // 第二层, 消息主题
         var msg = CommonMessage()
+        msg.consultID = self.consultId
         msg.content = content
         msg.sender = 0
         msg.replyMsgID = self.replyMsgId
@@ -202,6 +206,7 @@ open class ChatLib {
         
         // 第二层, 消息主题
         var msg = CommonMessage()
+        msg.consultID = self.consultId
         msg.image = content
         msg.sender = 0
         msg.replyMsgID = self.replyMsgId
@@ -221,6 +226,7 @@ open class ChatLib {
         
         // 第二层, 消息主题
         var msg = CommonMessage()
+        msg.consultID = self.consultId
         msg.video = content
         msg.sender = 0
         msg.replyMsgID = self.replyMsgId
@@ -240,6 +246,7 @@ open class ChatLib {
         
         // 第二层, 消息主题
         var msg = CommonMessage()
+        msg.consultID = self.consultId
         msg.audio = content
         msg.sender = 0
         msg.replyMsgID = self.replyMsgId
@@ -259,6 +266,7 @@ open class ChatLib {
         
         // 第二层, 消息主题
         var msg = CommonMessage()
+        msg.consultID = self.consultId
         msg.file = content
         msg.sender = 0
         msg.replyMsgID = self.replyMsgId
