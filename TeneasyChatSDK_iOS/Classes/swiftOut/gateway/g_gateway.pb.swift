@@ -409,6 +409,9 @@ public struct Gateway_SCWorkerChanged {
 
   public var reason: Gateway_WorkerChangedReason = .unknown
 
+  /// 咨询id
+  public var consultID: Int64 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -1114,6 +1117,7 @@ extension Gateway_SCWorkerChanged: SwiftProtobuf.Message, SwiftProtobuf._Message
     3: .standard(proto: "worker_avatar"),
     4: .same(proto: "target"),
     5: .same(proto: "reason"),
+    6: .standard(proto: "consult_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1127,6 +1131,7 @@ extension Gateway_SCWorkerChanged: SwiftProtobuf.Message, SwiftProtobuf._Message
       case 3: try { try decoder.decodeSingularStringField(value: &self.workerAvatar) }()
       case 4: try { try decoder.decodeSingularInt64Field(value: &self.target) }()
       case 5: try { try decoder.decodeSingularEnumField(value: &self.reason) }()
+      case 6: try { try decoder.decodeSingularInt64Field(value: &self.consultID) }()
       default: break
       }
     }
@@ -1148,6 +1153,9 @@ extension Gateway_SCWorkerChanged: SwiftProtobuf.Message, SwiftProtobuf._Message
     if self.reason != .unknown {
       try visitor.visitSingularEnumField(value: self.reason, fieldNumber: 5)
     }
+    if self.consultID != 0 {
+      try visitor.visitSingularInt64Field(value: self.consultID, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1157,6 +1165,7 @@ extension Gateway_SCWorkerChanged: SwiftProtobuf.Message, SwiftProtobuf._Message
     if lhs.workerAvatar != rhs.workerAvatar {return false}
     if lhs.target != rhs.target {return false}
     if lhs.reason != rhs.reason {return false}
+    if lhs.consultID != rhs.consultID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

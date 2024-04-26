@@ -376,6 +376,9 @@ public struct Api_Core_WorkerTransferRequest {
 
   public var workerID: Int32 = 0
 
+  /// 咨询id
+  public var consultID: UInt32 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -1565,6 +1568,7 @@ extension Api_Core_WorkerTransferRequest: SwiftProtobuf.Message, SwiftProtobuf._
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "chat_id"),
     2: .standard(proto: "worker_id"),
+    3: .standard(proto: "consult_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1575,6 +1579,7 @@ extension Api_Core_WorkerTransferRequest: SwiftProtobuf.Message, SwiftProtobuf._
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
       case 2: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 3: try { try decoder.decodeSingularUInt32Field(value: &self.consultID) }()
       default: break
       }
     }
@@ -1587,12 +1592,16 @@ extension Api_Core_WorkerTransferRequest: SwiftProtobuf.Message, SwiftProtobuf._
     if self.workerID != 0 {
       try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 2)
     }
+    if self.consultID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.consultID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Core_WorkerTransferRequest, rhs: Api_Core_WorkerTransferRequest) -> Bool {
     if lhs.chatID != rhs.chatID {return false}
     if lhs.workerID != rhs.workerID {return false}
+    if lhs.consultID != rhs.consultID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

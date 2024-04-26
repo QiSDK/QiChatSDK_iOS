@@ -564,6 +564,9 @@ public struct CommonMessageWorkerChanged {
   ///转接任务
   public var state: CommonChatState = .common
 
+  /// 咨询类型
+  public var consultID: Int64 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -836,6 +839,9 @@ public struct CommonWorkerTransfer {
   public var workerName: String = String()
 
   public var workerAvatar: String = String()
+
+  /// 咨询类型
+  public var consultID: UInt32 = 0
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1475,6 +1481,7 @@ extension CommonMessageWorkerChanged: SwiftProtobuf.Message, SwiftProtobuf._Mess
     4: .same(proto: "avatar"),
     5: .same(proto: "greeting"),
     6: .same(proto: "State"),
+    7: .standard(proto: "consult_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1489,6 +1496,7 @@ extension CommonMessageWorkerChanged: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 4: try { try decoder.decodeSingularStringField(value: &self.avatar) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.greeting) }()
       case 6: try { try decoder.decodeSingularEnumField(value: &self.state) }()
+      case 7: try { try decoder.decodeSingularInt64Field(value: &self.consultID) }()
       default: break
       }
     }
@@ -1513,6 +1521,9 @@ extension CommonMessageWorkerChanged: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if self.state != .common {
       try visitor.visitSingularEnumField(value: self.state, fieldNumber: 6)
     }
+    if self.consultID != 0 {
+      try visitor.visitSingularInt64Field(value: self.consultID, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1523,6 +1534,7 @@ extension CommonMessageWorkerChanged: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.avatar != rhs.avatar {return false}
     if lhs.greeting != rhs.greeting {return false}
     if lhs.state != rhs.state {return false}
+    if lhs.consultID != rhs.consultID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1886,6 +1898,7 @@ extension CommonWorkerTransfer: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     1: .standard(proto: "worker_id"),
     2: .standard(proto: "worker_name"),
     3: .standard(proto: "worker_avatar"),
+    4: .standard(proto: "consult_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1897,6 +1910,7 @@ extension CommonWorkerTransfer: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
       case 1: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.workerName) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.workerAvatar) }()
+      case 4: try { try decoder.decodeSingularUInt32Field(value: &self.consultID) }()
       default: break
       }
     }
@@ -1912,6 +1926,9 @@ extension CommonWorkerTransfer: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     if !self.workerAvatar.isEmpty {
       try visitor.visitSingularStringField(value: self.workerAvatar, fieldNumber: 3)
     }
+    if self.consultID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.consultID, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1919,6 +1936,7 @@ extension CommonWorkerTransfer: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     if lhs.workerID != rhs.workerID {return false}
     if lhs.workerName != rhs.workerName {return false}
     if lhs.workerAvatar != rhs.workerAvatar {return false}
+    if lhs.consultID != rhs.consultID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
