@@ -59,7 +59,7 @@ public enum CommonValidatorType: SwiftProtobuf.Enum {
 
 extension CommonValidatorType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [CommonValidatorType] = [
+  public static let allCases: [CommonValidatorType] = [
     .unknown,
     .sms,
     .captcha,
@@ -137,7 +137,7 @@ public enum CommonVerifyFor: SwiftProtobuf.Enum {
 
 extension CommonVerifyFor: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [CommonVerifyFor] = [
+  public static let allCases: [CommonVerifyFor] = [
     .unknown,
     .resetPassword,
     .resetPhone,

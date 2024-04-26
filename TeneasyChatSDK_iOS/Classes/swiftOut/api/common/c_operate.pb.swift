@@ -55,7 +55,7 @@ public enum CommonOperate: SwiftProtobuf.Enum {
 
 extension CommonOperate: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [CommonOperate] = [
+  public static let allCases: [CommonOperate] = [
     .get,
     .set,
     .unSet,

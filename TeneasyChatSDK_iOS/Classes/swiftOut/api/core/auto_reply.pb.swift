@@ -55,7 +55,7 @@ public enum Api_Core_AutoReplyField: SwiftProtobuf.Enum {
 
 extension Api_Core_AutoReplyField: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Api_Core_AutoReplyField] = [
+  public static let allCases: [Api_Core_AutoReplyField] = [
     .all,
     .name,
   ]
@@ -70,6 +70,8 @@ public struct Api_Core_AutoReplyTenantResponse {
   // methods supported on all messages.
 
   public var items: [CommonAutoReplyItem] = []
+
+  public var total: Int32 = 0
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -210,6 +212,7 @@ extension Api_Core_AutoReplyTenantResponse: SwiftProtobuf.Message, SwiftProtobuf
   public static let protoMessageName: String = _protobuf_package + ".AutoReplyTenantResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "items"),
+    2: .same(proto: "total"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -219,6 +222,7 @@ extension Api_Core_AutoReplyTenantResponse: SwiftProtobuf.Message, SwiftProtobuf
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.total) }()
       default: break
       }
     }
@@ -228,11 +232,15 @@ extension Api_Core_AutoReplyTenantResponse: SwiftProtobuf.Message, SwiftProtobuf
     if !self.items.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.items, fieldNumber: 1)
     }
+    if self.total != 0 {
+      try visitor.visitSingularInt32Field(value: self.total, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Core_AutoReplyTenantResponse, rhs: Api_Core_AutoReplyTenantResponse) -> Bool {
     if lhs.items != rhs.items {return false}
+    if lhs.total != rhs.total {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

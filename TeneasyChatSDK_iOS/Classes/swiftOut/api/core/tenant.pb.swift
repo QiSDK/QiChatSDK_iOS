@@ -57,7 +57,7 @@ public enum Api_Core_RoleRoute: SwiftProtobuf.Enum {
 
 extension Api_Core_RoleRoute: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Api_Core_RoleRoute] = [
+  public static let allCases: [Api_Core_RoleRoute] = [
     .worker,
     .customer,
     .all,
@@ -65,6 +65,23 @@ extension Api_Core_RoleRoute: CaseIterable {
 }
 
 #endif  // swift(>=4.2)
+
+/// 分页参数
+public struct Api_Core_PageParam {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 每页数量
+  public var size: UInt32 = 0
+
+  /// 当前页
+  public var page: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
 
 public struct Api_Core_RouteRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -287,67 +304,122 @@ public struct Api_Core_TenantItem {
   // methods supported on all messages.
 
   /// 商户id
-  public var tenantID: UInt32 = 0
+  public var tenantID: UInt32 {
+    get {return _storage._tenantID}
+    set {_uniqueStorage()._tenantID = newValue}
+  }
 
   /// 商户绑定公钥
-  public var tenantPublicKey: String = String()
+  public var tenantPublicKey: String {
+    get {return _storage._tenantPublicKey}
+    set {_uniqueStorage()._tenantPublicKey = newValue}
+  }
 
   /// 商户名称
-  public var name: String = String()
+  public var name: String {
+    get {return _storage._name}
+    set {_uniqueStorage()._name = newValue}
+  }
 
   /// 最大工作人员数量
-  public var workersCapacity: Int32 = 0
+  public var workersCapacity: Int32 {
+    get {return _storage._workersCapacity}
+    set {_uniqueStorage()._workersCapacity = newValue}
+  }
 
   /// 每日服务数量
-  public var dailyServiceCapacity: Int32 = 0
+  public var dailyServiceCapacity: Int32 {
+    get {return _storage._dailyServiceCapacity}
+    set {_uniqueStorage()._dailyServiceCapacity = newValue}
+  }
 
   /// 入口数量
-  public var entranceNum: Int32 = 0
+  public var entranceNum: Int32 {
+    get {return _storage._entranceNum}
+    set {_uniqueStorage()._entranceNum = newValue}
+  }
 
   /// 用户名(商户账号)
-  public var userName: String = String()
+  public var userName: String {
+    get {return _storage._userName}
+    set {_uniqueStorage()._userName = newValue}
+  }
 
   /// 月均咨询量
-  public var averageMonthly: Int32 = 0
+  public var averageMonthly: Int32 {
+    get {return _storage._averageMonthly}
+    set {_uniqueStorage()._averageMonthly = newValue}
+  }
 
   /// 累计咨询量
-  public var cumulativeVolume: Int32 = 0
+  public var cumulativeVolume: Int32 {
+    get {return _storage._cumulativeVolume}
+    set {_uniqueStorage()._cumulativeVolume = newValue}
+  }
 
   /// 商户账号密码
-  public var password: String = String()
+  public var password: String {
+    get {return _storage._password}
+    set {_uniqueStorage()._password = newValue}
+  }
 
   /// 创建时间
   public var createAt: SwiftProtobuf.Google_Protobuf_Timestamp {
-    get {return _createAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
-    set {_createAt = newValue}
+    get {return _storage._createAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_uniqueStorage()._createAt = newValue}
   }
   /// Returns true if `createAt` has been explicitly set.
-  public var hasCreateAt: Bool {return self._createAt != nil}
+  public var hasCreateAt: Bool {return _storage._createAt != nil}
   /// Clears the value of `createAt`. Subsequent reads from it will return its default value.
-  public mutating func clearCreateAt() {self._createAt = nil}
+  public mutating func clearCreateAt() {_uniqueStorage()._createAt = nil}
 
   /// 删除时间（依次判断是否已删除）
   public var deleteAt: SwiftProtobuf.Google_Protobuf_Timestamp {
-    get {return _deleteAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
-    set {_deleteAt = newValue}
+    get {return _storage._deleteAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_uniqueStorage()._deleteAt = newValue}
   }
   /// Returns true if `deleteAt` has been explicitly set.
-  public var hasDeleteAt: Bool {return self._deleteAt != nil}
+  public var hasDeleteAt: Bool {return _storage._deleteAt != nil}
   /// Clears the value of `deleteAt`. Subsequent reads from it will return its default value.
-  public mutating func clearDeleteAt() {self._deleteAt = nil}
+  public mutating func clearDeleteAt() {_uniqueStorage()._deleteAt = nil}
 
   /// 所在分组名称
-  public var groupName: String = String()
+  public var groupName: String {
+    get {return _storage._groupName}
+    set {_uniqueStorage()._groupName = newValue}
+  }
 
   /// 所在分组名称
-  public var cliqueID: Int32 = 0
+  public var cliqueID: Int32 {
+    get {return _storage._cliqueID}
+    set {_uniqueStorage()._cliqueID = newValue}
+  }
+
+  public var apiRequestURL: String {
+    get {return _storage._apiRequestURL}
+    set {_uniqueStorage()._apiRequestURL = newValue}
+  }
+
+  public var apiName: String {
+    get {return _storage._apiName}
+    set {_uniqueStorage()._apiName = newValue}
+  }
+
+  public var apiPwd: String {
+    get {return _storage._apiPwd}
+    set {_uniqueStorage()._apiPwd = newValue}
+  }
+
+  public var apiPubKey: String {
+    get {return _storage._apiPubKey}
+    set {_uniqueStorage()._apiPubKey = newValue}
+  }
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _createAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
-  fileprivate var _deleteAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 public struct Api_Core_AdminLoginRequest {
@@ -460,8 +532,217 @@ public struct Api_Core_UpdateNimInfoRequest {
   public init() {}
 }
 
+/// TODO: 更新云信信息
+public struct Api_Core_VersionRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var versionID: Int32 {
+    get {return _versionID ?? 0}
+    set {_versionID = newValue}
+  }
+  /// Returns true if `versionID` has been explicitly set.
+  public var hasVersionID: Bool {return self._versionID != nil}
+  /// Clears the value of `versionID`. Subsequent reads from it will return its default value.
+  public mutating func clearVersionID() {self._versionID = nil}
+
+  public var optype: Api_Common_OperationsType = .operationTypeUnknown
+
+  public var softname: String = String()
+
+  public var majorVersion: String = String()
+
+  public var minerVersion: String = String()
+
+  public var force: Bool = false
+
+  public var downloadURL: String = String()
+
+  public var plistURL: String = String()
+
+  public var remark: String = String()
+
+  public var status: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _versionID: Int32? = nil
+}
+
+public struct Api_Core_VersionResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var versionID: Int32 = 0
+
+  public var optype: Api_Common_OperationsType = .operationTypeUnknown
+
+  public var softname: String = String()
+
+  public var majorVersion: String = String()
+
+  public var minerVersion: String = String()
+
+  public var force: Bool = false
+
+  public var downloadURL: String = String()
+
+  public var plistURL: String = String()
+
+  public var remark: String = String()
+
+  /// 创建时间
+  public var createAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _createAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_createAt = newValue}
+  }
+  /// Returns true if `createAt` has been explicitly set.
+  public var hasCreateAt: Bool {return self._createAt != nil}
+  /// Clears the value of `createAt`. Subsequent reads from it will return its default value.
+  public mutating func clearCreateAt() {self._createAt = nil}
+
+  /// 更新时间
+  public var updateAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _updateAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_updateAt = newValue}
+  }
+  /// Returns true if `updateAt` has been explicitly set.
+  public var hasUpdateAt: Bool {return self._updateAt != nil}
+  /// Clears the value of `updateAt`. Subsequent reads from it will return its default value.
+  public mutating func clearUpdateAt() {self._updateAt = nil}
+
+  public var status: Int32 = 0
+
+  public var `operator`: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _createAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _updateAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+public struct Api_Core_CreateVersionResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var versionID: Int32 = 0
+
+  public var optype: Api_Common_OperationsType = .operationTypeUnknown
+
+  public var softname: String = String()
+
+  public var majorVersion: String = String()
+
+  public var minerVersion: String = String()
+
+  public var force: Bool = false
+
+  public var downloadURL: String = String()
+
+  public var plistURL: String = String()
+
+  public var remark: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_UpdateVersionResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var versionID: Int32 = 0
+
+  public var optype: Api_Common_OperationsType = .operationTypeUnknown
+
+  public var softname: String = String()
+
+  public var majorVersion: String = String()
+
+  public var minerVersion: String = String()
+
+  public var force: Bool = false
+
+  public var downloadURL: String = String()
+
+  public var plistURL: String = String()
+
+  public var remark: String = String()
+
+  /// 创建时间
+  public var createAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _createAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_createAt = newValue}
+  }
+  /// Returns true if `createAt` has been explicitly set.
+  public var hasCreateAt: Bool {return self._createAt != nil}
+  /// Clears the value of `createAt`. Subsequent reads from it will return its default value.
+  public mutating func clearCreateAt() {self._createAt = nil}
+
+  /// 更新时间
+  public var updateAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _updateAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_updateAt = newValue}
+  }
+  /// Returns true if `updateAt` has been explicitly set.
+  public var hasUpdateAt: Bool {return self._updateAt != nil}
+  /// Clears the value of `updateAt`. Subsequent reads from it will return its default value.
+  public mutating func clearUpdateAt() {self._updateAt = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _createAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _updateAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+public struct Api_Core_GetVersionResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 分配一线客服
+  public var list: [Api_Core_VersionResponse] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_TenantThirdSetting {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 商户id
+  public var tenantID: UInt32 = 0
+
+  public var apiRequestURL: String = String()
+
+  public var apiName: String = String()
+
+  public var apiPwd: String = String()
+
+  public var apiPubKey: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Api_Core_RoleRoute: @unchecked Sendable {}
+extension Api_Core_PageParam: @unchecked Sendable {}
 extension Api_Core_RouteRequest: @unchecked Sendable {}
 extension Api_Core_RouteItem: @unchecked Sendable {}
 extension Api_Core_RouteResponse: @unchecked Sendable {}
@@ -480,6 +761,12 @@ extension Api_Core_UpdateTenantRequest: @unchecked Sendable {}
 extension Api_Core_PublicKeyResponse: @unchecked Sendable {}
 extension Api_Core_QueryTenantInfoResponse: @unchecked Sendable {}
 extension Api_Core_UpdateNimInfoRequest: @unchecked Sendable {}
+extension Api_Core_VersionRequest: @unchecked Sendable {}
+extension Api_Core_VersionResponse: @unchecked Sendable {}
+extension Api_Core_CreateVersionResponse: @unchecked Sendable {}
+extension Api_Core_UpdateVersionResponse: @unchecked Sendable {}
+extension Api_Core_GetVersionResponse: @unchecked Sendable {}
+extension Api_Core_TenantThirdSetting: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -492,6 +779,44 @@ extension Api_Core_RoleRoute: SwiftProtobuf._ProtoNameProviding {
     1: .same(proto: "Role_ROUTE_CUSTOMER"),
     2: .same(proto: "Role_ROUTE_ALL"),
   ]
+}
+
+extension Api_Core_PageParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".PageParam"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "size"),
+    2: .same(proto: "page"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.size) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.page) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.size != 0 {
+      try visitor.visitSingularUInt32Field(value: self.size, fieldNumber: 1)
+    }
+    if self.page != 0 {
+      try visitor.visitSingularInt64Field(value: self.page, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_PageParam, rhs: Api_Core_PageParam) -> Bool {
+    if lhs.size != rhs.size {return false}
+    if lhs.page != rhs.page {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
 }
 
 extension Api_Core_RouteRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -981,98 +1306,196 @@ extension Api_Core_TenantItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     12: .standard(proto: "delete_at"),
     13: .standard(proto: "group_name"),
     14: .standard(proto: "clique_Id"),
+    15: .standard(proto: "api_request_url"),
+    16: .standard(proto: "api_name"),
+    17: .standard(proto: "api_pwd"),
+    18: .standard(proto: "api_pubKey"),
   ]
 
+  fileprivate class _StorageClass {
+    var _tenantID: UInt32 = 0
+    var _tenantPublicKey: String = String()
+    var _name: String = String()
+    var _workersCapacity: Int32 = 0
+    var _dailyServiceCapacity: Int32 = 0
+    var _entranceNum: Int32 = 0
+    var _userName: String = String()
+    var _averageMonthly: Int32 = 0
+    var _cumulativeVolume: Int32 = 0
+    var _password: String = String()
+    var _createAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+    var _deleteAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+    var _groupName: String = String()
+    var _cliqueID: Int32 = 0
+    var _apiRequestURL: String = String()
+    var _apiName: String = String()
+    var _apiPwd: String = String()
+    var _apiPubKey: String = String()
+
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _tenantID = source._tenantID
+      _tenantPublicKey = source._tenantPublicKey
+      _name = source._name
+      _workersCapacity = source._workersCapacity
+      _dailyServiceCapacity = source._dailyServiceCapacity
+      _entranceNum = source._entranceNum
+      _userName = source._userName
+      _averageMonthly = source._averageMonthly
+      _cumulativeVolume = source._cumulativeVolume
+      _password = source._password
+      _createAt = source._createAt
+      _deleteAt = source._deleteAt
+      _groupName = source._groupName
+      _cliqueID = source._cliqueID
+      _apiRequestURL = source._apiRequestURL
+      _apiName = source._apiName
+      _apiPwd = source._apiPwd
+      _apiPubKey = source._apiPubKey
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.tenantID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.tenantPublicKey) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.name) }()
-      case 4: try { try decoder.decodeSingularInt32Field(value: &self.workersCapacity) }()
-      case 5: try { try decoder.decodeSingularInt32Field(value: &self.dailyServiceCapacity) }()
-      case 6: try { try decoder.decodeSingularInt32Field(value: &self.entranceNum) }()
-      case 7: try { try decoder.decodeSingularStringField(value: &self.userName) }()
-      case 8: try { try decoder.decodeSingularInt32Field(value: &self.averageMonthly) }()
-      case 9: try { try decoder.decodeSingularInt32Field(value: &self.cumulativeVolume) }()
-      case 10: try { try decoder.decodeSingularStringField(value: &self.password) }()
-      case 11: try { try decoder.decodeSingularMessageField(value: &self._createAt) }()
-      case 12: try { try decoder.decodeSingularMessageField(value: &self._deleteAt) }()
-      case 13: try { try decoder.decodeSingularStringField(value: &self.groupName) }()
-      case 14: try { try decoder.decodeSingularInt32Field(value: &self.cliqueID) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularUInt32Field(value: &_storage._tenantID) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._tenantPublicKey) }()
+        case 3: try { try decoder.decodeSingularStringField(value: &_storage._name) }()
+        case 4: try { try decoder.decodeSingularInt32Field(value: &_storage._workersCapacity) }()
+        case 5: try { try decoder.decodeSingularInt32Field(value: &_storage._dailyServiceCapacity) }()
+        case 6: try { try decoder.decodeSingularInt32Field(value: &_storage._entranceNum) }()
+        case 7: try { try decoder.decodeSingularStringField(value: &_storage._userName) }()
+        case 8: try { try decoder.decodeSingularInt32Field(value: &_storage._averageMonthly) }()
+        case 9: try { try decoder.decodeSingularInt32Field(value: &_storage._cumulativeVolume) }()
+        case 10: try { try decoder.decodeSingularStringField(value: &_storage._password) }()
+        case 11: try { try decoder.decodeSingularMessageField(value: &_storage._createAt) }()
+        case 12: try { try decoder.decodeSingularMessageField(value: &_storage._deleteAt) }()
+        case 13: try { try decoder.decodeSingularStringField(value: &_storage._groupName) }()
+        case 14: try { try decoder.decodeSingularInt32Field(value: &_storage._cliqueID) }()
+        case 15: try { try decoder.decodeSingularStringField(value: &_storage._apiRequestURL) }()
+        case 16: try { try decoder.decodeSingularStringField(value: &_storage._apiName) }()
+        case 17: try { try decoder.decodeSingularStringField(value: &_storage._apiPwd) }()
+        case 18: try { try decoder.decodeSingularStringField(value: &_storage._apiPubKey) }()
+        default: break
+        }
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    if self.tenantID != 0 {
-      try visitor.visitSingularUInt32Field(value: self.tenantID, fieldNumber: 1)
-    }
-    if !self.tenantPublicKey.isEmpty {
-      try visitor.visitSingularStringField(value: self.tenantPublicKey, fieldNumber: 2)
-    }
-    if !self.name.isEmpty {
-      try visitor.visitSingularStringField(value: self.name, fieldNumber: 3)
-    }
-    if self.workersCapacity != 0 {
-      try visitor.visitSingularInt32Field(value: self.workersCapacity, fieldNumber: 4)
-    }
-    if self.dailyServiceCapacity != 0 {
-      try visitor.visitSingularInt32Field(value: self.dailyServiceCapacity, fieldNumber: 5)
-    }
-    if self.entranceNum != 0 {
-      try visitor.visitSingularInt32Field(value: self.entranceNum, fieldNumber: 6)
-    }
-    if !self.userName.isEmpty {
-      try visitor.visitSingularStringField(value: self.userName, fieldNumber: 7)
-    }
-    if self.averageMonthly != 0 {
-      try visitor.visitSingularInt32Field(value: self.averageMonthly, fieldNumber: 8)
-    }
-    if self.cumulativeVolume != 0 {
-      try visitor.visitSingularInt32Field(value: self.cumulativeVolume, fieldNumber: 9)
-    }
-    if !self.password.isEmpty {
-      try visitor.visitSingularStringField(value: self.password, fieldNumber: 10)
-    }
-    try { if let v = self._createAt {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
-    } }()
-    try { if let v = self._deleteAt {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
-    } }()
-    if !self.groupName.isEmpty {
-      try visitor.visitSingularStringField(value: self.groupName, fieldNumber: 13)
-    }
-    if self.cliqueID != 0 {
-      try visitor.visitSingularInt32Field(value: self.cliqueID, fieldNumber: 14)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      if _storage._tenantID != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._tenantID, fieldNumber: 1)
+      }
+      if !_storage._tenantPublicKey.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._tenantPublicKey, fieldNumber: 2)
+      }
+      if !_storage._name.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 3)
+      }
+      if _storage._workersCapacity != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._workersCapacity, fieldNumber: 4)
+      }
+      if _storage._dailyServiceCapacity != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._dailyServiceCapacity, fieldNumber: 5)
+      }
+      if _storage._entranceNum != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._entranceNum, fieldNumber: 6)
+      }
+      if !_storage._userName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._userName, fieldNumber: 7)
+      }
+      if _storage._averageMonthly != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._averageMonthly, fieldNumber: 8)
+      }
+      if _storage._cumulativeVolume != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._cumulativeVolume, fieldNumber: 9)
+      }
+      if !_storage._password.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._password, fieldNumber: 10)
+      }
+      try { if let v = _storage._createAt {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+      } }()
+      try { if let v = _storage._deleteAt {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
+      } }()
+      if !_storage._groupName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._groupName, fieldNumber: 13)
+      }
+      if _storage._cliqueID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._cliqueID, fieldNumber: 14)
+      }
+      if !_storage._apiRequestURL.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._apiRequestURL, fieldNumber: 15)
+      }
+      if !_storage._apiName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._apiName, fieldNumber: 16)
+      }
+      if !_storage._apiPwd.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._apiPwd, fieldNumber: 17)
+      }
+      if !_storage._apiPubKey.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._apiPubKey, fieldNumber: 18)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Core_TenantItem, rhs: Api_Core_TenantItem) -> Bool {
-    if lhs.tenantID != rhs.tenantID {return false}
-    if lhs.tenantPublicKey != rhs.tenantPublicKey {return false}
-    if lhs.name != rhs.name {return false}
-    if lhs.workersCapacity != rhs.workersCapacity {return false}
-    if lhs.dailyServiceCapacity != rhs.dailyServiceCapacity {return false}
-    if lhs.entranceNum != rhs.entranceNum {return false}
-    if lhs.userName != rhs.userName {return false}
-    if lhs.averageMonthly != rhs.averageMonthly {return false}
-    if lhs.cumulativeVolume != rhs.cumulativeVolume {return false}
-    if lhs.password != rhs.password {return false}
-    if lhs._createAt != rhs._createAt {return false}
-    if lhs._deleteAt != rhs._deleteAt {return false}
-    if lhs.groupName != rhs.groupName {return false}
-    if lhs.cliqueID != rhs.cliqueID {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._tenantID != rhs_storage._tenantID {return false}
+        if _storage._tenantPublicKey != rhs_storage._tenantPublicKey {return false}
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._workersCapacity != rhs_storage._workersCapacity {return false}
+        if _storage._dailyServiceCapacity != rhs_storage._dailyServiceCapacity {return false}
+        if _storage._entranceNum != rhs_storage._entranceNum {return false}
+        if _storage._userName != rhs_storage._userName {return false}
+        if _storage._averageMonthly != rhs_storage._averageMonthly {return false}
+        if _storage._cumulativeVolume != rhs_storage._cumulativeVolume {return false}
+        if _storage._password != rhs_storage._password {return false}
+        if _storage._createAt != rhs_storage._createAt {return false}
+        if _storage._deleteAt != rhs_storage._deleteAt {return false}
+        if _storage._groupName != rhs_storage._groupName {return false}
+        if _storage._cliqueID != rhs_storage._cliqueID {return false}
+        if _storage._apiRequestURL != rhs_storage._apiRequestURL {return false}
+        if _storage._apiName != rhs_storage._apiName {return false}
+        if _storage._apiPwd != rhs_storage._apiPwd {return false}
+        if _storage._apiPubKey != rhs_storage._apiPubKey {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1323,6 +1746,468 @@ extension Api_Core_UpdateNimInfoRequest: SwiftProtobuf.Message, SwiftProtobuf._M
     if lhs.workerID != rhs.workerID {return false}
     if lhs.nimid != rhs.nimid {return false}
     if lhs.nimsession != rhs.nimsession {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_VersionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".VersionRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "version_id"),
+    2: .same(proto: "optype"),
+    3: .same(proto: "softname"),
+    4: .standard(proto: "major_version"),
+    5: .standard(proto: "miner_version"),
+    6: .same(proto: "force"),
+    7: .standard(proto: "download_url"),
+    8: .standard(proto: "plist_url"),
+    9: .same(proto: "remark"),
+    10: .same(proto: "status"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self._versionID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.optype) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.softname) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.majorVersion) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.minerVersion) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self.force) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.downloadURL) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.plistURL) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.remark) }()
+      case 10: try { try decoder.decodeSingularInt32Field(value: &self.status) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._versionID {
+      try visitor.visitSingularInt32Field(value: v, fieldNumber: 1)
+    } }()
+    if self.optype != .operationTypeUnknown {
+      try visitor.visitSingularEnumField(value: self.optype, fieldNumber: 2)
+    }
+    if !self.softname.isEmpty {
+      try visitor.visitSingularStringField(value: self.softname, fieldNumber: 3)
+    }
+    if !self.majorVersion.isEmpty {
+      try visitor.visitSingularStringField(value: self.majorVersion, fieldNumber: 4)
+    }
+    if !self.minerVersion.isEmpty {
+      try visitor.visitSingularStringField(value: self.minerVersion, fieldNumber: 5)
+    }
+    if self.force != false {
+      try visitor.visitSingularBoolField(value: self.force, fieldNumber: 6)
+    }
+    if !self.downloadURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.downloadURL, fieldNumber: 7)
+    }
+    if !self.plistURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.plistURL, fieldNumber: 8)
+    }
+    if !self.remark.isEmpty {
+      try visitor.visitSingularStringField(value: self.remark, fieldNumber: 9)
+    }
+    if self.status != 0 {
+      try visitor.visitSingularInt32Field(value: self.status, fieldNumber: 10)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_VersionRequest, rhs: Api_Core_VersionRequest) -> Bool {
+    if lhs._versionID != rhs._versionID {return false}
+    if lhs.optype != rhs.optype {return false}
+    if lhs.softname != rhs.softname {return false}
+    if lhs.majorVersion != rhs.majorVersion {return false}
+    if lhs.minerVersion != rhs.minerVersion {return false}
+    if lhs.force != rhs.force {return false}
+    if lhs.downloadURL != rhs.downloadURL {return false}
+    if lhs.plistURL != rhs.plistURL {return false}
+    if lhs.remark != rhs.remark {return false}
+    if lhs.status != rhs.status {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_VersionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".VersionResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "version_id"),
+    2: .same(proto: "optype"),
+    3: .same(proto: "softname"),
+    4: .standard(proto: "major_version"),
+    5: .standard(proto: "miner_version"),
+    6: .same(proto: "force"),
+    7: .standard(proto: "download_url"),
+    8: .standard(proto: "plist_url"),
+    9: .same(proto: "remark"),
+    10: .standard(proto: "create_at"),
+    11: .standard(proto: "update_at"),
+    12: .same(proto: "status"),
+    13: .same(proto: "operator"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.versionID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.optype) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.softname) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.majorVersion) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.minerVersion) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self.force) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.downloadURL) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.plistURL) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.remark) }()
+      case 10: try { try decoder.decodeSingularMessageField(value: &self._createAt) }()
+      case 11: try { try decoder.decodeSingularMessageField(value: &self._updateAt) }()
+      case 12: try { try decoder.decodeSingularInt32Field(value: &self.status) }()
+      case 13: try { try decoder.decodeSingularStringField(value: &self.`operator`) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.versionID != 0 {
+      try visitor.visitSingularInt32Field(value: self.versionID, fieldNumber: 1)
+    }
+    if self.optype != .operationTypeUnknown {
+      try visitor.visitSingularEnumField(value: self.optype, fieldNumber: 2)
+    }
+    if !self.softname.isEmpty {
+      try visitor.visitSingularStringField(value: self.softname, fieldNumber: 3)
+    }
+    if !self.majorVersion.isEmpty {
+      try visitor.visitSingularStringField(value: self.majorVersion, fieldNumber: 4)
+    }
+    if !self.minerVersion.isEmpty {
+      try visitor.visitSingularStringField(value: self.minerVersion, fieldNumber: 5)
+    }
+    if self.force != false {
+      try visitor.visitSingularBoolField(value: self.force, fieldNumber: 6)
+    }
+    if !self.downloadURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.downloadURL, fieldNumber: 7)
+    }
+    if !self.plistURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.plistURL, fieldNumber: 8)
+    }
+    if !self.remark.isEmpty {
+      try visitor.visitSingularStringField(value: self.remark, fieldNumber: 9)
+    }
+    try { if let v = self._createAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+    } }()
+    try { if let v = self._updateAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+    } }()
+    if self.status != 0 {
+      try visitor.visitSingularInt32Field(value: self.status, fieldNumber: 12)
+    }
+    if !self.`operator`.isEmpty {
+      try visitor.visitSingularStringField(value: self.`operator`, fieldNumber: 13)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_VersionResponse, rhs: Api_Core_VersionResponse) -> Bool {
+    if lhs.versionID != rhs.versionID {return false}
+    if lhs.optype != rhs.optype {return false}
+    if lhs.softname != rhs.softname {return false}
+    if lhs.majorVersion != rhs.majorVersion {return false}
+    if lhs.minerVersion != rhs.minerVersion {return false}
+    if lhs.force != rhs.force {return false}
+    if lhs.downloadURL != rhs.downloadURL {return false}
+    if lhs.plistURL != rhs.plistURL {return false}
+    if lhs.remark != rhs.remark {return false}
+    if lhs._createAt != rhs._createAt {return false}
+    if lhs._updateAt != rhs._updateAt {return false}
+    if lhs.status != rhs.status {return false}
+    if lhs.`operator` != rhs.`operator` {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_CreateVersionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CreateVersionResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "version_id"),
+    2: .same(proto: "optype"),
+    3: .same(proto: "softname"),
+    4: .standard(proto: "major_version"),
+    5: .standard(proto: "miner_version"),
+    6: .same(proto: "force"),
+    7: .standard(proto: "download_url"),
+    8: .standard(proto: "plist_url"),
+    9: .same(proto: "remark"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.versionID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.optype) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.softname) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.majorVersion) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.minerVersion) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self.force) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.downloadURL) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.plistURL) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.remark) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.versionID != 0 {
+      try visitor.visitSingularInt32Field(value: self.versionID, fieldNumber: 1)
+    }
+    if self.optype != .operationTypeUnknown {
+      try visitor.visitSingularEnumField(value: self.optype, fieldNumber: 2)
+    }
+    if !self.softname.isEmpty {
+      try visitor.visitSingularStringField(value: self.softname, fieldNumber: 3)
+    }
+    if !self.majorVersion.isEmpty {
+      try visitor.visitSingularStringField(value: self.majorVersion, fieldNumber: 4)
+    }
+    if !self.minerVersion.isEmpty {
+      try visitor.visitSingularStringField(value: self.minerVersion, fieldNumber: 5)
+    }
+    if self.force != false {
+      try visitor.visitSingularBoolField(value: self.force, fieldNumber: 6)
+    }
+    if !self.downloadURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.downloadURL, fieldNumber: 7)
+    }
+    if !self.plistURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.plistURL, fieldNumber: 8)
+    }
+    if !self.remark.isEmpty {
+      try visitor.visitSingularStringField(value: self.remark, fieldNumber: 9)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_CreateVersionResponse, rhs: Api_Core_CreateVersionResponse) -> Bool {
+    if lhs.versionID != rhs.versionID {return false}
+    if lhs.optype != rhs.optype {return false}
+    if lhs.softname != rhs.softname {return false}
+    if lhs.majorVersion != rhs.majorVersion {return false}
+    if lhs.minerVersion != rhs.minerVersion {return false}
+    if lhs.force != rhs.force {return false}
+    if lhs.downloadURL != rhs.downloadURL {return false}
+    if lhs.plistURL != rhs.plistURL {return false}
+    if lhs.remark != rhs.remark {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_UpdateVersionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".UpdateVersionResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "version_id"),
+    2: .same(proto: "optype"),
+    3: .same(proto: "softname"),
+    4: .standard(proto: "major_version"),
+    5: .standard(proto: "miner_version"),
+    6: .same(proto: "force"),
+    7: .standard(proto: "download_url"),
+    8: .standard(proto: "plist_url"),
+    9: .same(proto: "remark"),
+    10: .standard(proto: "create_at"),
+    11: .standard(proto: "update_at"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.versionID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.optype) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.softname) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.majorVersion) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.minerVersion) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self.force) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.downloadURL) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.plistURL) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.remark) }()
+      case 10: try { try decoder.decodeSingularMessageField(value: &self._createAt) }()
+      case 11: try { try decoder.decodeSingularMessageField(value: &self._updateAt) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.versionID != 0 {
+      try visitor.visitSingularInt32Field(value: self.versionID, fieldNumber: 1)
+    }
+    if self.optype != .operationTypeUnknown {
+      try visitor.visitSingularEnumField(value: self.optype, fieldNumber: 2)
+    }
+    if !self.softname.isEmpty {
+      try visitor.visitSingularStringField(value: self.softname, fieldNumber: 3)
+    }
+    if !self.majorVersion.isEmpty {
+      try visitor.visitSingularStringField(value: self.majorVersion, fieldNumber: 4)
+    }
+    if !self.minerVersion.isEmpty {
+      try visitor.visitSingularStringField(value: self.minerVersion, fieldNumber: 5)
+    }
+    if self.force != false {
+      try visitor.visitSingularBoolField(value: self.force, fieldNumber: 6)
+    }
+    if !self.downloadURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.downloadURL, fieldNumber: 7)
+    }
+    if !self.plistURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.plistURL, fieldNumber: 8)
+    }
+    if !self.remark.isEmpty {
+      try visitor.visitSingularStringField(value: self.remark, fieldNumber: 9)
+    }
+    try { if let v = self._createAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+    } }()
+    try { if let v = self._updateAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_UpdateVersionResponse, rhs: Api_Core_UpdateVersionResponse) -> Bool {
+    if lhs.versionID != rhs.versionID {return false}
+    if lhs.optype != rhs.optype {return false}
+    if lhs.softname != rhs.softname {return false}
+    if lhs.majorVersion != rhs.majorVersion {return false}
+    if lhs.minerVersion != rhs.minerVersion {return false}
+    if lhs.force != rhs.force {return false}
+    if lhs.downloadURL != rhs.downloadURL {return false}
+    if lhs.plistURL != rhs.plistURL {return false}
+    if lhs.remark != rhs.remark {return false}
+    if lhs._createAt != rhs._createAt {return false}
+    if lhs._updateAt != rhs._updateAt {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_GetVersionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetVersionResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "list"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.list) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.list.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.list, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_GetVersionResponse, rhs: Api_Core_GetVersionResponse) -> Bool {
+    if lhs.list != rhs.list {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_TenantThirdSetting: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TenantThirdSetting"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "tenant_id"),
+    2: .standard(proto: "api_request_url"),
+    3: .standard(proto: "api_name"),
+    4: .standard(proto: "api_pwd"),
+    5: .standard(proto: "api_pubKey"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.tenantID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.apiRequestURL) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.apiName) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.apiPwd) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.apiPubKey) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.tenantID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.tenantID, fieldNumber: 1)
+    }
+    if !self.apiRequestURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.apiRequestURL, fieldNumber: 2)
+    }
+    if !self.apiName.isEmpty {
+      try visitor.visitSingularStringField(value: self.apiName, fieldNumber: 3)
+    }
+    if !self.apiPwd.isEmpty {
+      try visitor.visitSingularStringField(value: self.apiPwd, fieldNumber: 4)
+    }
+    if !self.apiPubKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.apiPubKey, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_TenantThirdSetting, rhs: Api_Core_TenantThirdSetting) -> Bool {
+    if lhs.tenantID != rhs.tenantID {return false}
+    if lhs.apiRequestURL != rhs.apiRequestURL {return false}
+    if lhs.apiName != rhs.apiName {return false}
+    if lhs.apiPwd != rhs.apiPwd {return false}
+    if lhs.apiPubKey != rhs.apiPubKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

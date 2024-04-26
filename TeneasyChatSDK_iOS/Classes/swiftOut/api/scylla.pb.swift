@@ -59,7 +59,7 @@ public enum Api_TombstoneGCMode: SwiftProtobuf.Enum {
 
 extension Api_TombstoneGCMode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Api_TombstoneGCMode] = [
+  public static let allCases: [Api_TombstoneGCMode] = [
     .timeout,
     .repair,
     .disabled,
@@ -104,7 +104,7 @@ public enum Api_CompactionWindowUnit: SwiftProtobuf.Enum {
 
 extension Api_CompactionWindowUnit: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Api_CompactionWindowUnit] = [
+  public static let allCases: [Api_CompactionWindowUnit] = [
     .days,
     .hours,
     .minutes,
@@ -148,7 +148,7 @@ public enum Api_CompressionMode: SwiftProtobuf.Enum {
 
 extension Api_CompressionMode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Api_CompressionMode] = [
+  public static let allCases: [Api_CompressionMode] = [
     .lz4Compressor,
     .snappyCompressor,
     .deflateCompressor,
@@ -189,7 +189,7 @@ public enum Api_OrderBy: SwiftProtobuf.Enum {
 
 extension Api_OrderBy: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Api_OrderBy] = [
+  public static let allCases: [Api_OrderBy] = [
     .obAes,
     .obDesc,
   ]
@@ -295,7 +295,7 @@ public enum Api_NativeType: SwiftProtobuf.Enum {
 
 extension Api_NativeType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Api_NativeType] = [
+  public static let allCases: [Api_NativeType] = [
     .ntUnknown,
     .ntBoolean,
     .ntTinyInt,
@@ -2163,7 +2163,15 @@ extension Api_TableNativeOption: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     var _cdc: Api_CDCOption? = nil
     var _clusteringOrderBy: [Api_ClusteringOrderBy] = []
 
-    static let defaultInstance = _StorageClass()
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
 
     private init() {}
 

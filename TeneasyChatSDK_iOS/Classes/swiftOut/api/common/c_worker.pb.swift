@@ -67,7 +67,7 @@ public enum Api_Common_DistributionType: SwiftProtobuf.Enum {
 
 extension Api_Common_DistributionType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Api_Common_DistributionType] = [
+  public static let allCases: [Api_Common_DistributionType] = [
     .distributionLeisure,
     .distributionBusy,
     .distributionOffline,
@@ -142,7 +142,7 @@ public enum Api_Common_WorkerPermission: SwiftProtobuf.Enum {
 
 extension Api_Common_WorkerPermission: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Api_Common_WorkerPermission] = [
+  public static let allCases: [Api_Common_WorkerPermission] = [
     .workerPermNone,
     .workerPermTop,
     .workerPermAdmin,
@@ -188,7 +188,7 @@ public enum Api_Common_ConnectState: SwiftProtobuf.Enum {
 
 extension Api_Common_ConnectState: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Api_Common_ConnectState] = [
+  public static let allCases: [Api_Common_ConnectState] = [
     .offline,
     .online,
   ]
@@ -237,7 +237,7 @@ public enum Api_Common_OnlineState: SwiftProtobuf.Enum {
 
 extension Api_Common_OnlineState: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Api_Common_OnlineState] = [
+  public static let allCases: [Api_Common_OnlineState] = [
     .idle,
     .busy,
     .afk,
@@ -288,6 +288,11 @@ public struct Api_Common_Worker {
   ///是否已经注册nim true需要，false 不需要
   public var bneednim: Bool = false
 
+  /// 二级分组
+  public var groupChild: [Api_Common_WorkerGroup] = []
+
+  public var tips: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -305,6 +310,12 @@ public struct Api_Common_WorkerGroup {
   public var priority: Int32 = 0
 
   public var count: Int32 = 0
+
+  public var parentID: Int64 = 0
+
+  public var ratio: Int32 = 0
+
+  public var consultID: UInt32 = 0
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -411,6 +422,8 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     11: .standard(proto: "worker_nimid"),
     12: .standard(proto: "worker_nimsession"),
     13: .same(proto: "bneednim"),
+    14: .standard(proto: "group_child"),
+    15: .same(proto: "tips"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -432,6 +445,8 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
       case 11: try { try decoder.decodeSingularStringField(value: &self.workerNimid) }()
       case 12: try { try decoder.decodeSingularStringField(value: &self.workerNimsession) }()
       case 13: try { try decoder.decodeSingularBoolField(value: &self.bneednim) }()
+      case 14: try { try decoder.decodeRepeatedMessageField(value: &self.groupChild) }()
+      case 15: try { try decoder.decodeSingularStringField(value: &self.tips) }()
       default: break
       }
     }
@@ -477,6 +492,12 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     if self.bneednim != false {
       try visitor.visitSingularBoolField(value: self.bneednim, fieldNumber: 13)
     }
+    if !self.groupChild.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.groupChild, fieldNumber: 14)
+    }
+    if !self.tips.isEmpty {
+      try visitor.visitSingularStringField(value: self.tips, fieldNumber: 15)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -494,6 +515,8 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     if lhs.workerNimid != rhs.workerNimid {return false}
     if lhs.workerNimsession != rhs.workerNimsession {return false}
     if lhs.bneednim != rhs.bneednim {return false}
+    if lhs.groupChild != rhs.groupChild {return false}
+    if lhs.tips != rhs.tips {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -506,6 +529,9 @@ extension Api_Common_WorkerGroup: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     2: .same(proto: "name"),
     3: .same(proto: "priority"),
     4: .same(proto: "count"),
+    5: .same(proto: "parentId"),
+    6: .same(proto: "ratio"),
+    7: .standard(proto: "consult_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -518,6 +544,9 @@ extension Api_Common_WorkerGroup: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
       case 3: try { try decoder.decodeSingularInt32Field(value: &self.priority) }()
       case 4: try { try decoder.decodeSingularInt32Field(value: &self.count) }()
+      case 5: try { try decoder.decodeSingularInt64Field(value: &self.parentID) }()
+      case 6: try { try decoder.decodeSingularInt32Field(value: &self.ratio) }()
+      case 7: try { try decoder.decodeSingularUInt32Field(value: &self.consultID) }()
       default: break
       }
     }
@@ -536,6 +565,15 @@ extension Api_Common_WorkerGroup: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     if self.count != 0 {
       try visitor.visitSingularInt32Field(value: self.count, fieldNumber: 4)
     }
+    if self.parentID != 0 {
+      try visitor.visitSingularInt64Field(value: self.parentID, fieldNumber: 5)
+    }
+    if self.ratio != 0 {
+      try visitor.visitSingularInt32Field(value: self.ratio, fieldNumber: 6)
+    }
+    if self.consultID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.consultID, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -544,6 +582,9 @@ extension Api_Common_WorkerGroup: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     if lhs.name != rhs.name {return false}
     if lhs.priority != rhs.priority {return false}
     if lhs.count != rhs.count {return false}
+    if lhs.parentID != rhs.parentID {return false}
+    if lhs.ratio != rhs.ratio {return false}
+    if lhs.consultID != rhs.consultID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

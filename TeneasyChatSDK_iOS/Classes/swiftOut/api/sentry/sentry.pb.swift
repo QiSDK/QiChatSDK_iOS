@@ -82,7 +82,7 @@ public enum Api_Sentry_AuthRole: SwiftProtobuf.Enum {
 
 extension Api_Sentry_AuthRole: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Api_Sentry_AuthRole] = [
+  public static let allCases: [Api_Sentry_AuthRole] = [
     .roleNone,
     .roleAnonymous,
     .roleCustomer,

@@ -58,7 +58,7 @@ public enum Api_Common_TransportType: SwiftProtobuf.Enum {
 
 extension Api_Common_TransportType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Api_Common_TransportType] = [
+  public static let allCases: [Api_Common_TransportType] = [
     .transportHTTP,
     .transportHTTPS,
     .transportH2C,
@@ -109,7 +109,7 @@ public enum Api_Common_AddressType: SwiftProtobuf.Enum {
 
 extension Api_Common_AddressType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Api_Common_AddressType] = [
+  public static let allCases: [Api_Common_AddressType] = [
     .addresDomain,
     .addresIpv4,
     .addresIpv6,

@@ -66,7 +66,7 @@ public enum CommonDeviceType: SwiftProtobuf.Enum {
 
 extension CommonDeviceType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [CommonDeviceType] = [
+  public static let allCases: [CommonDeviceType] = [
     .system,
     .desktop,
     .ios,

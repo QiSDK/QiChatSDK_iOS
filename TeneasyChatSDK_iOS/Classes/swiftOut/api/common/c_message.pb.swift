@@ -82,7 +82,7 @@ public enum CommonChatState: SwiftProtobuf.Enum {
 
 extension CommonChatState: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [CommonChatState] = [
+  public static let allCases: [CommonChatState] = [
     .common,
     .transfer,
     .unprocessed3Min,
@@ -152,7 +152,7 @@ public enum CommonMessageFormat: SwiftProtobuf.Enum {
 
 extension CommonMessageFormat: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [CommonMessageFormat] = [
+  public static let allCases: [CommonMessageFormat] = [
     .msgText,
     .msgImg,
     .msgVoice,
@@ -211,7 +211,7 @@ public enum CommonMessageRole: SwiftProtobuf.Enum {
 
 extension CommonMessageRole: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [CommonMessageRole] = [
+  public static let allCases: [CommonMessageRole] = [
     .msgRoleSystem,
     .msgRoleWorker,
     .msgRoleCustomer,
@@ -262,7 +262,7 @@ public enum CommonMessageOperate: SwiftProtobuf.Enum {
 
 extension CommonMessageOperate: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [CommonMessageOperate] = [
+  public static let allCases: [CommonMessageOperate] = [
     .msgOpPost,
     .msgOpEdit,
     .msgOpDelete,
@@ -579,137 +579,170 @@ public struct CommonMessage {
   /// 对于终端用户(h5, web), 无视此字段(服务端填入)
   /// 对于客服(pc), 发消息时填对应会话的id
   /// 对于持久化, 可作为 分区 id
-  public var chatID: Int64 = 0
+  public var chatID: Int64 {
+    get {return _storage._chatID}
+    set {_uniqueStorage()._chatID = newValue}
+  }
 
   /// 消息id, 服务端分配
-  public var msgID: Int64 = 0
+  public var msgID: Int64 {
+    get {return _storage._msgID}
+    set {_uniqueStorage()._msgID = newValue}
+  }
 
   /// 消息发送时间, 服务端分配
   public var msgTime: SwiftProtobuf.Google_Protobuf_Timestamp {
-    get {return _msgTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
-    set {_msgTime = newValue}
+    get {return _storage._msgTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_uniqueStorage()._msgTime = newValue}
   }
   /// Returns true if `msgTime` has been explicitly set.
-  public var hasMsgTime: Bool {return self._msgTime != nil}
+  public var hasMsgTime: Bool {return _storage._msgTime != nil}
   /// Clears the value of `msgTime`. Subsequent reads from it will return its default value.
-  public mutating func clearMsgTime() {self._msgTime = nil}
+  public mutating func clearMsgTime() {_uniqueStorage()._msgTime = nil}
 
   /// 发送人, 服务端记录
   /// 发送人为0 = 系统消息
-  public var sender: Int64 = 0
+  public var sender: Int64 {
+    get {return _storage._sender}
+    set {_uniqueStorage()._sender = newValue}
+  }
 
   /// 回复消息
-  public var replyMsgID: Int64 = 0
+  public var replyMsgID: Int64 {
+    get {return _storage._replyMsgID}
+    set {_uniqueStorage()._replyMsgID = newValue}
+  }
 
   /// 消息操作人
-  public var msgOp: CommonMessageOperate = .msgOpPost
+  public var msgOp: CommonMessageOperate {
+    get {return _storage._msgOp}
+    set {_uniqueStorage()._msgOp = newValue}
+  }
 
   /// 分配客服id
-  public var worker: Int32 = 0
+  public var worker: Int32 {
+    get {return _storage._worker}
+    set {_uniqueStorage()._worker = newValue}
+  }
 
   /// 自动回复选项, 历史原因保留(没规划好, 应该放到payload中)
   public var autoReplyFlag: CommonMessageAutoReplyFlag {
-    get {return _autoReplyFlag ?? CommonMessageAutoReplyFlag()}
-    set {_autoReplyFlag = newValue}
+    get {return _storage._autoReplyFlag ?? CommonMessageAutoReplyFlag()}
+    set {_uniqueStorage()._autoReplyFlag = newValue}
   }
   /// Returns true if `autoReplyFlag` has been explicitly set.
-  public var hasAutoReplyFlag: Bool {return self._autoReplyFlag != nil}
+  public var hasAutoReplyFlag: Bool {return _storage._autoReplyFlag != nil}
   /// Clears the value of `autoReplyFlag`. Subsequent reads from it will return its default value.
-  public mutating func clearAutoReplyFlag() {self._autoReplyFlag = nil}
+  public mutating func clearAutoReplyFlag() {_uniqueStorage()._autoReplyFlag = nil}
 
-  public var payload: CommonMessage.OneOf_Payload? = nil
+  /// 消息类型
+  public var msgFmt: CommonMessageFormat {
+    get {return _storage._msgFmt}
+    set {_uniqueStorage()._msgFmt = newValue}
+  }
+
+  /// 咨询类型
+  public var consultID: Int64 {
+    get {return _storage._consultID}
+    set {_uniqueStorage()._consultID = newValue}
+  }
+
+  public var payload: OneOf_Payload? {
+    get {return _storage._payload}
+    set {_uniqueStorage()._payload = newValue}
+  }
 
   public var content: CommonMessageContent {
     get {
-      if case .content(let v)? = payload {return v}
+      if case .content(let v)? = _storage._payload {return v}
       return CommonMessageContent()
     }
-    set {payload = .content(newValue)}
+    set {_uniqueStorage()._payload = .content(newValue)}
   }
 
   public var image: CommonMessageImage {
     get {
-      if case .image(let v)? = payload {return v}
+      if case .image(let v)? = _storage._payload {return v}
       return CommonMessageImage()
     }
-    set {payload = .image(newValue)}
+    set {_uniqueStorage()._payload = .image(newValue)}
   }
 
   public var audio: CommonMessageAudio {
     get {
-      if case .audio(let v)? = payload {return v}
+      if case .audio(let v)? = _storage._payload {return v}
       return CommonMessageAudio()
     }
-    set {payload = .audio(newValue)}
+    set {_uniqueStorage()._payload = .audio(newValue)}
   }
 
   public var video: CommonMessageVideo {
     get {
-      if case .video(let v)? = payload {return v}
+      if case .video(let v)? = _storage._payload {return v}
       return CommonMessageVideo()
     }
-    set {payload = .video(newValue)}
+    set {_uniqueStorage()._payload = .video(newValue)}
   }
 
   public var geo: CommonMessageGeo {
     get {
-      if case .geo(let v)? = payload {return v}
+      if case .geo(let v)? = _storage._payload {return v}
       return CommonMessageGeo()
     }
-    set {payload = .geo(newValue)}
+    set {_uniqueStorage()._payload = .geo(newValue)}
   }
 
   public var file: CommonMessageFile {
     get {
-      if case .file(let v)? = payload {return v}
+      if case .file(let v)? = _storage._payload {return v}
       return CommonMessageFile()
     }
-    set {payload = .file(newValue)}
+    set {_uniqueStorage()._payload = .file(newValue)}
   }
 
   /// 已转接至客服 xxx
   public var workerTrans: CommonWorkerTransfer {
     get {
-      if case .workerTrans(let v)? = payload {return v}
+      if case .workerTrans(let v)? = _storage._payload {return v}
       return CommonWorkerTransfer()
     }
-    set {payload = .workerTrans(newValue)}
+    set {_uniqueStorage()._payload = .workerTrans(newValue)}
   }
 
   /// 请求将此会话拉入黑名单
   public var blacklistApply: CommonBlackListApply {
     get {
-      if case .blacklistApply(let v)? = payload {return v}
+      if case .blacklistApply(let v)? = _storage._payload {return v}
       return CommonBlackListApply()
     }
-    set {payload = .blacklistApply(newValue)}
+    set {_uniqueStorage()._payload = .blacklistApply(newValue)}
   }
 
   /// 确认拉入黑名单
   public var blacklistConfirm: CommonBlackListConfirm {
     get {
-      if case .blacklistConfirm(let v)? = payload {return v}
+      if case .blacklistConfirm(let v)? = _storage._payload {return v}
       return CommonBlackListConfirm()
     }
-    set {payload = .blacklistConfirm(newValue)}
+    set {_uniqueStorage()._payload = .blacklistConfirm(newValue)}
   }
 
   /// 自动回复问题
   public var autoReply: CommonMessageAutoReply {
     get {
-      if case .autoReply(let v)? = payload {return v}
+      if case .autoReply(let v)? = _storage._payload {return v}
       return CommonMessageAutoReply()
     }
-    set {payload = .autoReply(newValue)}
+    set {_uniqueStorage()._payload = .autoReply(newValue)}
   }
 
   /// 客服改变
   public var workerChanged: CommonMessageWorkerChanged {
     get {
-      if case .workerChanged(let v)? = payload {return v}
+      if case .workerChanged(let v)? = _storage._payload {return v}
       return CommonMessageWorkerChanged()
     }
-    set {payload = .workerChanged(newValue)}
+    set {_uniqueStorage()._payload = .workerChanged(newValue)}
   }
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -790,8 +823,7 @@ public struct CommonMessage {
 
   public init() {}
 
-  fileprivate var _msgTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
-  fileprivate var _autoReplyFlag: CommonMessageAutoReplyFlag? = nil
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 public struct CommonWorkerTransfer {
@@ -1507,6 +1539,8 @@ extension CommonMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     6: .standard(proto: "msg_op"),
     7: .same(proto: "worker"),
     8: .standard(proto: "auto_reply_flag"),
+    9: .standard(proto: "msg_fmt"),
+    10: .standard(proto: "consult_id"),
     100: .same(proto: "content"),
     101: .same(proto: "image"),
     102: .same(proto: "audio"),
@@ -1520,257 +1554,327 @@ extension CommonMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     110: .standard(proto: "worker_changed"),
   ]
 
+  fileprivate class _StorageClass {
+    var _chatID: Int64 = 0
+    var _msgID: Int64 = 0
+    var _msgTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+    var _sender: Int64 = 0
+    var _replyMsgID: Int64 = 0
+    var _msgOp: CommonMessageOperate = .msgOpPost
+    var _worker: Int32 = 0
+    var _autoReplyFlag: CommonMessageAutoReplyFlag? = nil
+    var _msgFmt: CommonMessageFormat = .msgText
+    var _consultID: Int64 = 0
+    var _payload: CommonMessage.OneOf_Payload?
+
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _chatID = source._chatID
+      _msgID = source._msgID
+      _msgTime = source._msgTime
+      _sender = source._sender
+      _replyMsgID = source._replyMsgID
+      _msgOp = source._msgOp
+      _worker = source._worker
+      _autoReplyFlag = source._autoReplyFlag
+      _msgFmt = source._msgFmt
+      _consultID = source._consultID
+      _payload = source._payload
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
-      case 2: try { try decoder.decodeSingularInt64Field(value: &self.msgID) }()
-      case 3: try { try decoder.decodeSingularMessageField(value: &self._msgTime) }()
-      case 4: try { try decoder.decodeSingularInt64Field(value: &self.sender) }()
-      case 5: try { try decoder.decodeSingularInt64Field(value: &self.replyMsgID) }()
-      case 6: try { try decoder.decodeSingularEnumField(value: &self.msgOp) }()
-      case 7: try { try decoder.decodeSingularInt32Field(value: &self.worker) }()
-      case 8: try { try decoder.decodeSingularMessageField(value: &self._autoReplyFlag) }()
-      case 100: try {
-        var v: CommonMessageContent?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .content(let m) = current {v = m}
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularInt64Field(value: &_storage._chatID) }()
+        case 2: try { try decoder.decodeSingularInt64Field(value: &_storage._msgID) }()
+        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._msgTime) }()
+        case 4: try { try decoder.decodeSingularInt64Field(value: &_storage._sender) }()
+        case 5: try { try decoder.decodeSingularInt64Field(value: &_storage._replyMsgID) }()
+        case 6: try { try decoder.decodeSingularEnumField(value: &_storage._msgOp) }()
+        case 7: try { try decoder.decodeSingularInt32Field(value: &_storage._worker) }()
+        case 8: try { try decoder.decodeSingularMessageField(value: &_storage._autoReplyFlag) }()
+        case 9: try { try decoder.decodeSingularEnumField(value: &_storage._msgFmt) }()
+        case 10: try { try decoder.decodeSingularInt64Field(value: &_storage._consultID) }()
+        case 100: try {
+          var v: CommonMessageContent?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .content(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .content(v)
+          }
+        }()
+        case 101: try {
+          var v: CommonMessageImage?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .image(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .image(v)
+          }
+        }()
+        case 102: try {
+          var v: CommonMessageAudio?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .audio(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .audio(v)
+          }
+        }()
+        case 103: try {
+          var v: CommonMessageVideo?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .video(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .video(v)
+          }
+        }()
+        case 104: try {
+          var v: CommonMessageGeo?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .geo(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .geo(v)
+          }
+        }()
+        case 105: try {
+          var v: CommonMessageFile?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .file(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .file(v)
+          }
+        }()
+        case 106: try {
+          var v: CommonWorkerTransfer?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .workerTrans(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .workerTrans(v)
+          }
+        }()
+        case 107: try {
+          var v: CommonBlackListApply?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .blacklistApply(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .blacklistApply(v)
+          }
+        }()
+        case 108: try {
+          var v: CommonBlackListConfirm?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .blacklistConfirm(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .blacklistConfirm(v)
+          }
+        }()
+        case 109: try {
+          var v: CommonMessageAutoReply?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .autoReply(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .autoReply(v)
+          }
+        }()
+        case 110: try {
+          var v: CommonMessageWorkerChanged?
+          var hadOneofValue = false
+          if let current = _storage._payload {
+            hadOneofValue = true
+            if case .workerChanged(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._payload = .workerChanged(v)
+          }
+        }()
+        default: break
         }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .content(v)
-        }
-      }()
-      case 101: try {
-        var v: CommonMessageImage?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .image(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .image(v)
-        }
-      }()
-      case 102: try {
-        var v: CommonMessageAudio?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .audio(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .audio(v)
-        }
-      }()
-      case 103: try {
-        var v: CommonMessageVideo?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .video(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .video(v)
-        }
-      }()
-      case 104: try {
-        var v: CommonMessageGeo?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .geo(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .geo(v)
-        }
-      }()
-      case 105: try {
-        var v: CommonMessageFile?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .file(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .file(v)
-        }
-      }()
-      case 106: try {
-        var v: CommonWorkerTransfer?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .workerTrans(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .workerTrans(v)
-        }
-      }()
-      case 107: try {
-        var v: CommonBlackListApply?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .blacklistApply(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .blacklistApply(v)
-        }
-      }()
-      case 108: try {
-        var v: CommonBlackListConfirm?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .blacklistConfirm(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .blacklistConfirm(v)
-        }
-      }()
-      case 109: try {
-        var v: CommonMessageAutoReply?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .autoReply(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .autoReply(v)
-        }
-      }()
-      case 110: try {
-        var v: CommonMessageWorkerChanged?
-        var hadOneofValue = false
-        if let current = self.payload {
-          hadOneofValue = true
-          if case .workerChanged(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.payload = .workerChanged(v)
-        }
-      }()
-      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    if self.chatID != 0 {
-      try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 1)
-    }
-    if self.msgID != 0 {
-      try visitor.visitSingularInt64Field(value: self.msgID, fieldNumber: 2)
-    }
-    try { if let v = self._msgTime {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    } }()
-    if self.sender != 0 {
-      try visitor.visitSingularInt64Field(value: self.sender, fieldNumber: 4)
-    }
-    if self.replyMsgID != 0 {
-      try visitor.visitSingularInt64Field(value: self.replyMsgID, fieldNumber: 5)
-    }
-    if self.msgOp != .msgOpPost {
-      try visitor.visitSingularEnumField(value: self.msgOp, fieldNumber: 6)
-    }
-    if self.worker != 0 {
-      try visitor.visitSingularInt32Field(value: self.worker, fieldNumber: 7)
-    }
-    try { if let v = self._autoReplyFlag {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-    } }()
-    switch self.payload {
-    case .content?: try {
-      guard case .content(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 100)
-    }()
-    case .image?: try {
-      guard case .image(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 101)
-    }()
-    case .audio?: try {
-      guard case .audio(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 102)
-    }()
-    case .video?: try {
-      guard case .video(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 103)
-    }()
-    case .geo?: try {
-      guard case .geo(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 104)
-    }()
-    case .file?: try {
-      guard case .file(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 105)
-    }()
-    case .workerTrans?: try {
-      guard case .workerTrans(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 106)
-    }()
-    case .blacklistApply?: try {
-      guard case .blacklistApply(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 107)
-    }()
-    case .blacklistConfirm?: try {
-      guard case .blacklistConfirm(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 108)
-    }()
-    case .autoReply?: try {
-      guard case .autoReply(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 109)
-    }()
-    case .workerChanged?: try {
-      guard case .workerChanged(let v)? = self.payload else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 110)
-    }()
-    case nil: break
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      if _storage._chatID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._chatID, fieldNumber: 1)
+      }
+      if _storage._msgID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._msgID, fieldNumber: 2)
+      }
+      try { if let v = _storage._msgTime {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      } }()
+      if _storage._sender != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._sender, fieldNumber: 4)
+      }
+      if _storage._replyMsgID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._replyMsgID, fieldNumber: 5)
+      }
+      if _storage._msgOp != .msgOpPost {
+        try visitor.visitSingularEnumField(value: _storage._msgOp, fieldNumber: 6)
+      }
+      if _storage._worker != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._worker, fieldNumber: 7)
+      }
+      try { if let v = _storage._autoReplyFlag {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+      } }()
+      if _storage._msgFmt != .msgText {
+        try visitor.visitSingularEnumField(value: _storage._msgFmt, fieldNumber: 9)
+      }
+      if _storage._consultID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._consultID, fieldNumber: 10)
+      }
+      switch _storage._payload {
+      case .content?: try {
+        guard case .content(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 100)
+      }()
+      case .image?: try {
+        guard case .image(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 101)
+      }()
+      case .audio?: try {
+        guard case .audio(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 102)
+      }()
+      case .video?: try {
+        guard case .video(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 103)
+      }()
+      case .geo?: try {
+        guard case .geo(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 104)
+      }()
+      case .file?: try {
+        guard case .file(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 105)
+      }()
+      case .workerTrans?: try {
+        guard case .workerTrans(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 106)
+      }()
+      case .blacklistApply?: try {
+        guard case .blacklistApply(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 107)
+      }()
+      case .blacklistConfirm?: try {
+        guard case .blacklistConfirm(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 108)
+      }()
+      case .autoReply?: try {
+        guard case .autoReply(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 109)
+      }()
+      case .workerChanged?: try {
+        guard case .workerChanged(let v)? = _storage._payload else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 110)
+      }()
+      case nil: break
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: CommonMessage, rhs: CommonMessage) -> Bool {
-    if lhs.chatID != rhs.chatID {return false}
-    if lhs.msgID != rhs.msgID {return false}
-    if lhs._msgTime != rhs._msgTime {return false}
-    if lhs.sender != rhs.sender {return false}
-    if lhs.replyMsgID != rhs.replyMsgID {return false}
-    if lhs.msgOp != rhs.msgOp {return false}
-    if lhs.worker != rhs.worker {return false}
-    if lhs._autoReplyFlag != rhs._autoReplyFlag {return false}
-    if lhs.payload != rhs.payload {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._chatID != rhs_storage._chatID {return false}
+        if _storage._msgID != rhs_storage._msgID {return false}
+        if _storage._msgTime != rhs_storage._msgTime {return false}
+        if _storage._sender != rhs_storage._sender {return false}
+        if _storage._replyMsgID != rhs_storage._replyMsgID {return false}
+        if _storage._msgOp != rhs_storage._msgOp {return false}
+        if _storage._worker != rhs_storage._worker {return false}
+        if _storage._autoReplyFlag != rhs_storage._autoReplyFlag {return false}
+        if _storage._msgFmt != rhs_storage._msgFmt {return false}
+        if _storage._consultID != rhs_storage._consultID {return false}
+        if _storage._payload != rhs_storage._payload {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

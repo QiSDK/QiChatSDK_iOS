@@ -26,40 +26,35 @@ public struct Api_Core_NoteItem {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var workerID: Int32 {
-    get {return _storage._workerID}
-    set {_uniqueStorage()._workerID = newValue}
-  }
+  public var workerID: Int32 = 0
 
-  public var workerName: String {
-    get {return _storage._workerName}
-    set {_uniqueStorage()._workerName = newValue}
-  }
+  public var workerName: String = String()
 
   public var createAt: SwiftProtobuf.Google_Protobuf_Timestamp {
-    get {return _storage._createAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
-    set {_uniqueStorage()._createAt = newValue}
+    get {return _createAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_createAt = newValue}
   }
   /// Returns true if `createAt` has been explicitly set.
-  public var hasCreateAt: Bool {return _storage._createAt != nil}
+  public var hasCreateAt: Bool {return self._createAt != nil}
   /// Clears the value of `createAt`. Subsequent reads from it will return its default value.
-  public mutating func clearCreateAt() {_uniqueStorage()._createAt = nil}
+  public mutating func clearCreateAt() {self._createAt = nil}
 
   /// 客服备注的消息
   public var noteMsg: CommonMessage {
-    get {return _storage._noteMsg ?? CommonMessage()}
-    set {_uniqueStorage()._noteMsg = newValue}
+    get {return _noteMsg ?? CommonMessage()}
+    set {_noteMsg = newValue}
   }
   /// Returns true if `noteMsg` has been explicitly set.
-  public var hasNoteMsg: Bool {return _storage._noteMsg != nil}
+  public var hasNoteMsg: Bool {return self._noteMsg != nil}
   /// Clears the value of `noteMsg`. Subsequent reads from it will return its default value.
-  public mutating func clearNoteMsg() {_uniqueStorage()._noteMsg = nil}
+  public mutating func clearNoteMsg() {self._noteMsg = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _storage = _StorageClass.defaultInstance
+  fileprivate var _createAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _noteMsg: CommonMessage? = nil
 }
 
 public struct Api_Core_Note {
@@ -67,30 +62,24 @@ public struct Api_Core_Note {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var chatNoteMsgID: Int64 {
-    get {return _storage._chatNoteMsgID}
-    set {_uniqueStorage()._chatNoteMsgID = newValue}
-  }
+  public var chatNoteMsgID: Int64 = 0
 
   public var src: CommonMessage {
-    get {return _storage._src ?? CommonMessage()}
-    set {_uniqueStorage()._src = newValue}
+    get {return _src ?? CommonMessage()}
+    set {_src = newValue}
   }
   /// Returns true if `src` has been explicitly set.
-  public var hasSrc: Bool {return _storage._src != nil}
+  public var hasSrc: Bool {return self._src != nil}
   /// Clears the value of `src`. Subsequent reads from it will return its default value.
-  public mutating func clearSrc() {_uniqueStorage()._src = nil}
+  public mutating func clearSrc() {self._src = nil}
 
-  public var notes: [Api_Core_NoteItem] {
-    get {return _storage._notes}
-    set {_uniqueStorage()._notes = newValue}
-  }
+  public var notes: [Api_Core_NoteItem] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _storage = _StorageClass.defaultInstance
+  fileprivate var _src: CommonMessage? = nil
 }
 
 public struct Api_Core_QueryNoteRequest {
@@ -148,34 +137,32 @@ public struct Api_Core_CreateNoteRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var chatID: Int64 {
-    get {return _storage._chatID}
-    set {_uniqueStorage()._chatID = newValue}
-  }
+  public var chatID: Int64 = 0
 
   public var src: CommonMessage {
-    get {return _storage._src ?? CommonMessage()}
-    set {_uniqueStorage()._src = newValue}
+    get {return _src ?? CommonMessage()}
+    set {_src = newValue}
   }
   /// Returns true if `src` has been explicitly set.
-  public var hasSrc: Bool {return _storage._src != nil}
+  public var hasSrc: Bool {return self._src != nil}
   /// Clears the value of `src`. Subsequent reads from it will return its default value.
-  public mutating func clearSrc() {_uniqueStorage()._src = nil}
+  public mutating func clearSrc() {self._src = nil}
 
   public var noteMsg: CommonMessage {
-    get {return _storage._noteMsg ?? CommonMessage()}
-    set {_uniqueStorage()._noteMsg = newValue}
+    get {return _noteMsg ?? CommonMessage()}
+    set {_noteMsg = newValue}
   }
   /// Returns true if `noteMsg` has been explicitly set.
-  public var hasNoteMsg: Bool {return _storage._noteMsg != nil}
+  public var hasNoteMsg: Bool {return self._noteMsg != nil}
   /// Clears the value of `noteMsg`. Subsequent reads from it will return its default value.
-  public mutating func clearNoteMsg() {_uniqueStorage()._noteMsg = nil}
+  public mutating func clearNoteMsg() {self._noteMsg = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _storage = _StorageClass.defaultInstance
+  fileprivate var _src: CommonMessage? = nil
+  fileprivate var _noteMsg: CommonMessage? = nil
 }
 
 public struct Api_Core_CreateNoteResponse {
@@ -205,39 +192,34 @@ public struct Api_Core_UpdateNoteRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var chatID: Int64 {
-    get {return _storage._chatID}
-    set {_uniqueStorage()._chatID = newValue}
-  }
+  public var chatID: Int64 = 0
 
-  public var chatNoteMsgID: Int64 {
-    get {return _storage._chatNoteMsgID}
-    set {_uniqueStorage()._chatNoteMsgID = newValue}
-  }
+  public var chatNoteMsgID: Int64 = 0
 
   public var createAt: SwiftProtobuf.Google_Protobuf_Timestamp {
-    get {return _storage._createAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
-    set {_uniqueStorage()._createAt = newValue}
+    get {return _createAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_createAt = newValue}
   }
   /// Returns true if `createAt` has been explicitly set.
-  public var hasCreateAt: Bool {return _storage._createAt != nil}
+  public var hasCreateAt: Bool {return self._createAt != nil}
   /// Clears the value of `createAt`. Subsequent reads from it will return its default value.
-  public mutating func clearCreateAt() {_uniqueStorage()._createAt = nil}
+  public mutating func clearCreateAt() {self._createAt = nil}
 
   public var noteMsg: CommonMessage {
-    get {return _storage._noteMsg ?? CommonMessage()}
-    set {_uniqueStorage()._noteMsg = newValue}
+    get {return _noteMsg ?? CommonMessage()}
+    set {_noteMsg = newValue}
   }
   /// Returns true if `noteMsg` has been explicitly set.
-  public var hasNoteMsg: Bool {return _storage._noteMsg != nil}
+  public var hasNoteMsg: Bool {return self._noteMsg != nil}
   /// Clears the value of `noteMsg`. Subsequent reads from it will return its default value.
-  public mutating func clearNoteMsg() {_uniqueStorage()._noteMsg = nil}
+  public mutating func clearNoteMsg() {self._noteMsg = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _storage = _StorageClass.defaultInstance
+  fileprivate var _createAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _noteMsg: CommonMessage? = nil
 }
 
 public struct Api_Core_UpdateNoteResponse {
@@ -312,84 +294,46 @@ extension Api_Core_NoteItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     4: .standard(proto: "note_msg"),
   ]
 
-  fileprivate class _StorageClass {
-    var _workerID: Int32 = 0
-    var _workerName: String = String()
-    var _createAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
-    var _noteMsg: CommonMessage? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _workerID = source._workerID
-      _workerName = source._workerName
-      _createAt = source._createAt
-      _noteMsg = source._noteMsg
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularInt32Field(value: &_storage._workerID) }()
-        case 2: try { try decoder.decodeSingularStringField(value: &_storage._workerName) }()
-        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._createAt) }()
-        case 4: try { try decoder.decodeSingularMessageField(value: &_storage._noteMsg) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.workerName) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._createAt) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._noteMsg) }()
+      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      if _storage._workerID != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._workerID, fieldNumber: 1)
-      }
-      if !_storage._workerName.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._workerName, fieldNumber: 2)
-      }
-      try { if let v = _storage._createAt {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      } }()
-      try { if let v = _storage._noteMsg {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      } }()
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 1)
     }
+    if !self.workerName.isEmpty {
+      try visitor.visitSingularStringField(value: self.workerName, fieldNumber: 2)
+    }
+    try { if let v = self._createAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._noteMsg {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Core_NoteItem, rhs: Api_Core_NoteItem) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._workerID != rhs_storage._workerID {return false}
-        if _storage._workerName != rhs_storage._workerName {return false}
-        if _storage._createAt != rhs_storage._createAt {return false}
-        if _storage._noteMsg != rhs_storage._noteMsg {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.workerName != rhs.workerName {return false}
+    if lhs._createAt != rhs._createAt {return false}
+    if lhs._noteMsg != rhs._noteMsg {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -403,77 +347,41 @@ extension Api_Core_Note: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     3: .same(proto: "notes"),
   ]
 
-  fileprivate class _StorageClass {
-    var _chatNoteMsgID: Int64 = 0
-    var _src: CommonMessage? = nil
-    var _notes: [Api_Core_NoteItem] = []
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _chatNoteMsgID = source._chatNoteMsgID
-      _src = source._src
-      _notes = source._notes
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularInt64Field(value: &_storage._chatNoteMsgID) }()
-        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._src) }()
-        case 3: try { try decoder.decodeRepeatedMessageField(value: &_storage._notes) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.chatNoteMsgID) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._src) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.notes) }()
+      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      if _storage._chatNoteMsgID != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._chatNoteMsgID, fieldNumber: 1)
-      }
-      try { if let v = _storage._src {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      } }()
-      if !_storage._notes.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._notes, fieldNumber: 3)
-      }
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.chatNoteMsgID != 0 {
+      try visitor.visitSingularInt64Field(value: self.chatNoteMsgID, fieldNumber: 1)
+    }
+    try { if let v = self._src {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    if !self.notes.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.notes, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Core_Note, rhs: Api_Core_Note) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._chatNoteMsgID != rhs_storage._chatNoteMsgID {return false}
-        if _storage._src != rhs_storage._src {return false}
-        if _storage._notes != rhs_storage._notes {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs.chatNoteMsgID != rhs.chatNoteMsgID {return false}
+    if lhs._src != rhs._src {return false}
+    if lhs.notes != rhs.notes {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -583,77 +491,41 @@ extension Api_Core_CreateNoteRequest: SwiftProtobuf.Message, SwiftProtobuf._Mess
     3: .standard(proto: "note_msg"),
   ]
 
-  fileprivate class _StorageClass {
-    var _chatID: Int64 = 0
-    var _src: CommonMessage? = nil
-    var _noteMsg: CommonMessage? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _chatID = source._chatID
-      _src = source._src
-      _noteMsg = source._noteMsg
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularInt64Field(value: &_storage._chatID) }()
-        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._src) }()
-        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._noteMsg) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._src) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._noteMsg) }()
+      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      if _storage._chatID != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._chatID, fieldNumber: 1)
-      }
-      try { if let v = _storage._src {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      } }()
-      try { if let v = _storage._noteMsg {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      } }()
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.chatID != 0 {
+      try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 1)
     }
+    try { if let v = self._src {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._noteMsg {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Core_CreateNoteRequest, rhs: Api_Core_CreateNoteRequest) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._chatID != rhs_storage._chatID {return false}
-        if _storage._src != rhs_storage._src {return false}
-        if _storage._noteMsg != rhs_storage._noteMsg {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs.chatID != rhs.chatID {return false}
+    if lhs._src != rhs._src {return false}
+    if lhs._noteMsg != rhs._noteMsg {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -704,84 +576,46 @@ extension Api_Core_UpdateNoteRequest: SwiftProtobuf.Message, SwiftProtobuf._Mess
     4: .standard(proto: "note_msg"),
   ]
 
-  fileprivate class _StorageClass {
-    var _chatID: Int64 = 0
-    var _chatNoteMsgID: Int64 = 0
-    var _createAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
-    var _noteMsg: CommonMessage? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _chatID = source._chatID
-      _chatNoteMsgID = source._chatNoteMsgID
-      _createAt = source._createAt
-      _noteMsg = source._noteMsg
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularInt64Field(value: &_storage._chatID) }()
-        case 2: try { try decoder.decodeSingularInt64Field(value: &_storage._chatNoteMsgID) }()
-        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._createAt) }()
-        case 4: try { try decoder.decodeSingularMessageField(value: &_storage._noteMsg) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.chatNoteMsgID) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._createAt) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._noteMsg) }()
+      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      if _storage._chatID != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._chatID, fieldNumber: 1)
-      }
-      if _storage._chatNoteMsgID != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._chatNoteMsgID, fieldNumber: 2)
-      }
-      try { if let v = _storage._createAt {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      } }()
-      try { if let v = _storage._noteMsg {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      } }()
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.chatID != 0 {
+      try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 1)
     }
+    if self.chatNoteMsgID != 0 {
+      try visitor.visitSingularInt64Field(value: self.chatNoteMsgID, fieldNumber: 2)
+    }
+    try { if let v = self._createAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._noteMsg {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Core_UpdateNoteRequest, rhs: Api_Core_UpdateNoteRequest) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._chatID != rhs_storage._chatID {return false}
-        if _storage._chatNoteMsgID != rhs_storage._chatNoteMsgID {return false}
-        if _storage._createAt != rhs_storage._createAt {return false}
-        if _storage._noteMsg != rhs_storage._noteMsg {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs.chatID != rhs.chatID {return false}
+    if lhs.chatNoteMsgID != rhs.chatNoteMsgID {return false}
+    if lhs._createAt != rhs._createAt {return false}
+    if lhs._noteMsg != rhs._noteMsg {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -70,7 +70,7 @@ public enum CommonQRCodeCAT: SwiftProtobuf.Enum {
 
 extension CommonQRCodeCAT: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [CommonQRCodeCAT] = [
+  public static let allCases: [CommonQRCodeCAT] = [
     .unknown,
     .userCard,
     .userCardLite,
@@ -121,7 +121,7 @@ public enum CommonQRCodeType: SwiftProtobuf.Enum {
 
 extension CommonQRCodeType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [CommonQRCodeType] = [
+  public static let allCases: [CommonQRCodeType] = [
     .unknown,
     .static,
     .dynamic,

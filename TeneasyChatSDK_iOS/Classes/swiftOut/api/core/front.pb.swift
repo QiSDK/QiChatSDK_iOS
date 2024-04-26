@@ -20,6 +20,19 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+public struct Api_Core_AutoReplyRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 咨询id
+  public var consultID: UInt32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 public struct Api_Core_AssignWorkerRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -47,6 +60,12 @@ public struct Api_Core_AssignWorkerResponse {
   /// id
   public var workerID: Int32 = 0
 
+  /// nimid
+  public var nimid: String = String()
+
+  /// tips
+  public var tips: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -65,6 +84,9 @@ public struct Api_Core_AssignWorkerItem {
 
   /// id
   public var workerID: Int32 = 0
+
+  /// 云信账号
+  public var nimID: String = String()
 
   ///连接
   public var connectState: Api_Common_ConnectState = .offline
@@ -228,6 +250,12 @@ public struct Api_Core_ConsultItem {
   /// 客服列表
   public var works: [Api_Core_AssignWorkerItem] = []
 
+  ///未读提示
+  public var unread: Int32 = 0
+
+  /// 排序
+  public var priority: Int32 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -329,22 +357,44 @@ public struct Api_Core_CustomerDataResponse {
   fileprivate var _lastContactTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
+///查询 客服号
 public struct Api_Core_QueryWorkerRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var workerID: Int32 = 0
+  public var workerID: Int32 {
+    get {return _workerID ?? 0}
+    set {_workerID = newValue}
+  }
+  /// Returns true if `workerID` has been explicitly set.
+  public var hasWorkerID: Bool {return self._workerID != nil}
+  /// Clears the value of `workerID`. Subsequent reads from it will return its default value.
+  public mutating func clearWorkerID() {self._workerID = nil}
+
+  public var nimID: String {
+    get {return _nimID ?? String()}
+    set {_nimID = newValue}
+  }
+  /// Returns true if `nimID` has been explicitly set.
+  public var hasNimID: Bool {return self._nimID != nil}
+  /// Clears the value of `nimID`. Subsequent reads from it will return its default value.
+  public mutating func clearNimID() {self._nimID = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+
+  fileprivate var _workerID: Int32? = nil
+  fileprivate var _nimID: String? = nil
 }
 
 public struct Api_Core_QueryWorkerResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
+
+  public var workerID: Int32 = 0
 
   public var workerName: String = String()
 
@@ -431,7 +481,37 @@ public struct Api_Core_ReplyRequest {
   public init() {}
 }
 
+///verify
+public struct Api_Core_VerifyRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var gnsID: String = String()
+
+  public var tenantID: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_VerifyResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var gnsID: String = String()
+
+  public var tenantID: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
+extension Api_Core_AutoReplyRequest: @unchecked Sendable {}
 extension Api_Core_AssignWorkerRequest: @unchecked Sendable {}
 extension Api_Core_AssignWorkerResponse: @unchecked Sendable {}
 extension Api_Core_AssignWorkerItem: @unchecked Sendable {}
@@ -453,11 +533,45 @@ extension Api_Core_UpdateUserAppealRequest: @unchecked Sendable {}
 extension Api_Core_PingPongRequest: @unchecked Sendable {}
 extension Api_Core_PingPongResponse: @unchecked Sendable {}
 extension Api_Core_ReplyRequest: @unchecked Sendable {}
+extension Api_Core_VerifyRequest: @unchecked Sendable {}
+extension Api_Core_VerifyResponse: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "api.core"
+
+extension Api_Core_AutoReplyRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".AutoReplyRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "consult_id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.consultID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.consultID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.consultID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_AutoReplyRequest, rhs: Api_Core_AutoReplyRequest) -> Bool {
+    if lhs.consultID != rhs.consultID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
 
 extension Api_Core_AssignWorkerRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".AssignWorkerRequest"
@@ -497,6 +611,8 @@ extension Api_Core_AssignWorkerResponse: SwiftProtobuf.Message, SwiftProtobuf._M
     1: .same(proto: "nick"),
     2: .same(proto: "avatar"),
     3: .standard(proto: "worker_id"),
+    4: .same(proto: "nimid"),
+    5: .same(proto: "tips"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -508,6 +624,8 @@ extension Api_Core_AssignWorkerResponse: SwiftProtobuf.Message, SwiftProtobuf._M
       case 1: try { try decoder.decodeSingularStringField(value: &self.nick) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.avatar) }()
       case 3: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.nimid) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.tips) }()
       default: break
       }
     }
@@ -523,6 +641,12 @@ extension Api_Core_AssignWorkerResponse: SwiftProtobuf.Message, SwiftProtobuf._M
     if self.workerID != 0 {
       try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 3)
     }
+    if !self.nimid.isEmpty {
+      try visitor.visitSingularStringField(value: self.nimid, fieldNumber: 4)
+    }
+    if !self.tips.isEmpty {
+      try visitor.visitSingularStringField(value: self.tips, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -530,6 +654,8 @@ extension Api_Core_AssignWorkerResponse: SwiftProtobuf.Message, SwiftProtobuf._M
     if lhs.nick != rhs.nick {return false}
     if lhs.avatar != rhs.avatar {return false}
     if lhs.workerID != rhs.workerID {return false}
+    if lhs.nimid != rhs.nimid {return false}
+    if lhs.tips != rhs.tips {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -541,8 +667,9 @@ extension Api_Core_AssignWorkerItem: SwiftProtobuf.Message, SwiftProtobuf._Messa
     1: .same(proto: "nick"),
     2: .same(proto: "avatar"),
     3: .standard(proto: "worker_id"),
-    4: .standard(proto: "connect_state"),
-    5: .standard(proto: "online_state"),
+    4: .standard(proto: "nim_id"),
+    5: .standard(proto: "connect_state"),
+    6: .standard(proto: "online_state"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -554,8 +681,9 @@ extension Api_Core_AssignWorkerItem: SwiftProtobuf.Message, SwiftProtobuf._Messa
       case 1: try { try decoder.decodeSingularStringField(value: &self.nick) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.avatar) }()
       case 3: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
-      case 4: try { try decoder.decodeSingularEnumField(value: &self.connectState) }()
-      case 5: try { try decoder.decodeSingularEnumField(value: &self.onlineState) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.nimID) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.connectState) }()
+      case 6: try { try decoder.decodeSingularEnumField(value: &self.onlineState) }()
       default: break
       }
     }
@@ -571,11 +699,14 @@ extension Api_Core_AssignWorkerItem: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if self.workerID != 0 {
       try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 3)
     }
+    if !self.nimID.isEmpty {
+      try visitor.visitSingularStringField(value: self.nimID, fieldNumber: 4)
+    }
     if self.connectState != .offline {
-      try visitor.visitSingularEnumField(value: self.connectState, fieldNumber: 4)
+      try visitor.visitSingularEnumField(value: self.connectState, fieldNumber: 5)
     }
     if self.onlineState != .idle {
-      try visitor.visitSingularEnumField(value: self.onlineState, fieldNumber: 5)
+      try visitor.visitSingularEnumField(value: self.onlineState, fieldNumber: 6)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -584,6 +715,7 @@ extension Api_Core_AssignWorkerItem: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if lhs.nick != rhs.nick {return false}
     if lhs.avatar != rhs.avatar {return false}
     if lhs.workerID != rhs.workerID {return false}
+    if lhs.nimID != rhs.nimID {return false}
     if lhs.connectState != rhs.connectState {return false}
     if lhs.onlineState != rhs.onlineState {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -838,6 +970,8 @@ extension Api_Core_ConsultItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     2: .same(proto: "name"),
     3: .same(proto: "guide"),
     4: .same(proto: "Works"),
+    5: .same(proto: "unread"),
+    6: .same(proto: "priority"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -850,6 +984,8 @@ extension Api_Core_ConsultItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
       case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.guide) }()
       case 4: try { try decoder.decodeRepeatedMessageField(value: &self.works) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.unread) }()
+      case 6: try { try decoder.decodeSingularInt32Field(value: &self.priority) }()
       default: break
       }
     }
@@ -868,6 +1004,12 @@ extension Api_Core_ConsultItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     if !self.works.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.works, fieldNumber: 4)
     }
+    if self.unread != 0 {
+      try visitor.visitSingularInt32Field(value: self.unread, fieldNumber: 5)
+    }
+    if self.priority != 0 {
+      try visitor.visitSingularInt32Field(value: self.priority, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -876,6 +1018,8 @@ extension Api_Core_ConsultItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     if lhs.name != rhs.name {return false}
     if lhs.guide != rhs.guide {return false}
     if lhs.works != rhs.works {return false}
+    if lhs.unread != rhs.unread {return false}
+    if lhs.priority != rhs.priority {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1077,6 +1221,50 @@ extension Api_Core_QueryWorkerRequest: SwiftProtobuf.Message, SwiftProtobuf._Mes
   public static let protoMessageName: String = _protobuf_package + ".QueryWorkerRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "worker_id"),
+    2: .standard(proto: "nim_id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self._workerID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self._nimID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._workerID {
+      try visitor.visitSingularInt32Field(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._nimID {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QueryWorkerRequest, rhs: Api_Core_QueryWorkerRequest) -> Bool {
+    if lhs._workerID != rhs._workerID {return false}
+    if lhs._nimID != rhs._nimID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QueryWorkerResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QueryWorkerResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "worker_id"),
+    2: .standard(proto: "worker_name"),
+    3: .standard(proto: "worker_avatar"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1086,6 +1274,8 @@ extension Api_Core_QueryWorkerRequest: SwiftProtobuf.Message, SwiftProtobuf._Mes
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.workerName) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.workerAvatar) }()
       default: break
       }
     }
@@ -1095,47 +1285,17 @@ extension Api_Core_QueryWorkerRequest: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if self.workerID != 0 {
       try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 1)
     }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Api_Core_QueryWorkerRequest, rhs: Api_Core_QueryWorkerRequest) -> Bool {
-    if lhs.workerID != rhs.workerID {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Api_Core_QueryWorkerResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".QueryWorkerResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "worker_name"),
-    2: .standard(proto: "worker_avatar"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.workerName) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.workerAvatar) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.workerName.isEmpty {
-      try visitor.visitSingularStringField(value: self.workerName, fieldNumber: 1)
+      try visitor.visitSingularStringField(value: self.workerName, fieldNumber: 2)
     }
     if !self.workerAvatar.isEmpty {
-      try visitor.visitSingularStringField(value: self.workerAvatar, fieldNumber: 2)
+      try visitor.visitSingularStringField(value: self.workerAvatar, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Core_QueryWorkerResponse, rhs: Api_Core_QueryWorkerResponse) -> Bool {
+    if lhs.workerID != rhs.workerID {return false}
     if lhs.workerName != rhs.workerName {return false}
     if lhs.workerAvatar != rhs.workerAvatar {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -1342,6 +1502,82 @@ extension Api_Core_ReplyRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
 
   public static func ==(lhs: Api_Core_ReplyRequest, rhs: Api_Core_ReplyRequest) -> Bool {
     if lhs.msgID != rhs.msgID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_VerifyRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".VerifyRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "gns_id"),
+    2: .standard(proto: "tenant_id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.gnsID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.tenantID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.gnsID.isEmpty {
+      try visitor.visitSingularStringField(value: self.gnsID, fieldNumber: 1)
+    }
+    if self.tenantID != 0 {
+      try visitor.visitSingularInt32Field(value: self.tenantID, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_VerifyRequest, rhs: Api_Core_VerifyRequest) -> Bool {
+    if lhs.gnsID != rhs.gnsID {return false}
+    if lhs.tenantID != rhs.tenantID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_VerifyResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".VerifyResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "gns_id"),
+    2: .standard(proto: "tenant_id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.gnsID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.tenantID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.gnsID.isEmpty {
+      try visitor.visitSingularStringField(value: self.gnsID, fieldNumber: 1)
+    }
+    if self.tenantID != 0 {
+      try visitor.visitSingularInt32Field(value: self.tenantID, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_VerifyResponse, rhs: Api_Core_VerifyResponse) -> Bool {
+    if lhs.gnsID != rhs.gnsID {return false}
+    if lhs.tenantID != rhs.tenantID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -84,7 +84,7 @@ public enum Api_AuthenticationRole: SwiftProtobuf.Enum {
 
 extension Api_AuthenticationRole: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Api_AuthenticationRole] = [
+  public static let allCases: [Api_AuthenticationRole] = [
     .authRoleNone,
     .authRoleAccount,
     .authRoleDevice,
@@ -130,7 +130,7 @@ public enum Api_PayloadType: SwiftProtobuf.Enum {
 
 extension Api_PayloadType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Api_PayloadType] = [
+  public static let allCases: [Api_PayloadType] = [
     .jsonPayload,
     .binaryPayload,
   ]
@@ -1365,7 +1365,15 @@ extension Api_MethodOptions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     var _out: Api_Payload? = nil
     var _docs: [Api_ExternalDocumentation] = []
 
-    static let defaultInstance = _StorageClass()
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
 
     private init() {}
 

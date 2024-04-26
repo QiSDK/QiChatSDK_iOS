@@ -27,6 +27,8 @@ public struct Api_Core_EntranceQueryResponse {
 
   public var entrances: [Api_Common_Entrance] = []
 
+  public var total: Int32 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -222,6 +224,7 @@ extension Api_Core_EntranceQueryResponse: SwiftProtobuf.Message, SwiftProtobuf._
   public static let protoMessageName: String = _protobuf_package + ".EntranceQueryResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "entrances"),
+    2: .same(proto: "total"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -231,6 +234,7 @@ extension Api_Core_EntranceQueryResponse: SwiftProtobuf.Message, SwiftProtobuf._
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedMessageField(value: &self.entrances) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.total) }()
       default: break
       }
     }
@@ -240,11 +244,15 @@ extension Api_Core_EntranceQueryResponse: SwiftProtobuf.Message, SwiftProtobuf._
     if !self.entrances.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.entrances, fieldNumber: 1)
     }
+    if self.total != 0 {
+      try visitor.visitSingularInt32Field(value: self.total, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Core_EntranceQueryResponse, rhs: Api_Core_EntranceQueryResponse) -> Bool {
     if lhs.entrances != rhs.entrances {return false}
+    if lhs.total != rhs.total {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

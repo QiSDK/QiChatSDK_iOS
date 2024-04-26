@@ -152,7 +152,7 @@ public enum Gateway_Action: SwiftProtobuf.Enum {
 
 extension Gateway_Action: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Gateway_Action] = [
+  public static let allCases: [Gateway_Action] = [
     .forward,
     .schi,
     .cssendMsg,

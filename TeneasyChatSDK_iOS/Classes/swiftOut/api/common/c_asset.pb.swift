@@ -59,7 +59,7 @@ public enum CommonAssetUploadState: SwiftProtobuf.Enum {
 
 extension CommonAssetUploadState: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [CommonAssetUploadState] = [
+  public static let allCases: [CommonAssetUploadState] = [
     .unknown,
     .putting,
     .put,
@@ -118,7 +118,7 @@ public enum CommonAssetKind: SwiftProtobuf.Enum {
 
 extension CommonAssetKind: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [CommonAssetKind] = [
+  public static let allCases: [CommonAssetKind] = [
     .none,
     .public,
     .private,
@@ -179,7 +179,7 @@ public enum CommonAssetType: SwiftProtobuf.Enum {
 
 extension CommonAssetType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [CommonAssetType] = [
+  public static let allCases: [CommonAssetType] = [
     .unknown,
     .image,
     .audio,
@@ -250,7 +250,7 @@ public enum CommonAssetContext: SwiftProtobuf.Enum {
 
 extension CommonAssetContext: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [CommonAssetContext] = [
+  public static let allCases: [CommonAssetContext] = [
     .unknown,
     .message,
     .moment,
