@@ -10,12 +10,21 @@ import UIKit
 import TeneasyChatSDK_iOS
 import SwiftDate
 
-class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
+class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate, readTextDelegate {
+    func receivedText(msg: String) {
+        tvChatView.text.append(msg)
+        appendMsgScroll()
+    }
+    
     
     @IBOutlet weak var tvChatView: UITextView!
+    @IBOutlet weak var tvInputText: UITextView!
+    @IBOutlet weak var etShangHu: UITextField!
+    
     var lib = ChatLib()
     var payLoadId: UInt64 = 0
     var lastMessage: CommonMessage? = nil
+    var baseUrl: String? = ""
     
     var send = false
     func connected(c: Gateway_SCHi) {
@@ -31,10 +40,11 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
             //tvChatView.text.append("\n重新连接\n")
             lib.reConnect()
         }
-        tvChatView.text.append("\n发送图片！ ImageUrl: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQKV-3KPDbUgVdqjfEb3HK_SvGjcPYVl7n7KGCwBL6&s\n\n")
-        lib.sendMessage(msg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQKV-3KPDbUgVdqjfEb3HK_SvGjcPYVl7n7KGCwBL6&s", type: .msgImg, consultId: 100)
+       // tvChatView.text.append("\n发送图片！ ImageUrl: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQKV-3KPDbUgVdqjfEb3HK_SvGjcPYVl7n7KGCwBL6&s\n\n")
+      //  lib.sendMessage(msg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQKV-3KPDbUgVdqjfEb3HK_SvGjcPYVl7n7KGCwBL6&s", type: .msgImg, consultId: 100)
         print(c.workerID)
         
+        appendMsgScroll()
     }
     
     //收到对方的消息
@@ -59,6 +69,8 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
         default:
             print("ddd")
         }
+        
+        appendMsgScroll()
     }
     
     //发送的消息收到回执
@@ -99,6 +111,7 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
         tvChatView.text.append("                                         " +  time + "\n\n")
         self.payLoadId = payloadId
         lastMessage = msg
+        appendMsgScroll()
     }
     
     //收到的系统消息
@@ -111,15 +124,58 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
         //cpf
     }
     
+    func appendMsgScroll(){
+        let bottomOffset = CGPoint(x: 0, y: tvChatView.contentSize.height - tvChatView.bounds.height)
+        tvChatView.setContentOffset(bottomOffset, animated: true) // Scroll to the bottom
+    }
+    
     func workChanged(msg: Gateway_SCWorkerChanged){
         tvChatView.text.append(msg.workerName)
     }
     
+    @IBAction public func readText(){
+        tvChatView.text = ""
+        let lines = tvInputText.text.split(separator: ",").map { String($0) }
+        //let lines = ["https://qlqiniu.quyou.tech/gw3config.txt","https://ydqlacc.weletter05.com/gw3config.txt"]
+        let lib = ReadTxtLib(lines, delegate: self)
+        lib.readText()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tvChatView.text = "teneasy chat sdk 初始化\n正在连接。。。\n"
+   
+        tvInputText.isEditable = true
+        tvInputText.isUserInteractionEnabled = true
+        
         tvChatView.isUserInteractionEnabled = true
         tvChatView.isScrollEnabled = true
+        
+
+             let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+
+            //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+            //tap.cancelsTouchesInView = false
+
+            view.addGestureRecognizer(tap)
+    }
+    
+    //Calls this function when the tap is recognized.
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
+    @IBAction func TestLine(){
+        
+        if ((etShangHu.text ?? "").isEmpty){
+            tvChatView.text.append("请输入商户号\n\n")
+            appendMsgScroll()
+            return;
+        }
+
+        
+        let shangHu: Int? = Int(etShangHu.text ?? "0")
+        
         //https://qlqiniu.quyou.tech/gw3config.txt
     //https://ydqlacc.weletter05.com/gw3config.txt
         //let lines = ["https://dtest/gw3config.txt", "https://qlqiniu.quyou.tech/gw3config.txt", "https://ddtest/gw3config.txt",  "https://ydqlacc.weletter05.com/gw3config.txt", "https://ddtest/gw3config.txt", "https://ddtest.com/gw3config.txt", "https://qlqiniu.quyou.tech/gw3config.txt","https://ydqlacc.weletter05.com/gw3config.txt", "https://ddtest.net/gw3config.txt"]
@@ -130,9 +186,13 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
         
         //测试的线路
         //let lines = ["https://qlqiniu.quyou.tech/gw3config.txt","https://ydqlacc.weletter05.com/gw3config.txt"]
-        let lines = ["https://qlqiniu.quyou.tech/gw3config.txt","https://ydqlacc.weletter05.com/gw3config.txt"]
         
-        let lineLib = LineLib(lines, delegate: self, tenantId: 123)
+        
+        //let lines = ["https://qlqiniu.quyou.tech/gw3config.txt","https://ydqlacc.weletter05.com/gw3config.txt"]
+        
+        let lines = tvInputText.text.split(separator: ",").map { String($0) }
+        let lineLib = LineLib(lines, delegate: self, tenantId: shangHu ?? 0)
+        
         lineLib.getLine()
     }
     
@@ -140,7 +200,15 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
         tvChatView.text.append("api " + line.VITE_API_BASE_URL + "\n")
         tvChatView.text.append("img " + line.VITE_IMG_URL + "\n")
         tvChatView.text.append("wss " + line.VITE_WSS_HOST + "\n")
+        
+        appendMsgScroll()
+        //baseUrl = line.VITE_WSS_HOST
+        
+//#if DEBUG
         initSDK(baseUrl: line.VITE_WSS_HOST)
+//#else
+//
+//#endif
     }
     
     func lineError(error: Result){
@@ -148,6 +216,9 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
     }
     
     func initSDK(baseUrl: String){
+        
+        tvChatView.text = "teneasy chat sdk 初始化\n正在连接。。。\n"
+        
         let wssUrl = "wss://" + baseUrl + "/v1/gateway/h5?token="
         
         //从网页端把chatId和token传进sdk,2692944494603
@@ -168,12 +239,12 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let btSend = UIButton()
-        btSend.frame = CGRect(x: 100, y: 200, width: 200, height: 200)
-        btSend.setTitleColor(UIColor.systemRed, for: UIControlState.normal)
-        btSend.setTitle("Send", for: UIControlState.normal)
-        self.view.addSubview(btSend)
-        btSend.addTarget(self, action:#selector(btSendAction), for:.touchUpInside)
+//        let btSend = UIButton()
+//        btSend.frame = CGRect(x: 100, y: 200, width: 200, height: 200)
+//        btSend.setTitleColor(UIColor.systemRed, for: UIControlState.normal)
+//        btSend.setTitle("Send", for: UIControlState.normal)
+//        self.view.addSubview(btSend)
+//        btSend.addTarget(self, action:#selector(btSendAction), for:.touchUpInside)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -191,7 +262,7 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate {
         lib.deleteMessage(msgId: lastMessage?.msgID ?? 0)//493660676493934594
     }
     
-    @objc func btSendAction(){
+    @IBAction func btSendAction(){
         
 //        if !send && lastMessage != nil{
 //            lib.operateMsg(msg: lastMessage!, payloadId: payLoadId, act: .csdeleteMsg)

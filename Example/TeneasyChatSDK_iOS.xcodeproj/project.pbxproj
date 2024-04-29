@@ -16,6 +16,7 @@
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		AF9EA284616E4BDEA5FE6E8B /* Pods_TeneasyChatSDK_iOS_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 999C6693651E15CB8BBE5610 /* Pods_TeneasyChatSDK_iOS_Tests.framework */; };
 		C78DFB4529877A17008254A8 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78DFB4429877A17008254A8 /* Utils.swift */; };
+		DCB256952BDF697B002B36BC /* ReadTxtLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB256942BDF697B002B36BC /* ReadTxtLib.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		BDDB6D067B0B3D206B59E74B /* Pods_TeneasyChatSDK_iOS_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeneasyChatSDK_iOS_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C78DFB4429877A17008254A8 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		D789AC5A2EBF381DABCE62F7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		DCB256942BDF697B002B36BC /* ReadTxtLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadTxtLib.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 		607FACD21AFB9204008FA782 /* Example for TeneasyChatSDK_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				DCB256942BDF697B002B36BC /* ReadTxtLib.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -367,6 +370,7 @@
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				DCB256952BDF697B002B36BC /* ReadTxtLib.swift in Sources */,
 				C78DFB4529877A17008254A8 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
