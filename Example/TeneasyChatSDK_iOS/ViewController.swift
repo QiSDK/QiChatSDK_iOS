@@ -217,7 +217,7 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate, rea
     
     func initSDK(baseUrl: String){
         
-        tvChatView.text = "teneasy chat sdk 初始化\n正在连接。。。\n"
+        tvChatView.text.append("teneasy chat sdk 初始化\n正在连接。。。\n")
         
         let wssUrl = "wss://" + baseUrl + "/v1/gateway/h5?token="
         
