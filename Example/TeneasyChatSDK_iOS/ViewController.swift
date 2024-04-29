@@ -150,7 +150,6 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate, rea
         tvChatView.isUserInteractionEnabled = true
         tvChatView.isScrollEnabled = true
         
-
              let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
 
             //Uncomment the line below if you want the tap not not interfere and cancel other interactions.

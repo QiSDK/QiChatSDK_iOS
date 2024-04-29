@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
@@ -17,60 +17,75 @@
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dUd-fA-Xz2">
-                                <rect key="frame" x="6" y="279" width="363" height="302"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dUd-fA-Xz2">
+                                <rect key="frame" x="10" y="387.66666666666674" width="410" height="490.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="https://qlqiniu.quyou.tech/gw3config.txt, https://ydqlacc.weletter05.com/gw3config.txt" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0QB-Id-euD">
-                                <rect key="frame" x="6" y="28" width="363" height="114"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="https://qlqiniu.quyou.tech/gw3config.txt, https://ydqlacc.weletter05.com/gw3config.txt" translatesAutoresizingMaskIntoConstraints="NO" id="0QB-Id-euD">
+                                <rect key="frame" x="10" y="67" width="410" height="114"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="114" id="IUl-1P-PBy"/>
+                                </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uKV-wc-Nul">
-                                <rect key="frame" x="-2" y="169" width="105" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uKV-wc-Nul">
+                                <rect key="frame" x="8.6666666666666643" y="208" width="91" height="34.333333333333343"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="读取Text"/>
                                 <connections>
                                     <action selector="readText" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ACA-fV-Vcb"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79s-n1-rJL">
-                                <rect key="frame" x="3" y="203" width="94" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79s-n1-rJL">
+                                <rect key="frame" x="7" y="262.33333333333331" width="94" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="线路测试"/>
                                 <connections>
                                     <action selector="TestLine" destination="vXZ-lx-hvc" eventType="touchUpInside" id="xls-QI-CVr"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="输入商户号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rfr-Oa-gS4">
-                                <rect key="frame" x="145" y="204" width="97" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qtf-g7-73d">
-                                <rect key="frame" x="12" y="236" width="76" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qtf-g7-73d">
+                                <rect key="frame" x="16" y="317.33333333333331" width="76" height="34.333333333333314"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="发消息"/>
                                 <connections>
                                     <action selector="btSendAction" destination="vXZ-lx-hvc" eventType="touchUpInside" id="DOA-Bv-qhW"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="输入商户号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rfr-Oa-gS4">
+                                <rect key="frame" x="133" y="263" width="99.666666666666686" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="79s-n1-rJL" firstAttribute="top" secondItem="uKV-wc-Nul" secondAttribute="bottom" constant="20" id="3Vi-4E-xav"/>
+                            <constraint firstItem="qtf-g7-73d" firstAttribute="centerX" secondItem="79s-n1-rJL" secondAttribute="centerX" id="3h7-vA-myQ"/>
+                            <constraint firstItem="rfr-Oa-gS4" firstAttribute="leading" secondItem="79s-n1-rJL" secondAttribute="trailing" constant="32" id="LW7-a4-hB1"/>
+                            <constraint firstItem="rfr-Oa-gS4" firstAttribute="centerY" secondItem="79s-n1-rJL" secondAttribute="centerY" id="O3c-9I-T8w"/>
+                            <constraint firstItem="qtf-g7-73d" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-4" id="Sxu-sz-515"/>
+                            <constraint firstItem="uKV-wc-Nul" firstAttribute="top" secondItem="0QB-Id-euD" secondAttribute="bottom" constant="27" id="bd1-9p-ava"/>
+                            <constraint firstItem="0QB-Id-euD" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" symbolic="YES" id="cWI-EV-ZC9"/>
+                            <constraint firstItem="qtf-g7-73d" firstAttribute="centerX" secondItem="uKV-wc-Nul" secondAttribute="centerX" id="eGC-tM-PrZ"/>
+                            <constraint firstItem="0QB-Id-euD" firstAttribute="trailing" secondItem="dUd-fA-Xz2" secondAttribute="trailing" id="ea1-am-oXZ"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="dUd-fA-Xz2" secondAttribute="bottom" constant="20" id="gCe-Dv-jh8"/>
+                            <constraint firstItem="0QB-Id-euD" firstAttribute="leading" secondItem="dUd-fA-Xz2" secondAttribute="leading" id="iOb-ZP-eRU"/>
+                            <constraint firstItem="0QB-Id-euD" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="jaM-fX-5Sx"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rfr-Oa-gS4" secondAttribute="trailing" constant="20" symbolic="YES" id="kP0-j6-UEL"/>
+                            <constraint firstItem="qtf-g7-73d" firstAttribute="top" secondItem="79s-n1-rJL" secondAttribute="bottom" constant="20" id="msS-5c-MbI"/>
+                            <constraint firstItem="0QB-Id-euD" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-10" id="sWF-6r-egi"/>
+                            <constraint firstItem="dUd-fA-Xz2" firstAttribute="top" secondItem="qtf-g7-73d" secondAttribute="bottom" constant="36" id="zZc-YO-GXF"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="etShangHu" destination="rfr-Oa-gS4" id="XpR-Bg-Lb2"/>
@@ -80,7 +95,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="133.5832083958021"/>
+            <point key="canvasLocation" x="136.23188405797103" y="133.25892857142856"/>
         </scene>
     </scenes>
     <resources>
