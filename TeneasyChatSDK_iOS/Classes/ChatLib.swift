@@ -436,7 +436,7 @@ extension ChatLib: WebSocketDelegate {
                         result.Message = "在别处登录了 B"
                         delegate?.systemMsg(result: result) // Delegate a different system message if the condition is false.
                     }
-                    
+                    stopTimer()
                     print(d.description) // Print the resulting string.
                     isConnected = false // Set the 'isConnected' variable to false.
                 }

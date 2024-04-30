@@ -1,4 +1,5 @@
 import Foundation
+import TeneasyChatSDK_iOS
 import Alamofire
 
 // https://swiftpackageregistry.com/daltoniam/Starscream
@@ -36,8 +37,13 @@ open class ReadTxtLib {
     private var tenantId: Int? = 0
     public func readText(){
         for txtUrl in txtList {
-            let r = 1...100000
-            AF.request("\(txtUrl)?\(r)"){ $0.timeoutInterval = 2}.response { response in
+            
+            let url = checkUrl(str: txtUrl)
+            if url.isEmpty{
+                continue
+            }
+            let r = (1...100000).randomElement()
+            AF.request(url){ $0.timeoutInterval = 2}.response { response in
                 switch response.result {
                 case let .success(value):
                     
@@ -70,6 +76,19 @@ open class ReadTxtLib {
             }
         }
         return nil
+    }
+    
+    func checkUrl(str: String) -> String{
+        let r = (1...100000).randomElement()
+         var newStr = str.trimmingCharacters(in: .whitespacesAndNewlines)
+        newStr = "\(newStr)?\(r ?? 0)"
+        
+        print(newStr)
+        if (!newStr.hasPrefix("http")){
+            newStr = ""
+        }
+    
+        return newStr
     }
 
 }

@@ -37,8 +37,13 @@ public struct LineLib{
             if (LineLib.usedLine){
                 break
             }
-            let r = 1...100000
-            AF.request("\(txtUrl)?\(r)"){ $0.timeoutInterval = 2}.response { response in
+            
+            let url = checkUrl(str: txtUrl)
+            if url.isEmpty{
+                continue
+            }
+            
+            AF.request(url){ $0.timeoutInterval = 2}.response { response in
                 switch response.result {
                 case let .success(value):
                     
@@ -93,8 +98,13 @@ public struct LineLib{
            if (foundLine){
                break
            }
-           let r = 1...100000
-           let url = "\(line.VITE_API_BASE_URL)/v1/api/verify?\(r)"
+           
+           let url = checkUrl(str: "\(line.VITE_API_BASE_URL)/v1/api/verify")
+           
+           if url.isEmpty{
+               continue
+           }
+           
            AF.request(url, method: .post, parameters: bodyStr,  encoding: JSONEncoding.default) { $0.timeoutInterval = 2 }.response { response in
 
                switch response.result {
@@ -143,5 +153,17 @@ public struct LineLib{
             result.Message = "无可用线路"
             delegate?.lineError(error: result)
         }
+    }
+    
+    func checkUrl(str: String) -> String{
+        let r = (1...100000).randomElement()
+         var newStr = str.trimmingCharacters(in: .whitespacesAndNewlines)
+        newStr = "\(newStr)?\(r ?? 0)"
+        
+        
+        if (!newStr.hasPrefix("http")){
+            newStr = ""
+        }
+        return newStr
     }
 }
