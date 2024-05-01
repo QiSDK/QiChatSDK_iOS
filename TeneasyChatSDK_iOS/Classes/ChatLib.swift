@@ -119,7 +119,7 @@ open class ChatLib {
     
     @objc func updataSecond() {
         sessionTime += 1
-        if sessionTime%5 == 0{//每隔8秒发送一个心跳
+        if sessionTime % 30 == 0{//每隔8秒发送一个心跳
             beatTimes += 1
             //print("sending beat \( beatTimes)")
             sendHeartBeat()
