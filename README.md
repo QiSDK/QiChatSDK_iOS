@@ -163,7 +163,7 @@ lib.resendMSg(msg, payloadId);
 ```
 
 ```
-能支持的消息枚举： \
+能支持的消息枚举： 
  /// 文本
   case msgText // = 0
 
