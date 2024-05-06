@@ -215,7 +215,7 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate, rea
         
         tvChatView.text.append("teneasy chat sdk 初始化\n正在连接。。。\n")
         
-        let wssUrl = "wss://" + baseUrl + "/v1/gateway/h5?token="
+        let wssUrl = "wss://" + baseUrl + "/v1/gateway/h5?"
         
         //从网页端把chatId和token传进sdk,2692944494603
         /*
@@ -229,7 +229,7 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate, rea
         /*
                1125324  1125397 1125417
                 */
-        lib = ChatLib(userId: 1125324, cert: "CCcQARgOICIowqaSjeIw.9rO3unQwFrUUa-vJ6HvUQAbiAZN7XWBbaE_Oyd48C0Ae4xhzWWSriIGZZdVSvOajS1h_RFlQHZiFzadgBBuwDQ", baseUrl: wssUrl, sign: "9zgd9YUc")
+        lib = ChatLib(userId: 1125324, cert: "", token: "COYBEAEYAiDwASix49bt9DE.Yg_cE8YuqROTk4CBm97UCuWrmBc9r8wXu8fiBh9Gw5T_yYeAtjeImyC0rJ--YRiq_uYka1mRUYSCoe76PLunAA", baseUrl: wssUrl, sign: "9zgd9YUc")
         lib.callWebsocket()
         lib.delegate = self
     }
