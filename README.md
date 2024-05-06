@@ -33,8 +33,9 @@ pod 'TeneasyChatSDK_iOS', :git => 'https://github.com/QiSDK/QiChatSDK_iOS.git', 
     var lib = ChatLib()
 
     func initSDK(baseUrl: String){
-        let wssUrl = "wss://" + baseUrl + "/v1/gateway/h5?token="
-        lib = ChatLib(userId: 1125324, cert: "CCcQARgOICIowqaSjeIw.9rO3unQwFrUUa-vJ6HvUQAbiAZN7XWBbaE_Oyd48C0Ae4xhzWWSriIGZZdVSvOajS1h_RFlQHZiFzadgBBuwDQ", baseUrl: wssUrl, sign: "9zgd9YUc")
+        let wssUrl = "wss://" + baseUrl + "/v1/gateway/h5?"
+        //第一次cert必填，之后token必填
+        lib = ChatLib(userId: 1125324, cert: "", token: "", baseUrl: wssUrl, sign: "9zgd9YUc")
 
         lib.callWebsocket()
         lib.delegate = self
