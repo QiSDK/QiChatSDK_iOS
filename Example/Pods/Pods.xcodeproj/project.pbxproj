@@ -265,6 +265,7 @@
 		DABCDC5610E11353473A8706FF5C801B /* Google_Protobuf_ListValue+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6502218A043103B6532B1939C21A /* Google_Protobuf_ListValue+Extensions.swift */; };
 		DBC47B5C09C1B3718F0EF14108A564D6 /* MathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8C050EF8B1EAC3CE8961F2D939E1F2 /* MathUtils.swift */; };
 		DBD8CAC6D6C91267F648D551A1895896 /* Google_Protobuf_Any+Registry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79093C2621F6A70CE1557D87E3EAD0DC /* Google_Protobuf_Any+Registry.swift */; };
+		DC08E1942BEA61750063DA18 /* LineDetectLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08E1932BEA61740063DA18 /* LineDetectLib.swift */; };
 		DC8150E92BD69DF4006BE7A6 /* VerifyBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8150E82BD69DF4006BE7A6 /* VerifyBody.swift */; };
 		DE896085DFDD686BDBDEFB776F0D683A /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF64D4671469377A6D5829BBED5682D3 /* DispatchQueue+Alamofire.swift */; };
 		DE8F5B68839128A005EE3549A1149B09 /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389EEDE3464F8DFD58B18959A0B814 /* RequestInterceptor.swift */; };
@@ -729,6 +730,7 @@
 		D9789FCA920464C02BDB27B58A70973E /* SwiftProtobuf-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SwiftProtobuf-Info.plist"; sourceTree = "<group>"; };
 		D9D1F243D6CF232F9348311566D086C5 /* Server.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Server.swift; path = Sources/Server/Server.swift; sourceTree = "<group>"; };
 		DB94382EEE485C0A54F36A12AAE9A56D /* Pods-TeneasyChatSDK_iOS_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TeneasyChatSDK_iOS_Tests-frameworks.sh"; sourceTree = "<group>"; };
+		DC08E1932BEA61740063DA18 /* LineDetectLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineDetectLib.swift; path = TeneasyChatSDK_iOS/Classes/LineDetectLib.swift; sourceTree = "<group>"; };
 		DC368C5840FED321EE40385D32B2AA6C /* Pods-TeneasyChatSDK_iOS_Example */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-TeneasyChatSDK_iOS_Example"; path = Pods_TeneasyChatSDK_iOS_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC707C0D371288D68DBA2130499FE760 /* HandyJSON.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HandyJSON.debug.xcconfig; sourceTree = "<group>"; };
 		DC8150E82BD69DF4006BE7A6 /* VerifyBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VerifyBody.swift; path = TeneasyChatSDK_iOS/Classes/VerifyBody.swift; sourceTree = "<group>"; };
@@ -1261,6 +1263,7 @@
 		BECF4D291046C12932BA05BFCFBCFAE5 /* TeneasyChatSDK_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				DC08E1932BEA61740063DA18 /* LineDetectLib.swift */,
 				FADFD1E2427C6CBE2BC852FAB2557912 /* ChatLib.swift */,
 				0D2D626CE8A6558DE894DC780DF8899B /* Config.swift */,
 				80A7713092D8AA574903AAC9DED38742 /* DataParser.swift */,
@@ -1982,6 +1985,7 @@
 				A265F92AB953F8D1594F903F76611754 /* consult.pb.swift in Sources */,
 				B2823DB5155B2EBD4DE946B30F4AB9A9 /* DataParser.swift in Sources */,
 				19D8BC319CBD335D9E3722A47BC363EE /* entrance.pb.swift in Sources */,
+				DC08E1942BEA61750063DA18 /* LineDetectLib.swift in Sources */,
 				B53651CB56F7E767A3E8E6A8617D5BE7 /* front.pb.swift in Sources */,
 				AC6E3ADA9931F0C95CEC3DD442AB941C /* g_action.pb.swift in Sources */,
 				DC8150E92BD69DF4006BE7A6 /* VerifyBody.swift in Sources */,

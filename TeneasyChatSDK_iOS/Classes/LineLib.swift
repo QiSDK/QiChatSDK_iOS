@@ -14,7 +14,7 @@ public protocol lineLibDelegate : AnyObject{
     func lineError(error: Result)
 }
 
-public struct LineLib{
+private struct LineLib{
     
     public init(_ urlStrings: [String], delegate: lineLibDelegate? = nil, tenantId: Int) {
         self.delegate = delegate

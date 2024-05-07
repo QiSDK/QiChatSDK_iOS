@@ -10,7 +10,7 @@ import UIKit
 import TeneasyChatSDK_iOS
 import SwiftDate
 
-class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate, readTextDelegate {
+class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, readTextDelegate {
     func receivedText(msg: String) {
         tvChatView.text.append(msg)
         appendMsgScroll()
@@ -186,22 +186,22 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate, rea
         //测试的线路
         //let lines = ["https://qlqiniu.quyou.tech/gw3config.txt","https://ydqlacc.weletter05.com/gw3config.txt","https://sdf.tvlimufz.com/gw3config.txt"]
         
-        let lines = tvInputText.text.split(separator: ",").map { String($0) }
-        let lineLib = LineLib(lines, delegate: self, tenantId: shangHu ?? 0)
+        //let lines = tvInputText.text.split(separator: ",").map { String($0) }
+        
+        var lines = "https://csh5.hfxg.xyz,https://csapi.xdev.stream"
+        let lineLib = LineDetectLib(lines, delegate: self, tenantId: shangHu ?? 0)
         
         lineLib.getLine()
     }
     
-    func useTheLine(line: Line){
-        tvChatView.text.append("api " + line.VITE_API_BASE_URL + "\n")
-        tvChatView.text.append("img " + line.VITE_IMG_URL + "\n")
-        tvChatView.text.append("wss " + line.VITE_WSS_HOST + "\n")
+    func useTheLine(line: String){
+        tvChatView.text.append("wss " + line + "\n")
         
         appendMsgScroll()
         //baseUrl = line.VITE_WSS_HOST
         
 //#if DEBUG
-        initSDK(baseUrl: line.VITE_WSS_HOST)
+        initSDK(baseUrl: line)
 //#else
 //
 //#endif
@@ -276,7 +276,7 @@ class ViewController: UIViewController, teneasySDKDelegate, lineLibDelegate, rea
             }
         
                 tvChatView.text.append("\n发送一个视频！ VideoUrl: https://www.youtube.com/watch?v=wbFHmblw9J8\n\n")
-                lib.sendMessage(msg: "https://www.youtube.com/watch?v=wbFHmblw9J8", type: .msgVideo, consultId: 100)
+                lib.sendMessage(msg: "https://www.youtube.com/watch?v=wbFHmblw9J8", type: .msgVideo, consultId: 1)
         
         if let msg = lastMessage{
             lib.resendMsg(msg: msg, payloadId: payLoadId)
