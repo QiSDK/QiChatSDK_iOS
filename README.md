@@ -18,8 +18,8 @@ pod 'TeneasyChatSDK_iOS', :git => 'https://github.com/QiSDK/QiChatSDK_iOS.git', 
         lineLib.getLine()
     }
 
-    func useTheLine(line: Line){
-        initSDK(baseUrl: `line.VITE_WSS_HOST`)
+    func useTheLine(line: String){
+        initSDK(baseUrl: line)
     }
 
     func lineError(error: Result){
