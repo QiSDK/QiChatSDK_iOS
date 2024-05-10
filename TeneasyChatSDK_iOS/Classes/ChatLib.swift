@@ -529,20 +529,19 @@ extension ChatLib: WebSocketDelegate {
                             var cMsg = msgList[payLoad.id]
                             cMsg?.msgID = scMsg.msgID
                             cMsg?.msgTime = scMsg.msgTime
-                        
+                            chatId = scMsg.chatID
                             if cMsg != nil{
                                 if (sendingMsg?.msgOp == .msgOpDelete){
                                     //cMsg!.msgID = -1
                                     cMsg!.msgOp = .msgOpDelete
                                     print("删除消息成功");
+                                    delegate?.msgDeleted(msg: cMsg!, payloadId: payLoad.id, errMsg: scMsg.errMsg)
+                                    return
                                 }else if(!scMsg.errMsg.isEmpty){
                                     cMsg!.msgID = -2
                                 }
-                                delegate?.msgDeleted(msg: cMsg!, payloadId: payLoad.id, errMsg: scMsg.errMsg)
+                                delegate?.msgReceipt(msg: cMsg!, payloadId: payLoad.id, errMsg: scMsg.errMsg)
                             }
-                            //print(scMsg)
-                            //sendingMsg = nil
-                            chatId = scMsg.chatID
                         }
                         //}
                     }
