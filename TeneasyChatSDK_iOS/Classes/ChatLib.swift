@@ -11,6 +11,8 @@ public protocol teneasySDKDelegate : AnyObject{
     func receivedMsg(msg: CommonMessage)
     //消息回执
     func msgReceipt(msg: CommonMessage, payloadId: UInt64, errMsg: String?)
+    //删除回执
+    func msgDeleted(msg: CommonMessage, payloadId: UInt64, errMsg: String?)
     //系统消息，用于显示Tip
     //func systemMsg(msg: String)
     func systemMsg(result: Result)
@@ -456,7 +458,7 @@ extension ChatLib: WebSocketDelegate {
                         if (msg!.msgOp == .msgOpDelete){
                             //msg?.msgID = -1
                             print("对方撤回了消息 payloadID:" + String(payLoad.id))
-                            delegate?.msgReceipt(msg: msg!, payloadId: payLoad.id, errMsg: nil)
+                            delegate?.msgDeleted(msg: msg!, payloadId: payLoad.id, errMsg: nil)
                         }else{
                             delegate?.receivedMsg(msg: msg!)
                         }
@@ -494,7 +496,7 @@ extension ChatLib: WebSocketDelegate {
                         if msgList[payLoad.id] != nil{
                             print("删除成功");
                             
-                            delegate?.msgReceipt(msg: msg, payloadId: payLoad.id, errMsg: nil)
+                            delegate?.msgDeleted(msg: msg, payloadId: payLoad.id, errMsg: nil)
                         }
                         print(msg)
                     }
@@ -509,7 +511,7 @@ extension ChatLib: WebSocketDelegate {
                         msg.msgID = cMsg.msgID
                         msg.msgOp = .msgOpDelete
                         msg.chatID = cMsg.chatID
-                        delegate?.msgReceipt(msg: msg, payloadId: payLoad.id, errMsg: nil)
+                        delegate?.msgDeleted(msg: msg, payloadId: payLoad.id, errMsg: nil)
                         print(msg)
                     }
                 }
@@ -536,7 +538,7 @@ extension ChatLib: WebSocketDelegate {
                                 }else if(!scMsg.errMsg.isEmpty){
                                     cMsg!.msgID = -2
                                 }
-                                delegate?.msgReceipt(msg: cMsg!, payloadId: payLoad.id, errMsg: scMsg.errMsg)
+                                delegate?.msgDeleted(msg: cMsg!, payloadId: payLoad.id, errMsg: scMsg.errMsg)
                             }
                             //print(scMsg)
                             //sendingMsg = nil
@@ -558,7 +560,7 @@ extension ChatLib: WebSocketDelegate {
             print("socket error \(String(describing: error))")
             
             var result = Result()
-            result.Code = 1004
+            result.Code = 1006
             result.Message = "Socket 出错"
             delegate?.systemMsg(result: result)
             failedToSend()

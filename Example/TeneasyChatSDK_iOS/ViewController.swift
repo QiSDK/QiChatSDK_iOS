@@ -73,6 +73,11 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         appendMsgScroll()
     }
     
+    //消息删除成功
+    func msgDeleted(msg: CommonMessage, payloadId : UInt64 = 0, errMsg: String?){
+        print("消息删除")
+    }
+    
     //发送的消息收到回执
     func msgReceipt(msg: CommonMessage, payloadId : UInt64 = 0, errMsg: String?){
         var myMsg = ""
@@ -187,8 +192,8 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         //let lines = ["https://qlqiniu.quyou.tech/gw3config.txt","https://ydqlacc.weletter05.com/gw3config.txt","https://sdf.tvlimufz.com/gw3config.txt"]
         
         //let lines = tvInputText.text.split(separator: ",").map { String($0) }
-        
-        let lines = "https://csh5.hfxg.xyz,https://csapi.xdev.stream"
+    //httos://csh5.hfxg.xyz,https://csapi.dev.stream
+        let lines = "httpo://csh5.hfxg.xyz,https://csapi.dev.stream"
         let lineLib = LineDetectLib(lines, delegate: self, tenantId: shangHu ?? 0)
         
         lineLib.getLine()
