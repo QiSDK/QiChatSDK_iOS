@@ -12,14 +12,14 @@ pod 'TeneasyChatSDK_iOS', :git => 'https://github.com/QiSDK/QiChatSDK_iOS.git', 
 ```
   override func viewDidLoad() {
         super.viewDidLoad()
-
-        let lines = `["https://qlqiniu.quyou.tech/gw3config.txt","https://ydqlacc.weletter05.com/gw3config.txt"]`
-        let lineLib = LineLib(lines, delegate: self, tenantId: 123)`//123是商户id`
+        //线路用逗号分开
+        let lines = "https://abc.com,https://def.com"
+        let lineLib = LineDetectLib(lines, delegate: self, tenantId: 123)//123是商户id
         lineLib.getLine()
     }
 
-    func useTheLine(line: Line){
-        initSDK(baseUrl: `line.VITE_WSS_HOST`)
+    func useTheLine(line: String){
+        initSDK(baseUrl: line)
     }
 
     func lineError(error: Result){
