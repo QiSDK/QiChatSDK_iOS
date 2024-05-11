@@ -47,7 +47,7 @@ open class ChatLib {
     private var sessionTime: Int = 0
     //var chooseImg: UIImage?
     private var beatTimes = 0
-    private var maxSessionMinutes = 90
+    private var maxSessionMinutes = 1 //90
     var workId: Int32 = 5
     private var replyMsgId: Int64 = 0
     private var userId: Int32 = 0
@@ -125,18 +125,19 @@ open class ChatLib {
         sessionTime += 1
         if sessionTime % 30 == 0{//每隔8秒发送一个心跳
             beatTimes += 1
-            //print("sending beat \( beatTimes)")
+            print("sending beat \( beatTimes)")
             sendHeartBeat()
         }
         
         if sessionTime > maxSessionMinutes * 60{//超过最大会话，停止发送心跳
-            stopTimer()
+            disConnect()
         }
     }
 
     func stopTimer() {
         beatTimes = 0
         sessionTime = 0
+        sendingMsg = nil
         if myTimer != nil {
             myTimer!.invalidate() // 销毁timer
             myTimer = nil
@@ -333,20 +334,17 @@ open class ChatLib {
     
     private func send(binaryData: Data) {
         var result = Result()
-        if !isConnected {
+        if websocket == nil || !isConnected{
             print("断开了")
             if sessionTime > maxSessionMinutes * 60 {
                 result.Code = 1005
                 result.Message = "会话超过\(maxSessionMinutes)分钟，需要重新进入"
                 delegate?.systemMsg(result: result)
                 failedToSend()
+                disConnect()
             } else {
                 callWebsocket()
-                result.Code = 1004
-                //result.Message = "会话超过\(maxSessionMinutes)分钟，需要重新进入"
-                result.Message = "Socket 出错"
-                delegate?.systemMsg(result: result)
-                failedToSend()
+                print("重新连接")
             }
         } else {
             if sessionTime > maxSessionMinutes * 60 {
@@ -354,6 +352,7 @@ open class ChatLib {
                 result.Message = "会话超过\(maxSessionMinutes)分钟，需要重新进入"
                 delegate?.systemMsg(result: result)
                 failedToSend()
+                disConnect()
             } else {
                 websocket?.write(data: binaryData, completion: ({
                     print("msg sent")
@@ -376,6 +375,11 @@ open class ChatLib {
             socket.delegate = nil
             websocket = nil
         }
+        
+        var result = Result()
+        result.Code = 1001
+        result.Message = "已断开通信"
+        delegate?.systemMsg(result: result)
         print("通信SDK 断开连接")
     }
     
@@ -467,9 +471,15 @@ extension ChatLib: WebSocketDelegate {
                     }
                 } else if payLoad.act == .schi { // 连接成功后收到的信息，会返回clientId, Token
                     if let msg = try? Gateway_SCHi(serializedData: msgData) {
-                        print("chatID:" + String(msg.id))
-                        payloadId = payLoad.id
+                        //print("chatID:" + String(msg.id))
                         delegate?.connected(c: msg)
+                        
+                        if let  s = sendingMsg{
+                            print("重新发送")
+                            resendMsg(msg: s, payloadId: self.payloadId)
+                        }
+                        
+                        payloadId = payLoad.id
                         print("初始payloadId:" + String(payloadId))
                         print(msg)
                     }

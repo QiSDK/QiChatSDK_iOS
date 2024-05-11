@@ -270,8 +270,7 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
 //            return
 //        }else{
             let txtMsg = "你好！需要什么帮助？\n"
-            //lib.sendMessage(msg: txtMsg, type: .msgText)
-            //lib.sendHeartBeat()
+            lib.sendMessage(msg: txtMsg, type: .msgText, consultId: 1)
             
             if let cMSG = lib.sendingMsg{
                 var time = displayLocalTime(from: cMSG.msgTime.date)
@@ -280,8 +279,8 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
                 print(time)
             }
         
-                tvChatView.text.append("\n发送一个视频！ VideoUrl: https://www.youtube.com/watch?v=wbFHmblw9J8\n\n")
-                lib.sendMessage(msg: "https://www.youtube.com/watch?v=wbFHmblw9J8", type: .msgVideo, consultId: 1)
+                //tvChatView.text.append("\n发送一个视频！ VideoUrl: https://www.youtube.com/watch?v=wbFHmblw9J8\n\n")
+                //lib.sendMessage(msg: "https://www.youtube.com/watch?v=wbFHmblw9J8", type: .msgVideo, consultId: 1)
         
         if let msg = lastMessage{
             lib.resendMsg(msg: msg, payloadId: payLoadId)
