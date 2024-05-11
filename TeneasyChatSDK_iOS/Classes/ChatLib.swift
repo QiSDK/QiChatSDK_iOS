@@ -135,6 +135,8 @@ open class ChatLib {
     }
 
     func stopTimer() {
+        beatTimes = 0
+        sessionTime = 0
         if myTimer != nil {
             myTimer!.invalidate() // 销毁timer
             myTimer = nil
