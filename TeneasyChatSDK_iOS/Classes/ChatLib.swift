@@ -47,7 +47,7 @@ open class ChatLib {
     private var sessionTime: Int = 0
     //var chooseImg: UIImage?
     private var beatTimes = 0
-    private var maxSessionMinutes = 90 //90
+    private var maxSessionMinutes = 90000000//相当于不设置会话时间 //90
     var workId: Int32 = 5
     private var replyMsgId: Int64 = 0
     private var userId: Int32 = 0
