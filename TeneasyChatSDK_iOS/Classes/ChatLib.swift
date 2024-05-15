@@ -441,12 +441,12 @@ extension ChatLib: WebSocketDelegate {
                         result.Code = 1000
                         result.Message = "无效的Token"
                         delegate?.systemMsg(result: result) // Delegate a system message if the condition is true.
+                        stopTimer()
                     } else {
                         //result.Code = 1003
                         //result.Message = "在别处登录了 B"
                         //delegate?.systemMsg(result: result) // Delegate a different system message if the condition is false.
                     }
-                    stopTimer()
                     print(d.description) // Print the resulting string.
                     isConnected = false // Set the 'isConnected' variable to false.
                 }
