@@ -442,13 +442,13 @@ extension ChatLib: WebSocketDelegate {
                         result.Message = "无效的Token"
                         delegate?.systemMsg(result: result) // Delegate a system message if the condition is true.
                         stopTimer()
+                        //print(d.description) // Print the resulting string.
+                        isConnected = false // Set the 'isConnected' variable to false.
                     } else {
                         //result.Code = 1003
                         //result.Message = "在别处登录了 B"
                         //delegate?.systemMsg(result: result) // Delegate a different system message if the condition is false.
                     }
-                    print(d.description) // Print the resulting string.
-                    isConnected = false // Set the 'isConnected' variable to false.
                 }
             } else {
                 guard let payLoad = try? Gateway_Payload(serializedData: data) else { return }
