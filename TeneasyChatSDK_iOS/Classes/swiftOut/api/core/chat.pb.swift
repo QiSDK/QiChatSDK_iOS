@@ -111,6 +111,9 @@ public struct Api_Core_ChatListHistoryRequest {
   /// Clears the value of `batch`. Subsequent reads from it will return its default value.
   public mutating func clearBatch() {self._batch = nil}
 
+  /// 咨询id
+  public var consultID: UInt32 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -208,6 +211,9 @@ public struct Api_Core_MarkRepliedRequest {
 
   public var chatID: Int64 = 0
 
+  /// 咨询类型
+  public var consultID: Int64 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -227,6 +233,21 @@ public struct Api_Core_ChatListQueryUserRequest {
   public init() {}
 }
 
+public struct Api_Core_OrphanReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var chatID: Int64 = 0
+
+  /// 咨询类型
+  public var consultID: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Api_Core_Pagination: @unchecked Sendable {}
 extension Api_Core_ChatListQueryRequest: @unchecked Sendable {}
@@ -239,6 +260,7 @@ extension Api_Core_ChatMarkReadRequest: @unchecked Sendable {}
 extension Api_Core_OrphanResponse: @unchecked Sendable {}
 extension Api_Core_MarkRepliedRequest: @unchecked Sendable {}
 extension Api_Core_ChatListQueryUserRequest: @unchecked Sendable {}
+extension Api_Core_OrphanReq: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -364,6 +386,7 @@ extension Api_Core_ChatListHistoryRequest: SwiftProtobuf.Message, SwiftProtobuf.
     2: .same(proto: "start"),
     3: .same(proto: "end"),
     4: .same(proto: "batch"),
+    5: .standard(proto: "consult_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -376,6 +399,7 @@ extension Api_Core_ChatListHistoryRequest: SwiftProtobuf.Message, SwiftProtobuf.
       case 2: try { try decoder.decodeSingularMessageField(value: &self._start) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._end) }()
       case 4: try { try decoder.decodeSingularMessageField(value: &self._batch) }()
+      case 5: try { try decoder.decodeSingularUInt32Field(value: &self.consultID) }()
       default: break
       }
     }
@@ -398,6 +422,9 @@ extension Api_Core_ChatListHistoryRequest: SwiftProtobuf.Message, SwiftProtobuf.
     try { if let v = self._batch {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
     } }()
+    if self.consultID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.consultID, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -406,6 +433,7 @@ extension Api_Core_ChatListHistoryRequest: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs._start != rhs._start {return false}
     if lhs._end != rhs._end {return false}
     if lhs._batch != rhs._batch {return false}
+    if lhs.consultID != rhs.consultID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -609,6 +637,7 @@ extension Api_Core_MarkRepliedRequest: SwiftProtobuf.Message, SwiftProtobuf._Mes
   public static let protoMessageName: String = _protobuf_package + ".MarkRepliedRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "chat_id"),
+    2: .standard(proto: "consult_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -618,6 +647,7 @@ extension Api_Core_MarkRepliedRequest: SwiftProtobuf.Message, SwiftProtobuf._Mes
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.consultID) }()
       default: break
       }
     }
@@ -627,11 +657,15 @@ extension Api_Core_MarkRepliedRequest: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if self.chatID != 0 {
       try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 1)
     }
+    if self.consultID != 0 {
+      try visitor.visitSingularInt64Field(value: self.consultID, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Core_MarkRepliedRequest, rhs: Api_Core_MarkRepliedRequest) -> Bool {
     if lhs.chatID != rhs.chatID {return false}
+    if lhs.consultID != rhs.consultID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -670,6 +704,44 @@ extension Api_Core_ChatListQueryUserRequest: SwiftProtobuf.Message, SwiftProtobu
   public static func ==(lhs: Api_Core_ChatListQueryUserRequest, rhs: Api_Core_ChatListQueryUserRequest) -> Bool {
     if lhs.userID != rhs.userID {return false}
     if lhs.registerType != rhs.registerType {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_OrphanReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".OrphanReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "chat_id"),
+    2: .standard(proto: "consult_id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.consultID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.chatID != 0 {
+      try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 1)
+    }
+    if self.consultID != 0 {
+      try visitor.visitSingularInt64Field(value: self.consultID, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_OrphanReq, rhs: Api_Core_OrphanReq) -> Bool {
+    if lhs.chatID != rhs.chatID {return false}
+    if lhs.consultID != rhs.consultID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

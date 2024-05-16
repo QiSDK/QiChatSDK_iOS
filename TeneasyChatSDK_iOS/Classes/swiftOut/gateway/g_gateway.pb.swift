@@ -128,6 +128,8 @@ public struct Gateway_SCHi {
   /// 绑定客服(如果有的话)
   public var workerID: Int32 = 0
 
+  public var chatExpireTime: Int64 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -515,6 +517,7 @@ extension Gateway_SCHi: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementat
     1: .same(proto: "id"),
     2: .same(proto: "token"),
     3: .standard(proto: "worker_id"),
+    4: .standard(proto: "chat_expire_time"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -526,6 +529,7 @@ extension Gateway_SCHi: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementat
       case 1: try { try decoder.decodeSingularInt64Field(value: &self.id) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.token) }()
       case 3: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self.chatExpireTime) }()
       default: break
       }
     }
@@ -541,6 +545,9 @@ extension Gateway_SCHi: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementat
     if self.workerID != 0 {
       try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 3)
     }
+    if self.chatExpireTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.chatExpireTime, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -548,6 +555,7 @@ extension Gateway_SCHi: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementat
     if lhs.id != rhs.id {return false}
     if lhs.token != rhs.token {return false}
     if lhs.workerID != rhs.workerID {return false}
+    if lhs.chatExpireTime != rhs.chatExpireTime {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

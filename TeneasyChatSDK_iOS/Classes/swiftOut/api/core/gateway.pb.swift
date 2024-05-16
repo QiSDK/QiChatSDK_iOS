@@ -197,6 +197,8 @@ public struct Api_Core_NewUserConnectResponse {
 
   public var websocketFlag: Bool = false
 
+  public var chatExpireTime: Int64 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -637,6 +639,7 @@ extension Api_Core_NewUserConnectResponse: SwiftProtobuf.Message, SwiftProtobuf.
     4: .standard(proto: "websocket_id"),
     5: .standard(proto: "websocket_time"),
     6: .standard(proto: "websocket_flag"),
+    7: .standard(proto: "chat_expire_time"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -651,6 +654,7 @@ extension Api_Core_NewUserConnectResponse: SwiftProtobuf.Message, SwiftProtobuf.
       case 4: try { try decoder.decodeSingularUInt64Field(value: &self.websocketID) }()
       case 5: try { try decoder.decodeSingularInt64Field(value: &self.websocketTime) }()
       case 6: try { try decoder.decodeSingularBoolField(value: &self.websocketFlag) }()
+      case 7: try { try decoder.decodeSingularInt64Field(value: &self.chatExpireTime) }()
       default: break
       }
     }
@@ -675,6 +679,9 @@ extension Api_Core_NewUserConnectResponse: SwiftProtobuf.Message, SwiftProtobuf.
     if self.websocketFlag != false {
       try visitor.visitSingularBoolField(value: self.websocketFlag, fieldNumber: 6)
     }
+    if self.chatExpireTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.chatExpireTime, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -685,6 +692,7 @@ extension Api_Core_NewUserConnectResponse: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs.websocketID != rhs.websocketID {return false}
     if lhs.websocketTime != rhs.websocketTime {return false}
     if lhs.websocketFlag != rhs.websocketFlag {return false}
+    if lhs.chatExpireTime != rhs.chatExpireTime {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

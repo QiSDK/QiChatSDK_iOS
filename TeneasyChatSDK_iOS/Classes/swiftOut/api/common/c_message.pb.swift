@@ -44,6 +44,9 @@ public enum CommonChatState: SwiftProtobuf.Enum {
 
   /// 黑名单确定(黑名单待确定->黑名单)
   case blacklistConfirmed // = 6
+
+  /// 未绑定状态
+  case free // = 7
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -59,6 +62,7 @@ public enum CommonChatState: SwiftProtobuf.Enum {
     case 4: self = .processed
     case 5: self = .blacklistApply
     case 6: self = .blacklistConfirmed
+    case 7: self = .free
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -72,6 +76,7 @@ public enum CommonChatState: SwiftProtobuf.Enum {
     case .processed: return 4
     case .blacklistApply: return 5
     case .blacklistConfirmed: return 6
+    case .free: return 7
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -90,6 +95,7 @@ extension CommonChatState: CaseIterable {
     .processed,
     .blacklistApply,
     .blacklistConfirmed,
+    .free,
   ]
 }
 
@@ -915,6 +921,7 @@ extension CommonChatState: SwiftProtobuf._ProtoNameProviding {
     4: .same(proto: "CHAT_STATE_PROCESSED"),
     5: .same(proto: "CHAT_STATE_BLACKLIST_APPLY"),
     6: .same(proto: "CHAT_STATE_BLACKLIST_CONFIRMED"),
+    7: .same(proto: "CHAT_STATE_FREE"),
   ]
 }
 

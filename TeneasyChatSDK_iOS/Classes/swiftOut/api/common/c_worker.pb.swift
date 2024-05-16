@@ -246,6 +246,159 @@ extension Api_Common_OnlineState: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+public enum Api_Common_WorkerState: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// 未登录
+  case workerOffline // = 0
+
+  /// 就绪
+  case workerReady // = 1
+
+  /// 忙碌
+  case workerBusy // = 2
+
+  /// 链接断开
+  case workerLost // = 3
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .workerOffline
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .workerOffline
+    case 1: self = .workerReady
+    case 2: self = .workerBusy
+    case 3: self = .workerLost
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .workerOffline: return 0
+    case .workerReady: return 1
+    case .workerBusy: return 2
+    case .workerLost: return 3
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_WorkerState: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_WorkerState] = [
+    .workerOffline,
+    .workerReady,
+    .workerBusy,
+    .workerLost,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+public enum Api_Common_WorkerEventType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// 客服建立链接
+  case workerEventOnline // = 0
+
+  /// 收到客服PING
+  case workerEventPing // = 1
+
+  /// 客服链接错误
+  case workerEventError // = 2
+
+  /// 客服切换到离开状态
+  case workerEventAway // = 3
+
+  /// 客服切换到繁忙状态
+  case workerEventBusy // = 4
+
+  /// 客服退出登录
+  case workerEventLogout // = 5
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .workerEventOnline
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .workerEventOnline
+    case 1: self = .workerEventPing
+    case 2: self = .workerEventError
+    case 3: self = .workerEventAway
+    case 4: self = .workerEventBusy
+    case 5: self = .workerEventLogout
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .workerEventOnline: return 0
+    case .workerEventPing: return 1
+    case .workerEventError: return 2
+    case .workerEventAway: return 3
+    case .workerEventBusy: return 4
+    case .workerEventLogout: return 5
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_WorkerEventType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_WorkerEventType] = [
+    .workerEventOnline,
+    .workerEventPing,
+    .workerEventError,
+    .workerEventAway,
+    .workerEventBusy,
+    .workerEventLogout,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// kafka 客服事件队列存储消息类型
+public struct Api_Common_WorkerEvent {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 商户ID
+  public var tenantID: Int32 = 0
+
+  /// 客户ID
+  public var workerID: Int32 = 0
+
+  /// 链接ID
+  public var socketID: UInt64 = 0
+
+  /// 网关ID
+  public var gatewayID: Int32 = 0
+
+  /// 客户事件类型
+  public var eventType: Api_Common_WorkerEventType = .workerEventOnline
+
+  /// 客户事件错误码
+  public var eventCode: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 public struct Api_Common_Worker {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -292,6 +445,9 @@ public struct Api_Common_Worker {
   public var groupChild: [Api_Common_WorkerGroup] = []
 
   public var tips: String = String()
+
+  ///所属咨询类型id
+  public var consultIds: [UInt32] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -359,6 +515,9 @@ extension Api_Common_DistributionType: @unchecked Sendable {}
 extension Api_Common_WorkerPermission: @unchecked Sendable {}
 extension Api_Common_ConnectState: @unchecked Sendable {}
 extension Api_Common_OnlineState: @unchecked Sendable {}
+extension Api_Common_WorkerState: @unchecked Sendable {}
+extension Api_Common_WorkerEventType: @unchecked Sendable {}
+extension Api_Common_WorkerEvent: @unchecked Sendable {}
 extension Api_Common_Worker: @unchecked Sendable {}
 extension Api_Common_WorkerGroup: @unchecked Sendable {}
 extension Api_Common_Distribution: @unchecked Sendable {}
@@ -406,6 +565,88 @@ extension Api_Common_OnlineState: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
+extension Api_Common_WorkerState: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "WORKER_OFFLINE"),
+    1: .same(proto: "WORKER_READY"),
+    2: .same(proto: "WORKER_BUSY"),
+    3: .same(proto: "WORKER_LOST"),
+  ]
+}
+
+extension Api_Common_WorkerEventType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "WORKER_EVENT_ONLINE"),
+    1: .same(proto: "WORKER_EVENT_PING"),
+    2: .same(proto: "WORKER_EVENT_ERROR"),
+    3: .same(proto: "WORKER_EVENT_AWAY"),
+    4: .same(proto: "WORKER_EVENT_BUSY"),
+    5: .same(proto: "WORKER_EVENT_LOGOUT"),
+  ]
+}
+
+extension Api_Common_WorkerEvent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerEvent"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "tenant_id"),
+    2: .standard(proto: "worker_id"),
+    3: .standard(proto: "socket_id"),
+    6: .standard(proto: "gateway_id"),
+    4: .standard(proto: "event_type"),
+    5: .standard(proto: "event_code"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.tenantID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 3: try { try decoder.decodeSingularUInt64Field(value: &self.socketID) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.eventType) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.eventCode) }()
+      case 6: try { try decoder.decodeSingularInt32Field(value: &self.gatewayID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.tenantID != 0 {
+      try visitor.visitSingularInt32Field(value: self.tenantID, fieldNumber: 1)
+    }
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 2)
+    }
+    if self.socketID != 0 {
+      try visitor.visitSingularUInt64Field(value: self.socketID, fieldNumber: 3)
+    }
+    if self.eventType != .workerEventOnline {
+      try visitor.visitSingularEnumField(value: self.eventType, fieldNumber: 4)
+    }
+    if self.eventCode != 0 {
+      try visitor.visitSingularInt32Field(value: self.eventCode, fieldNumber: 5)
+    }
+    if self.gatewayID != 0 {
+      try visitor.visitSingularInt32Field(value: self.gatewayID, fieldNumber: 6)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Common_WorkerEvent, rhs: Api_Common_WorkerEvent) -> Bool {
+    if lhs.tenantID != rhs.tenantID {return false}
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.socketID != rhs.socketID {return false}
+    if lhs.gatewayID != rhs.gatewayID {return false}
+    if lhs.eventType != rhs.eventType {return false}
+    if lhs.eventCode != rhs.eventCode {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Worker"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -424,6 +665,7 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     13: .same(proto: "bneednim"),
     14: .standard(proto: "group_child"),
     15: .same(proto: "tips"),
+    16: .standard(proto: "consult_ids"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -447,6 +689,7 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
       case 13: try { try decoder.decodeSingularBoolField(value: &self.bneednim) }()
       case 14: try { try decoder.decodeRepeatedMessageField(value: &self.groupChild) }()
       case 15: try { try decoder.decodeSingularStringField(value: &self.tips) }()
+      case 16: try { try decoder.decodeRepeatedUInt32Field(value: &self.consultIds) }()
       default: break
       }
     }
@@ -498,6 +741,9 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     if !self.tips.isEmpty {
       try visitor.visitSingularStringField(value: self.tips, fieldNumber: 15)
     }
+    if !self.consultIds.isEmpty {
+      try visitor.visitPackedUInt32Field(value: self.consultIds, fieldNumber: 16)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -517,6 +763,7 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     if lhs.bneednim != rhs.bneednim {return false}
     if lhs.groupChild != rhs.groupChild {return false}
     if lhs.tips != rhs.tips {return false}
+    if lhs.consultIds != rhs.consultIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

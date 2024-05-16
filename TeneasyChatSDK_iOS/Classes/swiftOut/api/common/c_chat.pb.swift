@@ -131,6 +131,12 @@ public struct CommonChatDetail {
     set {_uniqueStorage()._userid = newValue}
   }
 
+  /// 聊天状态
+  public var state: CommonChatState {
+    get {return _storage._state}
+    set {_uniqueStorage()._state = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -236,6 +242,7 @@ extension CommonChatDetail: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     13: .standard(proto: "owner_role"),
     14: .same(proto: "nimName"),
     15: .same(proto: "userid"),
+    16: .same(proto: "state"),
   ]
 
   fileprivate class _StorageClass {
@@ -254,6 +261,7 @@ extension CommonChatDetail: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     var _ownerRole: CommonMessageRole = .msgRoleSystem
     var _nimName: String? = nil
     var _userid: Int32 = 0
+    var _state: CommonChatState = .common
 
     #if swift(>=5.10)
       // This property is used as the initial default value for new instances of the type.
@@ -283,6 +291,7 @@ extension CommonChatDetail: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       _ownerRole = source._ownerRole
       _nimName = source._nimName
       _userid = source._userid
+      _state = source._state
     }
   }
 
@@ -316,6 +325,7 @@ extension CommonChatDetail: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
         case 13: try { try decoder.decodeSingularEnumField(value: &_storage._ownerRole) }()
         case 14: try { try decoder.decodeSingularStringField(value: &_storage._nimName) }()
         case 15: try { try decoder.decodeSingularInt32Field(value: &_storage._userid) }()
+        case 16: try { try decoder.decodeSingularEnumField(value: &_storage._state) }()
         default: break
         }
       }
@@ -373,6 +383,9 @@ extension CommonChatDetail: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       if _storage._userid != 0 {
         try visitor.visitSingularInt32Field(value: _storage._userid, fieldNumber: 15)
       }
+      if _storage._state != .common {
+        try visitor.visitSingularEnumField(value: _storage._state, fieldNumber: 16)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -397,6 +410,7 @@ extension CommonChatDetail: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
         if _storage._ownerRole != rhs_storage._ownerRole {return false}
         if _storage._nimName != rhs_storage._nimName {return false}
         if _storage._userid != rhs_storage._userid {return false}
+        if _storage._state != rhs_storage._state {return false}
         return true
       }
       if !storagesAreEqual {return false}
