@@ -193,7 +193,7 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         
         //let lines = tvInputText.text.split(separator: ",").map { String($0) }
     //httos://csh5.hfxg.xyz,https://csapi.xdev.stream
-        let lines = "httpo://csh5.hfxg.xyz,https://csapi.xdev.stream"
+        let lines = "https://wcsapi.qixin14.xyz,https://csapi.xdev.stream"
         let lineLib = LineDetectLib(lines, delegate: self, tenantId: shangHu ?? 0)
         
         lineLib.getLine()

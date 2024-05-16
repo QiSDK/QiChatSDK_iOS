@@ -125,7 +125,7 @@ open class ChatLib {
         sessionTime += 1
         if sessionTime % 30 == 0{//每隔8秒发送一个心跳
             beatTimes += 1
-            print("sending beat \( beatTimes)")
+            print("sending beat \( beatTimes) \(Date())")
             sendHeartBeat()
         }
         
@@ -337,22 +337,14 @@ open class ChatLib {
         if websocket == nil || !isConnected{
             print("断开了")
             if sessionTime > maxSessionMinutes * 60 {
-                result.Code = 1005
-                result.Message = "会话超过\(maxSessionMinutes)分钟，需要重新进入"
-                delegate?.systemMsg(result: result)
-                failedToSend()
-                disConnect()
+                disConnect(code: 1000)
             } else {
                 callWebsocket()
                 print("重新连接")
             }
         } else {
             if sessionTime > maxSessionMinutes * 60 {
-                result.Code = 1006
-                result.Message = "会话超过\(maxSessionMinutes)分钟，需要重新进入"
-                delegate?.systemMsg(result: result)
-                failedToSend()
-                disConnect()
+                disConnect(code: 1000)
             } else {
                 websocket?.write(data: binaryData, completion: ({
                     print("msg sent")
@@ -368,7 +360,7 @@ open class ChatLib {
         }
     }
     
-    public func disConnect() {
+    public func disConnect(code: Int = 1006) {
         stopTimer()
         if let socket = websocket {
             socket.disconnect()
@@ -377,7 +369,7 @@ open class ChatLib {
         }
         
         var result = Result()
-        result.Code = 1001
+        result.Code = code
         result.Message = "已断开通信"
         delegate?.systemMsg(result: result)
         print("通信SDK 断开连接")
@@ -424,9 +416,7 @@ extension ChatLib: WebSocketDelegate {
         case .disconnected(let reason, let closeCode):
             print("disconnected \(reason) \(closeCode)")
             isConnected = false
-            result.Code = 1001
-            result.Message = "已断开通信"
-            delegate?.systemMsg(result: result)
+            disConnect()
             failedToSend()
         case .text(let text):
             print("received text: \(text)")
@@ -441,13 +431,11 @@ extension ChatLib: WebSocketDelegate {
                         result.Code = 1000
                         result.Message = "无效的Token"
                         delegate?.systemMsg(result: result) // Delegate a system message if the condition is true.
-                        stopTimer()
+                        disConnect()
                         //print(d.description) // Print the resulting string.
                         isConnected = false // Set the 'isConnected' variable to false.
                     } else {
-                        //result.Code = 1003
-                        //result.Message = "在别处登录了 B"
-                        //delegate?.systemMsg(result: result) // Delegate a different system message if the condition is false.
+                        print("收到心跳回执")
                     }
                 }
             } else {
@@ -569,11 +557,7 @@ extension ChatLib: WebSocketDelegate {
         case .error(let error):
             // self.delegate?.connected(c: false)
             print("socket error \(String(describing: error))")
-            
-            var result = Result()
-            result.Code = 1006
-            result.Message = "Socket 出错"
-            delegate?.systemMsg(result: result)
+            disConnect()
             failedToSend()
             isConnected = false
         case .viabilityChanged:
@@ -581,10 +565,7 @@ extension ChatLib: WebSocketDelegate {
         case .reconnectSuggested:
             print("reconnectSuggested")
         case .cancelled:
-            var result = Result()
-            result.Code = 1007
-            result.Message = "已取消连接"
-            delegate?.systemMsg(result: result)
+            disConnect(code: 1007)
             failedToSend()
             print("cancelled")
             isConnected = false
