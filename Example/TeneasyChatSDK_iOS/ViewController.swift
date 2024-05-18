@@ -81,7 +81,7 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
     //发送的消息收到回执
     func msgReceipt(msg: CommonMessage, payloadId : UInt64 = 0, errMsg: String?){
         var myMsg = ""
-        print("收到回执")
+        print("收到回执\(payloadId)")
         switch msg.payload{
         case .content(msg.content):
             print("text")
@@ -234,7 +234,7 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         /*
                1125324  1125397 1125417
                 */
-        lib = ChatLib(userId: 1125324, cert: "COYBEAUYASDyASiG2piD9zE.te46qua5ha2r-Caz03Vx2JXH5OLSRRV2GqdYcn9UslwibsxBSP98GhUKSGEI0Z84FRMkp16ZK8eS-y72QVE2AQ+", token: "", baseUrl: wssUrl, sign: "9zgd9YUc")
+        lib = ChatLib(userId: 1125324, cert: "COYBEAUYASDyASiG2piD9zE.te46qua5ha2r-Caz03Vx2JXH5OLSRRV2GqdYcn9UslwibsxBSP98GhUKSGEI0Z84FRMkp16ZK8eS-y72QVE2AQ", token: "", baseUrl: wssUrl, sign: "9zgd9YUc")
         lib.callWebsocket()
         lib.delegate = self
     }

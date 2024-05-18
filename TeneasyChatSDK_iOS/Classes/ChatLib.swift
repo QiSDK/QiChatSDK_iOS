@@ -138,7 +138,6 @@ open class ChatLib {
     func stopTimer() {
         beatTimes = 0
         sessionTime = 0
-        sendingMsg = nil
         if myTimer != nil {
             myTimer!.invalidate() // 销毁timer
             myTimer = nil
@@ -306,7 +305,7 @@ open class ChatLib {
         //payload_id != 0的时候，可能是重发，重发不需要+1
         if (sendingMsg?.msgOp == .msgOpPost && payload_Id == 0){
             payloadId += 1
-            print("payloadID:" + String(payloadId))
+            print("payloadID + 1:" + String(payloadId))
             msgList[payloadId] = msg
         }
         
@@ -373,6 +372,7 @@ open class ChatLib {
         result.Message = "已断开通信"
         delegate?.systemMsg(result: result)
         isConnected = false
+        sendingMsg = nil
         print("通信SDK 断开连接")
     }
     
@@ -469,12 +469,13 @@ extension ChatLib: WebSocketDelegate {
                         //print("chatID:" + String(msg.id))
                         delegate?.connected(c: msg)
                         
-                        if let  s = sendingMsg{
-                            print("重新发送")
-                            resendMsg(msg: s, payloadId: self.payloadId)
+                        if sendingMsg != nil{
+                            print("自动重发未发出的最后一个消息\(self.payloadId)")
+                            resendMsg(msg: sendingMsg!, payloadId: self.payloadId)
+                        }else{
+                            //不是重发，使用新id
+                            payloadId = payLoad.id
                         }
-                        
-                        payloadId = payLoad.id
                         print("初始payloadId:" + String(payloadId))
                         print(msg)
                     }
