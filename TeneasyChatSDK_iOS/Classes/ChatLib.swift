@@ -421,6 +421,16 @@ extension ChatLib: WebSocketDelegate {
         case .text(let text):
             print("received text: \(text)")
         case .binary(let data):
+            /*
+            walter, [17 May 2024 at 3:32:00 PM (17 May 2024 at 3:32:23 PM)]:
+    ...HeartBeatFlag         = 0x0
+    KickFlag              = 0x1
+    InvalidTokenFlag      = 0x2
+    PermChangedFlag       = 0x3
+    EntranceNotExistsFlag = 0x4
+
+    如果这个字节的值是 0 ，表示心跳...
+             */
             if data.count == 1 {
                     if let d = String(data: data, encoding: .utf8) {
                         if d.contains("\u{00}") {
@@ -428,6 +438,9 @@ extension ChatLib: WebSocketDelegate {
                         } else if d.contains("\u{02}") {
                             disConnect(code: 1000, msg: "无效的Token\n")
                             print("收到1字节回执\(d) 无效的Token\n")
+                        } else if d.contains("\u{01}") {
+                            disConnect(code: 1003, msg: "在别处登录了\n")
+                            print("收到1字节回执\(d) 在别处登录了\n")
                         } else {
                             print("收到1字节回执\(d)\n")
                         }
