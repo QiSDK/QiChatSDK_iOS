@@ -234,7 +234,7 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         /*
                1125324  1125397 1125417
                 */
-        lib = ChatLib(userId: 1125324, cert: "COYBEAUYASDyASiG2piD9zE.te46qua5ha2r-Caz03Vx2JXH5OLSRRV2GqdYcn9UslwibsxBSP98GhUKSGEI0Z84FRMkp16ZK8eS-y72QVE2AQ", token: "COYBEAIYzNdEIPIBKN3WxYX5MQ.DkVjqeezFT2QD6_xmnEpLkJRMoPtWlM7Y04qtxvdQEFbOuixJMVyy2p-s3XUzA6NhHn-8AeDQk5HrfnuFi-4Cg", baseUrl: wssUrl, sign: "9zgd9YUc")
+        lib = ChatLib(userId: 1125324, cert: "COYBEAUYASDyASiG2piD9zE.te46qua5ha2r-Caz03Vx2JXH5OLSRRV2GqdYcn9UslwibsxBSP98GhUKSGEI0Z84FRMkp16ZK8eS-y72QVE2AQ", token: "", baseUrl: wssUrl, sign: "9zgd9YUc")
         lib.callWebsocket()
         lib.delegate = self
     }
