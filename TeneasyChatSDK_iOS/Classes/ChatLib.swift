@@ -435,11 +435,14 @@ extension ChatLib: WebSocketDelegate {
                     if let d = String(data: data, encoding: .utf8) {
                         if d.contains("\u{00}") {
                             print("收到心跳回执0\n")
-                        } else if d.contains("\u{02}") {
-                            disConnect(code: 1000, msg: "无效的Token\n")
-                            print("收到1字节回执\(d) 无效的Token\n")
+                        }  else if d.contains("\u{03}") {
+                            //disConnect(code: 1003, msg: "无效的Token\n")
+                            print("收到1字节回执\(d) PermChangedFlag 0x3\n")
+                        }else if d.contains("\u{02}") {
+                            disConnect(code: 1002, msg: "无效的Token\n")
+                            print("收到1字节回执\(d) 无效的Token 0x2\n")
                         } else if d.contains("\u{01}") {
-                            disConnect(code: 1003, msg: "在别处登录了\n")
+                            disConnect(code: 1010, msg: "在别处登录了\n")
                             print("收到1字节回执\(d) 在别处登录了\n")
                         } else {
                             print("收到1字节回执\(d)\n")
