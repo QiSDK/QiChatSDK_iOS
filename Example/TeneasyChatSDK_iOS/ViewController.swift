@@ -234,7 +234,7 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         /*
                1125324  1125397 1125417
                 */
-        lib = ChatLib(userId: 1125324, cert: "COYBEAUYASDyASiG2piD9zE.te46qua5ha2r-Caz03Vx2JXH5OLSRRV2GqdYcn9UslwibsxBSP98GhUKSGEI0Z84FRMkp16ZK8eS-y72QVE2AQ", token: "", baseUrl: wssUrl, sign: "9zgd9YUc")
+        lib = ChatLib(userId: 666662, cert: "COYBEAUYASDyASiG2piD9zE.te46qua5ha2r-Caz03Vx2JXH5OLSRRV2GqdYcn9UslwibsxBSP98GhUKSGEI0Z84FRMkp16ZK8eS-y72QVE2AQ", token: "", baseUrl: wssUrl, sign: "9zgd9YUc")
         lib.callWebsocket()
         lib.delegate = self
     }
@@ -282,9 +282,9 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
                 //tvChatView.text.append("\n发送一个视频！ VideoUrl: https://www.youtube.com/watch?v=wbFHmblw9J8\n\n")
                 //lib.sendMessage(msg: "https://www.youtube.com/watch?v=wbFHmblw9J8", type: .msgVideo, consultId: 1)
         
-        if let msg = lastMessage{
-            lib.resendMsg(msg: msg, payloadId: payLoadId)
-        }
+//        if let msg = lastMessage{
+//            lib.resendMsg(msg: msg, payloadId: payLoadId)
+//        }
         
             //Send Image
             //lib.sendMessageImage(url: "https://www.bing.com/th?id=OHR.ZebraTrio_ROW8661058210_1920x1080.jpg&rf=LaDigue_1920x1080.jpg")
