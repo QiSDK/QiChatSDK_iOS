@@ -428,7 +428,7 @@ extension ChatLib: WebSocketDelegate {
             if data.count == 1 {
                     if let d = String(data: data, encoding: .utf8) {
                         if d.contains("\u{00}") {
-                            print("收到心跳回执0\n")
+                            print("收到心跳回执\(beatTimes)\n")
                         }  else if d.contains("\u{03}") {
                             //disConnect(code: 1003, msg: "无效的Token\n")
                             print("收到1字节回执\(d) PermChangedFlag 0x3\n")
