@@ -234,7 +234,7 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         /*
                1125324  1125397 1125417
                 */
-        lib = ChatLib(userId: 666662, cert: "COYBEAUYASDyASiG2piD9zE.te46qua5ha2r-Caz03Vx2JXH5OLSRRV2GqdYcn9UslwibsxBSP98GhUKSGEI0Z84FRMkp16ZK8eS-y72QVE2AQ", token: "", baseUrl: wssUrl, sign: "9zgd9YUc")
+        lib = ChatLib(userId: 666663, cert: "COYBEAUYASDyASiG2piD9zE.te46qua5ha2r-Caz03Vx2JXH5OLSRRV2GqdYcn9UslwibsxBSP98GhUKSGEI0Z84FRMkp16ZK8eS-y72QVE2AQ", token: "", baseUrl: wssUrl, sign: "9zgd9YUc")
         lib.callWebsocket()
         lib.delegate = self
     }
@@ -269,8 +269,8 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
 //            lib.operateMsg(msg: lastMessage!, payloadId: payLoadId, act: .csdeleteMsg)
 //            return
 //        }else{
-            let txtMsg = "你好！需要什么帮助？\n"
-            lib.sendMessage(msg: txtMsg, type: .msgText, consultId: 1)
+            //let txtMsg = "你好！需要什么帮助？\n"
+            //lib.sendMessage(msg: txtMsg, type: .msgText, consultId: 1)
             
             if let cMSG = lib.sendingMsg{
                 var time = displayLocalTime(from: cMSG.msgTime.date)
@@ -285,9 +285,9 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
 //        if let msg = lastMessage{
 //            lib.resendMsg(msg: msg, payloadId: payLoadId)
 //        }
-        
-            //Send Image
-            //lib.sendMessageImage(url: "https://www.bing.com/th?id=OHR.ZebraTrio_ROW8661058210_1920x1080.jpg&rf=LaDigue_1920x1080.jpg")
+        //Send Image
+        lib.sendMessage(msg: "/230/session11253244/1716645412_39864.png", type: .msgImg, consultId: 1)
+    
         //}
         send = false
     }
