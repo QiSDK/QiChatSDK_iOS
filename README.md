@@ -2,7 +2,11 @@
 
 **引用SDK:**
 ```
+最新版：
 pod 'TeneasyChatSDK_iOS', :git => 'https://github.com/QiSDK/QiChatSDK_iOS.git'
+
+稳定版
+pod 'TeneasyChatSDK_iOS', :git => 'https://github.com/QiSDK/QiChatSDK_iOS.git', :tag => '1.5.2'
 
 如使用没有线路智能选择的版本，请指定到1.0.4
 pod 'TeneasyChatSDK_iOS', :git => 'https://github.com/QiSDK/QiChatSDK_iOS.git', :tag => '1.0.4'
