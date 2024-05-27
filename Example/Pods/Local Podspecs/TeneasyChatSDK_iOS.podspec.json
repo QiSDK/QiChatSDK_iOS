@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/QiSDK/QiChatSDK_iOS.git",
-    "tag": "1.5.1"
+    "tag": "1.5.2"
   },
   "platforms": {
     "ios": "10.0"
