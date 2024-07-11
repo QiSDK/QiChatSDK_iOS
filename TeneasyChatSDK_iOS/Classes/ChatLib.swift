@@ -179,7 +179,7 @@ open class ChatLib {
         var msg = CommonMessage()
         msg.consultID = self.consultId
         //msg.content = content
-        msg.chatID = 0//2692944494609
+        msg.chatID = chatId//2692944494609
         msg.msgID = msgId
         msg.msgOp = .msgOpDelete
         // 临时放到一个变量
@@ -494,15 +494,17 @@ extension ChatLib: WebSocketDelegate {
                              }
                  */
                 else if payLoad.act == .scdeleteMsgAck {
-                    let cMsg = try? Gateway_CSSendMessage(serializedData: msgData)
-                    print("删除消息回执A，payloadId:\(payLoad.id) msgId:\(cMsg?.msg.msgID ?? 0)")
-                    //cMsg?.msg.msgID = -1
-                    if let msg = cMsg?.msg{
-                        if msgList[payLoad.id] != nil{
-                            print("删除成功");
-                            
-                            delegate?.msgDeleted(msg: msg, payloadId: payLoad.id, errMsg: nil)
-                        }
+                    let cMsg = try? Gateway_SCReadMessage(serializedData: msgData)
+                    print("删除消息回执A，payloadId:\(payLoad.id) msgId:\(cMsg?.msgID ?? 0)")
+                    if let cMsg = cMsg{
+                        //delegate?.msgReceipt(msg: msg, payloadId: payLoad.id)
+                        // 第二层, 消息主题
+                        var msg = CommonMessage()
+                        //msg.msgID = -1
+                        msg.msgID = cMsg.msgID
+                        msg.msgOp = .msgOpDelete
+                        msg.chatID = cMsg.chatID
+                        delegate?.msgDeleted(msg: msg, payloadId: payLoad.id, errMsg: nil)
                         print(msg)
                     }
                 }

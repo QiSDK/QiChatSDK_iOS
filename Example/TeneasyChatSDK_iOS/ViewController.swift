@@ -41,7 +41,7 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
             lib.reConnect()
         }
        // tvChatView.text.append("\n发送图片！ ImageUrl: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQKV-3KPDbUgVdqjfEb3HK_SvGjcPYVl7n7KGCwBL6&s\n\n")
-      //  lib.sendMessage(msg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQKV-3KPDbUgVdqjfEb3HK_SvGjcPYVl7n7KGCwBL6&s", type: .msgImg, consultId: 100)
+        lib.sendMessage(msg: "/230/session11253244/1716645412_39864.png", type: .msgImg, consultId: 1)
         print(c.workerID)
         
         appendMsgScroll()
@@ -75,7 +75,8 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
     
     //消息删除成功
     func msgDeleted(msg: CommonMessage, payloadId : UInt64 = 0, errMsg: String?){
-        print("消息删除")
+        print("消息删除成功\(msg.msgID)")
+        appendMsg(msg: "消息删除成功\(msg.msgID)")
     }
     
     //发送的消息收到回执
@@ -252,18 +253,18 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
        // lib.sendHeartBeat()
     }
     
-    @objc func btSendAction3(){
+    @objc func btSendAction(){
         
         //tvChatView.text.append("\n发送一个视频！ VideoUrl: https://www.youtube.com/watch?v=wbFHmblw9J8\n\n")
         //lib.sendMessage(msg: "https://www.youtube.com/watch?v=wbFHmblw9J8", type: .msgVideo)
 //        tvChatView.text.append("\n回复信息:")
         //lib.sendMessage(msg: "https://www.youtube.com/watch?v=wbFHmblw9J8", type: .msgVideo, replyMsgId: lastMessage?.msgID ?? 0)
         
-        tvChatView.text.append("\n删除信息:")
+        tvChatView.text.append("\n删除信息:\(lastMessage?.msgID ?? 0)")
         lib.deleteMessage(msgId: lastMessage?.msgID ?? 0)//493660676493934594
     }
     
-    @IBAction func btSendAction(){
+    @IBAction func btSendAction3(){
         
 //        if !send && lastMessage != nil{
 //            lib.operateMsg(msg: lastMessage!, payloadId: payLoadId, act: .csdeleteMsg)
