@@ -353,29 +353,41 @@ public struct Gateway_SCChatChanged {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var from: CommonChatState = .common
+  public var from: CommonChatState {
+    get {return _storage._from}
+    set {_uniqueStorage()._from = newValue}
+  }
 
-  public var to: CommonChatState = .common
+  public var to: CommonChatState {
+    get {return _storage._to}
+    set {_uniqueStorage()._to = newValue}
+  }
 
-  public var chatID: Int64 = 0
+  public var chatID: Int64 {
+    get {return _storage._chatID}
+    set {_uniqueStorage()._chatID = newValue}
+  }
 
   /// 只有to != -1(触发onNewSession)时, 会有值
   public var chat: CommonChatItem {
-    get {return _chat ?? CommonChatItem()}
-    set {_chat = newValue}
+    get {return _storage._chat ?? CommonChatItem()}
+    set {_uniqueStorage()._chat = newValue}
   }
   /// Returns true if `chat` has been explicitly set.
-  public var hasChat: Bool {return self._chat != nil}
+  public var hasChat: Bool {return _storage._chat != nil}
   /// Clears the value of `chat`. Subsequent reads from it will return its default value.
-  public mutating func clearChat() {self._chat = nil}
+  public mutating func clearChat() {_uniqueStorage()._chat = nil}
 
-  public var target: Int64 = 0
+  public var target: Int64 {
+    get {return _storage._target}
+    set {_uniqueStorage()._target = newValue}
+  }
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _chat: CommonChatItem? = nil
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// 用户上线
@@ -429,6 +441,9 @@ public struct Gateway_SCKick {
 
   public var reason: Gateway_KickReason = .common
 
+  /// 链接ID, 如果等于0忽略此参数只根据target踢人，如果不等于0只踢掉此socket链接
+  public var socketID: UInt64 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -468,6 +483,62 @@ public struct Gateway_SCSimSendMessageToWorker {
   public init() {}
 }
 
+public struct Gateway_SystemMessage {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var target: Int64 = 0
+
+  public var content: Gateway_SystemMessage.OneOf_Content? = nil
+
+  public var stateChange: Gateway_WorkerStateChange {
+    get {
+      if case .stateChange(let v)? = content {return v}
+      return Gateway_WorkerStateChange()
+    }
+    set {content = .stateChange(newValue)}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public enum OneOf_Content: Equatable {
+    case stateChange(Gateway_WorkerStateChange)
+
+  #if !swift(>=4.1)
+    public static func ==(lhs: Gateway_SystemMessage.OneOf_Content, rhs: Gateway_SystemMessage.OneOf_Content) -> Bool {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch (lhs, rhs) {
+      case (.stateChange, .stateChange): return {
+        guard case .stateChange(let l) = lhs, case .stateChange(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      }
+    }
+  #endif
+  }
+
+  public init() {}
+}
+
+public struct Gateway_WorkerStateChange {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var from: Api_Common_OnlineState = .idle
+
+  public var to: Api_Common_OnlineState = .idle
+
+  public var access: Bool = false
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Gateway_WorkerChangedReason: @unchecked Sendable {}
 extension Gateway_KickReason: @unchecked Sendable {}
@@ -489,6 +560,9 @@ extension Gateway_SCWorkerChanged: @unchecked Sendable {}
 extension Gateway_SCKick: @unchecked Sendable {}
 extension Gateway_SCSimSendMessage: @unchecked Sendable {}
 extension Gateway_SCSimSendMessageToWorker: @unchecked Sendable {}
+extension Gateway_SystemMessage: @unchecked Sendable {}
+extension Gateway_SystemMessage.OneOf_Content: @unchecked Sendable {}
+extension Gateway_WorkerStateChange: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -1023,51 +1097,99 @@ extension Gateway_SCChatChanged: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     5: .same(proto: "target"),
   ]
 
+  fileprivate class _StorageClass {
+    var _from: CommonChatState = .common
+    var _to: CommonChatState = .common
+    var _chatID: Int64 = 0
+    var _chat: CommonChatItem? = nil
+    var _target: Int64 = 0
+
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _from = source._from
+      _to = source._to
+      _chatID = source._chatID
+      _chat = source._chat
+      _target = source._target
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.from) }()
-      case 2: try { try decoder.decodeSingularEnumField(value: &self.to) }()
-      case 3: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
-      case 4: try { try decoder.decodeSingularMessageField(value: &self._chat) }()
-      case 5: try { try decoder.decodeSingularInt64Field(value: &self.target) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularEnumField(value: &_storage._from) }()
+        case 2: try { try decoder.decodeSingularEnumField(value: &_storage._to) }()
+        case 3: try { try decoder.decodeSingularInt64Field(value: &_storage._chatID) }()
+        case 4: try { try decoder.decodeSingularMessageField(value: &_storage._chat) }()
+        case 5: try { try decoder.decodeSingularInt64Field(value: &_storage._target) }()
+        default: break
+        }
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    if self.from != .common {
-      try visitor.visitSingularEnumField(value: self.from, fieldNumber: 1)
-    }
-    if self.to != .common {
-      try visitor.visitSingularEnumField(value: self.to, fieldNumber: 2)
-    }
-    if self.chatID != 0 {
-      try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 3)
-    }
-    try { if let v = self._chat {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-    } }()
-    if self.target != 0 {
-      try visitor.visitSingularInt64Field(value: self.target, fieldNumber: 5)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      if _storage._from != .common {
+        try visitor.visitSingularEnumField(value: _storage._from, fieldNumber: 1)
+      }
+      if _storage._to != .common {
+        try visitor.visitSingularEnumField(value: _storage._to, fieldNumber: 2)
+      }
+      if _storage._chatID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._chatID, fieldNumber: 3)
+      }
+      try { if let v = _storage._chat {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      } }()
+      if _storage._target != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._target, fieldNumber: 5)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Gateway_SCChatChanged, rhs: Gateway_SCChatChanged) -> Bool {
-    if lhs.from != rhs.from {return false}
-    if lhs.to != rhs.to {return false}
-    if lhs.chatID != rhs.chatID {return false}
-    if lhs._chat != rhs._chat {return false}
-    if lhs.target != rhs.target {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._from != rhs_storage._from {return false}
+        if _storage._to != rhs_storage._to {return false}
+        if _storage._chatID != rhs_storage._chatID {return false}
+        if _storage._chat != rhs_storage._chat {return false}
+        if _storage._target != rhs_storage._target {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1184,6 +1306,7 @@ extension Gateway_SCKick: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "target"),
     2: .same(proto: "reason"),
+    3: .standard(proto: "socket_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1194,6 +1317,7 @@ extension Gateway_SCKick: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularInt64Field(value: &self.target) }()
       case 2: try { try decoder.decodeSingularEnumField(value: &self.reason) }()
+      case 3: try { try decoder.decodeSingularUInt64Field(value: &self.socketID) }()
       default: break
       }
     }
@@ -1206,12 +1330,16 @@ extension Gateway_SCKick: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     if self.reason != .common {
       try visitor.visitSingularEnumField(value: self.reason, fieldNumber: 2)
     }
+    if self.socketID != 0 {
+      try visitor.visitSingularUInt64Field(value: self.socketID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Gateway_SCKick, rhs: Gateway_SCKick) -> Bool {
     if lhs.target != rhs.target {return false}
     if lhs.reason != rhs.reason {return false}
+    if lhs.socketID != rhs.socketID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1294,6 +1422,104 @@ extension Gateway_SCSimSendMessageToWorker: SwiftProtobuf.Message, SwiftProtobuf
   public static func ==(lhs: Gateway_SCSimSendMessageToWorker, rhs: Gateway_SCSimSendMessageToWorker) -> Bool {
     if lhs.msgs != rhs.msgs {return false}
     if lhs.target != rhs.target {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Gateway_SystemMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SystemMessage"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "target"),
+    2: .same(proto: "StateChange"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.target) }()
+      case 2: try {
+        var v: Gateway_WorkerStateChange?
+        var hadOneofValue = false
+        if let current = self.content {
+          hadOneofValue = true
+          if case .stateChange(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.content = .stateChange(v)
+        }
+      }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.target != 0 {
+      try visitor.visitSingularInt64Field(value: self.target, fieldNumber: 1)
+    }
+    try { if case .stateChange(let v)? = self.content {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Gateway_SystemMessage, rhs: Gateway_SystemMessage) -> Bool {
+    if lhs.target != rhs.target {return false}
+    if lhs.content != rhs.content {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Gateway_WorkerStateChange: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerStateChange"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "from"),
+    2: .same(proto: "to"),
+    3: .same(proto: "access"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.from) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.to) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.access) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.from != .idle {
+      try visitor.visitSingularEnumField(value: self.from, fieldNumber: 1)
+    }
+    if self.to != .idle {
+      try visitor.visitSingularEnumField(value: self.to, fieldNumber: 2)
+    }
+    if self.access != false {
+      try visitor.visitSingularBoolField(value: self.access, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Gateway_WorkerStateChange, rhs: Gateway_WorkerStateChange) -> Bool {
+    if lhs.from != rhs.from {return false}
+    if lhs.to != rhs.to {return false}
+    if lhs.access != rhs.access {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

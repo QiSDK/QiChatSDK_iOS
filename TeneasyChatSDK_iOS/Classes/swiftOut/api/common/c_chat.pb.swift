@@ -174,7 +174,7 @@ public struct CommonChatItem {
   /// Clears the value of `createAt`. Subsequent reads from it will return its default value.
   public mutating func clearCreateAt() {self._createAt = nil}
 
-  /// 第一次服务时间
+  /// 24小时未回复超时时间
   public var serviceAt: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _serviceAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
     set {_serviceAt = newValue}
@@ -183,6 +183,16 @@ public struct CommonChatItem {
   public var hasServiceAt: Bool {return self._serviceAt != nil}
   /// Clears the value of `serviceAt`. Subsequent reads from it will return its default value.
   public mutating func clearServiceAt() {self._serviceAt = nil}
+
+  /// 三分钟超时开始时间
+  public var beginAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _beginAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_beginAt = newValue}
+  }
+  /// Returns true if `beginAt` has been explicitly set.
+  public var hasBeginAt: Bool {return self._beginAt != nil}
+  /// Clears the value of `beginAt`. Subsequent reads from it will return its default value.
+  public mutating func clearBeginAt() {self._beginAt = nil}
 
   /// 会话详情
   public var detail: CommonChatDetail {
@@ -204,6 +214,9 @@ public struct CommonChatItem {
   /// Clears the value of `resetAt`. Subsequent reads from it will return its default value.
   public mutating func clearResetAt() {self._resetAt = nil}
 
+  /// 是否可见 （转出的已接待任务为不可见状态）
+  public var visible: Bool = false
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -211,6 +224,7 @@ public struct CommonChatItem {
   fileprivate var _latestMsg: CommonMessage? = nil
   fileprivate var _createAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
   fileprivate var _serviceAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _beginAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
   fileprivate var _detail: CommonChatDetail? = nil
   fileprivate var _resetAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
@@ -429,8 +443,10 @@ extension CommonChatItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     4: .standard(proto: "latest_msg"),
     5: .standard(proto: "create_at"),
     6: .standard(proto: "service_at"),
+    10: .standard(proto: "begin_at"),
     7: .same(proto: "detail"),
     8: .standard(proto: "reset_at"),
+    9: .same(proto: "visible"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -447,6 +463,8 @@ extension CommonChatItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       case 6: try { try decoder.decodeSingularMessageField(value: &self._serviceAt) }()
       case 7: try { try decoder.decodeSingularMessageField(value: &self._detail) }()
       case 8: try { try decoder.decodeSingularMessageField(value: &self._resetAt) }()
+      case 9: try { try decoder.decodeSingularBoolField(value: &self.visible) }()
+      case 10: try { try decoder.decodeSingularMessageField(value: &self._beginAt) }()
       default: break
       }
     }
@@ -481,6 +499,12 @@ extension CommonChatItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     try { if let v = self._resetAt {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
     } }()
+    if self.visible != false {
+      try visitor.visitSingularBoolField(value: self.visible, fieldNumber: 9)
+    }
+    try { if let v = self._beginAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -491,8 +515,10 @@ extension CommonChatItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     if lhs._latestMsg != rhs._latestMsg {return false}
     if lhs._createAt != rhs._createAt {return false}
     if lhs._serviceAt != rhs._serviceAt {return false}
+    if lhs._beginAt != rhs._beginAt {return false}
     if lhs._detail != rhs._detail {return false}
     if lhs._resetAt != rhs._resetAt {return false}
+    if lhs.visible != rhs.visible {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

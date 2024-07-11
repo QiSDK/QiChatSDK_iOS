@@ -404,54 +404,120 @@ public struct Api_Common_Worker {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var workerID: Int32 = 0
+  public var workerID: Int32 {
+    get {return _storage._workerID}
+    set {_uniqueStorage()._workerID = newValue}
+  }
 
-  public var account: String = String()
+  public var account: String {
+    get {return _storage._account}
+    set {_uniqueStorage()._account = newValue}
+  }
 
   /// 所在的组
-  public var group: [Api_Common_WorkerGroup] = []
+  public var group: [Api_Common_WorkerGroup] {
+    get {return _storage._group}
+    set {_uniqueStorage()._group = newValue}
+  }
 
   /// 权限掩码, 前端理解有困难的话 随时可调
-  public var permMask: Int32 = 0
+  public var permMask: Int32 {
+    get {return _storage._permMask}
+    set {_uniqueStorage()._permMask = newValue}
+  }
 
   /// 客服名
-  public var name: String = String()
+  public var name: String {
+    get {return _storage._name}
+    set {_uniqueStorage()._name = newValue}
+  }
 
   /// 头像url
-  public var avatar: String = String()
+  public var avatar: String {
+    get {return _storage._avatar}
+    set {_uniqueStorage()._avatar = newValue}
+  }
 
   /// 在线状态
-  public var onlineState: Api_Common_OnlineState = .idle
+  public var onlineState: Api_Common_OnlineState {
+    get {return _storage._onlineState}
+    set {_uniqueStorage()._onlineState = newValue}
+  }
 
   /// 密码
-  public var password: String = String()
+  public var password: String {
+    get {return _storage._password}
+    set {_uniqueStorage()._password = newValue}
+  }
 
   /// 登录/未登录
-  public var connectState: Api_Common_ConnectState = .offline
+  public var connectState: Api_Common_ConnectState {
+    get {return _storage._connectState}
+    set {_uniqueStorage()._connectState = newValue}
+  }
 
   /// 商户ID
-  public var tenantID: Int32 = 0
+  public var tenantID: Int32 {
+    get {return _storage._tenantID}
+    set {_uniqueStorage()._tenantID = newValue}
+  }
 
   /// 云信Id
-  public var workerNimid: String = String()
+  public var workerNimid: String {
+    get {return _storage._workerNimid}
+    set {_uniqueStorage()._workerNimid = newValue}
+  }
 
   /// 云信session
-  public var workerNimsession: String = String()
+  public var workerNimsession: String {
+    get {return _storage._workerNimsession}
+    set {_uniqueStorage()._workerNimsession = newValue}
+  }
 
   ///是否已经注册nim true需要，false 不需要
-  public var bneednim: Bool = false
+  public var bneednim: Bool {
+    get {return _storage._bneednim}
+    set {_uniqueStorage()._bneednim = newValue}
+  }
 
   /// 二级分组
-  public var groupChild: [Api_Common_WorkerGroup] = []
+  public var groupChild: [Api_Common_WorkerGroup] {
+    get {return _storage._groupChild}
+    set {_uniqueStorage()._groupChild = newValue}
+  }
 
-  public var tips: String = String()
+  public var tips: String {
+    get {return _storage._tips}
+    set {_uniqueStorage()._tips = newValue}
+  }
 
   ///所属咨询类型id
-  public var consultIds: [UInt32] = []
+  public var consultIds: [UInt32] {
+    get {return _storage._consultIds}
+    set {_uniqueStorage()._consultIds = newValue}
+  }
+
+  /// 删除时间（依次判断是否已删除）
+  public var deleteAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _storage._deleteAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_uniqueStorage()._deleteAt = newValue}
+  }
+  /// Returns true if `deleteAt` has been explicitly set.
+  public var hasDeleteAt: Bool {return _storage._deleteAt != nil}
+  /// Clears the value of `deleteAt`. Subsequent reads from it will return its default value.
+  public mutating func clearDeleteAt() {_uniqueStorage()._deleteAt = nil}
+
+  /// 删除状态
+  public var disableStatus: CommonDisableStatus {
+    get {return _storage._disableStatus}
+    set {_uniqueStorage()._disableStatus = newValue}
+  }
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 public struct Api_Common_WorkerGroup {
@@ -473,9 +539,24 @@ public struct Api_Common_WorkerGroup {
 
   public var consultID: UInt32 = 0
 
+  /// 删除时间（依次判断是否已删除）
+  public var deleteAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _deleteAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_deleteAt = newValue}
+  }
+  /// Returns true if `deleteAt` has been explicitly set.
+  public var hasDeleteAt: Bool {return self._deleteAt != nil}
+  /// Clears the value of `deleteAt`. Subsequent reads from it will return its default value.
+  public mutating func clearDeleteAt() {self._deleteAt = nil}
+
+  /// 删除状态
+  public var disableStatus: CommonDisableStatus = .default
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+
+  fileprivate var _deleteAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
 public struct Api_Common_Distribution {
@@ -510,6 +591,40 @@ public struct Api_Common_TenantClique {
   public init() {}
 }
 
+public struct Api_Common_ApplyWorkerState {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var id: Int32 = 0
+
+  public var tenantID: Int32 = 0
+
+  public var workerID: Int32 = 0
+
+  public var name: String = String()
+
+  public var workerGroupName: String = String()
+
+  public var workerGroupChildName: String = String()
+
+  public var onlineStateNow: Api_Common_OnlineState = .idle
+
+  public var onlineStateApply: Api_Common_OnlineState = .idle
+
+  public var applyState: Int32 = 0
+
+  public var applyTime: Int64 = 0
+
+  public var checkTime: Int64 = 0
+
+  public var updateUsername: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Api_Common_DistributionType: @unchecked Sendable {}
 extension Api_Common_WorkerPermission: @unchecked Sendable {}
@@ -522,6 +637,7 @@ extension Api_Common_Worker: @unchecked Sendable {}
 extension Api_Common_WorkerGroup: @unchecked Sendable {}
 extension Api_Common_Distribution: @unchecked Sendable {}
 extension Api_Common_TenantClique: @unchecked Sendable {}
+extension Api_Common_ApplyWorkerState: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -666,104 +782,194 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     14: .standard(proto: "group_child"),
     15: .same(proto: "tips"),
     16: .standard(proto: "consult_ids"),
+    17: .standard(proto: "delete_at"),
+    18: .standard(proto: "disable_status"),
   ]
 
+  fileprivate class _StorageClass {
+    var _workerID: Int32 = 0
+    var _account: String = String()
+    var _group: [Api_Common_WorkerGroup] = []
+    var _permMask: Int32 = 0
+    var _name: String = String()
+    var _avatar: String = String()
+    var _onlineState: Api_Common_OnlineState = .idle
+    var _password: String = String()
+    var _connectState: Api_Common_ConnectState = .offline
+    var _tenantID: Int32 = 0
+    var _workerNimid: String = String()
+    var _workerNimsession: String = String()
+    var _bneednim: Bool = false
+    var _groupChild: [Api_Common_WorkerGroup] = []
+    var _tips: String = String()
+    var _consultIds: [UInt32] = []
+    var _deleteAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+    var _disableStatus: CommonDisableStatus = .default
+
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _workerID = source._workerID
+      _account = source._account
+      _group = source._group
+      _permMask = source._permMask
+      _name = source._name
+      _avatar = source._avatar
+      _onlineState = source._onlineState
+      _password = source._password
+      _connectState = source._connectState
+      _tenantID = source._tenantID
+      _workerNimid = source._workerNimid
+      _workerNimsession = source._workerNimsession
+      _bneednim = source._bneednim
+      _groupChild = source._groupChild
+      _tips = source._tips
+      _consultIds = source._consultIds
+      _deleteAt = source._deleteAt
+      _disableStatus = source._disableStatus
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.account) }()
-      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.group) }()
-      case 4: try { try decoder.decodeSingularInt32Field(value: &self.permMask) }()
-      case 5: try { try decoder.decodeSingularStringField(value: &self.name) }()
-      case 6: try { try decoder.decodeSingularStringField(value: &self.avatar) }()
-      case 7: try { try decoder.decodeSingularEnumField(value: &self.onlineState) }()
-      case 8: try { try decoder.decodeSingularStringField(value: &self.password) }()
-      case 9: try { try decoder.decodeSingularEnumField(value: &self.connectState) }()
-      case 10: try { try decoder.decodeSingularInt32Field(value: &self.tenantID) }()
-      case 11: try { try decoder.decodeSingularStringField(value: &self.workerNimid) }()
-      case 12: try { try decoder.decodeSingularStringField(value: &self.workerNimsession) }()
-      case 13: try { try decoder.decodeSingularBoolField(value: &self.bneednim) }()
-      case 14: try { try decoder.decodeRepeatedMessageField(value: &self.groupChild) }()
-      case 15: try { try decoder.decodeSingularStringField(value: &self.tips) }()
-      case 16: try { try decoder.decodeRepeatedUInt32Field(value: &self.consultIds) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularInt32Field(value: &_storage._workerID) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._account) }()
+        case 3: try { try decoder.decodeRepeatedMessageField(value: &_storage._group) }()
+        case 4: try { try decoder.decodeSingularInt32Field(value: &_storage._permMask) }()
+        case 5: try { try decoder.decodeSingularStringField(value: &_storage._name) }()
+        case 6: try { try decoder.decodeSingularStringField(value: &_storage._avatar) }()
+        case 7: try { try decoder.decodeSingularEnumField(value: &_storage._onlineState) }()
+        case 8: try { try decoder.decodeSingularStringField(value: &_storage._password) }()
+        case 9: try { try decoder.decodeSingularEnumField(value: &_storage._connectState) }()
+        case 10: try { try decoder.decodeSingularInt32Field(value: &_storage._tenantID) }()
+        case 11: try { try decoder.decodeSingularStringField(value: &_storage._workerNimid) }()
+        case 12: try { try decoder.decodeSingularStringField(value: &_storage._workerNimsession) }()
+        case 13: try { try decoder.decodeSingularBoolField(value: &_storage._bneednim) }()
+        case 14: try { try decoder.decodeRepeatedMessageField(value: &_storage._groupChild) }()
+        case 15: try { try decoder.decodeSingularStringField(value: &_storage._tips) }()
+        case 16: try { try decoder.decodeRepeatedUInt32Field(value: &_storage._consultIds) }()
+        case 17: try { try decoder.decodeSingularMessageField(value: &_storage._deleteAt) }()
+        case 18: try { try decoder.decodeSingularEnumField(value: &_storage._disableStatus) }()
+        default: break
+        }
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.workerID != 0 {
-      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 1)
-    }
-    if !self.account.isEmpty {
-      try visitor.visitSingularStringField(value: self.account, fieldNumber: 2)
-    }
-    if !self.group.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.group, fieldNumber: 3)
-    }
-    if self.permMask != 0 {
-      try visitor.visitSingularInt32Field(value: self.permMask, fieldNumber: 4)
-    }
-    if !self.name.isEmpty {
-      try visitor.visitSingularStringField(value: self.name, fieldNumber: 5)
-    }
-    if !self.avatar.isEmpty {
-      try visitor.visitSingularStringField(value: self.avatar, fieldNumber: 6)
-    }
-    if self.onlineState != .idle {
-      try visitor.visitSingularEnumField(value: self.onlineState, fieldNumber: 7)
-    }
-    if !self.password.isEmpty {
-      try visitor.visitSingularStringField(value: self.password, fieldNumber: 8)
-    }
-    if self.connectState != .offline {
-      try visitor.visitSingularEnumField(value: self.connectState, fieldNumber: 9)
-    }
-    if self.tenantID != 0 {
-      try visitor.visitSingularInt32Field(value: self.tenantID, fieldNumber: 10)
-    }
-    if !self.workerNimid.isEmpty {
-      try visitor.visitSingularStringField(value: self.workerNimid, fieldNumber: 11)
-    }
-    if !self.workerNimsession.isEmpty {
-      try visitor.visitSingularStringField(value: self.workerNimsession, fieldNumber: 12)
-    }
-    if self.bneednim != false {
-      try visitor.visitSingularBoolField(value: self.bneednim, fieldNumber: 13)
-    }
-    if !self.groupChild.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.groupChild, fieldNumber: 14)
-    }
-    if !self.tips.isEmpty {
-      try visitor.visitSingularStringField(value: self.tips, fieldNumber: 15)
-    }
-    if !self.consultIds.isEmpty {
-      try visitor.visitPackedUInt32Field(value: self.consultIds, fieldNumber: 16)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      if _storage._workerID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._workerID, fieldNumber: 1)
+      }
+      if !_storage._account.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._account, fieldNumber: 2)
+      }
+      if !_storage._group.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._group, fieldNumber: 3)
+      }
+      if _storage._permMask != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._permMask, fieldNumber: 4)
+      }
+      if !_storage._name.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 5)
+      }
+      if !_storage._avatar.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._avatar, fieldNumber: 6)
+      }
+      if _storage._onlineState != .idle {
+        try visitor.visitSingularEnumField(value: _storage._onlineState, fieldNumber: 7)
+      }
+      if !_storage._password.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._password, fieldNumber: 8)
+      }
+      if _storage._connectState != .offline {
+        try visitor.visitSingularEnumField(value: _storage._connectState, fieldNumber: 9)
+      }
+      if _storage._tenantID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._tenantID, fieldNumber: 10)
+      }
+      if !_storage._workerNimid.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._workerNimid, fieldNumber: 11)
+      }
+      if !_storage._workerNimsession.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._workerNimsession, fieldNumber: 12)
+      }
+      if _storage._bneednim != false {
+        try visitor.visitSingularBoolField(value: _storage._bneednim, fieldNumber: 13)
+      }
+      if !_storage._groupChild.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._groupChild, fieldNumber: 14)
+      }
+      if !_storage._tips.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._tips, fieldNumber: 15)
+      }
+      if !_storage._consultIds.isEmpty {
+        try visitor.visitPackedUInt32Field(value: _storage._consultIds, fieldNumber: 16)
+      }
+      try { if let v = _storage._deleteAt {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 17)
+      } }()
+      if _storage._disableStatus != .default {
+        try visitor.visitSingularEnumField(value: _storage._disableStatus, fieldNumber: 18)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Common_Worker, rhs: Api_Common_Worker) -> Bool {
-    if lhs.workerID != rhs.workerID {return false}
-    if lhs.account != rhs.account {return false}
-    if lhs.group != rhs.group {return false}
-    if lhs.permMask != rhs.permMask {return false}
-    if lhs.name != rhs.name {return false}
-    if lhs.avatar != rhs.avatar {return false}
-    if lhs.onlineState != rhs.onlineState {return false}
-    if lhs.password != rhs.password {return false}
-    if lhs.connectState != rhs.connectState {return false}
-    if lhs.tenantID != rhs.tenantID {return false}
-    if lhs.workerNimid != rhs.workerNimid {return false}
-    if lhs.workerNimsession != rhs.workerNimsession {return false}
-    if lhs.bneednim != rhs.bneednim {return false}
-    if lhs.groupChild != rhs.groupChild {return false}
-    if lhs.tips != rhs.tips {return false}
-    if lhs.consultIds != rhs.consultIds {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._workerID != rhs_storage._workerID {return false}
+        if _storage._account != rhs_storage._account {return false}
+        if _storage._group != rhs_storage._group {return false}
+        if _storage._permMask != rhs_storage._permMask {return false}
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._avatar != rhs_storage._avatar {return false}
+        if _storage._onlineState != rhs_storage._onlineState {return false}
+        if _storage._password != rhs_storage._password {return false}
+        if _storage._connectState != rhs_storage._connectState {return false}
+        if _storage._tenantID != rhs_storage._tenantID {return false}
+        if _storage._workerNimid != rhs_storage._workerNimid {return false}
+        if _storage._workerNimsession != rhs_storage._workerNimsession {return false}
+        if _storage._bneednim != rhs_storage._bneednim {return false}
+        if _storage._groupChild != rhs_storage._groupChild {return false}
+        if _storage._tips != rhs_storage._tips {return false}
+        if _storage._consultIds != rhs_storage._consultIds {return false}
+        if _storage._deleteAt != rhs_storage._deleteAt {return false}
+        if _storage._disableStatus != rhs_storage._disableStatus {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -779,6 +985,8 @@ extension Api_Common_WorkerGroup: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     5: .same(proto: "parentId"),
     6: .same(proto: "ratio"),
     7: .standard(proto: "consult_id"),
+    8: .standard(proto: "delete_at"),
+    9: .standard(proto: "disable_status"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -794,12 +1002,18 @@ extension Api_Common_WorkerGroup: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       case 5: try { try decoder.decodeSingularInt64Field(value: &self.parentID) }()
       case 6: try { try decoder.decodeSingularInt32Field(value: &self.ratio) }()
       case 7: try { try decoder.decodeSingularUInt32Field(value: &self.consultID) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._deleteAt) }()
+      case 9: try { try decoder.decodeSingularEnumField(value: &self.disableStatus) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if self.id != 0 {
       try visitor.visitSingularInt64Field(value: self.id, fieldNumber: 1)
     }
@@ -821,6 +1035,12 @@ extension Api_Common_WorkerGroup: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     if self.consultID != 0 {
       try visitor.visitSingularUInt32Field(value: self.consultID, fieldNumber: 7)
     }
+    try { if let v = self._deleteAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
+    if self.disableStatus != .default {
+      try visitor.visitSingularEnumField(value: self.disableStatus, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -832,6 +1052,8 @@ extension Api_Common_WorkerGroup: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     if lhs.parentID != rhs.parentID {return false}
     if lhs.ratio != rhs.ratio {return false}
     if lhs.consultID != rhs.consultID {return false}
+    if lhs._deleteAt != rhs._deleteAt {return false}
+    if lhs.disableStatus != rhs.disableStatus {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -920,6 +1142,104 @@ extension Api_Common_TenantClique: SwiftProtobuf.Message, SwiftProtobuf._Message
     if lhs.id != rhs.id {return false}
     if lhs.name != rhs.name {return false}
     if lhs.priority != rhs.priority {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Common_ApplyWorkerState: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ApplyWorkerState"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .standard(proto: "tenant_id"),
+    3: .standard(proto: "worker_id"),
+    4: .same(proto: "name"),
+    5: .standard(proto: "worker_group_name"),
+    6: .standard(proto: "worker_group_child_name"),
+    7: .standard(proto: "online_state_now"),
+    8: .standard(proto: "online_state_apply"),
+    9: .standard(proto: "apply_state"),
+    10: .standard(proto: "apply_time"),
+    11: .standard(proto: "check_time"),
+    12: .standard(proto: "update_username"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.tenantID) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.workerGroupName) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.workerGroupChildName) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.onlineStateNow) }()
+      case 8: try { try decoder.decodeSingularEnumField(value: &self.onlineStateApply) }()
+      case 9: try { try decoder.decodeSingularInt32Field(value: &self.applyState) }()
+      case 10: try { try decoder.decodeSingularInt64Field(value: &self.applyTime) }()
+      case 11: try { try decoder.decodeSingularInt64Field(value: &self.checkTime) }()
+      case 12: try { try decoder.decodeSingularStringField(value: &self.updateUsername) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.id != 0 {
+      try visitor.visitSingularInt32Field(value: self.id, fieldNumber: 1)
+    }
+    if self.tenantID != 0 {
+      try visitor.visitSingularInt32Field(value: self.tenantID, fieldNumber: 2)
+    }
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 3)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 4)
+    }
+    if !self.workerGroupName.isEmpty {
+      try visitor.visitSingularStringField(value: self.workerGroupName, fieldNumber: 5)
+    }
+    if !self.workerGroupChildName.isEmpty {
+      try visitor.visitSingularStringField(value: self.workerGroupChildName, fieldNumber: 6)
+    }
+    if self.onlineStateNow != .idle {
+      try visitor.visitSingularEnumField(value: self.onlineStateNow, fieldNumber: 7)
+    }
+    if self.onlineStateApply != .idle {
+      try visitor.visitSingularEnumField(value: self.onlineStateApply, fieldNumber: 8)
+    }
+    if self.applyState != 0 {
+      try visitor.visitSingularInt32Field(value: self.applyState, fieldNumber: 9)
+    }
+    if self.applyTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.applyTime, fieldNumber: 10)
+    }
+    if self.checkTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.checkTime, fieldNumber: 11)
+    }
+    if !self.updateUsername.isEmpty {
+      try visitor.visitSingularStringField(value: self.updateUsername, fieldNumber: 12)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Common_ApplyWorkerState, rhs: Api_Common_ApplyWorkerState) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.tenantID != rhs.tenantID {return false}
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.workerGroupName != rhs.workerGroupName {return false}
+    if lhs.workerGroupChildName != rhs.workerGroupChildName {return false}
+    if lhs.onlineStateNow != rhs.onlineStateNow {return false}
+    if lhs.onlineStateApply != rhs.onlineStateApply {return false}
+    if lhs.applyState != rhs.applyState {return false}
+    if lhs.applyTime != rhs.applyTime {return false}
+    if lhs.checkTime != rhs.checkTime {return false}
+    if lhs.updateUsername != rhs.updateUsername {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

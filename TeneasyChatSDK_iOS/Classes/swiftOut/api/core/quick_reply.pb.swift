@@ -92,7 +92,8 @@ public struct Api_Core_QuickReplyGroupDeleteRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var name: String = String()
+  ///   string name = 1 [(validate.rules).string.min_bytes = 1];
+  public var name: [String] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -135,6 +136,12 @@ public struct Api_Core_QuickReplyItem {
 
   ///组id
   public var groupID: Int64 = 0
+
+  /// 客服组name
+  public var customerGroupName: String = String()
+
+  /// 便签内容数组
+  public var contents: [String] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -249,15 +256,27 @@ public struct Api_Core_UpdateQuickReplyRequest {
   fileprivate var _reply: Api_Core_QuickReplyItem? = nil
 }
 
+public struct Api_Core_DQuickReply {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var id: Int64 = 0
+
+  public var name: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 /// 删除标签
 public struct Api_Core_DeleteQuickReplyRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var quickReplyID: Int64 = 0
-
-  public var name: String = String()
+  public var items: [Api_Core_DQuickReply] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -343,6 +362,7 @@ extension Api_Core_CreateQuickReplyResponse: @unchecked Sendable {}
 extension Api_Core_CreateQuickReplyRequestV1: @unchecked Sendable {}
 extension Api_Core_CreateQuickReplyResponseV1: @unchecked Sendable {}
 extension Api_Core_UpdateQuickReplyRequest: @unchecked Sendable {}
+extension Api_Core_DQuickReply: @unchecked Sendable {}
 extension Api_Core_DeleteQuickReplyRequest: @unchecked Sendable {}
 extension Api_Core_PushCommonRequest: @unchecked Sendable {}
 extension Api_Core_PopCommonRequest: @unchecked Sendable {}
@@ -525,7 +545,7 @@ extension Api_Core_QuickReplyGroupDeleteRequest: SwiftProtobuf.Message, SwiftPro
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.name) }()
       default: break
       }
     }
@@ -533,7 +553,7 @@ extension Api_Core_QuickReplyGroupDeleteRequest: SwiftProtobuf.Message, SwiftPro
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.name.isEmpty {
-      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
+      try visitor.visitRepeatedStringField(value: self.name, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -556,6 +576,8 @@ extension Api_Core_QuickReplyItem: SwiftProtobuf.Message, SwiftProtobuf._Message
     6: .same(proto: "items"),
     7: .standard(proto: "is_custom"),
     8: .standard(proto: "group_id"),
+    9: .standard(proto: "customer_group_name"),
+    10: .same(proto: "contents"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -572,6 +594,8 @@ extension Api_Core_QuickReplyItem: SwiftProtobuf.Message, SwiftProtobuf._Message
       case 6: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
       case 7: try { try decoder.decodeSingularBoolField(value: &self.isCustom) }()
       case 8: try { try decoder.decodeSingularInt64Field(value: &self.groupID) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.customerGroupName) }()
+      case 10: try { try decoder.decodeRepeatedStringField(value: &self.contents) }()
       default: break
       }
     }
@@ -602,6 +626,12 @@ extension Api_Core_QuickReplyItem: SwiftProtobuf.Message, SwiftProtobuf._Message
     if self.groupID != 0 {
       try visitor.visitSingularInt64Field(value: self.groupID, fieldNumber: 8)
     }
+    if !self.customerGroupName.isEmpty {
+      try visitor.visitSingularStringField(value: self.customerGroupName, fieldNumber: 9)
+    }
+    if !self.contents.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.contents, fieldNumber: 10)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -614,6 +644,8 @@ extension Api_Core_QuickReplyItem: SwiftProtobuf.Message, SwiftProtobuf._Message
     if lhs.items != rhs.items {return false}
     if lhs.isCustom != rhs.isCustom {return false}
     if lhs.groupID != rhs.groupID {return false}
+    if lhs.customerGroupName != rhs.customerGroupName {return false}
+    if lhs.contents != rhs.contents {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -835,10 +867,10 @@ extension Api_Core_UpdateQuickReplyRequest: SwiftProtobuf.Message, SwiftProtobuf
   }
 }
 
-extension Api_Core_DeleteQuickReplyRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".DeleteQuickReplyRequest"
+extension Api_Core_DQuickReply: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DQuickReply"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "quick_reply_id"),
+    1: .same(proto: "id"),
     2: .same(proto: "name"),
   ]
 
@@ -848,7 +880,7 @@ extension Api_Core_DeleteQuickReplyRequest: SwiftProtobuf.Message, SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularInt64Field(value: &self.quickReplyID) }()
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.id) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
       default: break
       }
@@ -856,8 +888,8 @@ extension Api_Core_DeleteQuickReplyRequest: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.quickReplyID != 0 {
-      try visitor.visitSingularInt64Field(value: self.quickReplyID, fieldNumber: 1)
+    if self.id != 0 {
+      try visitor.visitSingularInt64Field(value: self.id, fieldNumber: 1)
     }
     if !self.name.isEmpty {
       try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
@@ -865,9 +897,41 @@ extension Api_Core_DeleteQuickReplyRequest: SwiftProtobuf.Message, SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Api_Core_DeleteQuickReplyRequest, rhs: Api_Core_DeleteQuickReplyRequest) -> Bool {
-    if lhs.quickReplyID != rhs.quickReplyID {return false}
+  public static func ==(lhs: Api_Core_DQuickReply, rhs: Api_Core_DQuickReply) -> Bool {
+    if lhs.id != rhs.id {return false}
     if lhs.name != rhs.name {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_DeleteQuickReplyRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeleteQuickReplyRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "items"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.items.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.items, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_DeleteQuickReplyRequest, rhs: Api_Core_DeleteQuickReplyRequest) -> Bool {
+    if lhs.items != rhs.items {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

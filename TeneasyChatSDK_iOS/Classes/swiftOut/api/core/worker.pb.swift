@@ -366,6 +366,23 @@ public struct Api_Core_WorkerDeleteRequest {
   public init() {}
 }
 
+/// 禁用/启用客服
+public struct Api_Core_WorkerDisableRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// worker_id 1 = 商户账号, 不可操作
+  public var workerID: Int32 = 0
+
+  /// 禁用/启用
+  public var disableStatus: CommonDisableStatus = .default
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 /// 将指定聊天会话转给指定客服
 public struct Api_Core_WorkerTransferRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -394,7 +411,7 @@ public struct Api_Core_WorkerTransferConsultsRequest {
 
   public var groupid: [Int64] = []
 
-  /// 咨询id
+  /// 目标咨询id
   public var consultID: UInt32 = 0
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -548,6 +565,20 @@ public struct Api_Core_SetWorkerStatusRequest {
   // methods supported on all messages.
 
   public var onlineState: Api_Common_OnlineState = .idle
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_ApplyWorkerStateRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var applyState: Api_Common_OnlineState = .idle
+
+  public var nowState: Api_Common_OnlineState = .idle
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1022,6 +1053,46 @@ public struct Api_Core_QueryChildByGroupResponse {
   public init() {}
 }
 
+public struct Api_Core_GetApplyWorkerStateListReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var batch: CommonBatch {
+    get {return _batch ?? CommonBatch()}
+    set {_batch = newValue}
+  }
+  /// Returns true if `batch` has been explicitly set.
+  public var hasBatch: Bool {return self._batch != nil}
+  /// Clears the value of `batch`. Subsequent reads from it will return its default value.
+  public mutating func clearBatch() {self._batch = nil}
+
+  public var name: String = String()
+
+  /// 0,1,2,3,4 全部/待审核/通过/拒绝/通过,无需审核
+  public var applyState: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _batch: CommonBatch? = nil
+}
+
+public struct Api_Core_GetApplyWorkerStateListResp {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var applys: [Api_Common_ApplyWorkerState] = []
+
+  public var total: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 /// 查询客户列表
 public struct Api_Core_SessionCustomerQueryRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -1115,6 +1186,20 @@ public struct Api_Core_SessionCustomerQueryResponse {
   fileprivate var _batch: CommonBatch? = nil
 }
 
+public struct Api_Core_CheckWorkerStateReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var id: Int64 = 0
+
+  public var access: Bool = false
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Api_Core_WorkerQueryRequest: @unchecked Sendable {}
 extension Api_Core_WorkerQueryResponse: @unchecked Sendable {}
@@ -1125,6 +1210,7 @@ extension Api_Core_WorkerCreateRequest: @unchecked Sendable {}
 extension Api_Core_WorkerUpdateRequest: @unchecked Sendable {}
 extension Api_Core_WorkerSession: @unchecked Sendable {}
 extension Api_Core_WorkerDeleteRequest: @unchecked Sendable {}
+extension Api_Core_WorkerDisableRequest: @unchecked Sendable {}
 extension Api_Core_WorkerTransferRequest: @unchecked Sendable {}
 extension Api_Core_WorkerTransferConsultsRequest: @unchecked Sendable {}
 extension Api_Core_WorkerTransferConsultsResponse: @unchecked Sendable {}
@@ -1136,6 +1222,7 @@ extension Api_Core_CheckWorkerStatusRequest: @unchecked Sendable {}
 extension Api_Core_GetWorkerStatusRequest: @unchecked Sendable {}
 extension Api_Core_GetWorkerStatusResponse: @unchecked Sendable {}
 extension Api_Core_SetWorkerStatusRequest: @unchecked Sendable {}
+extension Api_Core_ApplyWorkerStateRequest: @unchecked Sendable {}
 extension Api_Core_WorkerTransferResponse: @unchecked Sendable {}
 extension Api_Core_PasswordRequest: @unchecked Sendable {}
 extension Api_Core_QueryFronterRequest: @unchecked Sendable {}
@@ -1158,9 +1245,12 @@ extension Api_Core_WithDraw: @unchecked Sendable {}
 extension Api_Core_TransferMessageRsp: @unchecked Sendable {}
 extension Api_Core_QueryChildByGroupRequest: @unchecked Sendable {}
 extension Api_Core_QueryChildByGroupResponse: @unchecked Sendable {}
+extension Api_Core_GetApplyWorkerStateListReq: @unchecked Sendable {}
+extension Api_Core_GetApplyWorkerStateListResp: @unchecked Sendable {}
 extension Api_Core_SessionCustomerQueryRequest: @unchecked Sendable {}
 extension Api_Core_SessionCustomer: @unchecked Sendable {}
 extension Api_Core_SessionCustomerQueryResponse: @unchecked Sendable {}
+extension Api_Core_CheckWorkerStateReq: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -1661,6 +1751,44 @@ extension Api_Core_WorkerDeleteRequest: SwiftProtobuf.Message, SwiftProtobuf._Me
   }
 }
 
+extension Api_Core_WorkerDisableRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerDisableRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "worker_id"),
+    2: .standard(proto: "disable_status"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.disableStatus) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 1)
+    }
+    if self.disableStatus != .default {
+      try visitor.visitSingularEnumField(value: self.disableStatus, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerDisableRequest, rhs: Api_Core_WorkerDisableRequest) -> Bool {
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.disableStatus != rhs.disableStatus {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Api_Core_WorkerTransferRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".WorkerTransferRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -2062,6 +2190,44 @@ extension Api_Core_SetWorkerStatusRequest: SwiftProtobuf.Message, SwiftProtobuf.
 
   public static func ==(lhs: Api_Core_SetWorkerStatusRequest, rhs: Api_Core_SetWorkerStatusRequest) -> Bool {
     if lhs.onlineState != rhs.onlineState {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_ApplyWorkerStateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ApplyWorkerStateRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "apply_state"),
+    2: .standard(proto: "now_state"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.applyState) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.nowState) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.applyState != .idle {
+      try visitor.visitSingularEnumField(value: self.applyState, fieldNumber: 1)
+    }
+    if self.nowState != .idle {
+      try visitor.visitSingularEnumField(value: self.nowState, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_ApplyWorkerStateRequest, rhs: Api_Core_ApplyWorkerStateRequest) -> Bool {
+    if lhs.applyState != rhs.applyState {return false}
+    if lhs.nowState != rhs.nowState {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3047,6 +3213,92 @@ extension Api_Core_QueryChildByGroupResponse: SwiftProtobuf.Message, SwiftProtob
   }
 }
 
+extension Api_Core_GetApplyWorkerStateListReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetApplyWorkerStateListReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "batch"),
+    2: .same(proto: "name"),
+    3: .standard(proto: "apply_state"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._batch) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.applyState) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._batch {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    }
+    if self.applyState != 0 {
+      try visitor.visitSingularInt32Field(value: self.applyState, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_GetApplyWorkerStateListReq, rhs: Api_Core_GetApplyWorkerStateListReq) -> Bool {
+    if lhs._batch != rhs._batch {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.applyState != rhs.applyState {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_GetApplyWorkerStateListResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetApplyWorkerStateListResp"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "applys"),
+    2: .same(proto: "total"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.applys) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.total) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.applys.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.applys, fieldNumber: 1)
+    }
+    if self.total != 0 {
+      try visitor.visitSingularInt32Field(value: self.total, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_GetApplyWorkerStateListResp, rhs: Api_Core_GetApplyWorkerStateListResp) -> Bool {
+    if lhs.applys != rhs.applys {return false}
+    if lhs.total != rhs.total {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Api_Core_SessionCustomerQueryRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".SessionCustomerQueryRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -3210,6 +3462,44 @@ extension Api_Core_SessionCustomerQueryResponse: SwiftProtobuf.Message, SwiftPro
     if lhs.items != rhs.items {return false}
     if lhs._batch != rhs._batch {return false}
     if lhs.total != rhs.total {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_CheckWorkerStateReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CheckWorkerStateReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "access"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.access) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.id != 0 {
+      try visitor.visitSingularInt64Field(value: self.id, fieldNumber: 1)
+    }
+    if self.access != false {
+      try visitor.visitSingularBoolField(value: self.access, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_CheckWorkerStateReq, rhs: Api_Core_CheckWorkerStateReq) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.access != rhs.access {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -74,6 +74,9 @@ public struct Api_Core_MessageSyncResponse {
 
   public var nick: String = String()
 
+  /// 历史回复消息
+  public var replyList: [CommonMessage] = []
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -140,6 +143,9 @@ public struct Api_Core_MessageSyncV2Response {
   public var lastMsgID: Int64 = 0
 
   public var nick: String = String()
+
+  /// 历史回复消息
+  public var replyList: [CommonMessage] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -404,6 +410,7 @@ extension Api_Core_MessageSyncResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
     2: .same(proto: "list"),
     3: .standard(proto: "last_msg_id"),
     4: .same(proto: "nick"),
+    5: .same(proto: "replyList"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -416,6 +423,7 @@ extension Api_Core_MessageSyncResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.list) }()
       case 3: try { try decoder.decodeSingularInt64Field(value: &self.lastMsgID) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.nick) }()
+      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.replyList) }()
       default: break
       }
     }
@@ -438,6 +446,9 @@ extension Api_Core_MessageSyncResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
     if !self.nick.isEmpty {
       try visitor.visitSingularStringField(value: self.nick, fieldNumber: 4)
     }
+    if !self.replyList.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.replyList, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -446,6 +457,7 @@ extension Api_Core_MessageSyncResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
     if lhs.list != rhs.list {return false}
     if lhs.lastMsgID != rhs.lastMsgID {return false}
     if lhs.nick != rhs.nick {return false}
+    if lhs.replyList != rhs.replyList {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -538,6 +550,7 @@ extension Api_Core_MessageSyncV2Response: SwiftProtobuf.Message, SwiftProtobuf._
     2: .same(proto: "list"),
     3: .standard(proto: "last_msg_id"),
     4: .same(proto: "nick"),
+    5: .same(proto: "replyList"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -550,6 +563,7 @@ extension Api_Core_MessageSyncV2Response: SwiftProtobuf.Message, SwiftProtobuf._
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.list) }()
       case 3: try { try decoder.decodeSingularInt64Field(value: &self.lastMsgID) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.nick) }()
+      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.replyList) }()
       default: break
       }
     }
@@ -572,6 +586,9 @@ extension Api_Core_MessageSyncV2Response: SwiftProtobuf.Message, SwiftProtobuf._
     if !self.nick.isEmpty {
       try visitor.visitSingularStringField(value: self.nick, fieldNumber: 4)
     }
+    if !self.replyList.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.replyList, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -580,6 +597,7 @@ extension Api_Core_MessageSyncV2Response: SwiftProtobuf.Message, SwiftProtobuf._
     if lhs.list != rhs.list {return false}
     if lhs.lastMsgID != rhs.lastMsgID {return false}
     if lhs.nick != rhs.nick {return false}
+    if lhs.replyList != rhs.replyList {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

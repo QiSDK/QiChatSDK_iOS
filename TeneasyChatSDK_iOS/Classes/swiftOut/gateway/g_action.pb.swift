@@ -88,6 +88,7 @@ public enum Gateway_Action: SwiftProtobuf.Enum {
   /// [客服]以其身份模拟发送给用户的消息
   /// 如: 自动回复的 答案
   case scsimSend // = 19
+  case system // = 20
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -116,6 +117,7 @@ public enum Gateway_Action: SwiftProtobuf.Enum {
     case 17: self = .scworkerChanged
     case 18: self = .scuserConnectionChanged
     case 19: self = .scsimSend
+    case 20: self = .system
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -142,6 +144,7 @@ public enum Gateway_Action: SwiftProtobuf.Enum {
     case .scworkerChanged: return 17
     case .scuserConnectionChanged: return 18
     case .scsimSend: return 19
+    case .system: return 20
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -173,6 +176,7 @@ extension Gateway_Action: CaseIterable {
     .scworkerChanged,
     .scuserConnectionChanged,
     .scsimSend,
+    .system,
   ]
 }
 
@@ -206,5 +210,6 @@ extension Gateway_Action: SwiftProtobuf._ProtoNameProviding {
     17: .same(proto: "ActionSCWorkerChanged"),
     18: .same(proto: "ActionSCUserConnectionChanged"),
     19: .same(proto: "ActionSCSimSend"),
+    20: .same(proto: "ActionSystem"),
   ]
 }

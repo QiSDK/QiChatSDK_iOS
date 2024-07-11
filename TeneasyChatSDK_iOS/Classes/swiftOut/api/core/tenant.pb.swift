@@ -145,32 +145,26 @@ public struct Api_Core_LoginResponse {
   // methods supported on all messages.
 
   /// 拿到 token 后, 在需要鉴权的请求中填入Header, Key为X-Token
-  public var token: String {
-    get {return _storage._token}
-    set {_uniqueStorage()._token = newValue}
-  }
+  public var token: String = String()
 
   /// 客服信息
   public var items: Api_Common_Worker {
-    get {return _storage._items ?? Api_Common_Worker()}
-    set {_uniqueStorage()._items = newValue}
+    get {return _items ?? Api_Common_Worker()}
+    set {_items = newValue}
   }
   /// Returns true if `items` has been explicitly set.
-  public var hasItems: Bool {return _storage._items != nil}
+  public var hasItems: Bool {return self._items != nil}
   /// Clears the value of `items`. Subsequent reads from it will return its default value.
-  public mutating func clearItems() {_uniqueStorage()._items = nil}
+  public mutating func clearItems() {self._items = nil}
 
   /// 过期时间（分）
-  public var chatExpireTime: Int32 {
-    get {return _storage._chatExpireTime}
-    set {_uniqueStorage()._chatExpireTime = newValue}
-  }
+  public var chatExpireTime: Int32 = 0
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _storage = _StorageClass.defaultInstance
+  fileprivate var _items: Api_Common_Worker? = nil
 }
 
 /// 登录下级账号
@@ -192,26 +186,23 @@ public struct Api_Core_ManagerLoginResponse {
   // methods supported on all messages.
 
   /// 拿到 token 后, 在需要鉴权的请求中填入Header, Key为X-Token
-  public var token: String {
-    get {return _storage._token}
-    set {_uniqueStorage()._token = newValue}
-  }
+  public var token: String = String()
 
   /// 客服信息, 此处字段名和 LoginResponse 保持一致
   public var items: Api_Common_Worker {
-    get {return _storage._items ?? Api_Common_Worker()}
-    set {_uniqueStorage()._items = newValue}
+    get {return _items ?? Api_Common_Worker()}
+    set {_items = newValue}
   }
   /// Returns true if `items` has been explicitly set.
-  public var hasItems: Bool {return _storage._items != nil}
+  public var hasItems: Bool {return self._items != nil}
   /// Clears the value of `items`. Subsequent reads from it will return its default value.
-  public mutating func clearItems() {_uniqueStorage()._items = nil}
+  public mutating func clearItems() {self._items = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _storage = _StorageClass.defaultInstance
+  fileprivate var _items: Api_Common_Worker? = nil
 }
 
 public struct Api_Core_TenantCreateRequest {
@@ -985,85 +976,41 @@ extension Api_Core_LoginResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     3: .standard(proto: "chat_expire_time"),
   ]
 
-  fileprivate class _StorageClass {
-    var _token: String = String()
-    var _items: Api_Common_Worker? = nil
-    var _chatExpireTime: Int32 = 0
-
-    #if swift(>=5.10)
-      // This property is used as the initial default value for new instances of the type.
-      // The type itself is protecting the reference to its storage via CoW semantics.
-      // This will force a copy to be made of this reference when the first mutation occurs;
-      // hence, it is safe to mark this as `nonisolated(unsafe)`.
-      static nonisolated(unsafe) let defaultInstance = _StorageClass()
-    #else
-      static let defaultInstance = _StorageClass()
-    #endif
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _token = source._token
-      _items = source._items
-      _chatExpireTime = source._chatExpireTime
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularStringField(value: &_storage._token) }()
-        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._items) }()
-        case 3: try { try decoder.decodeSingularInt32Field(value: &_storage._chatExpireTime) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.token) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._items) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.chatExpireTime) }()
+      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      if !_storage._token.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._token, fieldNumber: 1)
-      }
-      try { if let v = _storage._items {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      } }()
-      if _storage._chatExpireTime != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._chatExpireTime, fieldNumber: 3)
-      }
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.token.isEmpty {
+      try visitor.visitSingularStringField(value: self.token, fieldNumber: 1)
+    }
+    try { if let v = self._items {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    if self.chatExpireTime != 0 {
+      try visitor.visitSingularInt32Field(value: self.chatExpireTime, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Core_LoginResponse, rhs: Api_Core_LoginResponse) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._token != rhs_storage._token {return false}
-        if _storage._items != rhs_storage._items {return false}
-        if _storage._chatExpireTime != rhs_storage._chatExpireTime {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs.token != rhs.token {return false}
+    if lhs._items != rhs._items {return false}
+    if lhs.chatExpireTime != rhs.chatExpireTime {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1108,78 +1055,36 @@ extension Api_Core_ManagerLoginResponse: SwiftProtobuf.Message, SwiftProtobuf._M
     2: .same(proto: "items"),
   ]
 
-  fileprivate class _StorageClass {
-    var _token: String = String()
-    var _items: Api_Common_Worker? = nil
-
-    #if swift(>=5.10)
-      // This property is used as the initial default value for new instances of the type.
-      // The type itself is protecting the reference to its storage via CoW semantics.
-      // This will force a copy to be made of this reference when the first mutation occurs;
-      // hence, it is safe to mark this as `nonisolated(unsafe)`.
-      static nonisolated(unsafe) let defaultInstance = _StorageClass()
-    #else
-      static let defaultInstance = _StorageClass()
-    #endif
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _token = source._token
-      _items = source._items
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularStringField(value: &_storage._token) }()
-        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._items) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.token) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._items) }()
+      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      if !_storage._token.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._token, fieldNumber: 1)
-      }
-      try { if let v = _storage._items {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      } }()
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.token.isEmpty {
+      try visitor.visitSingularStringField(value: self.token, fieldNumber: 1)
     }
+    try { if let v = self._items {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Core_ManagerLoginResponse, rhs: Api_Core_ManagerLoginResponse) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._token != rhs_storage._token {return false}
-        if _storage._items != rhs_storage._items {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs.token != rhs.token {return false}
+    if lhs._items != rhs._items {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

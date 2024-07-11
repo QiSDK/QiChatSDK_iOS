@@ -150,53 +150,116 @@ public struct Api_Common_Entrance {
   // methods supported on all messages.
 
   /// 入口id
-  public var entranceID: UInt32 = 0
+  public var entranceID: UInt32 {
+    get {return _storage._entranceID}
+    set {_uniqueStorage()._entranceID = newValue}
+  }
 
   /// 入口名称
-  public var name: String = String()
+  public var name: String {
+    get {return _storage._name}
+    set {_uniqueStorage()._name = newValue}
+  }
 
   /// 用户昵称
-  public var nick: String = String()
+  public var nick: String {
+    get {return _storage._nick}
+    set {_uniqueStorage()._nick = newValue}
+  }
 
   /// 用户头像
-  public var avatar: String = String()
+  public var avatar: String {
+    get {return _storage._avatar}
+    set {_uniqueStorage()._avatar = newValue}
+  }
 
   /// 咨询类型引导文案
-  public var guide: String = String()
+  public var guide: String {
+    get {return _storage._guide}
+    set {_uniqueStorage()._guide = newValue}
+  }
 
   /// 咨询文案id
-  public var consultIds: [Int32] = []
+  public var consultIds: [Int32] {
+    get {return _storage._consultIds}
+    set {_uniqueStorage()._consultIds = newValue}
+  }
 
   /// 转默认咨询文案的时间
-  public var changeDefaultTime: String = String()
+  public var changeDefaultTime: String {
+    get {return _storage._changeDefaultTime}
+    set {_uniqueStorage()._changeDefaultTime = newValue}
+  }
 
   /// h5链接
-  public var h5Link: String = String()
+  public var h5Link: String {
+    get {return _storage._h5Link}
+    set {_uniqueStorage()._h5Link = newValue}
+  }
 
   /// web链接
-  public var webLink: String = String()
+  public var webLink: String {
+    get {return _storage._webLink}
+    set {_uniqueStorage()._webLink = newValue}
+  }
 
   /// 内部参数
-  public var internalParameters: String = String()
+  public var internalParameters: String {
+    get {return _storage._internalParameters}
+    set {_uniqueStorage()._internalParameters = newValue}
+  }
 
   /// 客服联盟app参数
-  public var appParameters: String = String()
+  public var appParameters: String {
+    get {return _storage._appParameters}
+    set {_uniqueStorage()._appParameters = newValue}
+  }
 
   /// 接入文档链接
-  public var accessLink: String = String()
+  public var accessLink: String {
+    get {return _storage._accessLink}
+    set {_uniqueStorage()._accessLink = newValue}
+  }
 
   /// 默认咨询文案id
-  public var defaultConsultID: Int32 = 0
+  public var defaultConsultID: Int32 {
+    get {return _storage._defaultConsultID}
+    set {_uniqueStorage()._defaultConsultID = newValue}
+  }
 
   /// h5|web用户连接凭证
-  public var certificate: String = String()
+  public var certificate: String {
+    get {return _storage._certificate}
+    set {_uniqueStorage()._certificate = newValue}
+  }
 
   /// 分配一线客服
-  public var workerName: [String] = []
+  public var workerName: [String] {
+    get {return _storage._workerName}
+    set {_uniqueStorage()._workerName = newValue}
+  }
+
+  /// 删除时间（依次判断是否已删除）
+  public var deleteAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _storage._deleteAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_uniqueStorage()._deleteAt = newValue}
+  }
+  /// Returns true if `deleteAt` has been explicitly set.
+  public var hasDeleteAt: Bool {return _storage._deleteAt != nil}
+  /// Clears the value of `deleteAt`. Subsequent reads from it will return its default value.
+  public mutating func clearDeleteAt() {_uniqueStorage()._deleteAt = nil}
+
+  /// 删除状态
+  public var disableStatus: CommonDisableStatus {
+    get {return _storage._disableStatus}
+    set {_uniqueStorage()._disableStatus = newValue}
+  }
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 public struct Api_Common_Consult {
@@ -231,9 +294,29 @@ public struct Api_Common_Consult {
   /// 显示
   public var display: Int32 = 0
 
+  /// 兜底
+  public var defaultWorkerID: Int32 = 0
+
+  public var defaultWorkerName: String = String()
+
+  /// 删除时间（依次判断是否已删除）
+  public var deleteAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _deleteAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_deleteAt = newValue}
+  }
+  /// Returns true if `deleteAt` has been explicitly set.
+  public var hasDeleteAt: Bool {return self._deleteAt != nil}
+  /// Clears the value of `deleteAt`. Subsequent reads from it will return its default value.
+  public mutating func clearDeleteAt() {self._deleteAt = nil}
+
+  /// 删除状态
+  public var disableStatus: CommonDisableStatus = .default
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+
+  fileprivate var _deleteAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
 #if swift(>=5.5) && canImport(_Concurrency)
@@ -289,99 +372,187 @@ extension Api_Common_Entrance: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     13: .standard(proto: "default_consult_id"),
     14: .same(proto: "certificate"),
     15: .standard(proto: "worker_name"),
+    17: .standard(proto: "delete_at"),
+    18: .standard(proto: "disable_status"),
   ]
 
+  fileprivate class _StorageClass {
+    var _entranceID: UInt32 = 0
+    var _name: String = String()
+    var _nick: String = String()
+    var _avatar: String = String()
+    var _guide: String = String()
+    var _consultIds: [Int32] = []
+    var _changeDefaultTime: String = String()
+    var _h5Link: String = String()
+    var _webLink: String = String()
+    var _internalParameters: String = String()
+    var _appParameters: String = String()
+    var _accessLink: String = String()
+    var _defaultConsultID: Int32 = 0
+    var _certificate: String = String()
+    var _workerName: [String] = []
+    var _deleteAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+    var _disableStatus: CommonDisableStatus = .default
+
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _entranceID = source._entranceID
+      _name = source._name
+      _nick = source._nick
+      _avatar = source._avatar
+      _guide = source._guide
+      _consultIds = source._consultIds
+      _changeDefaultTime = source._changeDefaultTime
+      _h5Link = source._h5Link
+      _webLink = source._webLink
+      _internalParameters = source._internalParameters
+      _appParameters = source._appParameters
+      _accessLink = source._accessLink
+      _defaultConsultID = source._defaultConsultID
+      _certificate = source._certificate
+      _workerName = source._workerName
+      _deleteAt = source._deleteAt
+      _disableStatus = source._disableStatus
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.entranceID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.nick) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.avatar) }()
-      case 5: try { try decoder.decodeSingularStringField(value: &self.guide) }()
-      case 6: try { try decoder.decodeRepeatedInt32Field(value: &self.consultIds) }()
-      case 7: try { try decoder.decodeSingularStringField(value: &self.changeDefaultTime) }()
-      case 8: try { try decoder.decodeSingularStringField(value: &self.h5Link) }()
-      case 9: try { try decoder.decodeSingularStringField(value: &self.webLink) }()
-      case 10: try { try decoder.decodeSingularStringField(value: &self.internalParameters) }()
-      case 11: try { try decoder.decodeSingularStringField(value: &self.appParameters) }()
-      case 12: try { try decoder.decodeSingularStringField(value: &self.accessLink) }()
-      case 13: try { try decoder.decodeSingularInt32Field(value: &self.defaultConsultID) }()
-      case 14: try { try decoder.decodeSingularStringField(value: &self.certificate) }()
-      case 15: try { try decoder.decodeRepeatedStringField(value: &self.workerName) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularUInt32Field(value: &_storage._entranceID) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._name) }()
+        case 3: try { try decoder.decodeSingularStringField(value: &_storage._nick) }()
+        case 4: try { try decoder.decodeSingularStringField(value: &_storage._avatar) }()
+        case 5: try { try decoder.decodeSingularStringField(value: &_storage._guide) }()
+        case 6: try { try decoder.decodeRepeatedInt32Field(value: &_storage._consultIds) }()
+        case 7: try { try decoder.decodeSingularStringField(value: &_storage._changeDefaultTime) }()
+        case 8: try { try decoder.decodeSingularStringField(value: &_storage._h5Link) }()
+        case 9: try { try decoder.decodeSingularStringField(value: &_storage._webLink) }()
+        case 10: try { try decoder.decodeSingularStringField(value: &_storage._internalParameters) }()
+        case 11: try { try decoder.decodeSingularStringField(value: &_storage._appParameters) }()
+        case 12: try { try decoder.decodeSingularStringField(value: &_storage._accessLink) }()
+        case 13: try { try decoder.decodeSingularInt32Field(value: &_storage._defaultConsultID) }()
+        case 14: try { try decoder.decodeSingularStringField(value: &_storage._certificate) }()
+        case 15: try { try decoder.decodeRepeatedStringField(value: &_storage._workerName) }()
+        case 17: try { try decoder.decodeSingularMessageField(value: &_storage._deleteAt) }()
+        case 18: try { try decoder.decodeSingularEnumField(value: &_storage._disableStatus) }()
+        default: break
+        }
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.entranceID != 0 {
-      try visitor.visitSingularUInt32Field(value: self.entranceID, fieldNumber: 1)
-    }
-    if !self.name.isEmpty {
-      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
-    }
-    if !self.nick.isEmpty {
-      try visitor.visitSingularStringField(value: self.nick, fieldNumber: 3)
-    }
-    if !self.avatar.isEmpty {
-      try visitor.visitSingularStringField(value: self.avatar, fieldNumber: 4)
-    }
-    if !self.guide.isEmpty {
-      try visitor.visitSingularStringField(value: self.guide, fieldNumber: 5)
-    }
-    if !self.consultIds.isEmpty {
-      try visitor.visitPackedInt32Field(value: self.consultIds, fieldNumber: 6)
-    }
-    if !self.changeDefaultTime.isEmpty {
-      try visitor.visitSingularStringField(value: self.changeDefaultTime, fieldNumber: 7)
-    }
-    if !self.h5Link.isEmpty {
-      try visitor.visitSingularStringField(value: self.h5Link, fieldNumber: 8)
-    }
-    if !self.webLink.isEmpty {
-      try visitor.visitSingularStringField(value: self.webLink, fieldNumber: 9)
-    }
-    if !self.internalParameters.isEmpty {
-      try visitor.visitSingularStringField(value: self.internalParameters, fieldNumber: 10)
-    }
-    if !self.appParameters.isEmpty {
-      try visitor.visitSingularStringField(value: self.appParameters, fieldNumber: 11)
-    }
-    if !self.accessLink.isEmpty {
-      try visitor.visitSingularStringField(value: self.accessLink, fieldNumber: 12)
-    }
-    if self.defaultConsultID != 0 {
-      try visitor.visitSingularInt32Field(value: self.defaultConsultID, fieldNumber: 13)
-    }
-    if !self.certificate.isEmpty {
-      try visitor.visitSingularStringField(value: self.certificate, fieldNumber: 14)
-    }
-    if !self.workerName.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.workerName, fieldNumber: 15)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      if _storage._entranceID != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._entranceID, fieldNumber: 1)
+      }
+      if !_storage._name.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 2)
+      }
+      if !_storage._nick.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._nick, fieldNumber: 3)
+      }
+      if !_storage._avatar.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._avatar, fieldNumber: 4)
+      }
+      if !_storage._guide.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._guide, fieldNumber: 5)
+      }
+      if !_storage._consultIds.isEmpty {
+        try visitor.visitPackedInt32Field(value: _storage._consultIds, fieldNumber: 6)
+      }
+      if !_storage._changeDefaultTime.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._changeDefaultTime, fieldNumber: 7)
+      }
+      if !_storage._h5Link.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._h5Link, fieldNumber: 8)
+      }
+      if !_storage._webLink.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._webLink, fieldNumber: 9)
+      }
+      if !_storage._internalParameters.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._internalParameters, fieldNumber: 10)
+      }
+      if !_storage._appParameters.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._appParameters, fieldNumber: 11)
+      }
+      if !_storage._accessLink.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._accessLink, fieldNumber: 12)
+      }
+      if _storage._defaultConsultID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._defaultConsultID, fieldNumber: 13)
+      }
+      if !_storage._certificate.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._certificate, fieldNumber: 14)
+      }
+      if !_storage._workerName.isEmpty {
+        try visitor.visitRepeatedStringField(value: _storage._workerName, fieldNumber: 15)
+      }
+      try { if let v = _storage._deleteAt {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 17)
+      } }()
+      if _storage._disableStatus != .default {
+        try visitor.visitSingularEnumField(value: _storage._disableStatus, fieldNumber: 18)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Common_Entrance, rhs: Api_Common_Entrance) -> Bool {
-    if lhs.entranceID != rhs.entranceID {return false}
-    if lhs.name != rhs.name {return false}
-    if lhs.nick != rhs.nick {return false}
-    if lhs.avatar != rhs.avatar {return false}
-    if lhs.guide != rhs.guide {return false}
-    if lhs.consultIds != rhs.consultIds {return false}
-    if lhs.changeDefaultTime != rhs.changeDefaultTime {return false}
-    if lhs.h5Link != rhs.h5Link {return false}
-    if lhs.webLink != rhs.webLink {return false}
-    if lhs.internalParameters != rhs.internalParameters {return false}
-    if lhs.appParameters != rhs.appParameters {return false}
-    if lhs.accessLink != rhs.accessLink {return false}
-    if lhs.defaultConsultID != rhs.defaultConsultID {return false}
-    if lhs.certificate != rhs.certificate {return false}
-    if lhs.workerName != rhs.workerName {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._entranceID != rhs_storage._entranceID {return false}
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._nick != rhs_storage._nick {return false}
+        if _storage._avatar != rhs_storage._avatar {return false}
+        if _storage._guide != rhs_storage._guide {return false}
+        if _storage._consultIds != rhs_storage._consultIds {return false}
+        if _storage._changeDefaultTime != rhs_storage._changeDefaultTime {return false}
+        if _storage._h5Link != rhs_storage._h5Link {return false}
+        if _storage._webLink != rhs_storage._webLink {return false}
+        if _storage._internalParameters != rhs_storage._internalParameters {return false}
+        if _storage._appParameters != rhs_storage._appParameters {return false}
+        if _storage._accessLink != rhs_storage._accessLink {return false}
+        if _storage._defaultConsultID != rhs_storage._defaultConsultID {return false}
+        if _storage._certificate != rhs_storage._certificate {return false}
+        if _storage._workerName != rhs_storage._workerName {return false}
+        if _storage._deleteAt != rhs_storage._deleteAt {return false}
+        if _storage._disableStatus != rhs_storage._disableStatus {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -399,6 +570,10 @@ extension Api_Common_Consult: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     7: .standard(proto: "worker_names"),
     8: .same(proto: "priority"),
     9: .same(proto: "display"),
+    10: .standard(proto: "default_worker_id"),
+    11: .standard(proto: "default_worker_name"),
+    12: .standard(proto: "delete_at"),
+    13: .standard(proto: "disable_status"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -416,12 +591,20 @@ extension Api_Common_Consult: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
       case 7: try { try decoder.decodeSingularStringField(value: &self.workerNames) }()
       case 8: try { try decoder.decodeSingularInt32Field(value: &self.priority) }()
       case 9: try { try decoder.decodeSingularInt32Field(value: &self.display) }()
+      case 10: try { try decoder.decodeSingularInt32Field(value: &self.defaultWorkerID) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.defaultWorkerName) }()
+      case 12: try { try decoder.decodeSingularMessageField(value: &self._deleteAt) }()
+      case 13: try { try decoder.decodeSingularEnumField(value: &self.disableStatus) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if self.consultID != 0 {
       try visitor.visitSingularUInt32Field(value: self.consultID, fieldNumber: 1)
     }
@@ -449,6 +632,18 @@ extension Api_Common_Consult: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     if self.display != 0 {
       try visitor.visitSingularInt32Field(value: self.display, fieldNumber: 9)
     }
+    if self.defaultWorkerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.defaultWorkerID, fieldNumber: 10)
+    }
+    if !self.defaultWorkerName.isEmpty {
+      try visitor.visitSingularStringField(value: self.defaultWorkerName, fieldNumber: 11)
+    }
+    try { if let v = self._deleteAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
+    } }()
+    if self.disableStatus != .default {
+      try visitor.visitSingularEnumField(value: self.disableStatus, fieldNumber: 13)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -462,6 +657,10 @@ extension Api_Common_Consult: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     if lhs.workerNames != rhs.workerNames {return false}
     if lhs.priority != rhs.priority {return false}
     if lhs.display != rhs.display {return false}
+    if lhs.defaultWorkerID != rhs.defaultWorkerID {return false}
+    if lhs.defaultWorkerName != rhs.defaultWorkerName {return false}
+    if lhs._deleteAt != rhs._deleteAt {return false}
+    if lhs.disableStatus != rhs.disableStatus {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

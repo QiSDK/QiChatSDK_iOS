@@ -20,6 +20,55 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+/// 禁用/启用
+public enum CommonDisableStatus: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case `default` // = 0
+
+  /// 启用
+  case enable // = 1
+
+  /// 禁用
+  case disable // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .default
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .default
+    case 1: self = .enable
+    case 2: self = .disable
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .default: return 0
+    case .enable: return 1
+    case .disable: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension CommonDisableStatus: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [CommonDisableStatus] = [
+    .default,
+    .enable,
+    .disable,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 public struct CommonBaseResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -155,6 +204,7 @@ public struct CommonSetString {
 }
 
 #if swift(>=5.5) && canImport(_Concurrency)
+extension CommonDisableStatus: @unchecked Sendable {}
 extension CommonBaseResponse: @unchecked Sendable {}
 extension CommonPage: @unchecked Sendable {}
 extension CommonBatch: @unchecked Sendable {}
@@ -171,6 +221,14 @@ extension CommonSetString: @unchecked Sendable {}
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "api.common"
+
+extension CommonDisableStatus: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "DEFAULT"),
+    1: .same(proto: "ENABLE"),
+    2: .same(proto: "DISABLE"),
+  ]
+}
 
 extension CommonBaseResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".BaseResponse"

@@ -98,6 +98,9 @@ public struct Api_Core_QueryNoteRequest {
   /// Clears the value of `batch`. Subsequent reads from it will return its default value.
   public mutating func clearBatch() {self._batch = nil}
 
+  /// 咨询id
+  public var consultID: UInt32 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -392,6 +395,7 @@ extension Api_Core_QueryNoteRequest: SwiftProtobuf.Message, SwiftProtobuf._Messa
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "chat_id"),
     2: .same(proto: "batch"),
+    3: .standard(proto: "consult_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -402,6 +406,7 @@ extension Api_Core_QueryNoteRequest: SwiftProtobuf.Message, SwiftProtobuf._Messa
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._batch) }()
+      case 3: try { try decoder.decodeSingularUInt32Field(value: &self.consultID) }()
       default: break
       }
     }
@@ -418,12 +423,16 @@ extension Api_Core_QueryNoteRequest: SwiftProtobuf.Message, SwiftProtobuf._Messa
     try { if let v = self._batch {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
+    if self.consultID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.consultID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Core_QueryNoteRequest, rhs: Api_Core_QueryNoteRequest) -> Bool {
     if lhs.chatID != rhs.chatID {return false}
     if lhs._batch != rhs._batch {return false}
+    if lhs.consultID != rhs.consultID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

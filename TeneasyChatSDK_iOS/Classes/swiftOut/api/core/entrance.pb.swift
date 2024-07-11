@@ -124,6 +124,22 @@ public struct Api_Core_DeleteEntranceRequest {
   public init() {}
 }
 
+/// 禁用/启用入口
+public struct Api_Core_DisableEntranceRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var id: UInt32 = 0
+
+  /// 禁用/启用
+  public var disableStatus: CommonDisableStatus = .default
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 public struct Api_Core_GetDistributionResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -210,6 +226,7 @@ extension Api_Core_CreateEntranceRequest: @unchecked Sendable {}
 extension Api_Core_CreateEntranceResponse: @unchecked Sendable {}
 extension Api_Core_UpdateEntranceRequest: @unchecked Sendable {}
 extension Api_Core_DeleteEntranceRequest: @unchecked Sendable {}
+extension Api_Core_DisableEntranceRequest: @unchecked Sendable {}
 extension Api_Core_GetDistributionResponse: @unchecked Sendable {}
 extension Api_Core_SaveDistributionRequest: @unchecked Sendable {}
 extension Api_Core_EntranceExistsRequest: @unchecked Sendable {}
@@ -453,6 +470,44 @@ extension Api_Core_DeleteEntranceRequest: SwiftProtobuf.Message, SwiftProtobuf._
 
   public static func ==(lhs: Api_Core_DeleteEntranceRequest, rhs: Api_Core_DeleteEntranceRequest) -> Bool {
     if lhs.id != rhs.id {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_DisableEntranceRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DisableEntranceRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .standard(proto: "disable_status"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.disableStatus) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.id != 0 {
+      try visitor.visitSingularUInt32Field(value: self.id, fieldNumber: 1)
+    }
+    if self.disableStatus != .default {
+      try visitor.visitSingularEnumField(value: self.disableStatus, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_DisableEntranceRequest, rhs: Api_Core_DisableEntranceRequest) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.disableStatus != rhs.disableStatus {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

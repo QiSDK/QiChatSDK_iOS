@@ -303,8 +303,13 @@ open class ChatLib {
         // 第四层
         var payLoad = Gateway_Payload()
         payLoad.data = cSendMsgData
-        payLoad.act = .cssendMsg
         
+//        if msg.msgOp == .msgOpDelete{
+//            payLoad.act = .csdeleteMsg
+//        }else{
+            payLoad.act = .cssendMsg
+        //}
+   
         //payload_id != 0的时候，可能是重发，重发不需要+1
         if (sendingMsg?.msgOp == .msgOpPost && payload_Id == 0){
             payloadId += 1

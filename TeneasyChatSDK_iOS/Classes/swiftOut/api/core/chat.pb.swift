@@ -114,6 +114,12 @@ public struct Api_Core_ChatListHistoryRequest {
   /// 咨询id
   public var consultID: UInt32 = 0
 
+  /// 用户id
+  public var ownerID: Int32 = 0
+
+  /// 用户昵称
+  public var nickname: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -183,6 +189,12 @@ public struct Api_Core_ChatMarkReadRequest {
 
   public var chatID: Int64 = 0
 
+  /// 咨询类型
+  public var consultID: Int64 = 0
+
+  /// 消息ID
+  public var msgID: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -248,6 +260,192 @@ public struct Api_Core_OrphanReq {
   public init() {}
 }
 
+public struct Api_Core_GetChatSessionStateRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 商户ID
+  public var tenantID: Int32 = 0
+
+  /// 咨询类型
+  public var consultID: Int64 = 0
+
+  /// 用户id
+  public var ownerID: Int32 = 0
+
+  public var ownerRole: Int32 = 0
+
+  /// 会话ID
+  public var chatID: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_GetChatSessionStateResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 商户ID
+  public var tenantID: Int32 {
+    get {return _storage._tenantID}
+    set {_uniqueStorage()._tenantID = newValue}
+  }
+
+  /// 咨询类型
+  public var consultID: Int64 {
+    get {return _storage._consultID}
+    set {_uniqueStorage()._consultID = newValue}
+  }
+
+  /// 用户id
+  public var ownerID: Int32 {
+    get {return _storage._ownerID}
+    set {_uniqueStorage()._ownerID = newValue}
+  }
+
+  /// 用户角色
+  public var ownerRole: Int32 {
+    get {return _storage._ownerRole}
+    set {_uniqueStorage()._ownerRole = newValue}
+  }
+
+  /// 多少秒前分配任务
+  public var assignTime: Int64 {
+    get {return _storage._assignTime}
+    set {_uniqueStorage()._assignTime = newValue}
+  }
+
+  /// 会话多少秒前开始
+  public var sessionStartTime: Int64 {
+    get {return _storage._sessionStartTime}
+    set {_uniqueStorage()._sessionStartTime = newValue}
+  }
+
+  /// 客户多少秒前发言
+  public var clientMessageTime: Int64 {
+    get {return _storage._clientMessageTime}
+    set {_uniqueStorage()._clientMessageTime = newValue}
+  }
+
+  /// 客户多少秒前第一次发言
+  public var clientFirstTime: Int64 {
+    get {return _storage._clientFirstTime}
+    set {_uniqueStorage()._clientFirstTime = newValue}
+  }
+
+  /// 客服id
+  public var workerID: Int32 {
+    get {return _storage._workerID}
+    set {_uniqueStorage()._workerID = newValue}
+  }
+
+  /// 客服多少秒前是否在线
+  public var workerPingTime: Int64 {
+    get {return _storage._workerPingTime}
+    set {_uniqueStorage()._workerPingTime = newValue}
+  }
+
+  /// 客服多少秒前第一次发言
+  public var workerFirstTime: Int64 {
+    get {return _storage._workerFirstTime}
+    set {_uniqueStorage()._workerFirstTime = newValue}
+  }
+
+  /// 客服多少秒前发言
+  public var workerMessageTime: Int64 {
+    get {return _storage._workerMessageTime}
+    set {_uniqueStorage()._workerMessageTime = newValue}
+  }
+
+  /// 咨询类型
+  public var workerConsultID: Int64 {
+    get {return _storage._workerConsultID}
+    set {_uniqueStorage()._workerConsultID = newValue}
+  }
+
+  /// 多少秒前转入任务
+  public var inTime: Int64 {
+    get {return _storage._inTime}
+    set {_uniqueStorage()._inTime = newValue}
+  }
+
+  /// 多少秒前转出任务
+  public var outTime: Int64 {
+    get {return _storage._outTime}
+    set {_uniqueStorage()._outTime = newValue}
+  }
+
+  /// 多少秒前最后活动
+  public var lastTime: Int64 {
+    get {return _storage._lastTime}
+    set {_uniqueStorage()._lastTime = newValue}
+  }
+
+  /// 是否已超时
+  public var timeout: Int32 {
+    get {return _storage._timeout}
+    set {_uniqueStorage()._timeout = newValue}
+  }
+
+  /// 是否已超时
+  public var waitResponse: Int32 {
+    get {return _storage._waitResponse}
+    set {_uniqueStorage()._waitResponse = newValue}
+  }
+
+  /// 是否已超时
+  public var isProcess: Int32 {
+    get {return _storage._isProcess}
+    set {_uniqueStorage()._isProcess = newValue}
+  }
+
+  /// 是否已超时
+  public var isReceive: Int32 {
+    get {return _storage._isReceive}
+    set {_uniqueStorage()._isReceive = newValue}
+  }
+
+  /// 是转入
+  public var isIn: Int32 {
+    get {return _storage._isIn}
+    set {_uniqueStorage()._isIn = newValue}
+  }
+
+  /// 是否转出
+  public var isOut: Int32 {
+    get {return _storage._isOut}
+    set {_uniqueStorage()._isOut = newValue}
+  }
+
+  /// 是否可见
+  public var visible: Int32 {
+    get {return _storage._visible}
+    set {_uniqueStorage()._visible = newValue}
+  }
+
+  /// 客户状态
+  public var state: CommonChatState {
+    get {return _storage._state}
+    set {_uniqueStorage()._state = newValue}
+  }
+
+  /// 客服状态
+  public var workerState: Api_Common_WorkerState {
+    get {return _storage._workerState}
+    set {_uniqueStorage()._workerState = newValue}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Api_Core_Pagination: @unchecked Sendable {}
 extension Api_Core_ChatListQueryRequest: @unchecked Sendable {}
@@ -261,6 +459,8 @@ extension Api_Core_OrphanResponse: @unchecked Sendable {}
 extension Api_Core_MarkRepliedRequest: @unchecked Sendable {}
 extension Api_Core_ChatListQueryUserRequest: @unchecked Sendable {}
 extension Api_Core_OrphanReq: @unchecked Sendable {}
+extension Api_Core_GetChatSessionStateRequest: @unchecked Sendable {}
+extension Api_Core_GetChatSessionStateResponse: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -387,6 +587,8 @@ extension Api_Core_ChatListHistoryRequest: SwiftProtobuf.Message, SwiftProtobuf.
     3: .same(proto: "end"),
     4: .same(proto: "batch"),
     5: .standard(proto: "consult_id"),
+    6: .standard(proto: "owner_id"),
+    7: .same(proto: "nickname"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -400,6 +602,8 @@ extension Api_Core_ChatListHistoryRequest: SwiftProtobuf.Message, SwiftProtobuf.
       case 3: try { try decoder.decodeSingularMessageField(value: &self._end) }()
       case 4: try { try decoder.decodeSingularMessageField(value: &self._batch) }()
       case 5: try { try decoder.decodeSingularUInt32Field(value: &self.consultID) }()
+      case 6: try { try decoder.decodeSingularInt32Field(value: &self.ownerID) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.nickname) }()
       default: break
       }
     }
@@ -425,6 +629,12 @@ extension Api_Core_ChatListHistoryRequest: SwiftProtobuf.Message, SwiftProtobuf.
     if self.consultID != 0 {
       try visitor.visitSingularUInt32Field(value: self.consultID, fieldNumber: 5)
     }
+    if self.ownerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.ownerID, fieldNumber: 6)
+    }
+    if !self.nickname.isEmpty {
+      try visitor.visitSingularStringField(value: self.nickname, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -434,6 +644,8 @@ extension Api_Core_ChatListHistoryRequest: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs._end != rhs._end {return false}
     if lhs._batch != rhs._batch {return false}
     if lhs.consultID != rhs.consultID {return false}
+    if lhs.ownerID != rhs.ownerID {return false}
+    if lhs.nickname != rhs.nickname {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -561,6 +773,8 @@ extension Api_Core_ChatMarkReadRequest: SwiftProtobuf.Message, SwiftProtobuf._Me
   public static let protoMessageName: String = _protobuf_package + ".ChatMarkReadRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "chat_id"),
+    2: .standard(proto: "consult_id"),
+    3: .standard(proto: "msg_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -570,6 +784,8 @@ extension Api_Core_ChatMarkReadRequest: SwiftProtobuf.Message, SwiftProtobuf._Me
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.consultID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.msgID) }()
       default: break
       }
     }
@@ -579,11 +795,19 @@ extension Api_Core_ChatMarkReadRequest: SwiftProtobuf.Message, SwiftProtobuf._Me
     if self.chatID != 0 {
       try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 1)
     }
+    if self.consultID != 0 {
+      try visitor.visitSingularInt64Field(value: self.consultID, fieldNumber: 2)
+    }
+    if !self.msgID.isEmpty {
+      try visitor.visitSingularStringField(value: self.msgID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Core_ChatMarkReadRequest, rhs: Api_Core_ChatMarkReadRequest) -> Bool {
     if lhs.chatID != rhs.chatID {return false}
+    if lhs.consultID != rhs.consultID {return false}
+    if lhs.msgID != rhs.msgID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -742,6 +966,326 @@ extension Api_Core_OrphanReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
   public static func ==(lhs: Api_Core_OrphanReq, rhs: Api_Core_OrphanReq) -> Bool {
     if lhs.chatID != rhs.chatID {return false}
     if lhs.consultID != rhs.consultID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_GetChatSessionStateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetChatSessionStateRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "tenant_id"),
+    2: .standard(proto: "consult_id"),
+    3: .standard(proto: "owner_id"),
+    4: .standard(proto: "owner_role"),
+    5: .standard(proto: "chat_id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.tenantID) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.consultID) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.ownerID) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.ownerRole) }()
+      case 5: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.tenantID != 0 {
+      try visitor.visitSingularInt32Field(value: self.tenantID, fieldNumber: 1)
+    }
+    if self.consultID != 0 {
+      try visitor.visitSingularInt64Field(value: self.consultID, fieldNumber: 2)
+    }
+    if self.ownerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.ownerID, fieldNumber: 3)
+    }
+    if self.ownerRole != 0 {
+      try visitor.visitSingularInt32Field(value: self.ownerRole, fieldNumber: 4)
+    }
+    if self.chatID != 0 {
+      try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_GetChatSessionStateRequest, rhs: Api_Core_GetChatSessionStateRequest) -> Bool {
+    if lhs.tenantID != rhs.tenantID {return false}
+    if lhs.consultID != rhs.consultID {return false}
+    if lhs.ownerID != rhs.ownerID {return false}
+    if lhs.ownerRole != rhs.ownerRole {return false}
+    if lhs.chatID != rhs.chatID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_GetChatSessionStateResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetChatSessionStateResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "tenant_id"),
+    2: .standard(proto: "consult_id"),
+    3: .standard(proto: "owner_id"),
+    4: .standard(proto: "owner_role"),
+    6: .standard(proto: "assign_time"),
+    7: .standard(proto: "session_start_time"),
+    8: .standard(proto: "client_message_time"),
+    31: .standard(proto: "client_first_time"),
+    9: .standard(proto: "worker_id"),
+    10: .standard(proto: "worker_ping_time"),
+    32: .standard(proto: "worker_first_time"),
+    11: .standard(proto: "worker_message_time"),
+    13: .standard(proto: "worker_consult_id"),
+    14: .standard(proto: "in_time"),
+    15: .standard(proto: "out_time"),
+    35: .standard(proto: "last_time"),
+    16: .same(proto: "timeout"),
+    56: .standard(proto: "wait_response"),
+    57: .standard(proto: "is_process"),
+    58: .standard(proto: "is_receive"),
+    59: .standard(proto: "is_in"),
+    60: .standard(proto: "is_out"),
+    17: .same(proto: "visible"),
+    20: .same(proto: "state"),
+    21: .standard(proto: "worker_state"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _tenantID: Int32 = 0
+    var _consultID: Int64 = 0
+    var _ownerID: Int32 = 0
+    var _ownerRole: Int32 = 0
+    var _assignTime: Int64 = 0
+    var _sessionStartTime: Int64 = 0
+    var _clientMessageTime: Int64 = 0
+    var _clientFirstTime: Int64 = 0
+    var _workerID: Int32 = 0
+    var _workerPingTime: Int64 = 0
+    var _workerFirstTime: Int64 = 0
+    var _workerMessageTime: Int64 = 0
+    var _workerConsultID: Int64 = 0
+    var _inTime: Int64 = 0
+    var _outTime: Int64 = 0
+    var _lastTime: Int64 = 0
+    var _timeout: Int32 = 0
+    var _waitResponse: Int32 = 0
+    var _isProcess: Int32 = 0
+    var _isReceive: Int32 = 0
+    var _isIn: Int32 = 0
+    var _isOut: Int32 = 0
+    var _visible: Int32 = 0
+    var _state: CommonChatState = .common
+    var _workerState: Api_Common_WorkerState = .workerOffline
+
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _tenantID = source._tenantID
+      _consultID = source._consultID
+      _ownerID = source._ownerID
+      _ownerRole = source._ownerRole
+      _assignTime = source._assignTime
+      _sessionStartTime = source._sessionStartTime
+      _clientMessageTime = source._clientMessageTime
+      _clientFirstTime = source._clientFirstTime
+      _workerID = source._workerID
+      _workerPingTime = source._workerPingTime
+      _workerFirstTime = source._workerFirstTime
+      _workerMessageTime = source._workerMessageTime
+      _workerConsultID = source._workerConsultID
+      _inTime = source._inTime
+      _outTime = source._outTime
+      _lastTime = source._lastTime
+      _timeout = source._timeout
+      _waitResponse = source._waitResponse
+      _isProcess = source._isProcess
+      _isReceive = source._isReceive
+      _isIn = source._isIn
+      _isOut = source._isOut
+      _visible = source._visible
+      _state = source._state
+      _workerState = source._workerState
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularInt32Field(value: &_storage._tenantID) }()
+        case 2: try { try decoder.decodeSingularInt64Field(value: &_storage._consultID) }()
+        case 3: try { try decoder.decodeSingularInt32Field(value: &_storage._ownerID) }()
+        case 4: try { try decoder.decodeSingularInt32Field(value: &_storage._ownerRole) }()
+        case 6: try { try decoder.decodeSingularInt64Field(value: &_storage._assignTime) }()
+        case 7: try { try decoder.decodeSingularInt64Field(value: &_storage._sessionStartTime) }()
+        case 8: try { try decoder.decodeSingularInt64Field(value: &_storage._clientMessageTime) }()
+        case 9: try { try decoder.decodeSingularInt32Field(value: &_storage._workerID) }()
+        case 10: try { try decoder.decodeSingularInt64Field(value: &_storage._workerPingTime) }()
+        case 11: try { try decoder.decodeSingularInt64Field(value: &_storage._workerMessageTime) }()
+        case 13: try { try decoder.decodeSingularInt64Field(value: &_storage._workerConsultID) }()
+        case 14: try { try decoder.decodeSingularInt64Field(value: &_storage._inTime) }()
+        case 15: try { try decoder.decodeSingularInt64Field(value: &_storage._outTime) }()
+        case 16: try { try decoder.decodeSingularInt32Field(value: &_storage._timeout) }()
+        case 17: try { try decoder.decodeSingularInt32Field(value: &_storage._visible) }()
+        case 20: try { try decoder.decodeSingularEnumField(value: &_storage._state) }()
+        case 21: try { try decoder.decodeSingularEnumField(value: &_storage._workerState) }()
+        case 31: try { try decoder.decodeSingularInt64Field(value: &_storage._clientFirstTime) }()
+        case 32: try { try decoder.decodeSingularInt64Field(value: &_storage._workerFirstTime) }()
+        case 35: try { try decoder.decodeSingularInt64Field(value: &_storage._lastTime) }()
+        case 56: try { try decoder.decodeSingularInt32Field(value: &_storage._waitResponse) }()
+        case 57: try { try decoder.decodeSingularInt32Field(value: &_storage._isProcess) }()
+        case 58: try { try decoder.decodeSingularInt32Field(value: &_storage._isReceive) }()
+        case 59: try { try decoder.decodeSingularInt32Field(value: &_storage._isIn) }()
+        case 60: try { try decoder.decodeSingularInt32Field(value: &_storage._isOut) }()
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._tenantID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._tenantID, fieldNumber: 1)
+      }
+      if _storage._consultID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._consultID, fieldNumber: 2)
+      }
+      if _storage._ownerID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._ownerID, fieldNumber: 3)
+      }
+      if _storage._ownerRole != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._ownerRole, fieldNumber: 4)
+      }
+      if _storage._assignTime != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._assignTime, fieldNumber: 6)
+      }
+      if _storage._sessionStartTime != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._sessionStartTime, fieldNumber: 7)
+      }
+      if _storage._clientMessageTime != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._clientMessageTime, fieldNumber: 8)
+      }
+      if _storage._workerID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._workerID, fieldNumber: 9)
+      }
+      if _storage._workerPingTime != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._workerPingTime, fieldNumber: 10)
+      }
+      if _storage._workerMessageTime != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._workerMessageTime, fieldNumber: 11)
+      }
+      if _storage._workerConsultID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._workerConsultID, fieldNumber: 13)
+      }
+      if _storage._inTime != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._inTime, fieldNumber: 14)
+      }
+      if _storage._outTime != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._outTime, fieldNumber: 15)
+      }
+      if _storage._timeout != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._timeout, fieldNumber: 16)
+      }
+      if _storage._visible != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._visible, fieldNumber: 17)
+      }
+      if _storage._state != .common {
+        try visitor.visitSingularEnumField(value: _storage._state, fieldNumber: 20)
+      }
+      if _storage._workerState != .workerOffline {
+        try visitor.visitSingularEnumField(value: _storage._workerState, fieldNumber: 21)
+      }
+      if _storage._clientFirstTime != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._clientFirstTime, fieldNumber: 31)
+      }
+      if _storage._workerFirstTime != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._workerFirstTime, fieldNumber: 32)
+      }
+      if _storage._lastTime != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._lastTime, fieldNumber: 35)
+      }
+      if _storage._waitResponse != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._waitResponse, fieldNumber: 56)
+      }
+      if _storage._isProcess != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._isProcess, fieldNumber: 57)
+      }
+      if _storage._isReceive != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._isReceive, fieldNumber: 58)
+      }
+      if _storage._isIn != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._isIn, fieldNumber: 59)
+      }
+      if _storage._isOut != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._isOut, fieldNumber: 60)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_GetChatSessionStateResponse, rhs: Api_Core_GetChatSessionStateResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._tenantID != rhs_storage._tenantID {return false}
+        if _storage._consultID != rhs_storage._consultID {return false}
+        if _storage._ownerID != rhs_storage._ownerID {return false}
+        if _storage._ownerRole != rhs_storage._ownerRole {return false}
+        if _storage._assignTime != rhs_storage._assignTime {return false}
+        if _storage._sessionStartTime != rhs_storage._sessionStartTime {return false}
+        if _storage._clientMessageTime != rhs_storage._clientMessageTime {return false}
+        if _storage._clientFirstTime != rhs_storage._clientFirstTime {return false}
+        if _storage._workerID != rhs_storage._workerID {return false}
+        if _storage._workerPingTime != rhs_storage._workerPingTime {return false}
+        if _storage._workerFirstTime != rhs_storage._workerFirstTime {return false}
+        if _storage._workerMessageTime != rhs_storage._workerMessageTime {return false}
+        if _storage._workerConsultID != rhs_storage._workerConsultID {return false}
+        if _storage._inTime != rhs_storage._inTime {return false}
+        if _storage._outTime != rhs_storage._outTime {return false}
+        if _storage._lastTime != rhs_storage._lastTime {return false}
+        if _storage._timeout != rhs_storage._timeout {return false}
+        if _storage._waitResponse != rhs_storage._waitResponse {return false}
+        if _storage._isProcess != rhs_storage._isProcess {return false}
+        if _storage._isReceive != rhs_storage._isReceive {return false}
+        if _storage._isIn != rhs_storage._isIn {return false}
+        if _storage._isOut != rhs_storage._isOut {return false}
+        if _storage._visible != rhs_storage._visible {return false}
+        if _storage._state != rhs_storage._state {return false}
+        if _storage._workerState != rhs_storage._workerState {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

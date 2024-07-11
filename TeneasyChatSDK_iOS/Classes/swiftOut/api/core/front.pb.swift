@@ -28,6 +28,9 @@ public struct Api_Core_AutoReplyRequest {
   /// 咨询id
   public var consultID: UInt32 = 0
 
+  /// 客服id
+  public var workerID: UInt32 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -412,6 +415,9 @@ public struct Api_Core_QueryChatRequest {
 
   public var chatID: [Int64] = []
 
+  /// 咨询id
+  public var consultID: UInt32 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -422,7 +428,7 @@ public struct Api_Core_QueryChatResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var chats: [CommonChatDetail] = []
+  public var chats: [CommonChatItem] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -510,6 +516,20 @@ public struct Api_Core_VerifyResponse {
   public init() {}
 }
 
+/// 客户标记已读
+public struct Api_Core_ClientMarkReadRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 咨询类型
+  public var consultID: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Api_Core_AutoReplyRequest: @unchecked Sendable {}
 extension Api_Core_AssignWorkerRequest: @unchecked Sendable {}
@@ -535,6 +555,7 @@ extension Api_Core_PingPongResponse: @unchecked Sendable {}
 extension Api_Core_ReplyRequest: @unchecked Sendable {}
 extension Api_Core_VerifyRequest: @unchecked Sendable {}
 extension Api_Core_VerifyResponse: @unchecked Sendable {}
+extension Api_Core_ClientMarkReadRequest: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -545,6 +566,7 @@ extension Api_Core_AutoReplyRequest: SwiftProtobuf.Message, SwiftProtobuf._Messa
   public static let protoMessageName: String = _protobuf_package + ".AutoReplyRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "consult_id"),
+    2: .standard(proto: "worker_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -554,6 +576,7 @@ extension Api_Core_AutoReplyRequest: SwiftProtobuf.Message, SwiftProtobuf._Messa
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularUInt32Field(value: &self.consultID) }()
+      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.workerID) }()
       default: break
       }
     }
@@ -563,11 +586,15 @@ extension Api_Core_AutoReplyRequest: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if self.consultID != 0 {
       try visitor.visitSingularUInt32Field(value: self.consultID, fieldNumber: 1)
     }
+    if self.workerID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.workerID, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Core_AutoReplyRequest, rhs: Api_Core_AutoReplyRequest) -> Bool {
     if lhs.consultID != rhs.consultID {return false}
+    if lhs.workerID != rhs.workerID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1307,6 +1334,7 @@ extension Api_Core_QueryChatRequest: SwiftProtobuf.Message, SwiftProtobuf._Messa
   public static let protoMessageName: String = _protobuf_package + ".QueryChatRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "chat_id"),
+    2: .standard(proto: "consult_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1316,6 +1344,7 @@ extension Api_Core_QueryChatRequest: SwiftProtobuf.Message, SwiftProtobuf._Messa
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedInt64Field(value: &self.chatID) }()
+      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.consultID) }()
       default: break
       }
     }
@@ -1325,11 +1354,15 @@ extension Api_Core_QueryChatRequest: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if !self.chatID.isEmpty {
       try visitor.visitPackedInt64Field(value: self.chatID, fieldNumber: 1)
     }
+    if self.consultID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.consultID, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Api_Core_QueryChatRequest, rhs: Api_Core_QueryChatRequest) -> Bool {
     if lhs.chatID != rhs.chatID {return false}
+    if lhs.consultID != rhs.consultID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1578,6 +1611,38 @@ extension Api_Core_VerifyResponse: SwiftProtobuf.Message, SwiftProtobuf._Message
   public static func ==(lhs: Api_Core_VerifyResponse, rhs: Api_Core_VerifyResponse) -> Bool {
     if lhs.gnsID != rhs.gnsID {return false}
     if lhs.tenantID != rhs.tenantID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_ClientMarkReadRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ClientMarkReadRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "consult_id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.consultID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.consultID != 0 {
+      try visitor.visitSingularInt64Field(value: self.consultID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_ClientMarkReadRequest, rhs: Api_Core_ClientMarkReadRequest) -> Bool {
+    if lhs.consultID != rhs.consultID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
