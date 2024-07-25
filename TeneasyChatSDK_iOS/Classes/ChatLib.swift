@@ -29,7 +29,24 @@ public protocol teneasySDKDelegate : AnyObject{
      }
  }*/
 
-open class ChatLib {
+open class ChatLib: NetworkManagerDelegate {
+    func networkRechabilityStatus(status: NetworkManagerStatus) {
+        switch status {
+                    case .notReachable:
+                        print("[RECHABILITY] The network is not reachable")
+                        //1009 断网了
+                        disConnected(code: 1009, msg: "网络中断了")
+                    case .unknown :
+                        print("[RECHABILITY] It is unknown whether the network is reachable")
+                    case .ethernetOrWiFi:
+                        print("[RECHABILITY] The network is reachable over the WiFi connection")
+                    case .cellular:
+                        print("[RECHABILITY] The network is reachable over the WWAN connection")
+                }
+            
+              //  networkManager.stopNetworkReachabilityObserver()
+    }
+    
     public private(set) var text = "Teneasy Chat SDK 启动"
     private var baseUrl = "wss://csapi.xdev.stream/v1/gateway/h5?token="
     var websocket: WebSocket?
@@ -53,6 +70,7 @@ open class ChatLib {
     private var userId: Int32 = 0
     private var sign: String = ""
     private var cert: String = ""
+    private var networkManager = NetworkManager()
 
     var consultId: Int64 = 0
     //wss://csapi.xdev.stream/v1/gateway/h5?token=CH0QARji9w4gogEor4i7mc0x.PKgbr4QAEspllbvDx7bg8RB_qDhkWozBKgWtoOPfVmlTfPbd8nyBZk9uyQvjj-3F6MXHyE9GmZvj0_PRTm_tDA&userid=1125324&ty=104&dt=1705583047601&sign=&rd=1019737
@@ -75,6 +93,9 @@ open class ChatLib {
         self.token = token
         beatTimes = 0
         print(text)
+        
+        networkManager.delegate = self
+               networkManager.startNetworkReachabilityObserver()
     }
     
 //    public init(session: Session) {
@@ -379,7 +400,7 @@ open class ChatLib {
         print("通信SDK 断开连接")
     }
     
-    public func disConnect(code: Int = 1006, msg: String = "已断开通信") {
+    public func disConnect() {
         stopTimer()
         if let socket = websocket {
             socket.disconnect()
@@ -389,6 +410,7 @@ open class ChatLib {
 
         isConnected = false
         sendingMsg = nil
+        networkManager.stopNetworkReachabilityObserver()
         print("退出了Chat SDK")
     }
 }

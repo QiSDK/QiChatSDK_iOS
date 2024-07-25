@@ -267,6 +267,7 @@
 		DABCDC5610E11353473A8706FF5C801B /* Google_Protobuf_ListValue+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6502218A043103B6532B1939C21A /* Google_Protobuf_ListValue+Extensions.swift */; };
 		DBC47B5C09C1B3718F0EF14108A564D6 /* MathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8C050EF8B1EAC3CE8961F2D939E1F2 /* MathUtils.swift */; };
 		DBD8CAC6D6C91267F648D551A1895896 /* Google_Protobuf_Any+Registry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79093C2621F6A70CE1557D87E3EAD0DC /* Google_Protobuf_Any+Registry.swift */; };
+		DC60642C2C5230AE0071114A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC60642B2C5230AE0071114A /* NetworkManager.swift */; };
 		DE896085DFDD686BDBDEFB776F0D683A /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF64D4671469377A6D5829BBED5682D3 /* DispatchQueue+Alamofire.swift */; };
 		DE8F5B68839128A005EE3549A1149B09 /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389EEDE3464F8DFD58B18959A0B814 /* RequestInterceptor.swift */; };
 		DECD7E70FC82431FA2202071D5F0D73E /* ExtensibleMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD839578DA9F2CEE8E9164987253EC1 /* ExtensibleMessage.swift */; };
@@ -420,7 +421,7 @@
 		03ED71B4390944EBB22B1A6FA1A07E5D /* FieldTag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FieldTag.swift; path = Sources/SwiftProtobuf/FieldTag.swift; sourceTree = "<group>"; };
 		05D644A6C521AEEE8E0408EED5E11917 /* message.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = message.pb.swift; sourceTree = "<group>"; };
 		06308F353E1F3112EAB2155B052042E5 /* Google_Protobuf_FieldMask+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Google_Protobuf_FieldMask+Extensions.swift"; path = "Sources/SwiftProtobuf/Google_Protobuf_FieldMask+Extensions.swift"; sourceTree = "<group>"; };
-		06A58DB526E233D1E6C6E1BF5D122137 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		06A58DB526E233D1E6C6E1BF5D122137 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		06A6D4B517DF1B62255CADB5F1617687 /* UIImage+Diff.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Diff.m"; path = "FBSnapshotTestCase/Categories/UIImage+Diff.m"; sourceTree = "<group>"; };
 		06F7D5CE0C26F6EE06713BC322487143 /* TeneasyChatSDK_iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = TeneasyChatSDK_iOS.modulemap; sourceTree = "<group>"; };
 		084DF7976F08B822E971E97728C49CF9 /* ExtensionFields.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtensionFields.swift; path = Sources/SwiftProtobuf/ExtensionFields.swift; sourceTree = "<group>"; };
@@ -538,7 +539,7 @@
 		5B00218A0859FF5B2ECD61CE849D20DD /* Message+TextFormatAdditions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Message+TextFormatAdditions.swift"; path = "Sources/SwiftProtobuf/Message+TextFormatAdditions.swift"; sourceTree = "<group>"; };
 		5BA68D5658F82C674A674360016DF4DB /* Int+DateComponents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Int+DateComponents.swift"; path = "Sources/SwiftDate/Foundation+Extras/Int+DateComponents.swift"; sourceTree = "<group>"; };
 		5C4F31330DFA99D699E4BDC8C3573D73 /* FBSnapshotTestCase */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FBSnapshotTestCase; path = FBSnapshotTestCase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5C60B9C933DF8B66337C58F6893E8C1A /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		5C60B9C933DF8B66337C58F6893E8C1A /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5CDE6EEA0A6A4CB395C1E3066D7B72C1 /* option.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = option.pb.swift; sourceTree = "<group>"; };
 		5D797E9A5C5782CE845840781FA1CC81 /* Alamofire */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DCB53EB829397819FEBCDC2AB9B2925 /* FoundationSecurity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FoundationSecurity.swift; path = Sources/Security/FoundationSecurity.swift; sourceTree = "<group>"; };
@@ -569,7 +570,7 @@
 		6C48BE87B83BEB1D4612CEBD44B41EA0 /* ProtoNameProviding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ProtoNameProviding.swift; path = Sources/SwiftProtobuf/ProtoNameProviding.swift; sourceTree = "<group>"; };
 		6C535579582C72CA36DE8CC277326A13 /* UIApplication+StrictKeyWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIApplication+StrictKeyWindow.h"; path = "FBSnapshotTestCase/Categories/UIApplication+StrictKeyWindow.h"; sourceTree = "<group>"; };
 		6D04FFB37E23DF041B072E1046B70976 /* Result+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Result+Alamofire.swift"; path = "Source/Extensions/Result+Alamofire.swift"; sourceTree = "<group>"; };
-		6E174823EA02108B75E4ECDDA412D707 /* langs */ = {isa = PBXFileReference; includeInIndex = 1; name = langs; path = Sources/SwiftDate/Formatters/RelativeFormatter/langs; sourceTree = "<group>"; };
+		6E174823EA02108B75E4ECDDA412D707 /* langs */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = langs; path = Sources/SwiftDate/Formatters/RelativeFormatter/langs; sourceTree = "<group>"; };
 		6E34247207C22042229331336BEDC563 /* JSONDecodingOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONDecodingOptions.swift; path = Sources/SwiftProtobuf/JSONDecodingOptions.swift; sourceTree = "<group>"; };
 		6EC9B55131B103424F8E531639F82D32 /* ResourceBundle-Alamofire-Alamofire-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-Alamofire-Alamofire-Info.plist"; sourceTree = "<group>"; };
 		6F7E0F394E2722EFD96FCD861A5C4BAF /* Engine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Engine.swift; path = Sources/Engine/Engine.swift; sourceTree = "<group>"; };
@@ -639,13 +640,13 @@
 		96F671EDA75FE7DA3840B59368E61B5F /* DotNetParserFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DotNetParserFormatter.swift; path = Sources/SwiftDate/Formatters/DotNetParserFormatter.swift; sourceTree = "<group>"; };
 		9752DF4D13B12616B15BBAD7941ADE35 /* Properties.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Properties.swift; path = Source/Properties.swift; sourceTree = "<group>"; };
 		975BF1221F62E9E83084EE58C3F5B9AA /* c_chat.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = c_chat.pb.swift; sourceTree = "<group>"; };
-		98832FD440858BA68D675D55F9C60E7A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = Source/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		98832FD440858BA68D675D55F9C60E7A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Source/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		9A79EE2FF381106B04075EB107ED6458 /* Starscream.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Starscream.modulemap; sourceTree = "<group>"; };
 		9A98C95884D75FA7D07FF46C09883F89 /* ExtendCustomBasicType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtendCustomBasicType.swift; path = Source/ExtendCustomBasicType.swift; sourceTree = "<group>"; };
 		9B4AAC0E897294755741C8B4C3471B95 /* BinaryDecodingError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BinaryDecodingError.swift; path = Sources/SwiftProtobuf/BinaryDecodingError.swift; sourceTree = "<group>"; };
 		9B6E9F5C7E49E97355F2297F88E81113 /* Pods-TeneasyChatSDK_iOS_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TeneasyChatSDK_iOS_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		9D119A58D2823A3A99C54D5CF753A416 /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/Core/ParameterEncoding.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DEDA76992CEBFACB92D330B17ADA20F /* TextFormatEncodingVisitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextFormatEncodingVisitor.swift; path = Sources/SwiftProtobuf/TextFormatEncodingVisitor.swift; sourceTree = "<group>"; };
 		9E4B4BAC549FA064C25D88093C10A155 /* TransformOf.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TransformOf.swift; path = Source/TransformOf.swift; sourceTree = "<group>"; };
 		9F8D2FC16428D4A3F3BCD321A970A03C /* Pods-TeneasyChatSDK_iOS_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TeneasyChatSDK_iOS_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -725,7 +726,8 @@
 		DB94382EEE485C0A54F36A12AAE9A56D /* Pods-TeneasyChatSDK_iOS_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TeneasyChatSDK_iOS_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		DC08FC7AAB51111201606C96A71D0F1C /* DataParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataParser.swift; path = TeneasyChatSDK_iOS/Classes/DataParser.swift; sourceTree = "<group>"; };
 		DC368C5840FED321EE40385D32B2AA6C /* Pods-TeneasyChatSDK_iOS_Example */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-TeneasyChatSDK_iOS_Example"; path = Pods_TeneasyChatSDK_iOS_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC3D49BE6306816063C8B95F6B1D76E3 /* TeneasyChatSDK_iOS.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = TeneasyChatSDK_iOS.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		DC3D49BE6306816063C8B95F6B1D76E3 /* TeneasyChatSDK_iOS.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = TeneasyChatSDK_iOS.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		DC60642B2C5230AE0071114A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = Example/TeneasyChatSDK_iOS/NetworkManager.swift; sourceTree = "<group>"; };
 		DC707C0D371288D68DBA2130499FE760 /* HandyJSON.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HandyJSON.debug.xcconfig; sourceTree = "<group>"; };
 		DCB719A457C20A18759DA29D68CDF859 /* TextFormatDecodingOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextFormatDecodingOptions.swift; path = Sources/SwiftProtobuf/TextFormatDecodingOptions.swift; sourceTree = "<group>"; };
 		DD2FBD3D321CB40D1959D6B69CEC9115 /* Configuration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = Source/Configuration.swift; sourceTree = "<group>"; };
@@ -888,7 +890,6 @@
 				6102C2B4365968BBB10ED281AB3F6B24 /* c_verify.pb.swift */,
 				0CA4F3C960B3EDA876E7875EBF3A3C96 /* c_worker.pb.swift */,
 			);
-			name = common;
 			path = common;
 			sourceTree = "<group>";
 		};
@@ -917,7 +918,6 @@
 				F0C29946EC1EF943C4B6F0BBEA48F5F5 /* WSEngine.swift */,
 				BB00509BFF08B2E64BBAE2BFE4711403 /* Support Files */,
 			);
-			name = Starscream;
 			path = Starscream;
 			sourceTree = "<group>";
 		};
@@ -960,7 +960,6 @@
 				54BAEFF74108CD46107EF04C69A099CC /* Support Files */,
 				D221549B7630F90064DE0FC3BADF1C25 /* SwiftSupport */,
 			);
-			name = FBSnapshotTestCase;
 			path = FBSnapshotTestCase;
 			sourceTree = "<group>";
 		};
@@ -972,7 +971,6 @@
 				1E81F972B0B615A2231248BFF1AE6BA7 /* g_payload.pb.swift */,
 				BDFB3A315C7272FB9E2BDA6E0421AA5A /* g_pubsub.pb.swift */,
 			);
-			name = gateway;
 			path = gateway;
 			sourceTree = "<group>";
 		};
@@ -993,7 +991,6 @@
 			children = (
 				81547A985EA12FEDD0EEB3948B8EDDF6 /* sentry.pb.swift */,
 			);
-			name = sentry;
 			path = sentry;
 			sourceTree = "<group>";
 		};
@@ -1053,7 +1050,6 @@
 				BA748A01C66A3FBDF983E880D4D5BF56 /* URLTransform.swift */,
 				28474FC136D45A52BCBCDD990B5D6FC9 /* Support Files */,
 			);
-			name = HandyJSON;
 			path = HandyJSON;
 			sourceTree = "<group>";
 		};
@@ -1085,7 +1081,6 @@
 				6420D1D3AFCCF7035A5C234C9CA2343E /* worker.pb.swift */,
 				1B13CD8C306AAB0B3B5914AB3DD8EE1E /* worker_group.pb.swift */,
 			);
-			name = core;
 			path = core;
 			sourceTree = "<group>";
 		};
@@ -1159,6 +1154,7 @@
 				5F1EAFF34B21DCE0EC5A666623E68BCE /* Pod */,
 				AB72C35B472014A6AECD9D9EA747DB73 /* Support Files */,
 				DC0DF56BAE6194EA606325DFE17D6C02 /* swiftOut */,
+				DC60642B2C5230AE0071114A /* NetworkManager.swift */,
 			);
 			name = TeneasyChatSDK_iOS;
 			path = ../..;
@@ -1260,7 +1256,6 @@
 				FBA4199BCC0FFC6E8795FD06CA570B7A /* Resources */,
 				A4249EAE1B1318D4AC9A77FC4451C8CD /* Support Files */,
 			);
-			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -1313,7 +1308,6 @@
 			children = (
 				89850C5317AE3DFF3672B80B4ABCDFE1 /* asset.pb.swift */,
 			);
-			name = asset;
 			path = asset;
 			sourceTree = "<group>";
 		};
@@ -1392,7 +1386,6 @@
 				86C97F9A6F5698737358046E45DB1735 /* Resources */,
 				E460EB0826054A7C5AC33F3C358CFC39 /* Support Files */,
 			);
-			name = SwiftDate;
 			path = SwiftDate;
 			sourceTree = "<group>";
 		};
@@ -1431,7 +1424,6 @@
 				6F0B52973541B268C91EE8ABA5300240 /* core */,
 				410D0900A4BFA3FE3D62E1F657B8DB98 /* sentry */,
 			);
-			name = api;
 			path = api;
 			sourceTree = "<group>";
 		};
@@ -1532,7 +1524,6 @@
 				21D9E7CA6429B8E8FFD7CD3A3AA32DF8 /* ZigZag.swift */,
 				84DEA48BB348E3DB866C397A444E3E4D /* Support Files */,
 			);
-			name = SwiftProtobuf;
 			path = SwiftProtobuf;
 			sourceTree = "<group>";
 		};
@@ -2138,6 +2129,7 @@
 				E6E749801418892F374171045AD82485 /* g_gateway.pb.swift in Sources */,
 				2ED2892066AF80C49FEBE51E2FCF7F73 /* g_payload.pb.swift in Sources */,
 				F8ACB1ABFEDF4F81BB237F21AC46FCB1 /* g_pubsub.pb.swift in Sources */,
+				DC60642C2C5230AE0071114A /* NetworkManager.swift in Sources */,
 				4E28739B86EFC4890C51EA8CC13C741B /* gateway.pb.swift in Sources */,
 				38072E973B83F9EEB8969288E4B37A2E /* LineDetectLib.swift in Sources */,
 				7C1EB6AD657633851D41D2CA81222BE6 /* LineLib.swift in Sources */,
@@ -2700,8 +2692,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
