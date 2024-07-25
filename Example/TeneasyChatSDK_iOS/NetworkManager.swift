@@ -8,14 +8,18 @@
 import Foundation
 import Alamofire
 
-enum NetworkManagerStatus {
+public enum NetworkManagerStatus {
     case notReachable
     case unknown
     case ethernetOrWiFi
     case cellular
 }
 
-class NetworkManager {
+protocol NetworkManagerDelegate: AnyObject {
+    func networkRechabilityStatus(status: NetworkManagerStatus)
+}
+
+public class NetworkManager {
     
     weak var delegate: NetworkManagerDelegate? = nil
     
@@ -49,8 +53,4 @@ class NetworkManager {
         reachabilityManager?.stopListening()
     }
     
-}
-
-protocol NetworkManagerDelegate: AnyObject {
-    func networkRechabilityStatus(status: NetworkManagerStatus)
 }
