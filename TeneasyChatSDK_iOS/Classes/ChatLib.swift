@@ -57,7 +57,7 @@ open class ChatLib: NetworkManagerDelegate {
     public var sendingMsg: CommonMessage?
     private var msgList: [UInt64: CommonMessage] = [:]
     var chatId: Int64 = 0
-    var token: String = ""
+    public var token: String = ""
     var session = Session()
     
     private var myTimer: Timer?
@@ -102,7 +102,7 @@ open class ChatLib: NetworkManagerDelegate {
 //        self.session = session
 //    }
 
-    public func callWebsocket() {
+   public func callWebsocket() {
         let rd = Int.random(in: 1000000..<9999999)
         let date = Date()
         let dt = Int(date.timeIntervalSince1970 * 1000)
@@ -127,9 +127,10 @@ open class ChatLib: NetworkManagerDelegate {
     }
     
     public func reConnect(){
-        if websocket != nil{
-            websocket?.connect()
-        }
+//        if websocket != nil{
+//            websocket?.connect()
+//        }
+        callWebsocket()
     }
     
     deinit {
@@ -436,7 +437,6 @@ extension ChatLib: WebSocketDelegate {
             result.Code = 0
             result.Message = "已连接上"
             delegate?.systemMsg(result: result)
-            payloadId += 1 //让payloadId不等于0
         case .disconnected(let reason, let closeCode):
             if self.websocket !== client {
                 return
@@ -502,13 +502,13 @@ extension ChatLib: WebSocketDelegate {
                         //print("ChatLib:chatID:" + String(msg.id))
                         delegate?.connected(c: msg)
                         
-                        if sendingMsg != nil{
-                            print("ChatLib:自动重发未发出的最后一个消息\(self.payloadId)")
-                            resendMsg(msg: sendingMsg!, payloadId: self.payloadId)
-                        }else{
-                            //不是重发，使用新id
+//                        if sendingMsg != nil{
+//                            print("ChatLib:自动重发未发出的最后一个消息\(self.payloadId)")
+//                            resendMsg(msg: sendingMsg!, payloadId: self.payloadId)
+//                        }else{
+//                            //不是重发，使用新id
                             payloadId = payLoad.id
-                        }
+                        //}
                         print("ChatLib:初始payloadId:" + String(payloadId))
                         print(msg)
                     }
