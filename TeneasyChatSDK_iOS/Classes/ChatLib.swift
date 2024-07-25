@@ -431,12 +431,12 @@ extension ChatLib: WebSocketDelegate {
             if self.websocket !== client {
                 return
             }
+            isConnected = true
             var result = Result()
             result.Code = 0
             result.Message = "已连接上"
             delegate?.systemMsg(result: result)
             payloadId += 1 //让payloadId不等于0
-            isConnected = true
         case .disconnected(let reason, let closeCode):
             if self.websocket !== client {
                 return
