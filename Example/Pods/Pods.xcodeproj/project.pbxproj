@@ -267,7 +267,7 @@
 		DABCDC5610E11353473A8706FF5C801B /* Google_Protobuf_ListValue+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B6502218A043103B6532B1939C21A /* Google_Protobuf_ListValue+Extensions.swift */; };
 		DBC47B5C09C1B3718F0EF14108A564D6 /* MathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8C050EF8B1EAC3CE8961F2D939E1F2 /* MathUtils.swift */; };
 		DBD8CAC6D6C91267F648D551A1895896 /* Google_Protobuf_Any+Registry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79093C2621F6A70CE1557D87E3EAD0DC /* Google_Protobuf_Any+Registry.swift */; };
-		DC60642E2C5235BC0071114A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC60642D2C5235BC0071114A /* NetworkManager.swift */; };
+		DC6064302C523D390071114A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC60642F2C523D390071114A /* NetworkManager.swift */; };
 		DE896085DFDD686BDBDEFB776F0D683A /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF64D4671469377A6D5829BBED5682D3 /* DispatchQueue+Alamofire.swift */; };
 		DE8F5B68839128A005EE3549A1149B09 /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8389EEDE3464F8DFD58B18959A0B814 /* RequestInterceptor.swift */; };
 		DECD7E70FC82431FA2202071D5F0D73E /* ExtensibleMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD839578DA9F2CEE8E9164987253EC1 /* ExtensibleMessage.swift */; };
@@ -727,7 +727,7 @@
 		DC08FC7AAB51111201606C96A71D0F1C /* DataParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataParser.swift; path = TeneasyChatSDK_iOS/Classes/DataParser.swift; sourceTree = "<group>"; };
 		DC368C5840FED321EE40385D32B2AA6C /* Pods-TeneasyChatSDK_iOS_Example */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-TeneasyChatSDK_iOS_Example"; path = Pods_TeneasyChatSDK_iOS_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC3D49BE6306816063C8B95F6B1D76E3 /* TeneasyChatSDK_iOS.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = TeneasyChatSDK_iOS.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		DC60642D2C5235BC0071114A /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = Example/TeneasyChatSDK_iOS/NetworkManager.swift; sourceTree = "<group>"; };
+		DC60642F2C523D390071114A /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = TeneasyChatSDK_iOS/Classes/NetworkManager.swift; sourceTree = "<group>"; };
 		DC707C0D371288D68DBA2130499FE760 /* HandyJSON.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HandyJSON.debug.xcconfig; sourceTree = "<group>"; };
 		DCB719A457C20A18759DA29D68CDF859 /* TextFormatDecodingOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextFormatDecodingOptions.swift; path = Sources/SwiftProtobuf/TextFormatDecodingOptions.swift; sourceTree = "<group>"; };
 		DD2FBD3D321CB40D1959D6B69CEC9115 /* Configuration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = Source/Configuration.swift; sourceTree = "<group>"; };
@@ -1144,7 +1144,7 @@
 		A0DAB9FB9B0A49599C9CD5029F31C83F /* TeneasyChatSDK_iOS */ = {
 			isa = PBXGroup;
 			children = (
-				DC60642D2C5235BC0071114A /* NetworkManager.swift */,
+				DC60642F2C523D390071114A /* NetworkManager.swift */,
 				FD559BC99004FDEECDDBDE24C3CE125B /* ChatLib.swift */,
 				8204C75A245EDFB7D87B66F90E979B3E /* Config.swift */,
 				DC08FC7AAB51111201606C96A71D0F1C /* DataParser.swift */,
@@ -2102,7 +2102,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC60642E2C5235BC0071114A /* NetworkManager.swift in Sources */,
 				5347F76F5B038BDAFC196E3A65BE00FC /* asset.pb.swift in Sources */,
 				3FDEE00EDF4C54913016296DD7CCD021 /* auto_reply.pb.swift in Sources */,
 				09F08B61A367247DCA1981F2E55D638F /* c_asset.pb.swift in Sources */,
@@ -2130,6 +2129,7 @@
 				E6E749801418892F374171045AD82485 /* g_gateway.pb.swift in Sources */,
 				2ED2892066AF80C49FEBE51E2FCF7F73 /* g_payload.pb.swift in Sources */,
 				F8ACB1ABFEDF4F81BB237F21AC46FCB1 /* g_pubsub.pb.swift in Sources */,
+				DC6064302C523D390071114A /* NetworkManager.swift in Sources */,
 				4E28739B86EFC4890C51EA8CC13C741B /* gateway.pb.swift in Sources */,
 				38072E973B83F9EEB8969288E4B37A2E /* LineDetectLib.swift in Sources */,
 				7C1EB6AD657633851D41D2CA81222BE6 /* LineLib.swift in Sources */,
