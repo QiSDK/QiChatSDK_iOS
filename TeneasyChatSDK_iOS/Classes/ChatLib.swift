@@ -394,7 +394,7 @@ open class ChatLib: NetworkManagerDelegate {
         //stopTimer()
         var result = Result()
         result.Code = code
-        result.Message = "已断开通信"
+        result.Message = msg
         delegate?.systemMsg(result: result)
         isConnected = false
         sendingMsg = nil
