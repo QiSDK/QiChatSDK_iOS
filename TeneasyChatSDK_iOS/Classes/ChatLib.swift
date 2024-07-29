@@ -71,6 +71,8 @@ open class ChatLib: NetworkManagerDelegate {
     private var sign: String = ""
     private var cert: String = ""
     private var networkManager = NetworkManager()
+    public static let shared = ChatLib()
+     
 
     var consultId: Int64 = 0
     //wss://csapi.xdev.stream/v1/gateway/h5?token=CH0QARji9w4gogEor4i7mc0x.PKgbr4QAEspllbvDx7bg8RB_qDhkWozBKgWtoOPfVmlTfPbd8nyBZk9uyQvjj-3F6MXHyE9GmZvj0_PRTm_tDA&userid=1125324&ty=104&dt=1705583047601&sign=&rd=1019737
@@ -84,7 +86,23 @@ open class ChatLib: NetworkManagerDelegate {
     
     public init() {}
 
-    public init(userId:Int32, cert: String, token: String, baseUrl: String, sign: String, chatId: Int64 = 0) {
+   /* public init(userId:Int32, cert: String, token: String, baseUrl: String, sign: String, chatId: Int64 = 0) {
+        self.chatId = chatId
+        self.cert = cert
+        self.baseUrl = baseUrl
+        self.userId = userId
+        self.sign = sign
+        self.token = token
+        beatTimes = 0
+        print(text)
+        
+        networkManager.delegate = self
+               networkManager.startNetworkReachabilityObserver()
+    }
+    
+    */
+    
+    public func myinit(userId:Int32, cert: String, token: String, baseUrl: String, sign: String, chatId: Int64 = 0) {
         self.chatId = chatId
         self.cert = cert
         self.baseUrl = baseUrl
@@ -141,7 +159,10 @@ open class ChatLib: NetworkManagerDelegate {
     }
     
     func startTimer() {
-       stopTimer()
+       //stopTimer()
+        if myTimer != nil{
+            return
+        }
         myTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updataSecond), userInfo: nil, repeats: true)
         myTimer!.fire()
     }
@@ -394,7 +415,7 @@ open class ChatLib: NetworkManagerDelegate {
         //stopTimer()
         var result = Result()
         result.Code = code
-        result.Message = msg
+        result.Message = "已断开通信"
         delegate?.systemMsg(result: result)
         isConnected = false
         sendingMsg = nil
@@ -429,18 +450,18 @@ extension ChatLib: WebSocketDelegate {
 
         case .connected:
             // print("ChatLib:connected" + headers.description)
-            if self.websocket !== client {
-                return
-            }
+//            if self.websocket !== client {
+//                return
+//            }
             isConnected = true
             var result = Result()
             result.Code = 0
             result.Message = "已连接上"
             delegate?.systemMsg(result: result)
         case .disconnected(let reason, let closeCode):
-            if self.websocket !== client {
-                return
-            }
+//            if self.websocket !== client {
+//                return
+//            }
             print("ChatLib:disconnected \(reason) \(closeCode)")
             isConnected = false
             disConnected()
@@ -458,9 +479,9 @@ extension ChatLib: WebSocketDelegate {
 
     如果这个字节的值是 0 ，表示心跳...
              */
-            if self.websocket !== client {
-                return
-            }
+//            if self.websocket !== client {
+//                return
+//            }
             if data.count == 1 {
                     if let d = String(data: data, encoding: .utf8) {
                         if d.contains("\u{00}") {
@@ -601,9 +622,9 @@ extension ChatLib: WebSocketDelegate {
         case .error(let error):
             // self.delegate?.connected(c: false)
             print("ChatLib:socket error \(String(describing: error))")
-            if self.websocket !== client {
-                return
-            }
+//            if self.websocket !== client {
+//                return
+//            }
             disConnected()
             failedToSend()
             isConnected = false
@@ -612,9 +633,9 @@ extension ChatLib: WebSocketDelegate {
         case .reconnectSuggested:
             print("ChatLib:reconnectSuggested")
         case .cancelled:
-            if self.websocket !== client {
-                return
-            }
+//            if self.websocket !== client {
+//                return
+//            }
             disConnected(code: 1007)
             failedToSend()
             print("ChatLib:cancelled")
