@@ -21,7 +21,7 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
     @IBOutlet weak var tvInputText: UITextView!
     @IBOutlet weak var etShangHu: UITextField!
     
-    var lib = ChatLib()
+    var lib = ChatLib.shared
     var payLoadId: UInt64 = 0
     var lastMessage: CommonMessage? = nil
     var baseUrl: String? = ""
@@ -35,10 +35,6 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         if c.workerID != 0{
             tvChatView.text.append("\n已连接上！ WorkId:\(c.workerID)\n\n")
 
-        }else{
-            //tvChatView.text.append("\n已断开连接\n\n")
-            //tvChatView.text.append("\n重新连接\n")
-            lib.reConnect()
         }
        // tvChatView.text.append("\n发送图片！ ImageUrl: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQKV-3KPDbUgVdqjfEb3HK_SvGjcPYVl7n7KGCwBL6&s\n\n")
        // lib.sendMessage(msg: "/230/session11253244/1716645412_39864.png", type: .msgImg, consultId: 1)
@@ -194,7 +190,7 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         
         //let lines = tvInputText.text.split(separator: ",").map { String($0) }
     //httos://csh5.hfxg.xyz,https://csapi.xdev.stream
-        let lines = "https://wcsapi.qixin14.xyz,https://csapi.xdev.stream"
+        let lines = "https://wcsapi.qixin14.xyz,https://csapi.hfxg.xyz"
         let lineLib = LineDetectLib(lines, delegate: self, tenantId: shangHu ?? 0)
         
         lineLib.getLine()
@@ -235,9 +231,17 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         /*
                1125324  1125397 1125417
                 */
-        lib = ChatLib(userId: 666663, cert: "COYBEAUYASDyASiG2piD9zE.te46qua5ha2r-Caz03Vx2JXH5OLSRRV2GqdYcn9UslwibsxBSP98GhUKSGEI0Z84FRMkp16ZK8eS-y72QVE2AQ", token: "", baseUrl: wssUrl, sign: "9zgd9YUc")
-        lib.callWebsocket()
-        lib.delegate = self
+        if lib.payloadId == 0{
+            print("initSDK 初始化SDK")
+            lib.myinit(userId: 666663, cert: "COYBEAUYASDyASiG2piD9zE.te46qua5ha2r-Caz03Vx2JXH5OLSRRV2GqdYcn9UslwibsxBSP98GhUKSGEI0Z84FRMkp16ZK8eS-y72QVE2AQ", token: "", baseUrl: wssUrl, sign: "9zgd9YUc")
+            
+            lib.callWebsocket()
+            lib.delegate = self
+        }else{
+            print("initSDK 重新连接")
+            lib.reConnect()
+            lib.delegate = self
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -505,7 +505,7 @@ extension ChatLib: WebSocketDelegate {
 //                if sendingMsg?.msgOp != .msgOpDelete{
 //                    payloadId = payLoad.id
 //                }
-                print("ChatLib:new payloadID:" + String(payloadId))
+                print("ChatLib:new payloadID:" + String(payLoad.id))
                 if payLoad.act == .screcvMsg {
                     let scMsg = try? Gateway_SCRecvMessage(serializedData: msgData)
                     let msg = scMsg?.msg
