@@ -995,26 +995,106 @@ public struct Api_Core_TransferMessageReq {
   public init() {}
 }
 
-public struct Api_Core_WithDraw {
+public struct Api_Core_ThirdOrder {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var id: Int64 = 0
+  public var id: Int64 {
+    get {return _storage._id}
+    set {_uniqueStorage()._id = newValue}
+  }
 
-  public var orderNo: String = String()
+  public var orderNo: String {
+    get {return _storage._orderNo}
+    set {_uniqueStorage()._orderNo = newValue}
+  }
 
-  public var userid: Int64 = 0
+  public var userid: Int64 {
+    get {return _storage._userid}
+    set {_uniqueStorage()._userid = newValue}
+  }
 
-  public var money: String = String()
+  public var isOnlinePayDesc: String {
+    get {return _storage._isOnlinePayDesc}
+    set {_uniqueStorage()._isOnlinePayDesc = newValue}
+  }
 
-  public var status: Int64 = 0
+  public var isMatchingPayDesc: String {
+    get {return _storage._isMatchingPayDesc}
+    set {_uniqueStorage()._isMatchingPayDesc = newValue}
+  }
 
-  public var applyTime: Int64 = 0
+  public var typeDesc: String {
+    get {return _storage._typeDesc}
+    set {_uniqueStorage()._typeDesc = newValue}
+  }
+
+  public var statusDesc: String {
+    get {return _storage._statusDesc}
+    set {_uniqueStorage()._statusDesc = newValue}
+  }
+
+  public var confirmDesc: String {
+    get {return _storage._confirmDesc}
+    set {_uniqueStorage()._confirmDesc = newValue}
+  }
+
+  public var createTime: String {
+    get {return _storage._createTime}
+    set {_uniqueStorage()._createTime = newValue}
+  }
+
+  public var pushStatusDesc: String {
+    get {return _storage._pushStatusDesc}
+    set {_uniqueStorage()._pushStatusDesc = newValue}
+  }
+
+  public var finishTimeDesc: String {
+    get {return _storage._finishTimeDesc}
+    set {_uniqueStorage()._finishTimeDesc = newValue}
+  }
+
+  public var cardType: String {
+    get {return _storage._cardType}
+    set {_uniqueStorage()._cardType = newValue}
+  }
+
+  public var matchStatusDesc: String {
+    get {return _storage._matchStatusDesc}
+    set {_uniqueStorage()._matchStatusDesc = newValue}
+  }
+
+  public var imgUploadTime: String {
+    get {return _storage._imgUploadTime}
+    set {_uniqueStorage()._imgUploadTime = newValue}
+  }
+
+  public var receiptEmail: String {
+    get {return _storage._receiptEmail}
+    set {_uniqueStorage()._receiptEmail = newValue}
+  }
+
+  public var amount: String {
+    get {return _storage._amount}
+    set {_uniqueStorage()._amount = newValue}
+  }
+
+  public var rechargeName: String {
+    get {return _storage._rechargeName}
+    set {_uniqueStorage()._rechargeName = newValue}
+  }
+
+  public var accountName: String {
+    get {return _storage._accountName}
+    set {_uniqueStorage()._accountName = newValue}
+  }
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 public struct Api_Core_TransferMessageRsp {
@@ -1022,7 +1102,31 @@ public struct Api_Core_TransferMessageRsp {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var data: [Api_Core_WithDraw] = []
+  public var data: [Api_Core_ThirdOrder] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_HistoryRechargesRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var chatID: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_HistoryRechargesResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var data: [Api_Core_ThirdOrder] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1093,6 +1197,26 @@ public struct Api_Core_GetApplyWorkerStateListResp {
   public init() {}
 }
 
+public struct Api_Core_GetApplyWorkerStateResp {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var onlineStateNow: Api_Common_OnlineState = .idle
+
+  public var onlineStateApply: Api_Common_OnlineState = .idle
+
+  public var applyTime: Int64 = 0
+
+  public var applyState: Int32 = 0
+
+  public var checkTime: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 /// 查询客户列表
 public struct Api_Core_SessionCustomerQueryRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -1154,6 +1278,9 @@ public struct Api_Core_SessionCustomer {
   /// Clears the value of `createAt`. Subsequent reads from it will return its default value.
   public mutating func clearCreateAt() {self._createAt = nil}
 
+  /// 商户ID
+  public var tenantID: Int32 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -1194,6 +1321,72 @@ public struct Api_Core_CheckWorkerStateReq {
   public var id: Int64 = 0
 
   public var access: Bool = false
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_GetQlUrlResp {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var base64URL: String = String()
+
+  public var googleKey: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_GlReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var code: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_GlResp {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var ok: Bool = false
+
+  public var errMsg: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_WorkerTransferAllReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var consultID: UInt32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_WorkerTransferAllResp {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var ok: Bool = false
+
+  public var msg: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1241,16 +1434,24 @@ extension Api_Core_QuerySessionRequest: @unchecked Sendable {}
 extension Api_Core_QuerySessionResponse: @unchecked Sendable {}
 extension Api_Core_NotifyMessageRequest: @unchecked Sendable {}
 extension Api_Core_TransferMessageReq: @unchecked Sendable {}
-extension Api_Core_WithDraw: @unchecked Sendable {}
+extension Api_Core_ThirdOrder: @unchecked Sendable {}
 extension Api_Core_TransferMessageRsp: @unchecked Sendable {}
+extension Api_Core_HistoryRechargesRequest: @unchecked Sendable {}
+extension Api_Core_HistoryRechargesResponse: @unchecked Sendable {}
 extension Api_Core_QueryChildByGroupRequest: @unchecked Sendable {}
 extension Api_Core_QueryChildByGroupResponse: @unchecked Sendable {}
 extension Api_Core_GetApplyWorkerStateListReq: @unchecked Sendable {}
 extension Api_Core_GetApplyWorkerStateListResp: @unchecked Sendable {}
+extension Api_Core_GetApplyWorkerStateResp: @unchecked Sendable {}
 extension Api_Core_SessionCustomerQueryRequest: @unchecked Sendable {}
 extension Api_Core_SessionCustomer: @unchecked Sendable {}
 extension Api_Core_SessionCustomerQueryResponse: @unchecked Sendable {}
 extension Api_Core_CheckWorkerStateReq: @unchecked Sendable {}
+extension Api_Core_GetQlUrlResp: @unchecked Sendable {}
+extension Api_Core_GlReq: @unchecked Sendable {}
+extension Api_Core_GlResp: @unchecked Sendable {}
+extension Api_Core_WorkerTransferAllReq: @unchecked Sendable {}
+extension Api_Core_WorkerTransferAllResp: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -3055,63 +3256,209 @@ extension Api_Core_TransferMessageReq: SwiftProtobuf.Message, SwiftProtobuf._Mes
   }
 }
 
-extension Api_Core_WithDraw: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".WithDraw"
+extension Api_Core_ThirdOrder: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ThirdOrder"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
-    2: .same(proto: "orderNo"),
+    2: .standard(proto: "order_no"),
     3: .same(proto: "userid"),
-    4: .same(proto: "money"),
-    5: .same(proto: "status"),
-    6: .same(proto: "applyTime"),
+    4: .standard(proto: "is_online_pay_desc"),
+    5: .standard(proto: "is_matching_pay_desc"),
+    6: .standard(proto: "type_desc"),
+    7: .standard(proto: "status_desc"),
+    8: .standard(proto: "confirm_desc"),
+    9: .standard(proto: "create_time"),
+    10: .standard(proto: "push_status_desc"),
+    11: .standard(proto: "finish_time_desc"),
+    12: .standard(proto: "card_type"),
+    13: .standard(proto: "match_status_desc"),
+    14: .standard(proto: "img_upload_time"),
+    15: .standard(proto: "receipt_email"),
+    16: .same(proto: "amount"),
+    17: .standard(proto: "recharge_name"),
+    18: .standard(proto: "account_name"),
   ]
 
+  fileprivate class _StorageClass {
+    var _id: Int64 = 0
+    var _orderNo: String = String()
+    var _userid: Int64 = 0
+    var _isOnlinePayDesc: String = String()
+    var _isMatchingPayDesc: String = String()
+    var _typeDesc: String = String()
+    var _statusDesc: String = String()
+    var _confirmDesc: String = String()
+    var _createTime: String = String()
+    var _pushStatusDesc: String = String()
+    var _finishTimeDesc: String = String()
+    var _cardType: String = String()
+    var _matchStatusDesc: String = String()
+    var _imgUploadTime: String = String()
+    var _receiptEmail: String = String()
+    var _amount: String = String()
+    var _rechargeName: String = String()
+    var _accountName: String = String()
+
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _orderNo = source._orderNo
+      _userid = source._userid
+      _isOnlinePayDesc = source._isOnlinePayDesc
+      _isMatchingPayDesc = source._isMatchingPayDesc
+      _typeDesc = source._typeDesc
+      _statusDesc = source._statusDesc
+      _confirmDesc = source._confirmDesc
+      _createTime = source._createTime
+      _pushStatusDesc = source._pushStatusDesc
+      _finishTimeDesc = source._finishTimeDesc
+      _cardType = source._cardType
+      _matchStatusDesc = source._matchStatusDesc
+      _imgUploadTime = source._imgUploadTime
+      _receiptEmail = source._receiptEmail
+      _amount = source._amount
+      _rechargeName = source._rechargeName
+      _accountName = source._accountName
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularInt64Field(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.orderNo) }()
-      case 3: try { try decoder.decodeSingularInt64Field(value: &self.userid) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.money) }()
-      case 5: try { try decoder.decodeSingularInt64Field(value: &self.status) }()
-      case 6: try { try decoder.decodeSingularInt64Field(value: &self.applyTime) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularInt64Field(value: &_storage._id) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._orderNo) }()
+        case 3: try { try decoder.decodeSingularInt64Field(value: &_storage._userid) }()
+        case 4: try { try decoder.decodeSingularStringField(value: &_storage._isOnlinePayDesc) }()
+        case 5: try { try decoder.decodeSingularStringField(value: &_storage._isMatchingPayDesc) }()
+        case 6: try { try decoder.decodeSingularStringField(value: &_storage._typeDesc) }()
+        case 7: try { try decoder.decodeSingularStringField(value: &_storage._statusDesc) }()
+        case 8: try { try decoder.decodeSingularStringField(value: &_storage._confirmDesc) }()
+        case 9: try { try decoder.decodeSingularStringField(value: &_storage._createTime) }()
+        case 10: try { try decoder.decodeSingularStringField(value: &_storage._pushStatusDesc) }()
+        case 11: try { try decoder.decodeSingularStringField(value: &_storage._finishTimeDesc) }()
+        case 12: try { try decoder.decodeSingularStringField(value: &_storage._cardType) }()
+        case 13: try { try decoder.decodeSingularStringField(value: &_storage._matchStatusDesc) }()
+        case 14: try { try decoder.decodeSingularStringField(value: &_storage._imgUploadTime) }()
+        case 15: try { try decoder.decodeSingularStringField(value: &_storage._receiptEmail) }()
+        case 16: try { try decoder.decodeSingularStringField(value: &_storage._amount) }()
+        case 17: try { try decoder.decodeSingularStringField(value: &_storage._rechargeName) }()
+        case 18: try { try decoder.decodeSingularStringField(value: &_storage._accountName) }()
+        default: break
+        }
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.id != 0 {
-      try visitor.visitSingularInt64Field(value: self.id, fieldNumber: 1)
-    }
-    if !self.orderNo.isEmpty {
-      try visitor.visitSingularStringField(value: self.orderNo, fieldNumber: 2)
-    }
-    if self.userid != 0 {
-      try visitor.visitSingularInt64Field(value: self.userid, fieldNumber: 3)
-    }
-    if !self.money.isEmpty {
-      try visitor.visitSingularStringField(value: self.money, fieldNumber: 4)
-    }
-    if self.status != 0 {
-      try visitor.visitSingularInt64Field(value: self.status, fieldNumber: 5)
-    }
-    if self.applyTime != 0 {
-      try visitor.visitSingularInt64Field(value: self.applyTime, fieldNumber: 6)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._id != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._id, fieldNumber: 1)
+      }
+      if !_storage._orderNo.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._orderNo, fieldNumber: 2)
+      }
+      if _storage._userid != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._userid, fieldNumber: 3)
+      }
+      if !_storage._isOnlinePayDesc.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._isOnlinePayDesc, fieldNumber: 4)
+      }
+      if !_storage._isMatchingPayDesc.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._isMatchingPayDesc, fieldNumber: 5)
+      }
+      if !_storage._typeDesc.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._typeDesc, fieldNumber: 6)
+      }
+      if !_storage._statusDesc.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._statusDesc, fieldNumber: 7)
+      }
+      if !_storage._confirmDesc.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._confirmDesc, fieldNumber: 8)
+      }
+      if !_storage._createTime.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._createTime, fieldNumber: 9)
+      }
+      if !_storage._pushStatusDesc.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._pushStatusDesc, fieldNumber: 10)
+      }
+      if !_storage._finishTimeDesc.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._finishTimeDesc, fieldNumber: 11)
+      }
+      if !_storage._cardType.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._cardType, fieldNumber: 12)
+      }
+      if !_storage._matchStatusDesc.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._matchStatusDesc, fieldNumber: 13)
+      }
+      if !_storage._imgUploadTime.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._imgUploadTime, fieldNumber: 14)
+      }
+      if !_storage._receiptEmail.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._receiptEmail, fieldNumber: 15)
+      }
+      if !_storage._amount.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._amount, fieldNumber: 16)
+      }
+      if !_storage._rechargeName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._rechargeName, fieldNumber: 17)
+      }
+      if !_storage._accountName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._accountName, fieldNumber: 18)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Api_Core_WithDraw, rhs: Api_Core_WithDraw) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.orderNo != rhs.orderNo {return false}
-    if lhs.userid != rhs.userid {return false}
-    if lhs.money != rhs.money {return false}
-    if lhs.status != rhs.status {return false}
-    if lhs.applyTime != rhs.applyTime {return false}
+  public static func ==(lhs: Api_Core_ThirdOrder, rhs: Api_Core_ThirdOrder) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._orderNo != rhs_storage._orderNo {return false}
+        if _storage._userid != rhs_storage._userid {return false}
+        if _storage._isOnlinePayDesc != rhs_storage._isOnlinePayDesc {return false}
+        if _storage._isMatchingPayDesc != rhs_storage._isMatchingPayDesc {return false}
+        if _storage._typeDesc != rhs_storage._typeDesc {return false}
+        if _storage._statusDesc != rhs_storage._statusDesc {return false}
+        if _storage._confirmDesc != rhs_storage._confirmDesc {return false}
+        if _storage._createTime != rhs_storage._createTime {return false}
+        if _storage._pushStatusDesc != rhs_storage._pushStatusDesc {return false}
+        if _storage._finishTimeDesc != rhs_storage._finishTimeDesc {return false}
+        if _storage._cardType != rhs_storage._cardType {return false}
+        if _storage._matchStatusDesc != rhs_storage._matchStatusDesc {return false}
+        if _storage._imgUploadTime != rhs_storage._imgUploadTime {return false}
+        if _storage._receiptEmail != rhs_storage._receiptEmail {return false}
+        if _storage._amount != rhs_storage._amount {return false}
+        if _storage._rechargeName != rhs_storage._rechargeName {return false}
+        if _storage._accountName != rhs_storage._accountName {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3143,6 +3490,70 @@ extension Api_Core_TransferMessageRsp: SwiftProtobuf.Message, SwiftProtobuf._Mes
   }
 
   public static func ==(lhs: Api_Core_TransferMessageRsp, rhs: Api_Core_TransferMessageRsp) -> Bool {
+    if lhs.data != rhs.data {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_HistoryRechargesRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".HistoryRechargesRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "chat_id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.chatID != 0 {
+      try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_HistoryRechargesRequest, rhs: Api_Core_HistoryRechargesRequest) -> Bool {
+    if lhs.chatID != rhs.chatID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_HistoryRechargesResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".HistoryRechargesResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "data"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.data) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.data.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.data, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_HistoryRechargesResponse, rhs: Api_Core_HistoryRechargesResponse) -> Bool {
     if lhs.data != rhs.data {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -3299,6 +3710,62 @@ extension Api_Core_GetApplyWorkerStateListResp: SwiftProtobuf.Message, SwiftProt
   }
 }
 
+extension Api_Core_GetApplyWorkerStateResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetApplyWorkerStateResp"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "online_state_now"),
+    2: .standard(proto: "online_state_apply"),
+    3: .standard(proto: "apply_time"),
+    4: .standard(proto: "apply_state"),
+    5: .standard(proto: "check_time"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.onlineStateNow) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.onlineStateApply) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.applyTime) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.applyState) }()
+      case 5: try { try decoder.decodeSingularInt64Field(value: &self.checkTime) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.onlineStateNow != .idle {
+      try visitor.visitSingularEnumField(value: self.onlineStateNow, fieldNumber: 1)
+    }
+    if self.onlineStateApply != .idle {
+      try visitor.visitSingularEnumField(value: self.onlineStateApply, fieldNumber: 2)
+    }
+    if self.applyTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.applyTime, fieldNumber: 3)
+    }
+    if self.applyState != 0 {
+      try visitor.visitSingularInt32Field(value: self.applyState, fieldNumber: 4)
+    }
+    if self.checkTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.checkTime, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_GetApplyWorkerStateResp, rhs: Api_Core_GetApplyWorkerStateResp) -> Bool {
+    if lhs.onlineStateNow != rhs.onlineStateNow {return false}
+    if lhs.onlineStateApply != rhs.onlineStateApply {return false}
+    if lhs.applyTime != rhs.applyTime {return false}
+    if lhs.applyState != rhs.applyState {return false}
+    if lhs.checkTime != rhs.checkTime {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Api_Core_SessionCustomerQueryRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".SessionCustomerQueryRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -3357,6 +3824,7 @@ extension Api_Core_SessionCustomer: SwiftProtobuf.Message, SwiftProtobuf._Messag
     5: .standard(proto: "chat_id"),
     6: .same(proto: "ip"),
     7: .standard(proto: "create_at"),
+    8: .standard(proto: "tenant_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3372,6 +3840,7 @@ extension Api_Core_SessionCustomer: SwiftProtobuf.Message, SwiftProtobuf._Messag
       case 5: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.ip) }()
       case 7: try { try decoder.decodeSingularMessageField(value: &self._createAt) }()
+      case 8: try { try decoder.decodeSingularInt32Field(value: &self.tenantID) }()
       default: break
       }
     }
@@ -3403,6 +3872,9 @@ extension Api_Core_SessionCustomer: SwiftProtobuf.Message, SwiftProtobuf._Messag
     try { if let v = self._createAt {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
     } }()
+    if self.tenantID != 0 {
+      try visitor.visitSingularInt32Field(value: self.tenantID, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3414,6 +3886,7 @@ extension Api_Core_SessionCustomer: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.chatID != rhs.chatID {return false}
     if lhs.ip != rhs.ip {return false}
     if lhs._createAt != rhs._createAt {return false}
+    if lhs.tenantID != rhs.tenantID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3500,6 +3973,184 @@ extension Api_Core_CheckWorkerStateReq: SwiftProtobuf.Message, SwiftProtobuf._Me
   public static func ==(lhs: Api_Core_CheckWorkerStateReq, rhs: Api_Core_CheckWorkerStateReq) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.access != rhs.access {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_GetQlUrlResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetQlUrlResp"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "base64_url"),
+    2: .standard(proto: "google_key"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.base64URL) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.googleKey) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.base64URL.isEmpty {
+      try visitor.visitSingularStringField(value: self.base64URL, fieldNumber: 1)
+    }
+    if !self.googleKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.googleKey, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_GetQlUrlResp, rhs: Api_Core_GetQlUrlResp) -> Bool {
+    if lhs.base64URL != rhs.base64URL {return false}
+    if lhs.googleKey != rhs.googleKey {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_GlReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GlReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.code) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.code.isEmpty {
+      try visitor.visitSingularStringField(value: self.code, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_GlReq, rhs: Api_Core_GlReq) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_GlResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GlResp"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "ok"),
+    2: .standard(proto: "err_msg"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.ok) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.errMsg) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.ok != false {
+      try visitor.visitSingularBoolField(value: self.ok, fieldNumber: 1)
+    }
+    if !self.errMsg.isEmpty {
+      try visitor.visitSingularStringField(value: self.errMsg, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_GlResp, rhs: Api_Core_GlResp) -> Bool {
+    if lhs.ok != rhs.ok {return false}
+    if lhs.errMsg != rhs.errMsg {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerTransferAllReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerTransferAllReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "consult_id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.consultID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.consultID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.consultID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerTransferAllReq, rhs: Api_Core_WorkerTransferAllReq) -> Bool {
+    if lhs.consultID != rhs.consultID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerTransferAllResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerTransferAllResp"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "ok"),
+    2: .same(proto: "msg"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.ok) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.msg) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.ok != false {
+      try visitor.visitSingularBoolField(value: self.ok, fieldNumber: 1)
+    }
+    if !self.msg.isEmpty {
+      try visitor.visitSingularStringField(value: self.msg, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerTransferAllResp, rhs: Api_Core_WorkerTransferAllResp) -> Bool {
+    if lhs.ok != rhs.ok {return false}
+    if lhs.msg != rhs.msg {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

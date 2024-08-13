@@ -233,7 +233,7 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
                 */
         if lib.payloadId == 0{
             print("initSDK 初始化SDK")
-            lib.myinit(userId: 666663, cert: "COYBEAUYASDyASiG2piD9zE.te46qua5ha2r-Caz03Vx2JXH5OLSRRV2GqdYcn9UslwibsxBSP98GhUKSGEI0Z84FRMkp16ZK8eS-y72QVE2AQ", token: "", baseUrl: wssUrl, sign: "9zgd9YUc")
+            lib.myinit(userId: 666665, cert: "COYBEAUYASDyASiG2piD9zE.te46qua5ha2r-Caz03Vx2JXH5OLSRRV2GqdYcn9UslwibsxBSP98GhUKSGEI0Z84FRMkp16ZK8eS-y72QVE2AQ", token: "", baseUrl: wssUrl, sign: "9zgd9YUc")
             
             lib.callWebsocket()
             lib.delegate = self

@@ -227,6 +227,67 @@ extension CommonMessageRole: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+/// 消息来源类型
+public enum CommonMsgSourceType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case mstDefault // = 0
+
+  /// 客服发消息
+  case mstWorker // = 1
+
+  /// 用户发消息(注册/匿名)
+  case mstCustomer // = 2
+
+  /// 模拟客服发消息
+  case mstSystemWorker // = 3
+
+  /// 模拟用户发消息
+  case mstSystemCustomer // = 4
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .mstDefault
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .mstDefault
+    case 1: self = .mstWorker
+    case 2: self = .mstCustomer
+    case 3: self = .mstSystemWorker
+    case 4: self = .mstSystemCustomer
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .mstDefault: return 0
+    case .mstWorker: return 1
+    case .mstCustomer: return 2
+    case .mstSystemWorker: return 3
+    case .mstSystemCustomer: return 4
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension CommonMsgSourceType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [CommonMsgSourceType] = [
+    .mstDefault,
+    .mstWorker,
+    .mstCustomer,
+    .mstSystemWorker,
+    .mstSystemCustomer,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 public enum CommonMessageOperate: SwiftProtobuf.Enum {
   public typealias RawValue = Int
 
@@ -656,6 +717,18 @@ public struct CommonMessage {
     set {_uniqueStorage()._consultID = newValue}
   }
 
+  /// 附加自动回复数据
+  public var withAutoReplies: [CommonWithAutoReply] {
+    get {return _storage._withAutoReplies}
+    set {_uniqueStorage()._withAutoReplies = newValue}
+  }
+
+  /// 消息来源类型
+  public var msgSourceType: CommonMsgSourceType {
+    get {return _storage._msgSourceType}
+    set {_uniqueStorage()._msgSourceType = newValue}
+  }
+
   public var payload: OneOf_Payload? {
     get {return _storage._payload}
     set {_uniqueStorage()._payload = newValue}
@@ -835,6 +908,38 @@ public struct CommonMessage {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+/// 问题表示用户发送，答案表示客服发送，答案如果为两个则展示两条会话
+public struct CommonWithAutoReply {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 问题id
+  public var id: Int64 = 0
+
+  /// 问题标题
+  public var title: String = String()
+
+  /// 提问时间
+  public var createdTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _createdTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_createdTime = newValue}
+  }
+  /// Returns true if `createdTime` has been explicitly set.
+  public var hasCreatedTime: Bool {return self._createdTime != nil}
+  /// Clears the value of `createdTime`. Subsequent reads from it will return its default value.
+  public mutating func clearCreatedTime() {self._createdTime = nil}
+
+  /// 答案
+  public var answers: [CommonMessageUnion] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _createdTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
 public struct CommonWorkerTransfer {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -887,6 +992,7 @@ public struct CommonBlackListConfirm {
 extension CommonChatState: @unchecked Sendable {}
 extension CommonMessageFormat: @unchecked Sendable {}
 extension CommonMessageRole: @unchecked Sendable {}
+extension CommonMsgSourceType: @unchecked Sendable {}
 extension CommonMessageOperate: @unchecked Sendable {}
 extension CommonMessageContent: @unchecked Sendable {}
 extension CommonMessageImage: @unchecked Sendable {}
@@ -903,6 +1009,7 @@ extension CommonMessageAutoReplyFlag: @unchecked Sendable {}
 extension CommonMessageWorkerChanged: @unchecked Sendable {}
 extension CommonMessage: @unchecked Sendable {}
 extension CommonMessage.OneOf_Payload: @unchecked Sendable {}
+extension CommonWithAutoReply: @unchecked Sendable {}
 extension CommonWorkerTransfer: @unchecked Sendable {}
 extension CommonBlackListApply: @unchecked Sendable {}
 extension CommonBlackListConfirm: @unchecked Sendable {}
@@ -942,6 +1049,16 @@ extension CommonMessageRole: SwiftProtobuf._ProtoNameProviding {
     1: .same(proto: "MSG_ROLE_WORKER"),
     2: .same(proto: "MSG_ROLE_CUSTOMER"),
     3: .same(proto: "MSG_ROLE_ANONYMOUS"),
+  ]
+}
+
+extension CommonMsgSourceType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "MST_DEFAULT"),
+    1: .same(proto: "MST_WORKER"),
+    2: .same(proto: "MST_CUSTOMER"),
+    3: .same(proto: "MST_SYSTEM_WORKER"),
+    4: .same(proto: "MST_SYSTEM_CUSTOMER"),
   ]
 }
 
@@ -1560,6 +1677,8 @@ extension CommonMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     8: .standard(proto: "auto_reply_flag"),
     9: .standard(proto: "msg_fmt"),
     10: .standard(proto: "consult_id"),
+    11: .standard(proto: "with_auto_replies"),
+    12: .standard(proto: "msg_source_type"),
     100: .same(proto: "content"),
     101: .same(proto: "image"),
     102: .same(proto: "audio"),
@@ -1584,6 +1703,8 @@ extension CommonMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     var _autoReplyFlag: CommonMessageAutoReplyFlag? = nil
     var _msgFmt: CommonMessageFormat = .msgText
     var _consultID: Int64 = 0
+    var _withAutoReplies: [CommonWithAutoReply] = []
+    var _msgSourceType: CommonMsgSourceType = .mstDefault
     var _payload: CommonMessage.OneOf_Payload?
 
     #if swift(>=5.10)
@@ -1609,6 +1730,8 @@ extension CommonMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       _autoReplyFlag = source._autoReplyFlag
       _msgFmt = source._msgFmt
       _consultID = source._consultID
+      _withAutoReplies = source._withAutoReplies
+      _msgSourceType = source._msgSourceType
       _payload = source._payload
     }
   }
@@ -1638,6 +1761,8 @@ extension CommonMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
         case 8: try { try decoder.decodeSingularMessageField(value: &_storage._autoReplyFlag) }()
         case 9: try { try decoder.decodeSingularEnumField(value: &_storage._msgFmt) }()
         case 10: try { try decoder.decodeSingularInt64Field(value: &_storage._consultID) }()
+        case 11: try { try decoder.decodeRepeatedMessageField(value: &_storage._withAutoReplies) }()
+        case 12: try { try decoder.decodeSingularEnumField(value: &_storage._msgSourceType) }()
         case 100: try {
           var v: CommonMessageContent?
           var hadOneofValue = false
@@ -1823,6 +1948,12 @@ extension CommonMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       if _storage._consultID != 0 {
         try visitor.visitSingularInt64Field(value: _storage._consultID, fieldNumber: 10)
       }
+      if !_storage._withAutoReplies.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._withAutoReplies, fieldNumber: 11)
+      }
+      if _storage._msgSourceType != .mstDefault {
+        try visitor.visitSingularEnumField(value: _storage._msgSourceType, fieldNumber: 12)
+      }
       switch _storage._payload {
       case .content?: try {
         guard case .content(let v)? = _storage._payload else { preconditionFailure() }
@@ -1889,11 +2020,67 @@ extension CommonMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
         if _storage._autoReplyFlag != rhs_storage._autoReplyFlag {return false}
         if _storage._msgFmt != rhs_storage._msgFmt {return false}
         if _storage._consultID != rhs_storage._consultID {return false}
+        if _storage._withAutoReplies != rhs_storage._withAutoReplies {return false}
+        if _storage._msgSourceType != rhs_storage._msgSourceType {return false}
         if _storage._payload != rhs_storage._payload {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension CommonWithAutoReply: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WithAutoReply"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "title"),
+    3: .standard(proto: "created_time"),
+    4: .same(proto: "answers"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.title) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._createdTime) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.answers) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.id != 0 {
+      try visitor.visitSingularInt64Field(value: self.id, fieldNumber: 1)
+    }
+    if !self.title.isEmpty {
+      try visitor.visitSingularStringField(value: self.title, fieldNumber: 2)
+    }
+    try { if let v = self._createdTime {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
+    if !self.answers.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.answers, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: CommonWithAutoReply, rhs: CommonWithAutoReply) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.title != rhs.title {return false}
+    if lhs._createdTime != rhs._createdTime {return false}
+    if lhs.answers != rhs.answers {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

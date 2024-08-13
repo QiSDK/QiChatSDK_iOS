@@ -1,6 +1,6 @@
 {
   "name": "TeneasyChatSDK_iOS",
-  "version": "1.5.2",
+  "version": "1.6.1",
   "summary": "A short description of TeneasyChatSDK_iOS.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/7938813/TeneasyChatSDK_iOS",
@@ -13,10 +13,10 @@
   },
   "source": {
     "git": "https://github.com/QiSDK/QiChatSDK_iOS.git",
-    "tag": "1.5.2"
+    "tag": "1.6.1"
   },
   "platforms": {
-    "ios": "10.0"
+    "ios": "12.0"
   },
   "source_files": "TeneasyChatSDK_iOS/Classes/**/*",
   "frameworks": "UIKit",
@@ -25,7 +25,7 @@
       "4.0.4"
     ],
     "SwiftProtobuf": [
-      "~> 1.20.3"
+      "~> 1.27.0"
     ],
     "Alamofire": [
 

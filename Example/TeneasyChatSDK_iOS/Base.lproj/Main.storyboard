@@ -27,7 +27,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="https://qlqiniu.quyou.tech/gw3config.txt, https://ydqlacc.weletter05.com/gw3config.txt" translatesAutoresizingMaskIntoConstraints="NO" id="0QB-Id-euD">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="https://wcsapi.qixin14.xyz,https://csapi.hfxg.xyz" translatesAutoresizingMaskIntoConstraints="NO" id="0QB-Id-euD">
                                 <rect key="frame" x="10" y="67" width="410" height="114"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <constraints>

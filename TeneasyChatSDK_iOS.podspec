@@ -28,7 +28,7 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'https://github.com/QiSDK/QiChatSDK_iOS.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '12.0'
 
   s.source_files = 'TeneasyChatSDK_iOS/Classes/**/*'
   
@@ -39,7 +39,7 @@ TODO: Add long description of the pod here.
   # s.public_header_files = 'Pod/Classes/**/*.h'
    s.frameworks = 'UIKit'#, 'MapKit'
    s.dependency 'Starscream', '4.0.4'
-   s.dependency 'SwiftProtobuf', '~> 1.20.3'
+   s.dependency 'SwiftProtobuf', '~> 1.27.0'
    s.dependency 'Alamofire'
    s.dependency 'HandyJSON', '~> 5.0.2'
    # pod 'SwiftProtobuf', '~> 1.0'

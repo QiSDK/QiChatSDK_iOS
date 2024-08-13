@@ -507,6 +507,26 @@ public struct Api_Common_Worker {
   /// Clears the value of `deleteAt`. Subsequent reads from it will return its default value.
   public mutating func clearDeleteAt() {_uniqueStorage()._deleteAt = nil}
 
+  /// 创建时间
+  public var createAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _storage._createAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_uniqueStorage()._createAt = newValue}
+  }
+  /// Returns true if `createAt` has been explicitly set.
+  public var hasCreateAt: Bool {return _storage._createAt != nil}
+  /// Clears the value of `createAt`. Subsequent reads from it will return its default value.
+  public mutating func clearCreateAt() {_uniqueStorage()._createAt = nil}
+
+  /// 更新时间
+  public var updateAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _storage._updateAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_uniqueStorage()._updateAt = newValue}
+  }
+  /// Returns true if `updateAt` has been explicitly set.
+  public var hasUpdateAt: Bool {return _storage._updateAt != nil}
+  /// Clears the value of `updateAt`. Subsequent reads from it will return its default value.
+  public mutating func clearUpdateAt() {_uniqueStorage()._updateAt = nil}
+
   /// 删除状态
   public var disableStatus: CommonDisableStatus {
     get {return _storage._disableStatus}
@@ -783,7 +803,9 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     15: .same(proto: "tips"),
     16: .standard(proto: "consult_ids"),
     17: .standard(proto: "delete_at"),
-    18: .standard(proto: "disable_status"),
+    18: .standard(proto: "create_at"),
+    19: .standard(proto: "update_at"),
+    20: .standard(proto: "disable_status"),
   ]
 
   fileprivate class _StorageClass {
@@ -804,6 +826,8 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     var _tips: String = String()
     var _consultIds: [UInt32] = []
     var _deleteAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+    var _createAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+    var _updateAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
     var _disableStatus: CommonDisableStatus = .default
 
     #if swift(>=5.10)
@@ -836,6 +860,8 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
       _tips = source._tips
       _consultIds = source._consultIds
       _deleteAt = source._deleteAt
+      _createAt = source._createAt
+      _updateAt = source._updateAt
       _disableStatus = source._disableStatus
     }
   }
@@ -872,7 +898,9 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
         case 15: try { try decoder.decodeSingularStringField(value: &_storage._tips) }()
         case 16: try { try decoder.decodeRepeatedUInt32Field(value: &_storage._consultIds) }()
         case 17: try { try decoder.decodeSingularMessageField(value: &_storage._deleteAt) }()
-        case 18: try { try decoder.decodeSingularEnumField(value: &_storage._disableStatus) }()
+        case 18: try { try decoder.decodeSingularMessageField(value: &_storage._createAt) }()
+        case 19: try { try decoder.decodeSingularMessageField(value: &_storage._updateAt) }()
+        case 20: try { try decoder.decodeSingularEnumField(value: &_storage._disableStatus) }()
         default: break
         }
       }
@@ -936,8 +964,14 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
       try { if let v = _storage._deleteAt {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 17)
       } }()
+      try { if let v = _storage._createAt {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 18)
+      } }()
+      try { if let v = _storage._updateAt {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 19)
+      } }()
       if _storage._disableStatus != .default {
-        try visitor.visitSingularEnumField(value: _storage._disableStatus, fieldNumber: 18)
+        try visitor.visitSingularEnumField(value: _storage._disableStatus, fieldNumber: 20)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -965,6 +999,8 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
         if _storage._tips != rhs_storage._tips {return false}
         if _storage._consultIds != rhs_storage._consultIds {return false}
         if _storage._deleteAt != rhs_storage._deleteAt {return false}
+        if _storage._createAt != rhs_storage._createAt {return false}
+        if _storage._updateAt != rhs_storage._updateAt {return false}
         if _storage._disableStatus != rhs_storage._disableStatus {return false}
         return true
       }

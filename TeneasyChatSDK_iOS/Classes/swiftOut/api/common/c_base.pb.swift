@@ -69,6 +69,55 @@ extension CommonDisableStatus: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+/// 上一页/下一页
+public enum CommonPageUpDown: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case pudDefault // = 0
+
+  /// 上一页
+  case pudUp // = 1
+
+  /// 下一页
+  case pudDown // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .pudDefault
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .pudDefault
+    case 1: self = .pudUp
+    case 2: self = .pudDown
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .pudDefault: return 0
+    case .pudUp: return 1
+    case .pudDown: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension CommonPageUpDown: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [CommonPageUpDown] = [
+    .pudDefault,
+    .pudUp,
+    .pudDown,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 public struct CommonBaseResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -205,6 +254,7 @@ public struct CommonSetString {
 
 #if swift(>=5.5) && canImport(_Concurrency)
 extension CommonDisableStatus: @unchecked Sendable {}
+extension CommonPageUpDown: @unchecked Sendable {}
 extension CommonBaseResponse: @unchecked Sendable {}
 extension CommonPage: @unchecked Sendable {}
 extension CommonBatch: @unchecked Sendable {}
@@ -227,6 +277,14 @@ extension CommonDisableStatus: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "DEFAULT"),
     1: .same(proto: "ENABLE"),
     2: .same(proto: "DISABLE"),
+  ]
+}
+
+extension CommonPageUpDown: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "PUD_DEFAULT"),
+    1: .same(proto: "PUD_UP"),
+    2: .same(proto: "PUD_DOWN"),
   ]
 }
 

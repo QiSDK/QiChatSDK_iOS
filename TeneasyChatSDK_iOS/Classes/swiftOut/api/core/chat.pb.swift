@@ -74,8 +74,8 @@ public struct Api_Core_ChatListQueryPageRequest {
   fileprivate var _page: Api_Core_Pagination? = nil
 }
 
-/// 聊天会话列表
-public struct Api_Core_ChatListHistoryRequest {
+/// 历史聊天会话列表
+public struct Api_Core_HistoryClientSessionsRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -83,33 +83,24 @@ public struct Api_Core_ChatListHistoryRequest {
   public var workerID: Int32 = 0
 
   ///开始查询时间
-  public var start: SwiftProtobuf.Google_Protobuf_Timestamp {
-    get {return _start ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
-    set {_start = newValue}
+  public var startTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _startTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_startTime = newValue}
   }
-  /// Returns true if `start` has been explicitly set.
-  public var hasStart: Bool {return self._start != nil}
-  /// Clears the value of `start`. Subsequent reads from it will return its default value.
-  public mutating func clearStart() {self._start = nil}
+  /// Returns true if `startTime` has been explicitly set.
+  public var hasStartTime: Bool {return self._startTime != nil}
+  /// Clears the value of `startTime`. Subsequent reads from it will return its default value.
+  public mutating func clearStartTime() {self._startTime = nil}
 
   ///结束
-  public var end: SwiftProtobuf.Google_Protobuf_Timestamp {
-    get {return _end ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
-    set {_end = newValue}
+  public var endTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _endTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_endTime = newValue}
   }
-  /// Returns true if `end` has been explicitly set.
-  public var hasEnd: Bool {return self._end != nil}
-  /// Clears the value of `end`. Subsequent reads from it will return its default value.
-  public mutating func clearEnd() {self._end = nil}
-
-  public var batch: CommonBatch {
-    get {return _batch ?? CommonBatch()}
-    set {_batch = newValue}
-  }
-  /// Returns true if `batch` has been explicitly set.
-  public var hasBatch: Bool {return self._batch != nil}
-  /// Clears the value of `batch`. Subsequent reads from it will return its default value.
-  public mutating func clearBatch() {self._batch = nil}
+  /// Returns true if `endTime` has been explicitly set.
+  public var hasEndTime: Bool {return self._endTime != nil}
+  /// Clears the value of `endTime`. Subsequent reads from it will return its default value.
+  public mutating func clearEndTime() {self._endTime = nil}
 
   /// 咨询id
   public var consultID: UInt32 = 0
@@ -120,38 +111,87 @@ public struct Api_Core_ChatListHistoryRequest {
   /// 用户昵称
   public var nickname: String = String()
 
+  /// 分页大小
+  public var pageSize: Int32 = 0
+
+  /// 分页/最后时间
+  public var lastCreatedAt: Int64 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _start: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
-  fileprivate var _end: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
-  fileprivate var _batch: CommonBatch? = nil
+  fileprivate var _startTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _endTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
-public struct Api_Core_ChatListHistoryResponse {
+public struct Api_Core_HistoryClientSessionsResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var chats: [CommonChatItem] = []
+  public var chatSessions: [CommonChatItem] = []
 
-  public var batch: CommonBatch {
-    get {return _batch ?? CommonBatch()}
-    set {_batch = newValue}
+  /// 分页/最后时间
+  public var lastCreatedAt: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// 首页聊天会话列表
+public struct Api_Core_IndexClientSessionsRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  ///开始查询时间
+  public var startTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _startTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_startTime = newValue}
   }
-  /// Returns true if `batch` has been explicitly set.
-  public var hasBatch: Bool {return self._batch != nil}
-  /// Clears the value of `batch`. Subsequent reads from it will return its default value.
-  public mutating func clearBatch() {self._batch = nil}
+  /// Returns true if `startTime` has been explicitly set.
+  public var hasStartTime: Bool {return self._startTime != nil}
+  /// Clears the value of `startTime`. Subsequent reads from it will return its default value.
+  public mutating func clearStartTime() {self._startTime = nil}
 
-  public var total: Int32 = 0
+  ///结束
+  public var endTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _endTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_endTime = newValue}
+  }
+  /// Returns true if `endTime` has been explicitly set.
+  public var hasEndTime: Bool {return self._endTime != nil}
+  /// Clears the value of `endTime`. Subsequent reads from it will return its default value.
+  public mutating func clearEndTime() {self._endTime = nil}
+
+  /// 页数
+  public var page: UInt32 = 0
+
+  /// 每页大小
+  public var pageSize: UInt32 = 0
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _batch: CommonBatch? = nil
+  fileprivate var _startTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _endTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+public struct Api_Core_IndexClientSessionsResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var chatSessions: [CommonChatItem] = []
+
+  public var total: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
 }
 
 public struct Api_Core_ChatListQueryResponse {
@@ -450,8 +490,10 @@ public struct Api_Core_GetChatSessionStateResponse {
 extension Api_Core_Pagination: @unchecked Sendable {}
 extension Api_Core_ChatListQueryRequest: @unchecked Sendable {}
 extension Api_Core_ChatListQueryPageRequest: @unchecked Sendable {}
-extension Api_Core_ChatListHistoryRequest: @unchecked Sendable {}
-extension Api_Core_ChatListHistoryResponse: @unchecked Sendable {}
+extension Api_Core_HistoryClientSessionsRequest: @unchecked Sendable {}
+extension Api_Core_HistoryClientSessionsResponse: @unchecked Sendable {}
+extension Api_Core_IndexClientSessionsRequest: @unchecked Sendable {}
+extension Api_Core_IndexClientSessionsResponse: @unchecked Sendable {}
 extension Api_Core_ChatListQueryResponse: @unchecked Sendable {}
 extension Api_Core_ChatListQueryPageResponse: @unchecked Sendable {}
 extension Api_Core_ChatMarkReadRequest: @unchecked Sendable {}
@@ -579,16 +621,17 @@ extension Api_Core_ChatListQueryPageRequest: SwiftProtobuf.Message, SwiftProtobu
   }
 }
 
-extension Api_Core_ChatListHistoryRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".ChatListHistoryRequest"
+extension Api_Core_HistoryClientSessionsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".HistoryClientSessionsRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "worker_id"),
-    2: .same(proto: "start"),
-    3: .same(proto: "end"),
-    4: .same(proto: "batch"),
+    2: .standard(proto: "start_time"),
+    3: .standard(proto: "end_time"),
     5: .standard(proto: "consult_id"),
     6: .standard(proto: "owner_id"),
     7: .same(proto: "nickname"),
+    8: .standard(proto: "page_size"),
+    9: .standard(proto: "last_created_at"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -598,12 +641,13 @@ extension Api_Core_ChatListHistoryRequest: SwiftProtobuf.Message, SwiftProtobuf.
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._start) }()
-      case 3: try { try decoder.decodeSingularMessageField(value: &self._end) }()
-      case 4: try { try decoder.decodeSingularMessageField(value: &self._batch) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._startTime) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._endTime) }()
       case 5: try { try decoder.decodeSingularUInt32Field(value: &self.consultID) }()
       case 6: try { try decoder.decodeSingularInt32Field(value: &self.ownerID) }()
       case 7: try { try decoder.decodeSingularStringField(value: &self.nickname) }()
+      case 8: try { try decoder.decodeSingularInt32Field(value: &self.pageSize) }()
+      case 9: try { try decoder.decodeSingularInt64Field(value: &self.lastCreatedAt) }()
       default: break
       }
     }
@@ -617,14 +661,11 @@ extension Api_Core_ChatListHistoryRequest: SwiftProtobuf.Message, SwiftProtobuf.
     if self.workerID != 0 {
       try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 1)
     }
-    try { if let v = self._start {
+    try { if let v = self._startTime {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
-    try { if let v = self._end {
+    try { if let v = self._endTime {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    } }()
-    try { if let v = self._batch {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
     } }()
     if self.consultID != 0 {
       try visitor.visitSingularUInt32Field(value: self.consultID, fieldNumber: 5)
@@ -635,28 +676,34 @@ extension Api_Core_ChatListHistoryRequest: SwiftProtobuf.Message, SwiftProtobuf.
     if !self.nickname.isEmpty {
       try visitor.visitSingularStringField(value: self.nickname, fieldNumber: 7)
     }
+    if self.pageSize != 0 {
+      try visitor.visitSingularInt32Field(value: self.pageSize, fieldNumber: 8)
+    }
+    if self.lastCreatedAt != 0 {
+      try visitor.visitSingularInt64Field(value: self.lastCreatedAt, fieldNumber: 9)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Api_Core_ChatListHistoryRequest, rhs: Api_Core_ChatListHistoryRequest) -> Bool {
+  public static func ==(lhs: Api_Core_HistoryClientSessionsRequest, rhs: Api_Core_HistoryClientSessionsRequest) -> Bool {
     if lhs.workerID != rhs.workerID {return false}
-    if lhs._start != rhs._start {return false}
-    if lhs._end != rhs._end {return false}
-    if lhs._batch != rhs._batch {return false}
+    if lhs._startTime != rhs._startTime {return false}
+    if lhs._endTime != rhs._endTime {return false}
     if lhs.consultID != rhs.consultID {return false}
     if lhs.ownerID != rhs.ownerID {return false}
     if lhs.nickname != rhs.nickname {return false}
+    if lhs.pageSize != rhs.pageSize {return false}
+    if lhs.lastCreatedAt != rhs.lastCreatedAt {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Api_Core_ChatListHistoryResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".ChatListHistoryResponse"
+extension Api_Core_HistoryClientSessionsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".HistoryClientSessionsResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "chats"),
-    2: .same(proto: "batch"),
-    3: .same(proto: "total"),
+    1: .standard(proto: "chat_sessions"),
+    2: .standard(proto: "last_created_at"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -665,9 +712,50 @@ extension Api_Core_ChatListHistoryResponse: SwiftProtobuf.Message, SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.chats) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._batch) }()
-      case 3: try { try decoder.decodeSingularInt32Field(value: &self.total) }()
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.chatSessions) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.lastCreatedAt) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.chatSessions.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.chatSessions, fieldNumber: 1)
+    }
+    if self.lastCreatedAt != 0 {
+      try visitor.visitSingularInt64Field(value: self.lastCreatedAt, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_HistoryClientSessionsResponse, rhs: Api_Core_HistoryClientSessionsResponse) -> Bool {
+    if lhs.chatSessions != rhs.chatSessions {return false}
+    if lhs.lastCreatedAt != rhs.lastCreatedAt {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_IndexClientSessionsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".IndexClientSessionsRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "start_time"),
+    2: .standard(proto: "end_time"),
+    3: .same(proto: "page"),
+    4: .same(proto: "pageSize"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._startTime) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._endTime) }()
+      case 3: try { try decoder.decodeSingularUInt32Field(value: &self.page) }()
+      case 4: try { try decoder.decodeSingularUInt32Field(value: &self.pageSize) }()
       default: break
       }
     }
@@ -678,21 +766,63 @@ extension Api_Core_ChatListHistoryResponse: SwiftProtobuf.Message, SwiftProtobuf
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.chats.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.chats, fieldNumber: 1)
-    }
-    try { if let v = self._batch {
+    try { if let v = self._startTime {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._endTime {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
-    if self.total != 0 {
-      try visitor.visitSingularInt32Field(value: self.total, fieldNumber: 3)
+    if self.page != 0 {
+      try visitor.visitSingularUInt32Field(value: self.page, fieldNumber: 3)
+    }
+    if self.pageSize != 0 {
+      try visitor.visitSingularUInt32Field(value: self.pageSize, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Api_Core_ChatListHistoryResponse, rhs: Api_Core_ChatListHistoryResponse) -> Bool {
-    if lhs.chats != rhs.chats {return false}
-    if lhs._batch != rhs._batch {return false}
+  public static func ==(lhs: Api_Core_IndexClientSessionsRequest, rhs: Api_Core_IndexClientSessionsRequest) -> Bool {
+    if lhs._startTime != rhs._startTime {return false}
+    if lhs._endTime != rhs._endTime {return false}
+    if lhs.page != rhs.page {return false}
+    if lhs.pageSize != rhs.pageSize {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_IndexClientSessionsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".IndexClientSessionsResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "chat_sessions"),
+    2: .same(proto: "total"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.chatSessions) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.total) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.chatSessions.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.chatSessions, fieldNumber: 1)
+    }
+    if self.total != 0 {
+      try visitor.visitSingularInt64Field(value: self.total, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_IndexClientSessionsResponse, rhs: Api_Core_IndexClientSessionsResponse) -> Bool {
+    if lhs.chatSessions != rhs.chatSessions {return false}
     if lhs.total != rhs.total {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

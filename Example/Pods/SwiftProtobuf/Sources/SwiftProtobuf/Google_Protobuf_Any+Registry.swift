@@ -14,17 +14,19 @@
 // -----------------------------------------------------------------------------
 
 import Foundation
+#if !os(WASI)
 #if canImport(Dispatch)
 import Dispatch
-fileprivate var knownTypesQueue =
+fileprivate let knownTypesQueue =
     DispatchQueue(label: "org.swift.protobuf.typeRegistry",
                   attributes: .concurrent)
+#endif
 #endif
 
 // TODO: Should these first four be exposed as methods to go with
 // the general registry support?
 
-internal func buildTypeURL(forMessage message: Message, typePrefix: String) -> String {
+internal func buildTypeURL(forMessage message: any Message, typePrefix: String) -> String {
   var url = typePrefix
   let needsSlash = typePrefix.isEmpty || typePrefix.last != "/"
   if needsSlash {
@@ -33,7 +35,7 @@ internal func buildTypeURL(forMessage message: Message, typePrefix: String) -> S
   return url + typeName(fromMessage: message)
 }
 
-internal func typeName(fromMessage message: Message) -> String {
+internal func typeName(fromMessage message: any Message) -> String {
   let messageType = type(of: message)
   return messageType.protoMessageName
 }
@@ -52,8 +54,20 @@ internal func typeName(fromURL s: String) -> String {
   return String(s[typeStart..<s.endIndex])
 }
 
+// This is adapted from SwiftNIO so sendable checks don't flag issues with
+// `knownTypes`. Another options would be something like NIO's `LockedValueBox`
+// or moving the entire handling to a Task.
+fileprivate final class UnsafeMutableTransferBox<Wrapped> {
+  var wrappedValue: Wrapped
+  init(_ wrappedValue: Wrapped) {
+    self.wrappedValue = wrappedValue
+  }
+}
+
+extension UnsafeMutableTransferBox: @unchecked Sendable {}
+
 // All access to this should be done on `knownTypesQueue`.
-fileprivate var knownTypes: [String:Message.Type] = [
+fileprivate let knownTypes: UnsafeMutableTransferBox<[String:any Message.Type]> = .init([
   // Seeded with the Well Known Types.
   "google.protobuf.Any": Google_Protobuf_Any.self,
   "google.protobuf.BoolValue": Google_Protobuf_BoolValue.self,
@@ -72,7 +86,7 @@ fileprivate var knownTypes: [String:Message.Type] = [
   "google.protobuf.UInt32Value": Google_Protobuf_UInt32Value.self,
   "google.protobuf.UInt64Value": Google_Protobuf_UInt64Value.self,
   "google.protobuf.Value": Google_Protobuf_Value.self,
-]
+])
 
 extension Google_Protobuf_Any {
 
@@ -103,17 +117,17 @@ extension Google_Protobuf_Any {
     ///
     /// Returns: true if the type was registered, false if something
     ///   else was already registered for the messageName.
-    @discardableResult public static func register(messageType: Message.Type) -> Bool {
+    @discardableResult public static func register(messageType: any Message.Type) -> Bool {
         let messageTypeName = messageType.protoMessageName
         var result: Bool = false
         execute(flags: .barrier) {
-            if let alreadyRegistered = knownTypes[messageTypeName] {
+            if let alreadyRegistered = knownTypes.wrappedValue[messageTypeName] {
                 // Success/failure when something was already registered is
                 // based on if they are registering the same class or trying
                 // to register a different type
                 result = alreadyRegistered == messageType
             } else {
-                knownTypes[messageTypeName] = messageType
+                knownTypes.wrappedValue[messageTypeName] = messageType
                 result = true
             }
         }
@@ -122,16 +136,16 @@ extension Google_Protobuf_Any {
     }
 
     /// Returns the Message.Type expected for the given type URL.
-    public static func messageType(forTypeURL url: String) -> Message.Type? {
+    public static func messageType(forTypeURL url: String) -> (any Message.Type)? {
       let messageTypeName = typeName(fromURL: url)
       return messageType(forMessageName: messageTypeName)
     }
 
     /// Returns the Message.Type expected for the given proto message name.
-    public static func messageType(forMessageName name: String) -> Message.Type? {
-        var result: Message.Type?
+    public static func messageType(forMessageName name: String) -> (any Message.Type)? {
+        var result: (any Message.Type)?
         execute(flags: .none) {
-            result = knownTypes[name]
+            result = knownTypes.wrappedValue[name]
         }
         return result
     }

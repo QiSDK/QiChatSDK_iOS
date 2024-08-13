@@ -69,6 +69,9 @@ public struct Api_Core_AssignWorkerResponse {
   /// tips
   public var tips: String = String()
 
+  /// 聊天id
+  public var chatID: Int64 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -403,6 +406,8 @@ public struct Api_Core_QueryWorkerResponse {
 
   public var workerAvatar: String = String()
 
+  public var tips: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -640,6 +645,7 @@ extension Api_Core_AssignWorkerResponse: SwiftProtobuf.Message, SwiftProtobuf._M
     3: .standard(proto: "worker_id"),
     4: .same(proto: "nimid"),
     5: .same(proto: "tips"),
+    6: .standard(proto: "chat_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -653,6 +659,7 @@ extension Api_Core_AssignWorkerResponse: SwiftProtobuf.Message, SwiftProtobuf._M
       case 3: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.nimid) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.tips) }()
+      case 6: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
       default: break
       }
     }
@@ -674,6 +681,9 @@ extension Api_Core_AssignWorkerResponse: SwiftProtobuf.Message, SwiftProtobuf._M
     if !self.tips.isEmpty {
       try visitor.visitSingularStringField(value: self.tips, fieldNumber: 5)
     }
+    if self.chatID != 0 {
+      try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -683,6 +693,7 @@ extension Api_Core_AssignWorkerResponse: SwiftProtobuf.Message, SwiftProtobuf._M
     if lhs.workerID != rhs.workerID {return false}
     if lhs.nimid != rhs.nimid {return false}
     if lhs.tips != rhs.tips {return false}
+    if lhs.chatID != rhs.chatID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1292,6 +1303,7 @@ extension Api_Core_QueryWorkerResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
     1: .standard(proto: "worker_id"),
     2: .standard(proto: "worker_name"),
     3: .standard(proto: "worker_avatar"),
+    4: .same(proto: "tips"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1303,6 +1315,7 @@ extension Api_Core_QueryWorkerResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
       case 1: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.workerName) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.workerAvatar) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.tips) }()
       default: break
       }
     }
@@ -1318,6 +1331,9 @@ extension Api_Core_QueryWorkerResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
     if !self.workerAvatar.isEmpty {
       try visitor.visitSingularStringField(value: self.workerAvatar, fieldNumber: 3)
     }
+    if !self.tips.isEmpty {
+      try visitor.visitSingularStringField(value: self.tips, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1325,6 +1341,7 @@ extension Api_Core_QueryWorkerResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
     if lhs.workerID != rhs.workerID {return false}
     if lhs.workerName != rhs.workerName {return false}
     if lhs.workerAvatar != rhs.workerAvatar {return false}
+    if lhs.tips != rhs.tips {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

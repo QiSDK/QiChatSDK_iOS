@@ -217,6 +217,9 @@ public struct CommonChatItem {
   /// 是否可见 （转出的已接待任务为不可见状态）
   public var visible: Bool = false
 
+  /// 已接待中会话中最后一条信息客服是否回复
+  public var isWorkerReply: Bool = false
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -447,6 +450,7 @@ extension CommonChatItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     7: .same(proto: "detail"),
     8: .standard(proto: "reset_at"),
     9: .same(proto: "visible"),
+    11: .standard(proto: "is_worker_reply"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -465,6 +469,7 @@ extension CommonChatItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       case 8: try { try decoder.decodeSingularMessageField(value: &self._resetAt) }()
       case 9: try { try decoder.decodeSingularBoolField(value: &self.visible) }()
       case 10: try { try decoder.decodeSingularMessageField(value: &self._beginAt) }()
+      case 11: try { try decoder.decodeSingularBoolField(value: &self.isWorkerReply) }()
       default: break
       }
     }
@@ -505,6 +510,9 @@ extension CommonChatItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     try { if let v = self._beginAt {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
     } }()
+    if self.isWorkerReply != false {
+      try visitor.visitSingularBoolField(value: self.isWorkerReply, fieldNumber: 11)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -519,6 +527,7 @@ extension CommonChatItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     if lhs._detail != rhs._detail {return false}
     if lhs._resetAt != rhs._resetAt {return false}
     if lhs.visible != rhs.visible {return false}
+    if lhs.isWorkerReply != rhs.isWorkerReply {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
