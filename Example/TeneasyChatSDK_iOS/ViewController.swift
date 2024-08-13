@@ -214,23 +214,8 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
     }
     
     func initSDK(baseUrl: String){
-        
         tvChatView.text.append("teneasy chat sdk 初始化\n正在连接。。。\n")
-        
         let wssUrl = "wss://" + baseUrl + "/v1/gateway/h5?"
-        
-        //从网页端把chatId和token传进sdk,2692944494603
-        /*
-         老token，一直有效，很好
-         CCcQARgOICIowqaSjeIw.9rO3unQwFrUUa-vJ6HvUQAbiAZN7XWBbaE_Oyd48C0Ae4xhzWWSriIGZZdVSvOajS1h_RFlQHZiFzadgBBuwDQ
-         
-        CH0QARiX9w4gogEo9MS-08wx.R07hSs5oXQxe9s0bV0WsaislYcvHDNYvUYT-2JNEo4wcBC1LNEHmHAFSjCoY8g60oW31zZiIs1kZhejQEaEhBQ
-
-       CH0QARib9w4gogEo8_nL1cwx.gXxoS2IK7cv4JWQb8LRmGI-cSEFHwfyBmoyErwSw0h1BXdkotxH4OgoiHvi6B6CON8LX7ei5AKwn3v1epXB9Cg
-         */
-        /*
-               1125324  1125397 1125417
-                */
         if lib.payloadId == 0{
             print("initSDK 初始化SDK")
             lib.myinit(userId: 666665, cert: "COYBEAUYASDyASiG2piD9zE.te46qua5ha2r-Caz03Vx2JXH5OLSRRV2GqdYcn9UslwibsxBSP98GhUKSGEI0Z84FRMkp16ZK8eS-y72QVE2AQ", token: "", baseUrl: wssUrl, sign: "9zgd9YUc")
