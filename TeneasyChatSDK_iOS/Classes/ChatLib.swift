@@ -191,9 +191,10 @@ open class ChatLib: NetworkManagerDelegate {
         }
     }
     
-    public func sendMessage(msg: String, type: CommonMessageFormat, consultId: Int64, replyMsgId: Int64? = 0) {
+    public func sendMessage(msg: String, type: CommonMessageFormat, consultId: Int64, replyMsgId: Int64? = 0, withAutoReply: CommonWithAutoReply? = nil) {
         self.replyMsgId = replyMsgId ?? 0
         self.consultId = consultId;
+        self.withAutoReply = withAutoReply
         // 发送信息的封装，有四层
         // payload -> CSSendMessage -> common message -> CommonMessageContent
         switch type{
@@ -211,7 +212,6 @@ open class ChatLib: NetworkManagerDelegate {
             sendTextMessage(txt: msg)
         }
 
-        
         doSend()
     }
     
