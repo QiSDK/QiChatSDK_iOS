@@ -72,6 +72,7 @@ open class ChatLib: NetworkManagerDelegate {
     private var cert: String = ""
     private var networkManager = NetworkManager()
     public static let shared = ChatLib()
+    private var withAutoReply: CommonWithAutoReply?
      
 
     var consultId: Int64 = 0
@@ -333,8 +334,15 @@ open class ChatLib: NetworkManagerDelegate {
     }
     
     private func doSend(payload_Id: UInt64 = 0){
-       guard let msg = sendingMsg else {
+       guard var msg = sendingMsg else {
             return
+        }
+        
+        if let w = self.withAutoReply{
+            if msgList.count == 0{
+                let withAutoReplies = Array(arrayLiteral: w)
+                msg.withAutoReplies = withAutoReplies
+            }
         }
         
         // 第三层
