@@ -440,6 +440,7 @@ open class ChatLib: NetworkManagerDelegate {
 
         isConnected = false
         sendingMsg = nil
+        msgList.removeAll()
         networkManager.stopNetworkReachabilityObserver()
         print("ChatLib:退出了Chat SDK")
     }
