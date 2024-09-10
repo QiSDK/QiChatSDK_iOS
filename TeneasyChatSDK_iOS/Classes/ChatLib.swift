@@ -73,36 +73,11 @@ open class ChatLib: NetworkManagerDelegate {
     private var networkManager = NetworkManager()
     public static let shared = ChatLib()
     private var withAutoReply: CommonWithAutoReply?
-     
 
     var consultId: Int64 = 0
-    //wss://csapi.xdev.stream/v1/gateway/h5?token=CH0QARji9w4gogEor4i7mc0x.PKgbr4QAEspllbvDx7bg8RB_qDhkWozBKgWtoOPfVmlTfPbd8nyBZk9uyQvjj-3F6MXHyE9GmZvj0_PRTm_tDA&userid=1125324&ty=104&dt=1705583047601&sign=&rd=1019737
-    
-//   public enum MsgType{
-//       case Text
-//       case Image
-//       case Video
-//       case Audio
-//    }
-    
+
     public init() {}
 
-   /* public init(userId:Int32, cert: String, token: String, baseUrl: String, sign: String, chatId: Int64 = 0) {
-        self.chatId = chatId
-        self.cert = cert
-        self.baseUrl = baseUrl
-        self.userId = userId
-        self.sign = sign
-        self.token = token
-        beatTimes = 0
-        print(text)
-        
-        networkManager.delegate = self
-               networkManager.startNetworkReachabilityObserver()
-    }
-    
-    */
-    
     public func myinit(userId:Int32, cert: String, token: String, baseUrl: String, sign: String, chatId: Int64 = 0) {
         self.chatId = chatId
         self.cert = cert
@@ -116,10 +91,6 @@ open class ChatLib: NetworkManagerDelegate {
         networkManager.delegate = self
                networkManager.startNetworkReachabilityObserver()
     }
-    
-//    public init(session: Session) {
-//        self.session = session
-//    }
 
    public func callWebsocket() {
         let rd = Int.random(in: 1000000..<9999999)
