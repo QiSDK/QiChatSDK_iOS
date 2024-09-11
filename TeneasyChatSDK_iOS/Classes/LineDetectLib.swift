@@ -48,24 +48,32 @@ public struct LineDetectLib{
            let url = checkUrl(str: "\(txtUrl)/v1/api/verify")
            
            if url.isEmpty{
+               debugPrint("无效的地址：\(txtUrl)")
                continue
            }
            
-           AF.request(url, method: .post, parameters: bodyStr,  encoding: JSONEncoding.default) { $0.timeoutInterval = 2 }.response { response in
+           AF.request(url, method: .post, parameters: bodyStr,  encoding: JSONEncoding.default) { $0.timeoutInterval = 60 }.response { response in
 
                switch response.result {
                case let .success(value):
                    //let ddd = String(data: value!, encoding: .utf8)
-                   if let v = value,  String(data: v, encoding: .utf8)!.contains("tenantId\":\(self.tenantId ?? 0)") {
+                   if let v = value,  String(data: v, encoding: .utf8)!.contains("tenantId") {//\":\(self.tenantId ?? 0)
                        foundLine = true
                        
                        if !LineDetectLib.usedLine{
                            LineDetectLib.usedLine = true
-                           let line = response.request?.url?.host ?? ""
+                           var line = response.request?.url?.host ?? ""
+                           
+                           if let port = response.request?.url?.port{
+                               if port != 80 && port != 443{
+                                   line = "\(line):\(port)"
+                               }
+                           }
                            delegate?.useTheLine(line: line)
                            debugPrint("使用线路：\(line)")
                        }
                    }else{
+                       debugPrint("线路失败：\(url), 响应数据错误")
                        myStep2Index += 1
                        if myStep2Index == urlList.count{
                            failedAndRetry()
