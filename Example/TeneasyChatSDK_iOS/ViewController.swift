@@ -192,8 +192,8 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
     //httos://csh5.hfxg.xyz,https://csapi.xdev.stream
         //let lines = "https://wcsapi.qixin14.xyz,https://csapi.hfxg.xyz"
         
-        //http://61.184.8.23:7040,https://csapi04.yxvtyk.com,https://ikeapi.qlbig29.xyz,https://csapi.qlbig29.xyz,https://csapi.qlbig30.xyz
-        let lines = "https://61.184.8.23:7040"
+        let lines = "https://61.184.8.23:7040,https://csapi.hfxg.xyz,https://csapi04.yxvtyk.com,https://ikeapi.qlbig29.xyz,https://csapi.qlbig29.xyz,https://csapi.qlbig30.xyz"
+        //let lines = "https://61.184.8.23:7040"
         let lineLib = LineDetectLib(lines, delegate: self, tenantId: shangHu ?? 0)
         
         lineLib.getLine()
