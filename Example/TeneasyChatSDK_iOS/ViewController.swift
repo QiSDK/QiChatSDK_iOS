@@ -190,9 +190,9 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         
         //let lines = tvInputText.text.split(separator: ",").map { String($0) }
     //httos://csh5.hfxg.xyz,https://csapi.xdev.stream
-        //let lines = "https://wcsapi.qixin14.xyz,https://csapi.hfxg.xyz"
+        let lines = "https://wcsapi.qixin14.xyz,https://csapi.hfxg.xyz"
         
-        let lines = "https://61.184.8.23:7040,https://csapi.hfxg.xyz,https://csapi04.yxvtyk.com,https://ikeapi.qlbig29.xyz,https://csapi.qlbig29.xyz,https://csapi.qlbig30.xyz"
+        //let lines = "https://61.184.8.23:7040,https://csapi.hfxg.xyz,https://csapi04.yxvtyk.com,https://ikeapi.qlbig29.xyz,https://csapi.qlbig29.xyz,https://csapi.qlbig30.xyz"
         //let lines = "https://61.184.8.23:7040"
         let lineLib = LineDetectLib(lines, delegate: self, tenantId: shangHu ?? 0)
         
@@ -221,7 +221,7 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         let wssUrl = "wss://" + baseUrl + "/v1/gateway/h5?"
         if lib.payloadId == 0{
             print("initSDK 初始化SDK")
-            lib.myinit(userId: 666665, cert: "COYBEAUYASDyASiG2piD9zE.te46qua5ha2r-Caz03Vx2JXH5OLSRRV2GqdYcn9UslwibsxBSP98GhUKSGEI0Z84FRMkp16ZK8eS-y72QVE2AQ", token: "", baseUrl: wssUrl, sign: "9zgd9YUc")
+            lib.myinit(userId: 666665, cert: "COYBEAUYASDyASiG2piD9zE.te46qua5ha2r-Caz03Vx2JXH5OLSRRV2GqdYcn9UslwibsxBSP98GhUKSGEI0Z84FRMkp16ZK8eS-y72QVE2AQ", token: "", baseUrl: wssUrl, sign: "9zgd9YUc", custom: "{\"username\":\"xiaoming\"}")
             
             lib.callWebsocket()
             lib.delegate = self
