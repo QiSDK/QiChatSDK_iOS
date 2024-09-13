@@ -68,7 +68,7 @@ open class ChatLib: NetworkManagerDelegate {
     var workId: Int32 = 5
     private var replyMsgId: Int64 = 0
     private var userId: Int32 = 0
-    private var userName: String = ""
+    private var custom: String = ""
     private var sign: String = ""
     private var cert: String = ""
     private var networkManager = NetworkManager()
@@ -79,14 +79,14 @@ open class ChatLib: NetworkManagerDelegate {
 
     public init() {}
 
-    public func myinit(userId:Int32, cert: String, token: String, baseUrl: String, sign: String, chatId: Int64 = 0, userName: String = "") {
+    public func myinit(userId:Int32, cert: String, token: String, baseUrl: String, sign: String, chatId: Int64 = 0, custom: String = "") {
         self.chatId = chatId
         self.cert = cert
         self.baseUrl = baseUrl
         self.userId = userId
         self.sign = sign
         self.token = token
-        self.userName = userName
+        self.custom = custom
         beatTimes = 0
         print(text)
         
@@ -98,7 +98,7 @@ open class ChatLib: NetworkManagerDelegate {
         let rd = Int.random(in: 1000000..<9999999)
         let date = Date()
         let dt = Int(date.timeIntervalSince1970 * 1000)
-        let urlStr = "\(baseUrl)cert=\(cert)&token=\(token)&userid=\(self.userId)&ty=\(Api_Common_ClientType.userApp.rawValue)&dt=\(dt)&sign=\(self.sign)&rd=\(rd)&userName=\(userName)"
+        let urlStr = "\(baseUrl)cert=\(cert)&token=\(token)&userid=\(self.userId)&ty=\(Api_Common_ClientType.userApp.rawValue)&dt=\(dt)&sign=\(self.sign)&rd=\(rd)&custom=\(custom)"
         print(urlStr)
         guard let url = URL(string: urlStr) else { return }
         let request = URLRequest(url: url)
