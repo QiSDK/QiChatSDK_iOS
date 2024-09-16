@@ -312,10 +312,10 @@ open class ChatLib: NetworkManagerDelegate {
         }
         
         if let w = self.withAutoReply{
-            if msgList.count == 0{
+           // if msgList.count == 0{
                 let withAutoReplies = Array(arrayLiteral: w)
                 msg.withAutoReplies = withAutoReplies
-            }
+            //}
         }
         
         // 第三层
