@@ -51,8 +51,14 @@ public struct LineDetectLib{
                debugPrint("无效的地址：\(txtUrl)")
                continue
            }
+           let uuid = UUID().uuidString
+          // return ["X-Token": xToken, "Content-Type": "application/json", "x-trace-id": uuid]
+           let headers: HTTPHeaders = [
+                "Content-Type": "application/json",
+               "x-trace-id": uuid
+           ]
            
-           AF.request(url, method: .post, parameters: bodyStr,  encoding: JSONEncoding.default) { $0.timeoutInterval = 60 }.response { response in
+           AF.request(url, method: .post, parameters: bodyStr,  encoding: JSONEncoding.default, headers: headers) { $0.timeoutInterval = 60 }.response { response in
 
                switch response.result {
                case let .success(value):
