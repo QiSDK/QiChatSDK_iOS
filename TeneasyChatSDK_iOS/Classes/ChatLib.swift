@@ -79,7 +79,7 @@ open class ChatLib: NetworkManagerDelegate {
 
     public init() {}
 
-    public func myinit(userId:Int32, cert: String, token: String, baseUrl: String, sign: String, chatId: Int64 = 0, custom: String = "") {
+    public func myinit(userId:Int32, cert: String, token: String, baseUrl: String, sign: String, chatId: Int64 = 0, custom: String = "", maxSessionMinutes: Int = 90000000) {
         self.chatId = chatId
         self.cert = cert
         self.baseUrl = baseUrl
@@ -87,6 +87,7 @@ open class ChatLib: NetworkManagerDelegate {
         self.sign = sign
         self.token = token
         self.custom = custom
+        self.maxSessionMinutes = maxSessionMinutes
         beatTimes = 0
         print(text)
         
@@ -151,7 +152,8 @@ open class ChatLib: NetworkManagerDelegate {
         }
         
         if sessionTime > maxSessionMinutes * 60{//超过最大会话，停止发送心跳
-            disConnected()
+            disConnected(code: 1005, msg: "会话已超时")
+            disConnect()
         }
     }
 
@@ -364,24 +366,37 @@ open class ChatLib: NetworkManagerDelegate {
         //print("ChatLib:sending heart beat")
     }
     
-    private func send(binaryData: Data) {
+    /*private func send(binaryData: Data) {
         if websocket == nil || !isConnected{
             print("ChatLib:断开了")
             if sessionTime > maxSessionMinutes * 60 {
-                disConnected(code: 1000)
+                disConnected(code: 1005, msg: "会话已超时")
+                disConnect()
             } else {
                 callWebsocket()
                 print("ChatLib:重新连接")
             }
         } else {
             if sessionTime > maxSessionMinutes * 60 {
-                disConnected(code: 1000)
+                disConnected(code: 1005, msg: "会话已超时")
+                disConnect()
             } else {
                 print("ChatLib:开始发送")
                 websocket?.write(data: binaryData, completion: ({
                     print("ChatLib:msg sent")
                 }))
             }
+        }
+    }*/
+    
+    private func send(binaryData: Data) {
+        if websocket == nil || !isConnected{
+            callWebsocket()
+        } else {
+            print("ChatLib:开始发送")
+            websocket?.write(data: binaryData, completion: ({
+                print("ChatLib:msg sent")
+            }))
         }
     }
     
@@ -396,11 +411,11 @@ open class ChatLib: NetworkManagerDelegate {
         //stopTimer()
         var result = Result()
         result.Code = code
-        result.Message = "已断开通信"
+        result.Message = msg
         delegate?.systemMsg(result: result)
         isConnected = false
         sendingMsg = nil
-        print("ChatLib:通信SDK 断开连接")
+        print("ChatLib:\(code) \(msg))")
     }
     
     public func disConnect() {
@@ -413,6 +428,7 @@ open class ChatLib: NetworkManagerDelegate {
 
         isConnected = false
         sendingMsg = nil
+        payloadId = 0
         //msgList.removeAll()
         networkManager.stopNetworkReachabilityObserver()
         print("ChatLib:退出了Chat SDK")
