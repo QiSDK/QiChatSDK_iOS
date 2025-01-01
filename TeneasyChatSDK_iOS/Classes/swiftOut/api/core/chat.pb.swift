@@ -319,6 +319,9 @@ public struct Api_Core_GetChatSessionStateRequest {
   /// 会话ID
   public var chatID: Int64 = 0
 
+  /// 消息id，配合会话id和咨询id可以查询指定消息
+  public var msgID: Int64 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -479,11 +482,89 @@ public struct Api_Core_GetChatSessionStateResponse {
     set {_uniqueStorage()._workerState = newValue}
   }
 
+  /// 最后消息
+  public var lastMessage: CommonMessage {
+    get {return _storage._lastMessage ?? CommonMessage()}
+    set {_uniqueStorage()._lastMessage = newValue}
+  }
+  /// Returns true if `lastMessage` has been explicitly set.
+  public var hasLastMessage: Bool {return _storage._lastMessage != nil}
+  /// Clears the value of `lastMessage`. Subsequent reads from it will return its default value.
+  public mutating func clearLastMessage() {_uniqueStorage()._lastMessage = nil}
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Api_Core_GetChatStateReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 咨询类型
+  public var consultID: Int64 = 0
+
+  /// 会话ID
+  public var chatIds: [Int64] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_StateItem {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var chatID: Int64 = 0
+
+  public var userID: Int32 = 0
+
+  /// 会话是否过期
+  public var isTimeOut: Bool = false
+
+  /// 会话剩余过期时间 秒
+  public var expireSeconds: Int64 = 0
+
+  /// 当前时间戳
+  public var nowTime: Int64 = 0
+
+  /// 当前绑定 客服
+  public var workerID: Int32 = 0
+
+  /// 最后消息时间
+  public var lastMsgTime: Int64 = 0
+
+  /// 分流时间
+  public var assignTime: Int64 = 0
+
+  /// 转入时间
+  public var transferInTime: Int64 = 0
+
+  /// 转出时间
+  public var transferOutTime: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_GetChatStateResp {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var consultID: Int64 = 0
+
+  public var items: [Api_Core_StateItem] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
 }
 
 #if swift(>=5.5) && canImport(_Concurrency)
@@ -503,6 +584,9 @@ extension Api_Core_ChatListQueryUserRequest: @unchecked Sendable {}
 extension Api_Core_OrphanReq: @unchecked Sendable {}
 extension Api_Core_GetChatSessionStateRequest: @unchecked Sendable {}
 extension Api_Core_GetChatSessionStateResponse: @unchecked Sendable {}
+extension Api_Core_GetChatStateReq: @unchecked Sendable {}
+extension Api_Core_StateItem: @unchecked Sendable {}
+extension Api_Core_GetChatStateResp: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -1109,6 +1193,7 @@ extension Api_Core_GetChatSessionStateRequest: SwiftProtobuf.Message, SwiftProto
     3: .standard(proto: "owner_id"),
     4: .standard(proto: "owner_role"),
     5: .standard(proto: "chat_id"),
+    6: .standard(proto: "msg_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1122,6 +1207,7 @@ extension Api_Core_GetChatSessionStateRequest: SwiftProtobuf.Message, SwiftProto
       case 3: try { try decoder.decodeSingularInt32Field(value: &self.ownerID) }()
       case 4: try { try decoder.decodeSingularInt32Field(value: &self.ownerRole) }()
       case 5: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
+      case 6: try { try decoder.decodeSingularInt64Field(value: &self.msgID) }()
       default: break
       }
     }
@@ -1143,6 +1229,9 @@ extension Api_Core_GetChatSessionStateRequest: SwiftProtobuf.Message, SwiftProto
     if self.chatID != 0 {
       try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 5)
     }
+    if self.msgID != 0 {
+      try visitor.visitSingularInt64Field(value: self.msgID, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1152,6 +1241,7 @@ extension Api_Core_GetChatSessionStateRequest: SwiftProtobuf.Message, SwiftProto
     if lhs.ownerID != rhs.ownerID {return false}
     if lhs.ownerRole != rhs.ownerRole {return false}
     if lhs.chatID != rhs.chatID {return false}
+    if lhs.msgID != rhs.msgID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1185,6 +1275,7 @@ extension Api_Core_GetChatSessionStateResponse: SwiftProtobuf.Message, SwiftProt
     17: .same(proto: "visible"),
     20: .same(proto: "state"),
     21: .standard(proto: "worker_state"),
+    22: .standard(proto: "last_message"),
   ]
 
   fileprivate class _StorageClass {
@@ -1213,6 +1304,7 @@ extension Api_Core_GetChatSessionStateResponse: SwiftProtobuf.Message, SwiftProt
     var _visible: Int32 = 0
     var _state: CommonChatState = .common
     var _workerState: Api_Common_WorkerState = .workerOffline
+    var _lastMessage: CommonMessage? = nil
 
     #if swift(>=5.10)
       // This property is used as the initial default value for new instances of the type.
@@ -1252,6 +1344,7 @@ extension Api_Core_GetChatSessionStateResponse: SwiftProtobuf.Message, SwiftProt
       _visible = source._visible
       _state = source._state
       _workerState = source._workerState
+      _lastMessage = source._lastMessage
     }
   }
 
@@ -1287,6 +1380,7 @@ extension Api_Core_GetChatSessionStateResponse: SwiftProtobuf.Message, SwiftProt
         case 17: try { try decoder.decodeSingularInt32Field(value: &_storage._visible) }()
         case 20: try { try decoder.decodeSingularEnumField(value: &_storage._state) }()
         case 21: try { try decoder.decodeSingularEnumField(value: &_storage._workerState) }()
+        case 22: try { try decoder.decodeSingularMessageField(value: &_storage._lastMessage) }()
         case 31: try { try decoder.decodeSingularInt64Field(value: &_storage._clientFirstTime) }()
         case 32: try { try decoder.decodeSingularInt64Field(value: &_storage._workerFirstTime) }()
         case 35: try { try decoder.decodeSingularInt64Field(value: &_storage._lastTime) }()
@@ -1303,6 +1397,10 @@ extension Api_Core_GetChatSessionStateResponse: SwiftProtobuf.Message, SwiftProt
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
       if _storage._tenantID != 0 {
         try visitor.visitSingularInt32Field(value: _storage._tenantID, fieldNumber: 1)
       }
@@ -1354,6 +1452,9 @@ extension Api_Core_GetChatSessionStateResponse: SwiftProtobuf.Message, SwiftProt
       if _storage._workerState != .workerOffline {
         try visitor.visitSingularEnumField(value: _storage._workerState, fieldNumber: 21)
       }
+      try { if let v = _storage._lastMessage {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 22)
+      } }()
       if _storage._clientFirstTime != 0 {
         try visitor.visitSingularInt64Field(value: _storage._clientFirstTime, fieldNumber: 31)
       }
@@ -1412,10 +1513,173 @@ extension Api_Core_GetChatSessionStateResponse: SwiftProtobuf.Message, SwiftProt
         if _storage._visible != rhs_storage._visible {return false}
         if _storage._state != rhs_storage._state {return false}
         if _storage._workerState != rhs_storage._workerState {return false}
+        if _storage._lastMessage != rhs_storage._lastMessage {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_GetChatStateReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetChatStateReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "consult_id"),
+    2: .standard(proto: "chat_ids"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.consultID) }()
+      case 2: try { try decoder.decodeRepeatedInt64Field(value: &self.chatIds) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.consultID != 0 {
+      try visitor.visitSingularInt64Field(value: self.consultID, fieldNumber: 1)
+    }
+    if !self.chatIds.isEmpty {
+      try visitor.visitPackedInt64Field(value: self.chatIds, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_GetChatStateReq, rhs: Api_Core_GetChatStateReq) -> Bool {
+    if lhs.consultID != rhs.consultID {return false}
+    if lhs.chatIds != rhs.chatIds {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_StateItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".StateItem"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "chat_id"),
+    2: .standard(proto: "user_id"),
+    3: .standard(proto: "is_time_out"),
+    4: .standard(proto: "expire_seconds"),
+    5: .standard(proto: "now_time"),
+    6: .standard(proto: "worker_id"),
+    7: .standard(proto: "last_msg_time"),
+    8: .standard(proto: "assign_time"),
+    9: .standard(proto: "transfer_in_time"),
+    10: .standard(proto: "transfer_out_time"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.userID) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.isTimeOut) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self.expireSeconds) }()
+      case 5: try { try decoder.decodeSingularInt64Field(value: &self.nowTime) }()
+      case 6: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 7: try { try decoder.decodeSingularInt64Field(value: &self.lastMsgTime) }()
+      case 8: try { try decoder.decodeSingularInt64Field(value: &self.assignTime) }()
+      case 9: try { try decoder.decodeSingularInt64Field(value: &self.transferInTime) }()
+      case 10: try { try decoder.decodeSingularInt64Field(value: &self.transferOutTime) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.chatID != 0 {
+      try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 1)
+    }
+    if self.userID != 0 {
+      try visitor.visitSingularInt32Field(value: self.userID, fieldNumber: 2)
+    }
+    if self.isTimeOut != false {
+      try visitor.visitSingularBoolField(value: self.isTimeOut, fieldNumber: 3)
+    }
+    if self.expireSeconds != 0 {
+      try visitor.visitSingularInt64Field(value: self.expireSeconds, fieldNumber: 4)
+    }
+    if self.nowTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.nowTime, fieldNumber: 5)
+    }
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 6)
+    }
+    if self.lastMsgTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.lastMsgTime, fieldNumber: 7)
+    }
+    if self.assignTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.assignTime, fieldNumber: 8)
+    }
+    if self.transferInTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.transferInTime, fieldNumber: 9)
+    }
+    if self.transferOutTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.transferOutTime, fieldNumber: 10)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_StateItem, rhs: Api_Core_StateItem) -> Bool {
+    if lhs.chatID != rhs.chatID {return false}
+    if lhs.userID != rhs.userID {return false}
+    if lhs.isTimeOut != rhs.isTimeOut {return false}
+    if lhs.expireSeconds != rhs.expireSeconds {return false}
+    if lhs.nowTime != rhs.nowTime {return false}
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.lastMsgTime != rhs.lastMsgTime {return false}
+    if lhs.assignTime != rhs.assignTime {return false}
+    if lhs.transferInTime != rhs.transferInTime {return false}
+    if lhs.transferOutTime != rhs.transferOutTime {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_GetChatStateResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetChatStateResp"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "consult_id"),
+    2: .same(proto: "items"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.consultID) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.consultID != 0 {
+      try visitor.visitSingularInt64Field(value: self.consultID, fieldNumber: 1)
+    }
+    if !self.items.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.items, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_GetChatStateResp, rhs: Api_Core_GetChatStateResp) -> Bool {
+    if lhs.consultID != rhs.consultID {return false}
+    if lhs.items != rhs.items {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

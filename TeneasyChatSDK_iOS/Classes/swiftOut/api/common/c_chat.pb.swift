@@ -137,6 +137,24 @@ public struct CommonChatDetail {
     set {_uniqueStorage()._state = newValue}
   }
 
+  /// 复制类型 1-uid 2-用户账号
+  public var copyType: Api_Common_TenantCopyType {
+    get {return _storage._copyType}
+    set {_uniqueStorage()._copyType = newValue}
+  }
+
+  /// 注册用户账号
+  public var account: String {
+    get {return _storage._account}
+    set {_uniqueStorage()._account = newValue}
+  }
+
+  /// FAQ
+  public var chatRemark: String {
+    get {return _storage._chatRemark}
+    set {_uniqueStorage()._chatRemark = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -260,6 +278,9 @@ extension CommonChatDetail: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     14: .same(proto: "nimName"),
     15: .same(proto: "userid"),
     16: .same(proto: "state"),
+    17: .standard(proto: "copy_type"),
+    18: .same(proto: "account"),
+    19: .standard(proto: "chat_remark"),
   ]
 
   fileprivate class _StorageClass {
@@ -279,6 +300,9 @@ extension CommonChatDetail: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     var _nimName: String? = nil
     var _userid: Int32 = 0
     var _state: CommonChatState = .common
+    var _copyType: Api_Common_TenantCopyType = .tctUnknown
+    var _account: String = String()
+    var _chatRemark: String = String()
 
     #if swift(>=5.10)
       // This property is used as the initial default value for new instances of the type.
@@ -309,6 +333,9 @@ extension CommonChatDetail: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       _nimName = source._nimName
       _userid = source._userid
       _state = source._state
+      _copyType = source._copyType
+      _account = source._account
+      _chatRemark = source._chatRemark
     }
   }
 
@@ -343,6 +370,9 @@ extension CommonChatDetail: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
         case 14: try { try decoder.decodeSingularStringField(value: &_storage._nimName) }()
         case 15: try { try decoder.decodeSingularInt32Field(value: &_storage._userid) }()
         case 16: try { try decoder.decodeSingularEnumField(value: &_storage._state) }()
+        case 17: try { try decoder.decodeSingularEnumField(value: &_storage._copyType) }()
+        case 18: try { try decoder.decodeSingularStringField(value: &_storage._account) }()
+        case 19: try { try decoder.decodeSingularStringField(value: &_storage._chatRemark) }()
         default: break
         }
       }
@@ -403,6 +433,15 @@ extension CommonChatDetail: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       if _storage._state != .common {
         try visitor.visitSingularEnumField(value: _storage._state, fieldNumber: 16)
       }
+      if _storage._copyType != .tctUnknown {
+        try visitor.visitSingularEnumField(value: _storage._copyType, fieldNumber: 17)
+      }
+      if !_storage._account.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._account, fieldNumber: 18)
+      }
+      if !_storage._chatRemark.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._chatRemark, fieldNumber: 19)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -428,6 +467,9 @@ extension CommonChatDetail: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
         if _storage._nimName != rhs_storage._nimName {return false}
         if _storage._userid != rhs_storage._userid {return false}
         if _storage._state != rhs_storage._state {return false}
+        if _storage._copyType != rhs_storage._copyType {return false}
+        if _storage._account != rhs_storage._account {return false}
+        if _storage._chatRemark != rhs_storage._chatRemark {return false}
         return true
       }
       if !storagesAreEqual {return false}

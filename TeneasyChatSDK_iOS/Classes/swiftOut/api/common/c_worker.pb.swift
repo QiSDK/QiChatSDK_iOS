@@ -20,6 +20,183 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+/// 消息服务时长类型
+public enum Api_Common_ResponseDurationType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// 未知
+  case rdtUnknown // = 0
+
+  /// 5分钟内回复
+  case rdtQuickResponse // = 1
+
+  /// 15分钟内回复
+  case rdtShortResponse // = 2
+
+  /// 30分钟内回复
+  case rdtMediumResponse // = 3
+
+  /// 60分钟内回复
+  case rdtLongResponse // = 4
+
+  /// 60分钟以上回复
+  case rdtDelayedResponse // = 5
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .rdtUnknown
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .rdtUnknown
+    case 1: self = .rdtQuickResponse
+    case 2: self = .rdtShortResponse
+    case 3: self = .rdtMediumResponse
+    case 4: self = .rdtLongResponse
+    case 5: self = .rdtDelayedResponse
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .rdtUnknown: return 0
+    case .rdtQuickResponse: return 1
+    case .rdtShortResponse: return 2
+    case .rdtMediumResponse: return 3
+    case .rdtLongResponse: return 4
+    case .rdtDelayedResponse: return 5
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_ResponseDurationType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_ResponseDurationType] = [
+    .rdtUnknown,
+    .rdtQuickResponse,
+    .rdtShortResponse,
+    .rdtMediumResponse,
+    .rdtLongResponse,
+    .rdtDelayedResponse,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// 首次消息服务时长类型
+public enum Api_Common_FirstResponseDurationType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// 未知
+  case rrtUnknown // = 0
+
+  /// 3分钟内响应
+  case rrtQuickResponse // = 1
+
+  /// 10分钟内响应
+  case rrtShortResponse // = 2
+
+  /// 15分钟以上响应
+  case rrtMediumResponse // = 3
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .rrtUnknown
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .rrtUnknown
+    case 1: self = .rrtQuickResponse
+    case 2: self = .rrtShortResponse
+    case 3: self = .rrtMediumResponse
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .rrtUnknown: return 0
+    case .rrtQuickResponse: return 1
+    case .rrtShortResponse: return 2
+    case .rrtMediumResponse: return 3
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_FirstResponseDurationType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_FirstResponseDurationType] = [
+    .rrtUnknown,
+    .rrtQuickResponse,
+    .rrtShortResponse,
+    .rrtMediumResponse,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// 转接类型
+public enum Api_Common_TransferType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// 未知
+  case ttUnknown // = 0
+
+  /// 转入
+  case ttTransferIn // = 1
+
+  /// 转出
+  case ttTransferOut // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .ttUnknown
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .ttUnknown
+    case 1: self = .ttTransferIn
+    case 2: self = .ttTransferOut
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .ttUnknown: return 0
+    case .ttTransferIn: return 1
+    case .ttTransferOut: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_TransferType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_TransferType] = [
+    .ttUnknown,
+    .ttTransferIn,
+    .ttTransferOut,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 /// 老用户分配机制
 public enum Api_Common_DistributionType: SwiftProtobuf.Enum {
   public typealias RawValue = Int
@@ -100,8 +277,20 @@ public enum Api_Common_WorkerPermission: SwiftProtobuf.Enum {
   /// 可搜索
   case workerPermSearcher // = 32
 
-  /// 可拉黑名单
-  case workerPermBlacker // = 64
+  /// 对话质检
+  case workerPermQuality // = 64
+
+  /// 质检结果
+  case workerPermQualityResult // = 128
+
+  /// 质检报表
+  case workerPermQualityReport // = 256
+
+  /// 质检客服结果
+  case workerPermQualityWorkerResult // = 512
+
+  /// 质检设置
+  case workerPermQualitySetting // = 1024
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -117,7 +306,11 @@ public enum Api_Common_WorkerPermission: SwiftProtobuf.Enum {
     case 8: self = .workerPermFronter
     case 16: self = .workerPermTransfer
     case 32: self = .workerPermSearcher
-    case 64: self = .workerPermBlacker
+    case 64: self = .workerPermQuality
+    case 128: self = .workerPermQualityResult
+    case 256: self = .workerPermQualityReport
+    case 512: self = .workerPermQualityWorkerResult
+    case 1024: self = .workerPermQualitySetting
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -131,7 +324,11 @@ public enum Api_Common_WorkerPermission: SwiftProtobuf.Enum {
     case .workerPermFronter: return 8
     case .workerPermTransfer: return 16
     case .workerPermSearcher: return 32
-    case .workerPermBlacker: return 64
+    case .workerPermQuality: return 64
+    case .workerPermQualityResult: return 128
+    case .workerPermQualityReport: return 256
+    case .workerPermQualityWorkerResult: return 512
+    case .workerPermQualitySetting: return 1024
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -150,7 +347,11 @@ extension Api_Common_WorkerPermission: CaseIterable {
     .workerPermFronter,
     .workerPermTransfer,
     .workerPermSearcher,
-    .workerPermBlacker,
+    .workerPermQuality,
+    .workerPermQualityResult,
+    .workerPermQualityReport,
+    .workerPermQualityWorkerResult,
+    .workerPermQualitySetting,
   ]
 }
 
@@ -370,6 +571,551 @@ extension Api_Common_WorkerEventType: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+/// SessionSourceType 会话记录来源类型
+public enum Api_Common_SessionSourceType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// 未知
+  case sstUnknown // = 0
+
+  /// 分流
+  case sstAssign // = 1
+
+  /// 转接
+  case sstTransfer // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .sstUnknown
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .sstUnknown
+    case 1: self = .sstAssign
+    case 2: self = .sstTransfer
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .sstUnknown: return 0
+    case .sstAssign: return 1
+    case .sstTransfer: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_SessionSourceType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_SessionSourceType] = [
+    .sstUnknown,
+    .sstAssign,
+    .sstTransfer,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// WorkerCheckType 质检类型
+public enum Api_Common_WorkerCheckType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// 普通
+  case wqtCommon // = 0
+
+  /// 必检
+  case wqtMust // = 1
+
+  /// 联检
+  case wqtCombined // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .wqtCommon
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .wqtCommon
+    case 1: self = .wqtMust
+    case 2: self = .wqtCombined
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .wqtCommon: return 0
+    case .wqtMust: return 1
+    case .wqtCombined: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_WorkerCheckType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_WorkerCheckType] = [
+    .wqtCommon,
+    .wqtMust,
+    .wqtCombined,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// 质检评级类型
+public enum Api_Common_WorkerScoreType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// 普通
+  case wstUnknown // = 0
+
+  /// 优异
+  case pwstErfect // = 1
+
+  /// 正常
+  case wstNormal // = 2
+
+  /// 较差
+  case wstPoor // = 3
+
+  /// 极差
+  case wstVeryPoor // = 4
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .wstUnknown
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .wstUnknown
+    case 1: self = .pwstErfect
+    case 2: self = .wstNormal
+    case 3: self = .wstPoor
+    case 4: self = .wstVeryPoor
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .wstUnknown: return 0
+    case .pwstErfect: return 1
+    case .wstNormal: return 2
+    case .wstPoor: return 3
+    case .wstVeryPoor: return 4
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_WorkerScoreType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_WorkerScoreType] = [
+    .wstUnknown,
+    .pwstErfect,
+    .wstNormal,
+    .wstPoor,
+    .wstVeryPoor,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+public enum Api_Common_CheckViewSource: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  ///客服质检报表来源的访问
+  case workerQualitySource // = 0
+
+  /// 质检客服报表来源
+  case qualityWorkerSessionSource // = 1
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .workerQualitySource
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .workerQualitySource
+    case 1: self = .qualityWorkerSessionSource
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .workerQualitySource: return 0
+    case .qualityWorkerSessionSource: return 1
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_CheckViewSource: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_CheckViewSource] = [
+    .workerQualitySource,
+    .qualityWorkerSessionSource,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// 会话质检状态
+public enum Api_Common_SessionScoreStatus: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// 未知
+  case sssUnknown // = 0
+
+  /// 未质检
+  case sssNotScore // = 1
+
+  /// 已质检
+  case sssFinishScore // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .sssUnknown
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .sssUnknown
+    case 1: self = .sssNotScore
+    case 2: self = .sssFinishScore
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .sssUnknown: return 0
+    case .sssNotScore: return 1
+    case .sssFinishScore: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_SessionScoreStatus: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_SessionScoreStatus] = [
+    .sssUnknown,
+    .sssNotScore,
+    .sssFinishScore,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// ThresholdType 必检/联检触发条件
+public enum Api_Common_ThresholdType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// 服务时长
+  case serveTimeThreshold // = 0
+
+  /// 用户消息量
+  case customerMessagesThreshold // = 1
+
+  /// 客服消息量
+  case workerMessagesThreshold // = 2
+
+  /// 总消息量
+  case totalMessagesThreshold // = 3
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .serveTimeThreshold
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .serveTimeThreshold
+    case 1: self = .customerMessagesThreshold
+    case 2: self = .workerMessagesThreshold
+    case 3: self = .totalMessagesThreshold
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .serveTimeThreshold: return 0
+    case .customerMessagesThreshold: return 1
+    case .workerMessagesThreshold: return 2
+    case .totalMessagesThreshold: return 3
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_ThresholdType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_ThresholdType] = [
+    .serveTimeThreshold,
+    .customerMessagesThreshold,
+    .workerMessagesThreshold,
+    .totalMessagesThreshold,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// ChatQACheckSettingType 质检设置类型
+public enum Api_Common_ChatQACheckSettingType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// 普通
+  case normalCheck // = 0
+
+  /// 必检
+  case mustCheck // = 1
+
+  /// 联检
+  case collabCheck // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .normalCheck
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .normalCheck
+    case 1: self = .mustCheck
+    case 2: self = .collabCheck
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .normalCheck: return 0
+    case .mustCheck: return 1
+    case .collabCheck: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_ChatQACheckSettingType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_ChatQACheckSettingType] = [
+    .normalCheck,
+    .mustCheck,
+    .collabCheck,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// WorkerQualitySession 排序字段 1-对话时间排序 2-用户消息量排序 3-客服消息量排序 4-质检时长排序 5-评分排序 6-质检时间排序 7-推送时间排序
+public enum Api_Common_WorkerQualitySessionSortField: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case qualitySessionDefault // = 0
+
+  /// 对话时间排序
+  case sortByChatTime // = 1
+
+  /// 用户消息量排序
+  case sortByUserMsgCount // = 2
+
+  /// 客服消息量排序
+  case sortByWorkerMsgCount // = 3
+
+  /// 质检时长排序
+  case sortByQualityDuration // = 4
+
+  /// 评分排序
+  case sortByScore // = 5
+
+  /// 质检时间排序
+  case sortByQualityTime // = 6
+
+  /// 推送时间排序
+  case sortByPushTime // = 7
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .qualitySessionDefault
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .qualitySessionDefault
+    case 1: self = .sortByChatTime
+    case 2: self = .sortByUserMsgCount
+    case 3: self = .sortByWorkerMsgCount
+    case 4: self = .sortByQualityDuration
+    case 5: self = .sortByScore
+    case 6: self = .sortByQualityTime
+    case 7: self = .sortByPushTime
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .qualitySessionDefault: return 0
+    case .sortByChatTime: return 1
+    case .sortByUserMsgCount: return 2
+    case .sortByWorkerMsgCount: return 3
+    case .sortByQualityDuration: return 4
+    case .sortByScore: return 5
+    case .sortByQualityTime: return 6
+    case .sortByPushTime: return 7
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_WorkerQualitySessionSortField: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_WorkerQualitySessionSortField] = [
+    .qualitySessionDefault,
+    .sortByChatTime,
+    .sortByUserMsgCount,
+    .sortByWorkerMsgCount,
+    .sortByQualityDuration,
+    .sortByScore,
+    .sortByQualityTime,
+    .sortByPushTime,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// Worker role_type 角色权限 1:管理端 2:一线客服
+public enum Api_Common_WorkerRoleType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case wrtDefault // = 0
+
+  /// 管理端
+  case wrtAdmin // = 1
+
+  /// 一线客服
+  case wrtFronter // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .wrtDefault
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .wrtDefault
+    case 1: self = .wrtAdmin
+    case 2: self = .wrtFronter
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .wrtDefault: return 0
+    case .wrtAdmin: return 1
+    case .wrtFronter: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_WorkerRoleType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_WorkerRoleType] = [
+    .wrtDefault,
+    .wrtAdmin,
+    .wrtFronter,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// WorkerRouteSelectStatus 路由勾选状态 0:未选择 1:非全选 2:全选
+public enum Api_Common_WorkerRouteSelectStatus: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case selectDefault // = 0
+
+  /// 非全选
+  case selectPart // = 1
+
+  /// 全选
+  case selectAll // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .selectDefault
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .selectDefault
+    case 1: self = .selectPart
+    case 2: self = .selectAll
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .selectDefault: return 0
+    case .selectPart: return 1
+    case .selectAll: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_WorkerRouteSelectStatus: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_WorkerRouteSelectStatus] = [
+    .selectDefault,
+    .selectPart,
+    .selectAll,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 /// kafka 客服事件队列存储消息类型
 public struct Api_Common_WorkerEvent {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -533,6 +1279,30 @@ public struct Api_Common_Worker {
     set {_uniqueStorage()._disableStatus = newValue}
   }
 
+  /// 角色id
+  public var roleID: Int32 {
+    get {return _storage._roleID}
+    set {_uniqueStorage()._roleID = newValue}
+  }
+
+  /// 角色name
+  public var roleName: String {
+    get {return _storage._roleName}
+    set {_uniqueStorage()._roleName = newValue}
+  }
+
+  /// 绑定角色拥有的权限列表
+  public var routesItems: [String] {
+    get {return _storage._routesItems}
+    set {_uniqueStorage()._routesItems = newValue}
+  }
+
+  /// 绑定角色拥有权限对应的一级菜单
+  public var menuItems: [String] {
+    get {return _storage._menuItems}
+    set {_uniqueStorage()._menuItems = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -645,24 +1415,430 @@ public struct Api_Common_ApplyWorkerState {
   public init() {}
 }
 
+/// 质检会话
+public struct Api_Common_WorkerQualitySession {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var id: Int64 {
+    get {return _storage._id}
+    set {_uniqueStorage()._id = newValue}
+  }
+
+  /// 绑定会话记录id
+  public var bindingSessionID: Int64 {
+    get {return _storage._bindingSessionID}
+    set {_uniqueStorage()._bindingSessionID = newValue}
+  }
+
+  /// 商户id
+  public var tenantID: Int32 {
+    get {return _storage._tenantID}
+    set {_uniqueStorage()._tenantID = newValue}
+  }
+
+  /// 咨询id
+  public var consultID: UInt32 {
+    get {return _storage._consultID}
+    set {_uniqueStorage()._consultID = newValue}
+  }
+
+  /// 接待客服id
+  public var workerID: Int32 {
+    get {return _storage._workerID}
+    set {_uniqueStorage()._workerID = newValue}
+  }
+
+  /// 用户id
+  public var uid: Int32 {
+    get {return _storage._uid}
+    set {_uniqueStorage()._uid = newValue}
+  }
+
+  /// 用户角色
+  public var userRole: Int32 {
+    get {return _storage._userRole}
+    set {_uniqueStorage()._userRole = newValue}
+  }
+
+  /// 用户层级
+  public var userLevel: Int32 {
+    get {return _storage._userLevel}
+    set {_uniqueStorage()._userLevel = newValue}
+  }
+
+  /// 质检类型 0-普通 1-必检 2-联检
+  public var checkType: Api_Common_WorkerCheckType {
+    get {return _storage._checkType}
+    set {_uniqueStorage()._checkType = newValue}
+  }
+
+  /// 首次发送消息时间
+  public var firstSendTime: Int32 {
+    get {return _storage._firstSendTime}
+    set {_uniqueStorage()._firstSendTime = newValue}
+  }
+
+  /// 首次回复消息时间
+  public var firstReplyTime: Int32 {
+    get {return _storage._firstReplyTime}
+    set {_uniqueStorage()._firstReplyTime = newValue}
+  }
+
+  /// 服务时长
+  public var serviceDuration: Int32 {
+    get {return _storage._serviceDuration}
+    set {_uniqueStorage()._serviceDuration = newValue}
+  }
+
+  /// 客户发送消息计数
+  public var clientSendMessageCount: Int32 {
+    get {return _storage._clientSendMessageCount}
+    set {_uniqueStorage()._clientSendMessageCount = newValue}
+  }
+
+  /// 客服发送消息计数
+  public var workerSendMessageCount: Int32 {
+    get {return _storage._workerSendMessageCount}
+    set {_uniqueStorage()._workerSendMessageCount = newValue}
+  }
+
+  /// 质检会话推送时间
+  public var createdAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _storage._createdAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_uniqueStorage()._createdAt = newValue}
+  }
+  /// Returns true if `createdAt` has been explicitly set.
+  public var hasCreatedAt: Bool {return _storage._createdAt != nil}
+  /// Clears the value of `createdAt`. Subsequent reads from it will return its default value.
+  public mutating func clearCreatedAt() {_uniqueStorage()._createdAt = nil}
+
+  /// 评价客服id
+  public var scoreWorkerID: Int32 {
+    get {return _storage._scoreWorkerID}
+    set {_uniqueStorage()._scoreWorkerID = newValue}
+  }
+
+  /// 评价类型 1/2/3/4 优异/正常/较差/极差
+  public var scoreType: Api_Common_WorkerScoreType {
+    get {return _storage._scoreType}
+    set {_uniqueStorage()._scoreType = newValue}
+  }
+
+  /// 评价时间
+  public var scoreTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _storage._scoreTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_uniqueStorage()._scoreTime = newValue}
+  }
+  /// Returns true if `scoreTime` has been explicitly set.
+  public var hasScoreTime: Bool {return _storage._scoreTime != nil}
+  /// Clears the value of `scoreTime`. Subsequent reads from it will return its default value.
+  public mutating func clearScoreTime() {_uniqueStorage()._scoreTime = nil}
+
+  /// 复审客服id
+  public var reviewWorkerID: Int32 {
+    get {return _storage._reviewWorkerID}
+    set {_uniqueStorage()._reviewWorkerID = newValue}
+  }
+
+  /// 复审评价类型
+  public var reviewScoreType: Api_Common_WorkerScoreType {
+    get {return _storage._reviewScoreType}
+    set {_uniqueStorage()._reviewScoreType = newValue}
+  }
+
+  /// 复审时间
+  public var reviewTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _storage._reviewTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_uniqueStorage()._reviewTime = newValue}
+  }
+  /// Returns true if `reviewTime` has been explicitly set.
+  public var hasReviewTime: Bool {return _storage._reviewTime != nil}
+  /// Clears the value of `reviewTime`. Subsequent reads from it will return its default value.
+  public mutating func clearReviewTime() {_uniqueStorage()._reviewTime = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+/// 客服后台路由
+public struct Api_Common_WorkerRoute {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var id: Int32 = 0
+
+  /// 名称
+  public var name: String = String()
+
+  /// url
+  public var url: String = String()
+
+  /// 父级id
+  public var pid: Int32 = 0
+
+  /// 排序
+  public var sort: Int32 = 0
+
+  /// 描述
+  public var remark: String = String()
+
+  /// 角色权限 1:管理端 2:一线客服
+  public var roleType: Api_Common_WorkerRoleType = .wrtDefault
+
+  /// 创建时间
+  public var createAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _createAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_createAt = newValue}
+  }
+  /// Returns true if `createAt` has been explicitly set.
+  public var hasCreateAt: Bool {return self._createAt != nil}
+  /// Clears the value of `createAt`. Subsequent reads from it will return its default value.
+  public mutating func clearCreateAt() {self._createAt = nil}
+
+  /// 更新时间
+  public var updateAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _updateAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_updateAt = newValue}
+  }
+  /// Returns true if `updateAt` has been explicitly set.
+  public var hasUpdateAt: Bool {return self._updateAt != nil}
+  /// Clears the value of `updateAt`. Subsequent reads from it will return its default value.
+  public mutating func clearUpdateAt() {self._updateAt = nil}
+
+  /// is_bind
+  public var bindingStatus: CommonBindStatus = .default
+
+  /// 是否显示
+  public var showType: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _createAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _updateAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+/// 客服后台路由角色
+public struct Api_Common_WorkerRole {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var id: Int32 = 0
+
+  /// 名称
+  public var name: String = String()
+
+  /// 排序
+  public var sort: Int32 = 0
+
+  /// 描述
+  public var remark: String = String()
+
+  /// 创建时间
+  public var createAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _createAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_createAt = newValue}
+  }
+  /// Returns true if `createAt` has been explicitly set.
+  public var hasCreateAt: Bool {return self._createAt != nil}
+  /// Clears the value of `createAt`. Subsequent reads from it will return its default value.
+  public mutating func clearCreateAt() {self._createAt = nil}
+
+  /// 更新时间
+  public var updateAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _updateAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_updateAt = newValue}
+  }
+  /// Returns true if `updateAt` has been explicitly set.
+  public var hasUpdateAt: Bool {return self._updateAt != nil}
+  /// Clears the value of `updateAt`. Subsequent reads from it will return its default value.
+  public mutating func clearUpdateAt() {self._updateAt = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _createAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _updateAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+/// 客服后台路由角色关联
+public struct Api_Common_WorkerRoleRoute {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 角色id
+  public var roleID: Int32 = 0
+
+  /// 路由id
+  public var routeID: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// 客服后台路由role_type关联
+public struct Api_Common_WorkerRouteTypeRoutes {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 角色权限 role_type 1:管理端 2:一线客服
+  public var roleType: Api_Common_WorkerRoleType = .wrtDefault
+
+  /// role_type name
+  public var roleTypeName: String = String()
+
+  /// 路由勾选状态
+  ///  WorkerRouteSelectStatus select_status = 8;
+  /// is_bind
+  public var bindingStatus: CommonBindStatus = .default
+
+  /// 角色权限 1:管理端 2:一线客服
+  public var routeWithItems: [Api_Common_WorkerRouteWithItems] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// 客服后台父子路由列表
+public struct Api_Common_WorkerRouteWithItems {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var id: Int32 = 0
+
+  /// 名称
+  public var name: String = String()
+
+  /// url
+  public var url: String = String()
+
+  /// 父级id
+  public var pid: Int32 = 0
+
+  /// 排序
+  public var sort: Int32 = 0
+
+  /// 描述
+  public var remark: String = String()
+
+  /// 角色权限 1:管理端 2:一线客服
+  public var roleType: Api_Common_WorkerRoleType = .wrtDefault
+
+  /// 路由勾选状态
+  ///  WorkerRouteSelectStatus select_status = 8;
+  /// is_bind
+  public var bindingStatus: CommonBindStatus = .default
+
+  /// 子路由列表
+  public var items: [Api_Common_WorkerRoute] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Common_DeviceInfo {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var osType: String = String()
+
+  public var osVersion: String = String()
+
+  public var arch: String = String()
+
+  public var kernelVersion: String = String()
+
+  public var cpuCores: Int32 = 0
+
+  public var totalMemory: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
+extension Api_Common_ResponseDurationType: @unchecked Sendable {}
+extension Api_Common_FirstResponseDurationType: @unchecked Sendable {}
+extension Api_Common_TransferType: @unchecked Sendable {}
 extension Api_Common_DistributionType: @unchecked Sendable {}
 extension Api_Common_WorkerPermission: @unchecked Sendable {}
 extension Api_Common_ConnectState: @unchecked Sendable {}
 extension Api_Common_OnlineState: @unchecked Sendable {}
 extension Api_Common_WorkerState: @unchecked Sendable {}
 extension Api_Common_WorkerEventType: @unchecked Sendable {}
+extension Api_Common_SessionSourceType: @unchecked Sendable {}
+extension Api_Common_WorkerCheckType: @unchecked Sendable {}
+extension Api_Common_WorkerScoreType: @unchecked Sendable {}
+extension Api_Common_CheckViewSource: @unchecked Sendable {}
+extension Api_Common_SessionScoreStatus: @unchecked Sendable {}
+extension Api_Common_ThresholdType: @unchecked Sendable {}
+extension Api_Common_ChatQACheckSettingType: @unchecked Sendable {}
+extension Api_Common_WorkerQualitySessionSortField: @unchecked Sendable {}
+extension Api_Common_WorkerRoleType: @unchecked Sendable {}
+extension Api_Common_WorkerRouteSelectStatus: @unchecked Sendable {}
 extension Api_Common_WorkerEvent: @unchecked Sendable {}
 extension Api_Common_Worker: @unchecked Sendable {}
 extension Api_Common_WorkerGroup: @unchecked Sendable {}
 extension Api_Common_Distribution: @unchecked Sendable {}
 extension Api_Common_TenantClique: @unchecked Sendable {}
 extension Api_Common_ApplyWorkerState: @unchecked Sendable {}
+extension Api_Common_WorkerQualitySession: @unchecked Sendable {}
+extension Api_Common_WorkerRoute: @unchecked Sendable {}
+extension Api_Common_WorkerRole: @unchecked Sendable {}
+extension Api_Common_WorkerRoleRoute: @unchecked Sendable {}
+extension Api_Common_WorkerRouteTypeRoutes: @unchecked Sendable {}
+extension Api_Common_WorkerRouteWithItems: @unchecked Sendable {}
+extension Api_Common_DeviceInfo: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "api.common"
+
+extension Api_Common_ResponseDurationType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "RDT_UNKNOWN"),
+    1: .same(proto: "RDT_QUICK_RESPONSE"),
+    2: .same(proto: "RDT_SHORT_RESPONSE"),
+    3: .same(proto: "RDT_MEDIUM_RESPONSE"),
+    4: .same(proto: "RDT_LONG_RESPONSE"),
+    5: .same(proto: "RDT_DELAYED_RESPONSE"),
+  ]
+}
+
+extension Api_Common_FirstResponseDurationType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "RRT_UNKNOWN"),
+    1: .same(proto: "RRT_QUICK_RESPONSE"),
+    2: .same(proto: "RRT_SHORT_RESPONSE"),
+    3: .same(proto: "RRT_MEDIUM_RESPONSE"),
+  ]
+}
+
+extension Api_Common_TransferType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "TT_UNKNOWN"),
+    1: .same(proto: "TT_TRANSFER_IN"),
+    2: .same(proto: "TT_TRANSFER_OUT"),
+  ]
+}
 
 extension Api_Common_DistributionType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -682,7 +1858,11 @@ extension Api_Common_WorkerPermission: SwiftProtobuf._ProtoNameProviding {
     8: .same(proto: "WORKER_PERM_FRONTER"),
     16: .same(proto: "WORKER_PERM_TRANSFER"),
     32: .same(proto: "WORKER_PERM_SEARCHER"),
-    64: .same(proto: "WORKER_PERM_BLACKER"),
+    64: .same(proto: "WORKER_PERM_Quality"),
+    128: .same(proto: "WORKER_PERM_Quality_Result"),
+    256: .same(proto: "WORKER_PERM_Quality_Report"),
+    512: .same(proto: "WORKER_PERM_Quality_Worker_Result"),
+    1024: .same(proto: "WORKER_PERM_Quality_Setting"),
   ]
 }
 
@@ -718,6 +1898,93 @@ extension Api_Common_WorkerEventType: SwiftProtobuf._ProtoNameProviding {
     3: .same(proto: "WORKER_EVENT_AWAY"),
     4: .same(proto: "WORKER_EVENT_BUSY"),
     5: .same(proto: "WORKER_EVENT_LOGOUT"),
+  ]
+}
+
+extension Api_Common_SessionSourceType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "SST_UNKNOWN"),
+    1: .same(proto: "SST_ASSIGN"),
+    2: .same(proto: "SST_TRANSFER"),
+  ]
+}
+
+extension Api_Common_WorkerCheckType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "WQT_COMMON"),
+    1: .same(proto: "WQT_MUST"),
+    2: .same(proto: "WQT_COMBINED"),
+  ]
+}
+
+extension Api_Common_WorkerScoreType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "WST_UNKNOWN"),
+    1: .same(proto: "PWST_ERFECT"),
+    2: .same(proto: "WST_NORMAL"),
+    3: .same(proto: "WST_POOR"),
+    4: .same(proto: "WST_VERY_POOR"),
+  ]
+}
+
+extension Api_Common_CheckViewSource: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "WORKER_QUALITY_SOURCE"),
+    1: .same(proto: "QUALITY_WORKER_SESSION_SOURCE"),
+  ]
+}
+
+extension Api_Common_SessionScoreStatus: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "SSS_UNKNOWN"),
+    1: .same(proto: "SSS_NOT_SCORE"),
+    2: .same(proto: "SSS_FINISH_SCORE"),
+  ]
+}
+
+extension Api_Common_ThresholdType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "serve_time_threshold"),
+    1: .same(proto: "customer_messages_threshold"),
+    2: .same(proto: "worker_messages_threshold"),
+    3: .same(proto: "total_messages_threshold"),
+  ]
+}
+
+extension Api_Common_ChatQACheckSettingType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NormalCheck"),
+    1: .same(proto: "MustCheck"),
+    2: .same(proto: "CollabCheck"),
+  ]
+}
+
+extension Api_Common_WorkerQualitySessionSortField: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "QualitySessionDefault"),
+    1: .same(proto: "SortByChatTime"),
+    2: .same(proto: "SortByUserMsgCount"),
+    3: .same(proto: "SortByWorkerMsgCount"),
+    4: .same(proto: "SortByQualityDuration"),
+    5: .same(proto: "SortByScore"),
+    6: .same(proto: "SortByQualityTime"),
+    7: .same(proto: "SortByPushTime"),
+  ]
+}
+
+extension Api_Common_WorkerRoleType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "WRT_DEFAULT"),
+    1: .same(proto: "WRT_ADMIN"),
+    2: .same(proto: "WRT_FRONTER"),
+  ]
+}
+
+extension Api_Common_WorkerRouteSelectStatus: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "SELECT_DEFAULT"),
+    1: .same(proto: "SELECT_PART"),
+    2: .same(proto: "SELECT_ALL"),
   ]
 }
 
@@ -806,6 +2073,10 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     18: .standard(proto: "create_at"),
     19: .standard(proto: "update_at"),
     20: .standard(proto: "disable_status"),
+    21: .standard(proto: "role_id"),
+    22: .standard(proto: "role_name"),
+    23: .same(proto: "routesItems"),
+    24: .same(proto: "menuItems"),
   ]
 
   fileprivate class _StorageClass {
@@ -829,6 +2100,10 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     var _createAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
     var _updateAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
     var _disableStatus: CommonDisableStatus = .default
+    var _roleID: Int32 = 0
+    var _roleName: String = String()
+    var _routesItems: [String] = []
+    var _menuItems: [String] = []
 
     #if swift(>=5.10)
       // This property is used as the initial default value for new instances of the type.
@@ -863,6 +2138,10 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
       _createAt = source._createAt
       _updateAt = source._updateAt
       _disableStatus = source._disableStatus
+      _roleID = source._roleID
+      _roleName = source._roleName
+      _routesItems = source._routesItems
+      _menuItems = source._menuItems
     }
   }
 
@@ -901,6 +2180,10 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
         case 18: try { try decoder.decodeSingularMessageField(value: &_storage._createAt) }()
         case 19: try { try decoder.decodeSingularMessageField(value: &_storage._updateAt) }()
         case 20: try { try decoder.decodeSingularEnumField(value: &_storage._disableStatus) }()
+        case 21: try { try decoder.decodeSingularInt32Field(value: &_storage._roleID) }()
+        case 22: try { try decoder.decodeSingularStringField(value: &_storage._roleName) }()
+        case 23: try { try decoder.decodeRepeatedStringField(value: &_storage._routesItems) }()
+        case 24: try { try decoder.decodeRepeatedStringField(value: &_storage._menuItems) }()
         default: break
         }
       }
@@ -973,6 +2256,18 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
       if _storage._disableStatus != .default {
         try visitor.visitSingularEnumField(value: _storage._disableStatus, fieldNumber: 20)
       }
+      if _storage._roleID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._roleID, fieldNumber: 21)
+      }
+      if !_storage._roleName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._roleName, fieldNumber: 22)
+      }
+      if !_storage._routesItems.isEmpty {
+        try visitor.visitRepeatedStringField(value: _storage._routesItems, fieldNumber: 23)
+      }
+      if !_storage._menuItems.isEmpty {
+        try visitor.visitRepeatedStringField(value: _storage._menuItems, fieldNumber: 24)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -1002,6 +2297,10 @@ extension Api_Common_Worker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
         if _storage._createAt != rhs_storage._createAt {return false}
         if _storage._updateAt != rhs_storage._updateAt {return false}
         if _storage._disableStatus != rhs_storage._disableStatus {return false}
+        if _storage._roleID != rhs_storage._roleID {return false}
+        if _storage._roleName != rhs_storage._roleName {return false}
+        if _storage._routesItems != rhs_storage._routesItems {return false}
+        if _storage._menuItems != rhs_storage._menuItems {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -1276,6 +2575,634 @@ extension Api_Common_ApplyWorkerState: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if lhs.applyTime != rhs.applyTime {return false}
     if lhs.checkTime != rhs.checkTime {return false}
     if lhs.updateUsername != rhs.updateUsername {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Common_WorkerQualitySession: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerQualitySession"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .standard(proto: "binding_session_id"),
+    3: .standard(proto: "tenant_id"),
+    4: .standard(proto: "consult_id"),
+    5: .standard(proto: "worker_id"),
+    6: .same(proto: "uid"),
+    7: .standard(proto: "user_role"),
+    8: .standard(proto: "user_level"),
+    9: .standard(proto: "check_type"),
+    10: .standard(proto: "first_send_time"),
+    11: .standard(proto: "first_reply_time"),
+    12: .standard(proto: "service_duration"),
+    13: .standard(proto: "client_send_message_count"),
+    14: .standard(proto: "worker_send_message_count"),
+    15: .standard(proto: "created_at"),
+    16: .standard(proto: "score_worker_id"),
+    17: .standard(proto: "score_type"),
+    18: .standard(proto: "score_time"),
+    19: .standard(proto: "review_worker_id"),
+    20: .standard(proto: "review_score_type"),
+    21: .standard(proto: "review_time"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _id: Int64 = 0
+    var _bindingSessionID: Int64 = 0
+    var _tenantID: Int32 = 0
+    var _consultID: UInt32 = 0
+    var _workerID: Int32 = 0
+    var _uid: Int32 = 0
+    var _userRole: Int32 = 0
+    var _userLevel: Int32 = 0
+    var _checkType: Api_Common_WorkerCheckType = .wqtCommon
+    var _firstSendTime: Int32 = 0
+    var _firstReplyTime: Int32 = 0
+    var _serviceDuration: Int32 = 0
+    var _clientSendMessageCount: Int32 = 0
+    var _workerSendMessageCount: Int32 = 0
+    var _createdAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+    var _scoreWorkerID: Int32 = 0
+    var _scoreType: Api_Common_WorkerScoreType = .wstUnknown
+    var _scoreTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+    var _reviewWorkerID: Int32 = 0
+    var _reviewScoreType: Api_Common_WorkerScoreType = .wstUnknown
+    var _reviewTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _bindingSessionID = source._bindingSessionID
+      _tenantID = source._tenantID
+      _consultID = source._consultID
+      _workerID = source._workerID
+      _uid = source._uid
+      _userRole = source._userRole
+      _userLevel = source._userLevel
+      _checkType = source._checkType
+      _firstSendTime = source._firstSendTime
+      _firstReplyTime = source._firstReplyTime
+      _serviceDuration = source._serviceDuration
+      _clientSendMessageCount = source._clientSendMessageCount
+      _workerSendMessageCount = source._workerSendMessageCount
+      _createdAt = source._createdAt
+      _scoreWorkerID = source._scoreWorkerID
+      _scoreType = source._scoreType
+      _scoreTime = source._scoreTime
+      _reviewWorkerID = source._reviewWorkerID
+      _reviewScoreType = source._reviewScoreType
+      _reviewTime = source._reviewTime
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularInt64Field(value: &_storage._id) }()
+        case 2: try { try decoder.decodeSingularInt64Field(value: &_storage._bindingSessionID) }()
+        case 3: try { try decoder.decodeSingularInt32Field(value: &_storage._tenantID) }()
+        case 4: try { try decoder.decodeSingularUInt32Field(value: &_storage._consultID) }()
+        case 5: try { try decoder.decodeSingularInt32Field(value: &_storage._workerID) }()
+        case 6: try { try decoder.decodeSingularInt32Field(value: &_storage._uid) }()
+        case 7: try { try decoder.decodeSingularInt32Field(value: &_storage._userRole) }()
+        case 8: try { try decoder.decodeSingularInt32Field(value: &_storage._userLevel) }()
+        case 9: try { try decoder.decodeSingularEnumField(value: &_storage._checkType) }()
+        case 10: try { try decoder.decodeSingularInt32Field(value: &_storage._firstSendTime) }()
+        case 11: try { try decoder.decodeSingularInt32Field(value: &_storage._firstReplyTime) }()
+        case 12: try { try decoder.decodeSingularInt32Field(value: &_storage._serviceDuration) }()
+        case 13: try { try decoder.decodeSingularInt32Field(value: &_storage._clientSendMessageCount) }()
+        case 14: try { try decoder.decodeSingularInt32Field(value: &_storage._workerSendMessageCount) }()
+        case 15: try { try decoder.decodeSingularMessageField(value: &_storage._createdAt) }()
+        case 16: try { try decoder.decodeSingularInt32Field(value: &_storage._scoreWorkerID) }()
+        case 17: try { try decoder.decodeSingularEnumField(value: &_storage._scoreType) }()
+        case 18: try { try decoder.decodeSingularMessageField(value: &_storage._scoreTime) }()
+        case 19: try { try decoder.decodeSingularInt32Field(value: &_storage._reviewWorkerID) }()
+        case 20: try { try decoder.decodeSingularEnumField(value: &_storage._reviewScoreType) }()
+        case 21: try { try decoder.decodeSingularMessageField(value: &_storage._reviewTime) }()
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      if _storage._id != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._id, fieldNumber: 1)
+      }
+      if _storage._bindingSessionID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._bindingSessionID, fieldNumber: 2)
+      }
+      if _storage._tenantID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._tenantID, fieldNumber: 3)
+      }
+      if _storage._consultID != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._consultID, fieldNumber: 4)
+      }
+      if _storage._workerID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._workerID, fieldNumber: 5)
+      }
+      if _storage._uid != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._uid, fieldNumber: 6)
+      }
+      if _storage._userRole != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._userRole, fieldNumber: 7)
+      }
+      if _storage._userLevel != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._userLevel, fieldNumber: 8)
+      }
+      if _storage._checkType != .wqtCommon {
+        try visitor.visitSingularEnumField(value: _storage._checkType, fieldNumber: 9)
+      }
+      if _storage._firstSendTime != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._firstSendTime, fieldNumber: 10)
+      }
+      if _storage._firstReplyTime != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._firstReplyTime, fieldNumber: 11)
+      }
+      if _storage._serviceDuration != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._serviceDuration, fieldNumber: 12)
+      }
+      if _storage._clientSendMessageCount != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._clientSendMessageCount, fieldNumber: 13)
+      }
+      if _storage._workerSendMessageCount != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._workerSendMessageCount, fieldNumber: 14)
+      }
+      try { if let v = _storage._createdAt {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 15)
+      } }()
+      if _storage._scoreWorkerID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._scoreWorkerID, fieldNumber: 16)
+      }
+      if _storage._scoreType != .wstUnknown {
+        try visitor.visitSingularEnumField(value: _storage._scoreType, fieldNumber: 17)
+      }
+      try { if let v = _storage._scoreTime {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 18)
+      } }()
+      if _storage._reviewWorkerID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._reviewWorkerID, fieldNumber: 19)
+      }
+      if _storage._reviewScoreType != .wstUnknown {
+        try visitor.visitSingularEnumField(value: _storage._reviewScoreType, fieldNumber: 20)
+      }
+      try { if let v = _storage._reviewTime {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 21)
+      } }()
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Common_WorkerQualitySession, rhs: Api_Common_WorkerQualitySession) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._bindingSessionID != rhs_storage._bindingSessionID {return false}
+        if _storage._tenantID != rhs_storage._tenantID {return false}
+        if _storage._consultID != rhs_storage._consultID {return false}
+        if _storage._workerID != rhs_storage._workerID {return false}
+        if _storage._uid != rhs_storage._uid {return false}
+        if _storage._userRole != rhs_storage._userRole {return false}
+        if _storage._userLevel != rhs_storage._userLevel {return false}
+        if _storage._checkType != rhs_storage._checkType {return false}
+        if _storage._firstSendTime != rhs_storage._firstSendTime {return false}
+        if _storage._firstReplyTime != rhs_storage._firstReplyTime {return false}
+        if _storage._serviceDuration != rhs_storage._serviceDuration {return false}
+        if _storage._clientSendMessageCount != rhs_storage._clientSendMessageCount {return false}
+        if _storage._workerSendMessageCount != rhs_storage._workerSendMessageCount {return false}
+        if _storage._createdAt != rhs_storage._createdAt {return false}
+        if _storage._scoreWorkerID != rhs_storage._scoreWorkerID {return false}
+        if _storage._scoreType != rhs_storage._scoreType {return false}
+        if _storage._scoreTime != rhs_storage._scoreTime {return false}
+        if _storage._reviewWorkerID != rhs_storage._reviewWorkerID {return false}
+        if _storage._reviewScoreType != rhs_storage._reviewScoreType {return false}
+        if _storage._reviewTime != rhs_storage._reviewTime {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Common_WorkerRoute: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRoute"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "name"),
+    3: .same(proto: "url"),
+    4: .same(proto: "pid"),
+    5: .same(proto: "sort"),
+    6: .same(proto: "remark"),
+    7: .standard(proto: "role_type"),
+    8: .standard(proto: "create_at"),
+    9: .standard(proto: "update_at"),
+    10: .same(proto: "bindingStatus"),
+    11: .standard(proto: "show_type"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.pid) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.sort) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.remark) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.roleType) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._createAt) }()
+      case 9: try { try decoder.decodeSingularMessageField(value: &self._updateAt) }()
+      case 10: try { try decoder.decodeSingularEnumField(value: &self.bindingStatus) }()
+      case 11: try { try decoder.decodeSingularInt32Field(value: &self.showType) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.id != 0 {
+      try visitor.visitSingularInt32Field(value: self.id, fieldNumber: 1)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    }
+    if !self.url.isEmpty {
+      try visitor.visitSingularStringField(value: self.url, fieldNumber: 3)
+    }
+    if self.pid != 0 {
+      try visitor.visitSingularInt32Field(value: self.pid, fieldNumber: 4)
+    }
+    if self.sort != 0 {
+      try visitor.visitSingularInt32Field(value: self.sort, fieldNumber: 5)
+    }
+    if !self.remark.isEmpty {
+      try visitor.visitSingularStringField(value: self.remark, fieldNumber: 6)
+    }
+    if self.roleType != .wrtDefault {
+      try visitor.visitSingularEnumField(value: self.roleType, fieldNumber: 7)
+    }
+    try { if let v = self._createAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
+    try { if let v = self._updateAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+    } }()
+    if self.bindingStatus != .default {
+      try visitor.visitSingularEnumField(value: self.bindingStatus, fieldNumber: 10)
+    }
+    if self.showType != 0 {
+      try visitor.visitSingularInt32Field(value: self.showType, fieldNumber: 11)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Common_WorkerRoute, rhs: Api_Common_WorkerRoute) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.url != rhs.url {return false}
+    if lhs.pid != rhs.pid {return false}
+    if lhs.sort != rhs.sort {return false}
+    if lhs.remark != rhs.remark {return false}
+    if lhs.roleType != rhs.roleType {return false}
+    if lhs._createAt != rhs._createAt {return false}
+    if lhs._updateAt != rhs._updateAt {return false}
+    if lhs.bindingStatus != rhs.bindingStatus {return false}
+    if lhs.showType != rhs.showType {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Common_WorkerRole: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRole"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "name"),
+    3: .same(proto: "sort"),
+    4: .same(proto: "remark"),
+    5: .standard(proto: "create_at"),
+    6: .standard(proto: "update_at"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.sort) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.remark) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._createAt) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._updateAt) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.id != 0 {
+      try visitor.visitSingularInt32Field(value: self.id, fieldNumber: 1)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    }
+    if self.sort != 0 {
+      try visitor.visitSingularInt32Field(value: self.sort, fieldNumber: 3)
+    }
+    if !self.remark.isEmpty {
+      try visitor.visitSingularStringField(value: self.remark, fieldNumber: 4)
+    }
+    try { if let v = self._createAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
+    try { if let v = self._updateAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Common_WorkerRole, rhs: Api_Common_WorkerRole) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.sort != rhs.sort {return false}
+    if lhs.remark != rhs.remark {return false}
+    if lhs._createAt != rhs._createAt {return false}
+    if lhs._updateAt != rhs._updateAt {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Common_WorkerRoleRoute: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRoleRoute"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "role_id"),
+    2: .standard(proto: "route_id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.roleID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.routeID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.roleID != 0 {
+      try visitor.visitSingularInt32Field(value: self.roleID, fieldNumber: 1)
+    }
+    if self.routeID != 0 {
+      try visitor.visitSingularInt32Field(value: self.routeID, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Common_WorkerRoleRoute, rhs: Api_Common_WorkerRoleRoute) -> Bool {
+    if lhs.roleID != rhs.roleID {return false}
+    if lhs.routeID != rhs.routeID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Common_WorkerRouteTypeRoutes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRouteTypeRoutes"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "role_type"),
+    2: .standard(proto: "role_type_name"),
+    3: .same(proto: "bindingStatus"),
+    4: .standard(proto: "route_with_items"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.roleType) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.roleTypeName) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.bindingStatus) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.routeWithItems) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.roleType != .wrtDefault {
+      try visitor.visitSingularEnumField(value: self.roleType, fieldNumber: 1)
+    }
+    if !self.roleTypeName.isEmpty {
+      try visitor.visitSingularStringField(value: self.roleTypeName, fieldNumber: 2)
+    }
+    if self.bindingStatus != .default {
+      try visitor.visitSingularEnumField(value: self.bindingStatus, fieldNumber: 3)
+    }
+    if !self.routeWithItems.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.routeWithItems, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Common_WorkerRouteTypeRoutes, rhs: Api_Common_WorkerRouteTypeRoutes) -> Bool {
+    if lhs.roleType != rhs.roleType {return false}
+    if lhs.roleTypeName != rhs.roleTypeName {return false}
+    if lhs.bindingStatus != rhs.bindingStatus {return false}
+    if lhs.routeWithItems != rhs.routeWithItems {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Common_WorkerRouteWithItems: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRouteWithItems"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "name"),
+    3: .same(proto: "url"),
+    4: .same(proto: "pid"),
+    5: .same(proto: "sort"),
+    6: .same(proto: "remark"),
+    7: .standard(proto: "role_type"),
+    8: .same(proto: "bindingStatus"),
+    9: .same(proto: "items"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.pid) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.sort) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.remark) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.roleType) }()
+      case 8: try { try decoder.decodeSingularEnumField(value: &self.bindingStatus) }()
+      case 9: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.id != 0 {
+      try visitor.visitSingularInt32Field(value: self.id, fieldNumber: 1)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    }
+    if !self.url.isEmpty {
+      try visitor.visitSingularStringField(value: self.url, fieldNumber: 3)
+    }
+    if self.pid != 0 {
+      try visitor.visitSingularInt32Field(value: self.pid, fieldNumber: 4)
+    }
+    if self.sort != 0 {
+      try visitor.visitSingularInt32Field(value: self.sort, fieldNumber: 5)
+    }
+    if !self.remark.isEmpty {
+      try visitor.visitSingularStringField(value: self.remark, fieldNumber: 6)
+    }
+    if self.roleType != .wrtDefault {
+      try visitor.visitSingularEnumField(value: self.roleType, fieldNumber: 7)
+    }
+    if self.bindingStatus != .default {
+      try visitor.visitSingularEnumField(value: self.bindingStatus, fieldNumber: 8)
+    }
+    if !self.items.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.items, fieldNumber: 9)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Common_WorkerRouteWithItems, rhs: Api_Common_WorkerRouteWithItems) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.url != rhs.url {return false}
+    if lhs.pid != rhs.pid {return false}
+    if lhs.sort != rhs.sort {return false}
+    if lhs.remark != rhs.remark {return false}
+    if lhs.roleType != rhs.roleType {return false}
+    if lhs.bindingStatus != rhs.bindingStatus {return false}
+    if lhs.items != rhs.items {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Common_DeviceInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeviceInfo"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "os_type"),
+    2: .standard(proto: "os_version"),
+    3: .same(proto: "arch"),
+    4: .standard(proto: "kernel_version"),
+    5: .standard(proto: "cpu_cores"),
+    6: .standard(proto: "total_memory"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.osType) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.osVersion) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.arch) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.kernelVersion) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.cpuCores) }()
+      case 6: try { try decoder.decodeSingularInt32Field(value: &self.totalMemory) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.osType.isEmpty {
+      try visitor.visitSingularStringField(value: self.osType, fieldNumber: 1)
+    }
+    if !self.osVersion.isEmpty {
+      try visitor.visitSingularStringField(value: self.osVersion, fieldNumber: 2)
+    }
+    if !self.arch.isEmpty {
+      try visitor.visitSingularStringField(value: self.arch, fieldNumber: 3)
+    }
+    if !self.kernelVersion.isEmpty {
+      try visitor.visitSingularStringField(value: self.kernelVersion, fieldNumber: 4)
+    }
+    if self.cpuCores != 0 {
+      try visitor.visitSingularInt32Field(value: self.cpuCores, fieldNumber: 5)
+    }
+    if self.totalMemory != 0 {
+      try visitor.visitSingularInt32Field(value: self.totalMemory, fieldNumber: 6)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Common_DeviceInfo, rhs: Api_Common_DeviceInfo) -> Bool {
+    if lhs.osType != rhs.osType {return false}
+    if lhs.osVersion != rhs.osVersion {return false}
+    if lhs.arch != rhs.arch {return false}
+    if lhs.kernelVersion != rhs.kernelVersion {return false}
+    if lhs.cpuCores != rhs.cpuCores {return false}
+    if lhs.totalMemory != rhs.totalMemory {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

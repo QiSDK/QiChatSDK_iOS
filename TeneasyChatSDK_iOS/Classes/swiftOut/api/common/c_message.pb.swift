@@ -243,6 +243,9 @@ public enum CommonMsgSourceType: SwiftProtobuf.Enum {
 
   /// 模拟用户发消息
   case mstSystemCustomer // = 4
+
+  /// 转接消息
+  case mstSystemTransfer // = 5
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -256,6 +259,7 @@ public enum CommonMsgSourceType: SwiftProtobuf.Enum {
     case 2: self = .mstCustomer
     case 3: self = .mstSystemWorker
     case 4: self = .mstSystemCustomer
+    case 5: self = .mstSystemTransfer
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -267,6 +271,7 @@ public enum CommonMsgSourceType: SwiftProtobuf.Enum {
     case .mstCustomer: return 2
     case .mstSystemWorker: return 3
     case .mstSystemCustomer: return 4
+    case .mstSystemTransfer: return 5
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -283,6 +288,7 @@ extension CommonMsgSourceType: CaseIterable {
     .mstCustomer,
     .mstSystemWorker,
     .mstSystemCustomer,
+    .mstSystemTransfer,
   ]
 }
 
@@ -388,6 +394,12 @@ public struct CommonMessageVideo {
 
   /// 不包括host部分
   public var uri: String = String()
+
+  /// hls uri
+  public var hlsUri: String = String()
+
+  /// thumbnail
+  public var thumbnailUri: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -729,6 +741,12 @@ public struct CommonMessage {
     set {_uniqueStorage()._msgSourceType = newValue}
   }
 
+  /// 客户端ack id
+  public var payloadID: Int64 {
+    get {return _storage._payloadID}
+    set {_uniqueStorage()._payloadID = newValue}
+  }
+
   public var payload: OneOf_Payload? {
     get {return _storage._payload}
     set {_uniqueStorage()._payload = newValue}
@@ -1059,6 +1077,7 @@ extension CommonMsgSourceType: SwiftProtobuf._ProtoNameProviding {
     2: .same(proto: "MST_CUSTOMER"),
     3: .same(proto: "MST_SYSTEM_WORKER"),
     4: .same(proto: "MST_SYSTEM_CUSTOMER"),
+    5: .same(proto: "MST_SYSTEM_TRANSFER"),
   ]
 }
 
@@ -1170,6 +1189,8 @@ extension CommonMessageVideo: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
   public static let protoMessageName: String = _protobuf_package + ".MessageVideo"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "uri"),
+    2: .standard(proto: "hls_uri"),
+    3: .standard(proto: "thumbnail_uri"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1179,6 +1200,8 @@ extension CommonMessageVideo: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.uri) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.hlsUri) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.thumbnailUri) }()
       default: break
       }
     }
@@ -1188,11 +1211,19 @@ extension CommonMessageVideo: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     if !self.uri.isEmpty {
       try visitor.visitSingularStringField(value: self.uri, fieldNumber: 1)
     }
+    if !self.hlsUri.isEmpty {
+      try visitor.visitSingularStringField(value: self.hlsUri, fieldNumber: 2)
+    }
+    if !self.thumbnailUri.isEmpty {
+      try visitor.visitSingularStringField(value: self.thumbnailUri, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: CommonMessageVideo, rhs: CommonMessageVideo) -> Bool {
     if lhs.uri != rhs.uri {return false}
+    if lhs.hlsUri != rhs.hlsUri {return false}
+    if lhs.thumbnailUri != rhs.thumbnailUri {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1679,6 +1710,7 @@ extension CommonMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     10: .standard(proto: "consult_id"),
     11: .standard(proto: "with_auto_replies"),
     12: .standard(proto: "msg_source_type"),
+    99: .standard(proto: "payload_id"),
     100: .same(proto: "content"),
     101: .same(proto: "image"),
     102: .same(proto: "audio"),
@@ -1705,6 +1737,7 @@ extension CommonMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     var _consultID: Int64 = 0
     var _withAutoReplies: [CommonWithAutoReply] = []
     var _msgSourceType: CommonMsgSourceType = .mstDefault
+    var _payloadID: Int64 = 0
     var _payload: CommonMessage.OneOf_Payload?
 
     #if swift(>=5.10)
@@ -1732,6 +1765,7 @@ extension CommonMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       _consultID = source._consultID
       _withAutoReplies = source._withAutoReplies
       _msgSourceType = source._msgSourceType
+      _payloadID = source._payloadID
       _payload = source._payload
     }
   }
@@ -1763,6 +1797,7 @@ extension CommonMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
         case 10: try { try decoder.decodeSingularInt64Field(value: &_storage._consultID) }()
         case 11: try { try decoder.decodeRepeatedMessageField(value: &_storage._withAutoReplies) }()
         case 12: try { try decoder.decodeSingularEnumField(value: &_storage._msgSourceType) }()
+        case 99: try { try decoder.decodeSingularInt64Field(value: &_storage._payloadID) }()
         case 100: try {
           var v: CommonMessageContent?
           var hadOneofValue = false
@@ -1954,6 +1989,9 @@ extension CommonMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       if _storage._msgSourceType != .mstDefault {
         try visitor.visitSingularEnumField(value: _storage._msgSourceType, fieldNumber: 12)
       }
+      if _storage._payloadID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._payloadID, fieldNumber: 99)
+      }
       switch _storage._payload {
       case .content?: try {
         guard case .content(let v)? = _storage._payload else { preconditionFailure() }
@@ -2022,6 +2060,7 @@ extension CommonMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
         if _storage._consultID != rhs_storage._consultID {return false}
         if _storage._withAutoReplies != rhs_storage._withAutoReplies {return false}
         if _storage._msgSourceType != rhs_storage._msgSourceType {return false}
+        if _storage._payloadID != rhs_storage._payloadID {return false}
         if _storage._payload != rhs_storage._payload {return false}
         return true
       }

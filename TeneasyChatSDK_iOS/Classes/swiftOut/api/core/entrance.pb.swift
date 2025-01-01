@@ -218,6 +218,51 @@ public struct Api_Core_EntranceExistsRequest {
   public init() {}
 }
 
+public struct Api_Core_GetUnreadWorkerMessageCountRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 商户id
+  public var tenantID: Int64 = 0
+
+  /// 用户id
+  public var uid: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_GetUnreadWorkerMessageCountResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 咨询组未读
+  public var consultUnreads: [Api_Core_ConsultUnread] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_ConsultUnread {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 咨询id
+  public var consultID: UInt32 = 0
+
+  /// 未读统计
+  public var unreadMessageCount: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Api_Core_EntranceQueryResponse: @unchecked Sendable {}
 extension Api_Core_DomainItem: @unchecked Sendable {}
@@ -231,6 +276,9 @@ extension Api_Core_GetDistributionResponse: @unchecked Sendable {}
 extension Api_Core_SaveDistributionRequest: @unchecked Sendable {}
 extension Api_Core_EntranceExistsRequest: @unchecked Sendable {}
 extension Api_Core_EntranceExistsRequest.OneOf_Based: @unchecked Sendable {}
+extension Api_Core_GetUnreadWorkerMessageCountRequest: @unchecked Sendable {}
+extension Api_Core_GetUnreadWorkerMessageCountResponse: @unchecked Sendable {}
+extension Api_Core_ConsultUnread: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -638,6 +686,114 @@ extension Api_Core_EntranceExistsRequest: SwiftProtobuf.Message, SwiftProtobuf._
 
   public static func ==(lhs: Api_Core_EntranceExistsRequest, rhs: Api_Core_EntranceExistsRequest) -> Bool {
     if lhs.based != rhs.based {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_GetUnreadWorkerMessageCountRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetUnreadWorkerMessageCountRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "tenant_id"),
+    2: .same(proto: "uid"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.tenantID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.uid) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.tenantID != 0 {
+      try visitor.visitSingularInt64Field(value: self.tenantID, fieldNumber: 1)
+    }
+    if self.uid != 0 {
+      try visitor.visitSingularInt32Field(value: self.uid, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_GetUnreadWorkerMessageCountRequest, rhs: Api_Core_GetUnreadWorkerMessageCountRequest) -> Bool {
+    if lhs.tenantID != rhs.tenantID {return false}
+    if lhs.uid != rhs.uid {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_GetUnreadWorkerMessageCountResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetUnreadWorkerMessageCountResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "consult_unreads"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.consultUnreads) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.consultUnreads.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.consultUnreads, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_GetUnreadWorkerMessageCountResponse, rhs: Api_Core_GetUnreadWorkerMessageCountResponse) -> Bool {
+    if lhs.consultUnreads != rhs.consultUnreads {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_ConsultUnread: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ConsultUnread"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "consult_id"),
+    2: .standard(proto: "unread_message_count"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.consultID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.unreadMessageCount) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.consultID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.consultID, fieldNumber: 1)
+    }
+    if self.unreadMessageCount != 0 {
+      try visitor.visitSingularInt32Field(value: self.unreadMessageCount, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_ConsultUnread, rhs: Api_Core_ConsultUnread) -> Bool {
+    if lhs.consultID != rhs.consultID {return false}
+    if lhs.unreadMessageCount != rhs.unreadMessageCount {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

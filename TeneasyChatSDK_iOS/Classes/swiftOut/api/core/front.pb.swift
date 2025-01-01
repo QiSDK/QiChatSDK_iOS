@@ -262,6 +262,9 @@ public struct Api_Core_ConsultItem {
   /// 排序
   public var priority: Int32 = 0
 
+  /// 绑定关系客服id
+  public var bindingWorkerID: Int32 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -1010,6 +1013,7 @@ extension Api_Core_ConsultItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     4: .same(proto: "Works"),
     5: .same(proto: "unread"),
     6: .same(proto: "priority"),
+    7: .standard(proto: "binding_worker_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1024,6 +1028,7 @@ extension Api_Core_ConsultItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
       case 4: try { try decoder.decodeRepeatedMessageField(value: &self.works) }()
       case 5: try { try decoder.decodeSingularInt32Field(value: &self.unread) }()
       case 6: try { try decoder.decodeSingularInt32Field(value: &self.priority) }()
+      case 7: try { try decoder.decodeSingularInt32Field(value: &self.bindingWorkerID) }()
       default: break
       }
     }
@@ -1048,6 +1053,9 @@ extension Api_Core_ConsultItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     if self.priority != 0 {
       try visitor.visitSingularInt32Field(value: self.priority, fieldNumber: 6)
     }
+    if self.bindingWorkerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.bindingWorkerID, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1058,6 +1066,7 @@ extension Api_Core_ConsultItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     if lhs.works != rhs.works {return false}
     if lhs.unread != rhs.unread {return false}
     if lhs.priority != rhs.priority {return false}
+    if lhs.bindingWorkerID != rhs.bindingWorkerID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

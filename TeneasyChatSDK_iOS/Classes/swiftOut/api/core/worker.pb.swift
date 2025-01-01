@@ -107,6 +107,18 @@ public struct Api_Core_WorkerQueryResponse {
   fileprivate var _batch: CommonBatch? = nil
 }
 
+public struct Api_Core_WorkerQueryAllResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var items: [Api_Common_Worker] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 public struct Api_Core_WorkerQuerySelfResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -180,7 +192,9 @@ public struct Api_Core_WorkerCreateRequest {
   public var groupIds: [Int64] = []
 
   /// 权限掩码, 理解有困难的话 随时可调
-  public var permMask: Int32 = 0
+  ///  int32 perm_mask = 4[(validate.rules).int32.gt = 0];
+  /// 角色id
+  public var roleID: Int32 = 0
 
   /// 客服名
   public var name: String = String()
@@ -259,14 +273,16 @@ public struct Api_Core_WorkerUpdateRequest {
   public mutating func clearGroupIds() {self._groupIds = nil}
 
   /// 权限掩码, 前端理解有困难的话 随时可调
-  public var permMask: Int32 {
-    get {return _permMask ?? 0}
-    set {_permMask = newValue}
+  ///  optional int32 perm_mask = 5[(validate.rules).int32.gt = 0];
+  /// 角色id
+  public var roleID: Int32 {
+    get {return _roleID ?? 0}
+    set {_roleID = newValue}
   }
-  /// Returns true if `permMask` has been explicitly set.
-  public var hasPermMask: Bool {return self._permMask != nil}
-  /// Clears the value of `permMask`. Subsequent reads from it will return its default value.
-  public mutating func clearPermMask() {self._permMask = nil}
+  /// Returns true if `roleID` has been explicitly set.
+  public var hasRoleID: Bool {return self._roleID != nil}
+  /// Clears the value of `roleID`. Subsequent reads from it will return its default value.
+  public mutating func clearRoleID() {self._roleID = nil}
 
   /// 客服名
   public var name: String {
@@ -326,7 +342,7 @@ public struct Api_Core_WorkerUpdateRequest {
 
   fileprivate var _password: String? = nil
   fileprivate var _groupIds: CommonSetInt64? = nil
-  fileprivate var _permMask: Int32? = nil
+  fileprivate var _roleID: Int32? = nil
   fileprivate var _name: String? = nil
   fileprivate var _avatar: String? = nil
   fileprivate var _nimid: String? = nil
@@ -976,7 +992,30 @@ public struct Api_Core_NotifyMessageRequest {
 
   public var userid: Int32 = 0
 
+  public var account: String {
+    get {return _account ?? String()}
+    set {_account = newValue}
+  }
+  /// Returns true if `account` has been explicitly set.
+  public var hasAccount: Bool {return self._account != nil}
+  /// Clears the value of `account`. Subsequent reads from it will return its default value.
+  public mutating func clearAccount() {self._account = nil}
+
   public var msg: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _account: String? = nil
+}
+
+public struct Api_Core_BatchNotifyMessageReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var items: [Api_Core_NotifyMessageRequest] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1095,6 +1134,24 @@ public struct Api_Core_ThirdOrder {
   public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Api_Core_ThirdUserInfo {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var childType: String = String()
+
+  public var agentChild: String = String()
+
+  public var allwinChild: String = String()
+
+  public var inviteFriendsChild: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
 }
 
 public struct Api_Core_TransferMessageRsp {
@@ -1393,9 +1450,2392 @@ public struct Api_Core_WorkerTransferAllResp {
   public init() {}
 }
 
+public struct Api_Core_QualityChatsRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 客服组id
+  public var groupID: Int32 = 0
+
+  /// 客服id
+  public var workerID: Int32 = 0
+
+  /// 用户id
+  public var userID: Int32 = 0
+
+  /// 开始时间(北京时间)
+  public var startTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _startTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_startTime = newValue}
+  }
+  /// Returns true if `startTime` has been explicitly set.
+  public var hasStartTime: Bool {return self._startTime != nil}
+  /// Clears the value of `startTime`. Subsequent reads from it will return its default value.
+  public mutating func clearStartTime() {self._startTime = nil}
+
+  /// 结束时间(北京时间)
+  public var endTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _endTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_endTime = newValue}
+  }
+  /// Returns true if `endTime` has been explicitly set.
+  public var hasEndTime: Bool {return self._endTime != nil}
+  /// Clears the value of `endTime`. Subsequent reads from it will return its default value.
+  public mutating func clearEndTime() {self._endTime = nil}
+
+  /// 页数
+  public var page: UInt32 = 0
+
+  /// 每页大小
+  public var pageSize: UInt32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _startTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _endTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+public struct Api_Core_QualityChatsResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 会话质检列表
+  public var qualityChats: [Api_Core_QualityChat] = []
+
+  /// 总数
+  public var total: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_QualityChat {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 唯一标识
+  public var id: UInt32 {
+    get {return _storage._id}
+    set {_uniqueStorage()._id = newValue}
+  }
+
+  /// 咨询id
+  public var consultID: UInt32 {
+    get {return _storage._consultID}
+    set {_uniqueStorage()._consultID = newValue}
+  }
+
+  /// 会话id
+  public var chatID: Int64 {
+    get {return _storage._chatID}
+    set {_uniqueStorage()._chatID = newValue}
+  }
+
+  /// 用户id
+  public var uid: Int32 {
+    get {return _storage._uid}
+    set {_uniqueStorage()._uid = newValue}
+  }
+
+  /// 用户昵称
+  public var nickname: String {
+    get {return _storage._nickname}
+    set {_uniqueStorage()._nickname = newValue}
+  }
+
+  /// ip
+  public var ip: String {
+    get {return _storage._ip}
+    set {_uniqueStorage()._ip = newValue}
+  }
+
+  /// 归属地
+  public var ipAddress: String {
+    get {return _storage._ipAddress}
+    set {_uniqueStorage()._ipAddress = newValue}
+  }
+
+  /// 用户来源
+  public var clientSource: String {
+    get {return _storage._clientSource}
+    set {_uniqueStorage()._clientSource = newValue}
+  }
+
+  /// 首次对话开始时间
+  public var firstStartTime: Int64 {
+    get {return _storage._firstStartTime}
+    set {_uniqueStorage()._firstStartTime = newValue}
+  }
+
+  /// 最后对话结束时间
+  public var lastEndTime: Int64 {
+    get {return _storage._lastEndTime}
+    set {_uniqueStorage()._lastEndTime = newValue}
+  }
+
+  /// 会话绑定时间
+  public var assignTime: Int64 {
+    get {return _storage._assignTime}
+    set {_uniqueStorage()._assignTime = newValue}
+  }
+
+  /// 总时长
+  public var totalDuration: String {
+    get {return _storage._totalDuration}
+    set {_uniqueStorage()._totalDuration = newValue}
+  }
+
+  /// 客服id
+  public var workerID: Int32 {
+    get {return _storage._workerID}
+    set {_uniqueStorage()._workerID = newValue}
+  }
+
+  /// 客服账号
+  public var workerAccount: String {
+    get {return _storage._workerAccount}
+    set {_uniqueStorage()._workerAccount = newValue}
+  }
+
+  /// 客服昵称
+  public var workerNickname: String {
+    get {return _storage._workerNickname}
+    set {_uniqueStorage()._workerNickname = newValue}
+  }
+
+  /// 客服消息量
+  public var workerSendCount: Int32 {
+    get {return _storage._workerSendCount}
+    set {_uniqueStorage()._workerSendCount = newValue}
+  }
+
+  /// 用户消息量
+  public var userSendCount: Int32 {
+    get {return _storage._userSendCount}
+    set {_uniqueStorage()._userSendCount = newValue}
+  }
+
+  /// 评分时间
+  public var scoreTime: Int64 {
+    get {return _storage._scoreTime}
+    set {_uniqueStorage()._scoreTime = newValue}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Api_Core_NewQualityChatsRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 客服组id
+  public var groupID: Int32 = 0
+
+  /// 客服id
+  public var workerID: Int32 = 0
+
+  /// 客服账号
+  public var workerAccount: String = String()
+
+  /// 用户id
+  public var userID: Int32 = 0
+
+  /// 开始时间(北京时间)
+  public var startTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _startTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_startTime = newValue}
+  }
+  /// Returns true if `startTime` has been explicitly set.
+  public var hasStartTime: Bool {return self._startTime != nil}
+  /// Clears the value of `startTime`. Subsequent reads from it will return its default value.
+  public mutating func clearStartTime() {self._startTime = nil}
+
+  /// 结束时间(北京时间)
+  public var endTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _endTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_endTime = newValue}
+  }
+  /// Returns true if `endTime` has been explicitly set.
+  public var hasEndTime: Bool {return self._endTime != nil}
+  /// Clears the value of `endTime`. Subsequent reads from it will return its default value.
+  public mutating func clearEndTime() {self._endTime = nil}
+
+  /// 排序字段 1-对话时间排序 2-用户消息量排序 3-客服消息量排序
+  public var sortBy: Int32 = 0
+
+  /// 排序顺序：1-ASC 2-DESC
+  public var sortOrder: Int32 = 0
+
+  /// 页数
+  public var page: UInt32 = 0
+
+  /// 每页大小
+  public var pageSize: UInt32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _startTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _endTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+public struct Api_Core_NewQualityChatsResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 会话质检列表
+  public var qualityChats: [Api_Core_QualityChat] = []
+
+  /// 总数
+  public var total: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_WorkerQualitySessionsRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 客服组id
+  public var groupID: Int32 = 0
+
+  /// 客服id
+  public var workerID: Int32 = 0
+
+  /// 客服账号
+  public var workerAccount: String = String()
+
+  /// 用户id/username
+  public var userID: String = String()
+
+  /// 用户层级
+  public var userLevel: Int32 = 0
+
+  /// 服务时长大于
+  public var serviceDuration: UInt32 = 0
+
+  /// 质检类型 0-普通 1-必检 2-联检
+  public var checkType: Api_Common_WorkerCheckType {
+    get {return _checkType ?? .wqtCommon}
+    set {_checkType = newValue}
+  }
+  /// Returns true if `checkType` has been explicitly set.
+  public var hasCheckType: Bool {return self._checkType != nil}
+  /// Clears the value of `checkType`. Subsequent reads from it will return its default value.
+  public mutating func clearCheckType() {self._checkType = nil}
+
+  /// 开始时间(北京时间)
+  public var startTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _startTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_startTime = newValue}
+  }
+  /// Returns true if `startTime` has been explicitly set.
+  public var hasStartTime: Bool {return self._startTime != nil}
+  /// Clears the value of `startTime`. Subsequent reads from it will return its default value.
+  public mutating func clearStartTime() {self._startTime = nil}
+
+  /// 结束时间(北京时间)
+  public var endTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _endTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_endTime = newValue}
+  }
+  /// Returns true if `endTime` has been explicitly set.
+  public var hasEndTime: Bool {return self._endTime != nil}
+  /// Clears the value of `endTime`. Subsequent reads from it will return its default value.
+  public mutating func clearEndTime() {self._endTime = nil}
+
+  /// 质检客服id
+  public var checkWorkerID: Int32 = 0
+
+  /// 排序字段 1-对话时间排序 2-用户消息量排序 3-客服消息量排序 4-推送时间
+  public var sortBy: Int32 = 0
+
+  /// 排序顺序：1-ASC 2-DESC
+  public var sortOrder: Int32 = 0
+
+  /// 页数
+  public var page: UInt32 = 0
+
+  /// 每页大小
+  public var pageSize: UInt32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _checkType: Api_Common_WorkerCheckType? = nil
+  fileprivate var _startTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _endTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+public struct Api_Core_WorkerQualitySessionsResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 会话质检列表
+  public var qualitySessions: [Api_Core_QualitySession] = []
+
+  /// 总数
+  public var total: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_QualitySession {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 唯一标识
+  public var id: UInt32 {
+    get {return _storage._id}
+    set {_uniqueStorage()._id = newValue}
+  }
+
+  /// 客服绑定会话记录id
+  public var bindingSessionID: UInt32 {
+    get {return _storage._bindingSessionID}
+    set {_uniqueStorage()._bindingSessionID = newValue}
+  }
+
+  /// 咨询id
+  public var consultID: UInt32 {
+    get {return _storage._consultID}
+    set {_uniqueStorage()._consultID = newValue}
+  }
+
+  /// 会话id
+  public var chatID: Int64 {
+    get {return _storage._chatID}
+    set {_uniqueStorage()._chatID = newValue}
+  }
+
+  /// 用户id
+  public var uid: Int32 {
+    get {return _storage._uid}
+    set {_uniqueStorage()._uid = newValue}
+  }
+
+  /// 用户昵称
+  public var nickname: String {
+    get {return _storage._nickname}
+    set {_uniqueStorage()._nickname = newValue}
+  }
+
+  /// ip
+  public var ip: String {
+    get {return _storage._ip}
+    set {_uniqueStorage()._ip = newValue}
+  }
+
+  /// 归属地
+  public var ipAddress: String {
+    get {return _storage._ipAddress}
+    set {_uniqueStorage()._ipAddress = newValue}
+  }
+
+  /// 用户来源
+  public var clientSource: String {
+    get {return _storage._clientSource}
+    set {_uniqueStorage()._clientSource = newValue}
+  }
+
+  /// 用户层级
+  public var userLevel: Int32 {
+    get {return _storage._userLevel}
+    set {_uniqueStorage()._userLevel = newValue}
+  }
+
+  /// 注册来源
+  public var userRegisterSource: String {
+    get {return _storage._userRegisterSource}
+    set {_uniqueStorage()._userRegisterSource = newValue}
+  }
+
+  /// 首次发送消息时间
+  public var firstSendTime: UInt32 {
+    get {return _storage._firstSendTime}
+    set {_uniqueStorage()._firstSendTime = newValue}
+  }
+
+  /// 最后回复消息时间
+  public var lastReplyTime: UInt32 {
+    get {return _storage._lastReplyTime}
+    set {_uniqueStorage()._lastReplyTime = newValue}
+  }
+
+  /// 最后消息结束时间
+  public var lastEndTime: UInt32 {
+    get {return _storage._lastEndTime}
+    set {_uniqueStorage()._lastEndTime = newValue}
+  }
+
+  /// 总时长
+  public var totalDuration: String {
+    get {return _storage._totalDuration}
+    set {_uniqueStorage()._totalDuration = newValue}
+  }
+
+  /// 最后推送消息时间
+  public var lastPushTime: UInt32 {
+    get {return _storage._lastPushTime}
+    set {_uniqueStorage()._lastPushTime = newValue}
+  }
+
+  /// 客服id
+  public var workerID: Int32 {
+    get {return _storage._workerID}
+    set {_uniqueStorage()._workerID = newValue}
+  }
+
+  /// 客服账号
+  public var workerAccount: String {
+    get {return _storage._workerAccount}
+    set {_uniqueStorage()._workerAccount = newValue}
+  }
+
+  /// 客服昵称
+  public var workerNickname: String {
+    get {return _storage._workerNickname}
+    set {_uniqueStorage()._workerNickname = newValue}
+  }
+
+  /// 客服消息量
+  public var workerSendCount: Int32 {
+    get {return _storage._workerSendCount}
+    set {_uniqueStorage()._workerSendCount = newValue}
+  }
+
+  /// 用户消息量
+  public var userSendCount: Int32 {
+    get {return _storage._userSendCount}
+    set {_uniqueStorage()._userSendCount = newValue}
+  }
+
+  /// 阅读时长(s)
+  public var readDuration: UInt32 {
+    get {return _storage._readDuration}
+    set {_uniqueStorage()._readDuration = newValue}
+  }
+
+  /// 质检类型 0-普通 1-必检 2-联检
+  public var checkType: Api_Common_WorkerCheckType {
+    get {return _storage._checkType}
+    set {_uniqueStorage()._checkType = newValue}
+  }
+
+  /// 质检客服id
+  public var checkWorkerID: Int32 {
+    get {return _storage._checkWorkerID}
+    set {_uniqueStorage()._checkWorkerID = newValue}
+  }
+
+  /// 质检客服账号
+  public var checkWorkerAccount: String {
+    get {return _storage._checkWorkerAccount}
+    set {_uniqueStorage()._checkWorkerAccount = newValue}
+  }
+
+  /// 质检客服昵称
+  public var checkWorkerNickname: String {
+    get {return _storage._checkWorkerNickname}
+    set {_uniqueStorage()._checkWorkerNickname = newValue}
+  }
+
+  /// 问题类型列表
+  public var questionTitles: [String] {
+    get {return _storage._questionTitles}
+    set {_uniqueStorage()._questionTitles = newValue}
+  }
+
+  /// 推送时间
+  public var createdAt: UInt32 {
+    get {return _storage._createdAt}
+    set {_uniqueStorage()._createdAt = newValue}
+  }
+
+  /// 订单号
+  public var rechargeOrderNo: String {
+    get {return _storage._rechargeOrderNo}
+    set {_uniqueStorage()._rechargeOrderNo = newValue}
+  }
+
+  /// 订单时间
+  public var rechargeOrderTime: String {
+    get {return _storage._rechargeOrderTime}
+    set {_uniqueStorage()._rechargeOrderTime = newValue}
+  }
+
+  /// 会话分配时间
+  public var assignTime: UInt32 {
+    get {return _storage._assignTime}
+    set {_uniqueStorage()._assignTime = newValue}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Api_Core_QualiyReviewedChatsRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 客服组id
+  public var groupID: Int32 = 0
+
+  /// 客服id
+  public var workerID: Int32 = 0
+
+  /// 用户id
+  public var userID: Int32 = 0
+
+  /// 开始时间(北京时间)
+  public var startTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _startTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_startTime = newValue}
+  }
+  /// Returns true if `startTime` has been explicitly set.
+  public var hasStartTime: Bool {return self._startTime != nil}
+  /// Clears the value of `startTime`. Subsequent reads from it will return its default value.
+  public mutating func clearStartTime() {self._startTime = nil}
+
+  /// 结束时间(北京时间)
+  public var endTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _endTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_endTime = newValue}
+  }
+  /// Returns true if `endTime` has been explicitly set.
+  public var hasEndTime: Bool {return self._endTime != nil}
+  /// Clears the value of `endTime`. Subsequent reads from it will return its default value.
+  public mutating func clearEndTime() {self._endTime = nil}
+
+  /// 质检客服账号
+  public var auditorAccount: String = String()
+
+  /// 排序字段 1-通过质检时间排序 2-通过评分排序
+  public var sortBy: Int32 = 0
+
+  /// 排序顺序：1-ASC 2-DESC
+  public var sortOrder: Int32 = 0
+
+  /// 页数
+  public var page: UInt32 = 0
+
+  /// 每页大小
+  public var pageSize: UInt32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _startTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _endTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+public struct Api_Core_QualiyReviewedChatsResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 会话质检结果列表
+  public var qualityReviewedChats: [Api_Common_WorkerQualitySession] = []
+
+  /// 总数
+  public var total: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_NewQualiyReviewedChatsRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 开始时间
+  public var startTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _storage._startTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_uniqueStorage()._startTime = newValue}
+  }
+  /// Returns true if `startTime` has been explicitly set.
+  public var hasStartTime: Bool {return _storage._startTime != nil}
+  /// Clears the value of `startTime`. Subsequent reads from it will return its default value.
+  public mutating func clearStartTime() {_uniqueStorage()._startTime = nil}
+
+  /// 结束时间
+  public var endTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _storage._endTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_uniqueStorage()._endTime = newValue}
+  }
+  /// Returns true if `endTime` has been explicitly set.
+  public var hasEndTime: Bool {return _storage._endTime != nil}
+  /// Clears the value of `endTime`. Subsequent reads from it will return its default value.
+  public mutating func clearEndTime() {_uniqueStorage()._endTime = nil}
+
+  /// 客服组id
+  public var groupID: Int32 {
+    get {return _storage._groupID}
+    set {_uniqueStorage()._groupID = newValue}
+  }
+
+  /// 客服id
+  public var workerID: Int32 {
+    get {return _storage._workerID}
+    set {_uniqueStorage()._workerID = newValue}
+  }
+
+  /// 客服账号
+  public var workerAccount: String {
+    get {return _storage._workerAccount}
+    set {_uniqueStorage()._workerAccount = newValue}
+  }
+
+  /// 用户层级
+  public var userLevel: Int32 {
+    get {return _storage._userLevel}
+    set {_uniqueStorage()._userLevel = newValue}
+  }
+
+  /// 用户id/username
+  public var userID: String {
+    get {return _storage._userID}
+    set {_uniqueStorage()._userID = newValue}
+  }
+
+  /// 质检人ID
+  public var scoreWorkerID: Int32 {
+    get {return _storage._scoreWorkerID}
+    set {_uniqueStorage()._scoreWorkerID = newValue}
+  }
+
+  /// 服务时长
+  public var serviceDuration: UInt32 {
+    get {return _storage._serviceDuration}
+    set {_uniqueStorage()._serviceDuration = newValue}
+  }
+
+  /// 质检时长
+  public var readDuration: UInt32 {
+    get {return _storage._readDuration}
+    set {_uniqueStorage()._readDuration = newValue}
+  }
+
+  /// 评级筛选
+  public var scoreType: Api_Common_WorkerScoreType {
+    get {return _storage._scoreType}
+    set {_uniqueStorage()._scoreType = newValue}
+  }
+
+  /// 质检类型 0-普通 1-必检 2-联检
+  public var checkType: Api_Common_WorkerCheckType {
+    get {return _storage._checkType ?? .wqtCommon}
+    set {_uniqueStorage()._checkType = newValue}
+  }
+  /// Returns true if `checkType` has been explicitly set.
+  public var hasCheckType: Bool {return _storage._checkType != nil}
+  /// Clears the value of `checkType`. Subsequent reads from it will return its default value.
+  public mutating func clearCheckType() {_uniqueStorage()._checkType = nil}
+
+  /// 是否复审
+  public var isReview: CommonBoolStatus {
+    get {return _storage._isReview}
+    set {_uniqueStorage()._isReview = newValue}
+  }
+
+  /// 排序字段 1-对话时间排序 2-用户消息量排序 3-客服消息量排序 4-质检时长排序 5-评分排序 6-质检时间排序 7-推送时间排序
+  public var sortBy: Api_Common_WorkerQualitySessionSortField {
+    get {return _storage._sortBy}
+    set {_uniqueStorage()._sortBy = newValue}
+  }
+
+  /// 排序顺序：1-ASC 2-DESC
+  public var sortOrder: CommonSortOrder {
+    get {return _storage._sortOrder}
+    set {_uniqueStorage()._sortOrder = newValue}
+  }
+
+  /// 页数
+  public var page: UInt32 {
+    get {return _storage._page}
+    set {_uniqueStorage()._page = newValue}
+  }
+
+  /// 每页大小
+  public var pageSize: UInt32 {
+    get {return _storage._pageSize}
+    set {_uniqueStorage()._pageSize = newValue}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+/// 会话质检结果返回
+public struct Api_Core_NewQualiyReviewedChatsResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 会话质检结果列表
+  public var qualityReviewedChats: [Api_Core_WorkerQualitySession] = []
+
+  /// 总数
+  public var total: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// 会话质检结果
+public struct Api_Core_WorkerQualitySession {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 唯一标识
+  public var id: Int64 {
+    get {return _storage._id}
+    set {_uniqueStorage()._id = newValue}
+  }
+
+  /// 绑定会话记录id
+  public var bindingSessionID: Int64 {
+    get {return _storage._bindingSessionID}
+    set {_uniqueStorage()._bindingSessionID = newValue}
+  }
+
+  /// 商户id
+  public var tenantID: Int32 {
+    get {return _storage._tenantID}
+    set {_uniqueStorage()._tenantID = newValue}
+  }
+
+  /// 咨询id
+  public var consultID: Int32 {
+    get {return _storage._consultID}
+    set {_uniqueStorage()._consultID = newValue}
+  }
+
+  /// 会话id
+  public var chatID: Int64 {
+    get {return _storage._chatID}
+    set {_uniqueStorage()._chatID = newValue}
+  }
+
+  /// 用户id
+  public var uid: Int32 {
+    get {return _storage._uid}
+    set {_uniqueStorage()._uid = newValue}
+  }
+
+  /// 用户昵称
+  public var nickname: String {
+    get {return _storage._nickname}
+    set {_uniqueStorage()._nickname = newValue}
+  }
+
+  /// ip
+  public var ip: String {
+    get {return _storage._ip}
+    set {_uniqueStorage()._ip = newValue}
+  }
+
+  /// 归属地
+  public var ipAddress: String {
+    get {return _storage._ipAddress}
+    set {_uniqueStorage()._ipAddress = newValue}
+  }
+
+  /// 用户来源
+  public var clientSource: String {
+    get {return _storage._clientSource}
+    set {_uniqueStorage()._clientSource = newValue}
+  }
+
+  /// 质检类型
+  public var checkType: Api_Common_WorkerCheckType {
+    get {return _storage._checkType}
+    set {_uniqueStorage()._checkType = newValue}
+  }
+
+  /// 客服id
+  public var workerID: Int32 {
+    get {return _storage._workerID}
+    set {_uniqueStorage()._workerID = newValue}
+  }
+
+  /// 客服账号
+  public var workerAccount: String {
+    get {return _storage._workerAccount}
+    set {_uniqueStorage()._workerAccount = newValue}
+  }
+
+  /// 客服昵称
+  public var workerNickname: String {
+    get {return _storage._workerNickname}
+    set {_uniqueStorage()._workerNickname = newValue}
+  }
+
+  /// 客服消息量
+  public var workerSendCount: Int32 {
+    get {return _storage._workerSendCount}
+    set {_uniqueStorage()._workerSendCount = newValue}
+  }
+
+  /// 用户消息量
+  public var userSendCount: Int32 {
+    get {return _storage._userSendCount}
+    set {_uniqueStorage()._userSendCount = newValue}
+  }
+
+  /// 质检时长(s)
+  public var readDuration: Int32 {
+    get {return _storage._readDuration}
+    set {_uniqueStorage()._readDuration = newValue}
+  }
+
+  /// 质检时长(时分秒)
+  public var totalReadDuration: String {
+    get {return _storage._totalReadDuration}
+    set {_uniqueStorage()._totalReadDuration = newValue}
+  }
+
+  /// 具体的阅读记录列表
+  public var chatReadLogs: [Api_Core_QualitySessionReadLog] {
+    get {return _storage._chatReadLogs}
+    set {_uniqueStorage()._chatReadLogs = newValue}
+  }
+
+  /// 客户角色
+  public var userRole: Int32 {
+    get {return _storage._userRole}
+    set {_uniqueStorage()._userRole = newValue}
+  }
+
+  /// 用户层级
+  public var userLevel: String {
+    get {return _storage._userLevel}
+    set {_uniqueStorage()._userLevel = newValue}
+  }
+
+  /// 评级
+  public var scoreType: Api_Common_WorkerScoreType {
+    get {return _storage._scoreType}
+    set {_uniqueStorage()._scoreType = newValue}
+  }
+
+  /// 复审评级
+  public var reviewScoreType: Api_Common_WorkerScoreType {
+    get {return _storage._reviewScoreType}
+    set {_uniqueStorage()._reviewScoreType = newValue}
+  }
+
+  /// 问题类型列表
+  public var questionTitles: [String] {
+    get {return _storage._questionTitles}
+    set {_uniqueStorage()._questionTitles = newValue}
+  }
+
+  /// 推送时间
+  public var createdAt: Int64 {
+    get {return _storage._createdAt}
+    set {_uniqueStorage()._createdAt = newValue}
+  }
+
+  /// 评价内容
+  public var scoreContent: String {
+    get {return _storage._scoreContent}
+    set {_uniqueStorage()._scoreContent = newValue}
+  }
+
+  /// 复审评价内容
+  public var reviewContent: String {
+    get {return _storage._reviewContent}
+    set {_uniqueStorage()._reviewContent = newValue}
+  }
+
+  /// 质检时间
+  public var scoreTime: Int64 {
+    get {return _storage._scoreTime}
+    set {_uniqueStorage()._scoreTime = newValue}
+  }
+
+  /// 复审时间
+  public var reviewTime: Int64 {
+    get {return _storage._reviewTime}
+    set {_uniqueStorage()._reviewTime = newValue}
+  }
+
+  /// 质检客服
+  public var scoreWorkerID: Int32 {
+    get {return _storage._scoreWorkerID}
+    set {_uniqueStorage()._scoreWorkerID = newValue}
+  }
+
+  /// 质检客服账号
+  public var auditorAccount: String {
+    get {return _storage._auditorAccount}
+    set {_uniqueStorage()._auditorAccount = newValue}
+  }
+
+  /// 质检客服昵称
+  public var auditorNickname: String {
+    get {return _storage._auditorNickname}
+    set {_uniqueStorage()._auditorNickname = newValue}
+  }
+
+  /// 复检客服
+  public var reviewWorkerID: Int32 {
+    get {return _storage._reviewWorkerID}
+    set {_uniqueStorage()._reviewWorkerID = newValue}
+  }
+
+  /// 复检客服账号
+  public var reviewAccount: String {
+    get {return _storage._reviewAccount}
+    set {_uniqueStorage()._reviewAccount = newValue}
+  }
+
+  /// 复检客服昵称
+  public var reviewNickname: String {
+    get {return _storage._reviewNickname}
+    set {_uniqueStorage()._reviewNickname = newValue}
+  }
+
+  /// 首次发送消息时间
+  public var firstSendTime: UInt32 {
+    get {return _storage._firstSendTime}
+    set {_uniqueStorage()._firstSendTime = newValue}
+  }
+
+  /// 最后回复消息时间
+  public var lastReplyTime: UInt32 {
+    get {return _storage._lastReplyTime}
+    set {_uniqueStorage()._lastReplyTime = newValue}
+  }
+
+  /// 最后消息结束时间
+  public var lastEndTime: UInt32 {
+    get {return _storage._lastEndTime}
+    set {_uniqueStorage()._lastEndTime = newValue}
+  }
+
+  /// 最后推送消息时间
+  public var lastPushTime: UInt32 {
+    get {return _storage._lastPushTime}
+    set {_uniqueStorage()._lastPushTime = newValue}
+  }
+
+  /// 服务时长(s)
+  public var serviceDuration: UInt32 {
+    get {return _storage._serviceDuration}
+    set {_uniqueStorage()._serviceDuration = newValue}
+  }
+
+  /// 对话总时长(时分秒)
+  public var totalDuration: String {
+    get {return _storage._totalDuration}
+    set {_uniqueStorage()._totalDuration = newValue}
+  }
+
+  /// 同组质检结果
+  public var workerQualitySessions: [SwiftProtobuf.Google_Protobuf_Any] {
+    get {return _storage._workerQualitySessions}
+    set {_uniqueStorage()._workerQualitySessions = newValue}
+  }
+
+  /// 订单号
+  public var rechargeOrderNo: String {
+    get {return _storage._rechargeOrderNo}
+    set {_uniqueStorage()._rechargeOrderNo = newValue}
+  }
+
+  /// 订单时间
+  public var rechargeOrderTime: String {
+    get {return _storage._rechargeOrderTime}
+    set {_uniqueStorage()._rechargeOrderTime = newValue}
+  }
+
+  /// 注册来源
+  public var userRegisterSource: String {
+    get {return _storage._userRegisterSource}
+    set {_uniqueStorage()._userRegisterSource = newValue}
+  }
+
+  /// 会话分配时间
+  public var assignTime: UInt32 {
+    get {return _storage._assignTime}
+    set {_uniqueStorage()._assignTime = newValue}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+/// 质检结果汇总
+public struct Api_Core_WorkerQualitySessionSumResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 数据行数
+  public var total: Int32 = 0
+
+  /// 用户层级
+  public var userLevel: Int32 = 0
+
+  /// 客服数量
+  public var workerSum: Int32 = 0
+
+  /// 质检会话数
+  public var sessionSum: Int32 = 0
+
+  /// 质检总时长
+  public var qualityDurationSum: Int32 = 0
+
+  /// 必检会话数
+  public var mustSum: Int32 = 0
+
+  /// 联检会话数
+  public var unionSum: Int32 = 0
+
+  /// 复审会话数
+  public var reviewSum: Int32 = 0
+
+  /// 优异
+  public var perfectSum: Int32 = 0
+
+  /// 正常
+  public var normalSum: Int32 = 0
+
+  /// 较差
+  public var poorSum: Int32 = 0
+
+  /// 极差
+  public var veryPoorSum: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// 质检结果层级汇总
+public struct Api_Core_WorkerQualitySessionSumWithLevel {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 用户层级
+  public var userLevel: Int32 = 0
+
+  /// 数量
+  public var total: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// 质检结果层级汇总返回
+public struct Api_Core_WorkerQualitySessionLevelSumResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var qualitySessionSums: [Api_Core_WorkerQualitySessionSumWithLevel] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_ExportNewQualiyReviewedChatsRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 客服组id
+  public var groupID: Int32 = 0
+
+  /// 客服id
+  public var workerID: Int32 = 0
+
+  /// 客服账号
+  public var workerAccount: String = String()
+
+  /// 用户id
+  public var userID: Int32 = 0
+
+  /// 开始时间(北京时间)
+  public var startTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _startTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_startTime = newValue}
+  }
+  /// Returns true if `startTime` has been explicitly set.
+  public var hasStartTime: Bool {return self._startTime != nil}
+  /// Clears the value of `startTime`. Subsequent reads from it will return its default value.
+  public mutating func clearStartTime() {self._startTime = nil}
+
+  /// 结束时间(北京时间)
+  public var endTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _endTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_endTime = newValue}
+  }
+  /// Returns true if `endTime` has been explicitly set.
+  public var hasEndTime: Bool {return self._endTime != nil}
+  /// Clears the value of `endTime`. Subsequent reads from it will return its default value.
+  public mutating func clearEndTime() {self._endTime = nil}
+
+  /// 质检客服账号
+  public var auditorAccount: String = String()
+
+  /// 排序字段 1-对话时间排序 2-用户消息量排序 3-客服消息量排序 4-阅读时长排序 5-评分排序 6-质检时间排序
+  public var sortBy: Int32 = 0
+
+  /// 排序顺序：1-ASC 2-DESC
+  public var sortOrder: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _startTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _endTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+public struct Api_Core_ChatReadLog {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 质检客服账号
+  public var auditorAccount: String = String()
+
+  /// 质检客服昵称
+  public var auditorNickname: String = String()
+
+  /// 开始阅读时间
+  public var startTime: Int64 = 0
+
+  /// 结束阅读时间
+  public var endTime: Int64 = 0
+
+  /// 阅读时长(分钟)
+  public var readDuration: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_ExportQualityChatsRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 客服组id
+  public var groupID: Int32 = 0
+
+  /// 客服id
+  public var workerID: Int32 = 0
+
+  /// 用户id
+  public var userID: Int32 = 0
+
+  /// 开始时间(北京时间)
+  public var startTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _startTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_startTime = newValue}
+  }
+  /// Returns true if `startTime` has been explicitly set.
+  public var hasStartTime: Bool {return self._startTime != nil}
+  /// Clears the value of `startTime`. Subsequent reads from it will return its default value.
+  public mutating func clearStartTime() {self._startTime = nil}
+
+  /// 结束时间(北京时间)
+  public var endTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _endTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_endTime = newValue}
+  }
+  /// Returns true if `endTime` has been explicitly set.
+  public var hasEndTime: Bool {return self._endTime != nil}
+  /// Clears the value of `endTime`. Subsequent reads from it will return its default value.
+  public mutating func clearEndTime() {self._endTime = nil}
+
+  /// 质检客服账号
+  public var auditorAccount: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _startTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _endTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+public struct Api_Core_AddQualitySessionReadLogRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 对话质检会话id
+  public var qualitySessionID: Int64 = 0
+
+  /// 客服id
+  public var workerID: Int32 = 0
+
+  /// 开始阅读时间
+  public var startTime: UInt32 = 0
+
+  /// 结束阅读时间
+  public var endTime: UInt32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_QualitySessionReadLog {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 质检客服账号
+  public var checkWorkerAccount: String = String()
+
+  /// 质检客服昵称
+  public var checkWorkerNickname: String = String()
+
+  /// 开始阅读时间
+  public var startTime: UInt32 = 0
+
+  /// 结束阅读时间
+  public var endTime: UInt32 = 0
+
+  /// 阅读时长(分钟)
+  public var readDuration: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_AddChatReadLogRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 客服id
+  public var workerID: Int32 = 0
+
+  /// 会话id
+  public var chatID: Int64 = 0
+
+  /// 开始阅读时间
+  public var startTime: Int64 = 0
+
+  /// 结束阅读时间
+  public var endTime: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_QualityItem {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var workerID: Int32 = 0
+
+  /// 客服昵称/客服账号
+  public var workerDetail: String = String()
+
+  /// 接待用户数
+  public var userSum: Int32 = 0
+
+  /// 总会话数
+  public var chatSum: Int32 = 0
+
+  /// 被质检数
+  public var qualitySum: Int32 = 0
+
+  /// 质检率
+  public var qualityRadio: String = String()
+
+  /// 联检数/比例
+  public var qualityUnion: String = String()
+
+  /// 必检数/比例
+  public var qualityMust: String = String()
+
+  /// 复审数/比例
+  public var qualityReview: String = String()
+
+  /// 极差/比例
+  public var veryPool: String = String()
+
+  /// 较差/比例
+  public var poor: String = String()
+
+  /// 正常/比例
+  public var normal: String = String()
+
+  /// 优异/比例
+  public var excellent: String = String()
+
+  /// 合格率
+  public var qualificationPercent: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_QualityTotal {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 客服数
+  public var workerTotal: Int32 = 0
+
+  /// 接待用户数
+  public var userTotal: Int32 = 0
+
+  /// 会话数
+  public var chatTotal: Int32 = 0
+
+  /// 质检数
+  public var qualityTotal: Int32 = 0
+
+  /// 质检率
+  public var qualityRadioTotal: String = String()
+
+  /// 联检数/比例
+  public var qualityUnionTotal: String = String()
+
+  /// 必检数/比例
+  public var qualityMustTotal: String = String()
+
+  /// 复审数/比例
+  public var qualityReviewTotal: String = String()
+
+  /// 极差/比例
+  public var veryPoolTotal: String = String()
+
+  /// 较差/比例
+  public var poorTotal: String = String()
+
+  /// 正常/比例
+  public var normalTotal: String = String()
+
+  /// 优异/比例
+  public var excellentTotal: String = String()
+
+  /// 合格率
+  public var qualificationPercentTotal: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_QualityQueryReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 页数
+  public var page: UInt32 = 0
+
+  /// 每页大小
+  public var pageSize: UInt32 = 0
+
+  /// 开始时间(北京时间)
+  public var startTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _startTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_startTime = newValue}
+  }
+  /// Returns true if `startTime` has been explicitly set.
+  public var hasStartTime: Bool {return self._startTime != nil}
+  /// Clears the value of `startTime`. Subsequent reads from it will return its default value.
+  public mutating func clearStartTime() {self._startTime = nil}
+
+  /// 结束时间(北京时间)
+  public var endTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _endTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_endTime = newValue}
+  }
+  /// Returns true if `endTime` has been explicitly set.
+  public var hasEndTime: Bool {return self._endTime != nil}
+  /// Clears the value of `endTime`. Subsequent reads from it will return its default value.
+  public mutating func clearEndTime() {self._endTime = nil}
+
+  public var groupPid: Int32 = 0
+
+  public var workerID: Int32 = 0
+
+  public var sortName: String = String()
+
+  /// 1降序 2升序
+  public var sortType: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _startTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _endTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+public struct Api_Core_QualityQueryResp {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var items: [Api_Core_QualityItem] = []
+
+  public var total: Int32 = 0
+
+  public var qualityTotal: Api_Core_QualityTotal {
+    get {return _qualityTotal ?? Api_Core_QualityTotal()}
+    set {_qualityTotal = newValue}
+  }
+  /// Returns true if `qualityTotal` has been explicitly set.
+  public var hasQualityTotal: Bool {return self._qualityTotal != nil}
+  /// Clears the value of `qualityTotal`. Subsequent reads from it will return its default value.
+  public mutating func clearQualityTotal() {self._qualityTotal = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _qualityTotal: Api_Core_QualityTotal? = nil
+}
+
+public struct Api_Core_QualityCreateReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var chatID: Int64 = 0
+
+  ///质检数据id
+  public var sourceID: Int64 = 0
+
+  ///评级1/2/3/4 优异/正常/较差/极差
+  public var score: Api_Common_WorkerScoreType = .wstUnknown
+
+  ///评价
+  public var content: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_QualityDetailReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 质检数据id
+  public var sourceID: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_QualityDetailResp {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  ///质检数据id
+  public var sourceID: Int64 = 0
+
+  ///评级
+  public var score: Api_Common_WorkerScoreType = .wstUnknown
+
+  ///评价
+  public var content: String = String()
+
+  ///复审评级
+  public var reviewScore: Api_Common_WorkerScoreType = .wstUnknown
+
+  ///复审评价
+  public var reviewContent: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_QualityScoreItem {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var qualityWorkerID: Int32 = 0
+
+  public var qualityWorkerName: String = String()
+
+  ///评级
+  public var score: Api_Common_WorkerScoreType = .wstUnknown
+
+  ///评价
+  public var content: String = String()
+
+  ///复审评级
+  public var reviewScore: Api_Common_WorkerScoreType = .wstUnknown
+
+  ///复审评价
+  public var reviewContent: String = String()
+
+  /// 质检数据id
+  public var qualitySessionID: Int64 = 0
+
+  public var qualityWorkerAccount: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_QualityDetailListResp {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var item: [Api_Core_QualityScoreItem] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_WorkerQualitiesRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 客服id
+  public var workerID: Int32 = 0
+
+  /// 会话id
+  public var chatID: Int64 = 0
+
+  /// 质检客服账号
+  public var auditorAccount: String = String()
+
+  /// 开始阅读时间
+  public var startTime: Int64 = 0
+
+  /// 结束阅读时间
+  public var endTime: Int64 = 0
+
+  /// 页数
+  public var page: UInt32 = 0
+
+  /// 每页大小
+  public var pageSize: UInt32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_WorkerQualitiesResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 会话质检列表
+  public var workerQualities: [Api_Core_WorkerQuality] = []
+
+  /// 总数
+  public var total: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_WorkerQuality {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 咨询id
+  public var consultID: UInt32 = 0
+
+  /// 会话id
+  public var chatID: Int64 = 0
+
+  /// 最新评价时间
+  public var scoreTime: Int64 = 0
+
+  /// 客服id
+  public var workerID: Int32 = 0
+
+  /// 客服账号
+  public var workerAccount: String = String()
+
+  /// 客服昵称
+  public var workerNickname: String = String()
+
+  /// 开始阅读时间
+  public var startTime: Int64 = 0
+
+  /// 结束阅读时间
+  public var endTime: Int64 = 0
+
+  /// 阅读时长
+  public var readDuration: String = String()
+
+  /// 评分
+  public var score: Float = 0
+
+  /// 评价内容
+  public var content: String = String()
+
+  /// 评分日期
+  public var scoreDate: String = String()
+
+  /// 质检客服账号
+  public var auditorAccount: String = String()
+
+  /// 质检客服昵称
+  public var auditorNickname: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_SessionMessageWorkersRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 客服id
+  public var workerID: Int32 = 0
+
+  /// 会话id
+  public var chatID: Int64 = 0
+
+  /// 开始时间(北京时间)
+  public var startTime: Int64 = 0
+
+  /// 结束时间(北京时间)
+  public var endTime: Int64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_SessionMessageWorkersResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 会话消息客服列表
+  public var sessionMessageWorkers: [Api_Core_SessionMessageWorker] = []
+
+  /// 总数
+  public var total: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_SessionMessageWorker {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 会话id
+  public var chatID: Int64 = 0
+
+  /// 客服id
+  public var workerID: Int32 = 0
+
+  /// 客服账号
+  public var workerAccount: String = String()
+
+  /// 客服昵称
+  public var workerNickname: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_CheckItem {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 审核人账号
+  public var account: String = String()
+
+  /// 审核人昵称
+  public var nickName: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_QualityCheckerResp {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var items: [Api_Core_CheckItem] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_TransferSessionLogReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 页数
+  public var page: UInt32 = 0
+
+  /// 每页大小
+  public var pageSize: UInt32 = 0
+
+  /// 转接客服账号
+  public var fromWorkerAccount: String {
+    get {return _fromWorkerAccount ?? String()}
+    set {_fromWorkerAccount = newValue}
+  }
+  /// Returns true if `fromWorkerAccount` has been explicitly set.
+  public var hasFromWorkerAccount: Bool {return self._fromWorkerAccount != nil}
+  /// Clears the value of `fromWorkerAccount`. Subsequent reads from it will return its default value.
+  public mutating func clearFromWorkerAccount() {self._fromWorkerAccount = nil}
+
+  /// 会话id
+  public var chatID: Int64 {
+    get {return _chatID ?? 0}
+    set {_chatID = newValue}
+  }
+  /// Returns true if `chatID` has been explicitly set.
+  public var hasChatID: Bool {return self._chatID != nil}
+  /// Clears the value of `chatID`. Subsequent reads from it will return its default value.
+  public mutating func clearChatID() {self._chatID = nil}
+
+  /// 用户ID
+  public var userID: Int32 {
+    get {return _userID ?? 0}
+    set {_userID = newValue}
+  }
+  /// Returns true if `userID` has been explicitly set.
+  public var hasUserID: Bool {return self._userID != nil}
+  /// Clears the value of `userID`. Subsequent reads from it will return its default value.
+  public mutating func clearUserID() {self._userID = nil}
+
+  /// 开始时间
+  public var start: String {
+    get {return _start ?? String()}
+    set {_start = newValue}
+  }
+  /// Returns true if `start` has been explicitly set.
+  public var hasStart: Bool {return self._start != nil}
+  /// Clears the value of `start`. Subsequent reads from it will return its default value.
+  public mutating func clearStart() {self._start = nil}
+
+  /// 结束时间
+  public var end: String {
+    get {return _end ?? String()}
+    set {_end = newValue}
+  }
+  /// Returns true if `end` has been explicitly set.
+  public var hasEnd: Bool {return self._end != nil}
+  /// Clears the value of `end`. Subsequent reads from it will return its default value.
+  public mutating func clearEnd() {self._end = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _fromWorkerAccount: String? = nil
+  fileprivate var _chatID: Int64? = nil
+  fileprivate var _userID: Int32? = nil
+  fileprivate var _start: String? = nil
+  fileprivate var _end: String? = nil
+}
+
+public struct Api_Core_TransferSessionLogResp {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var items: [Api_Core_TransferSessionLog] = []
+
+  public var total: UInt64 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_TransferSessionLog {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var userID: Int32 = 0
+
+  public var fromWorker: String = String()
+
+  public var toWorker: String = String()
+
+  public var sessionID: Int64 = 0
+
+  public var transferDate: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// 客服封禁日志
+public struct Api_Core_WorkerAccountBannedListReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 页数
+  public var page: UInt32 = 0
+
+  /// 每页大小
+  public var pageSize: UInt32 = 0
+
+  /// 客服账号
+  public var workerAccount: String {
+    get {return _workerAccount ?? String()}
+    set {_workerAccount = newValue}
+  }
+  /// Returns true if `workerAccount` has been explicitly set.
+  public var hasWorkerAccount: Bool {return self._workerAccount != nil}
+  /// Clears the value of `workerAccount`. Subsequent reads from it will return its default value.
+  public mutating func clearWorkerAccount() {self._workerAccount = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _workerAccount: String? = nil
+}
+
+public struct Api_Core_WorkerAccountUnbanReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var workerAccount: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_WorkerAccountBannedItem {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var workerAccount: String = String()
+
+  public var workerName: String = String()
+
+  public var workerGroups: String = String()
+
+  public var attemptedIp: String = String()
+
+  public var bannedTime: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_WorkerAccountBannedListResp {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var list: [Api_Core_WorkerAccountBannedItem] = []
+
+  public var total: UInt32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_WorkerIPBannedListReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 页数
+  public var page: UInt32 = 0
+
+  /// 每页大小
+  public var pageSize: UInt32 = 0
+
+  /// 客服账号
+  public var workerIp: String {
+    get {return _workerIp ?? String()}
+    set {_workerIp = newValue}
+  }
+  /// Returns true if `workerIp` has been explicitly set.
+  public var hasWorkerIp: Bool {return self._workerIp != nil}
+  /// Clears the value of `workerIp`. Subsequent reads from it will return its default value.
+  public mutating func clearWorkerIp() {self._workerIp = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _workerIp: String? = nil
+}
+
+public struct Api_Core_WorkerIPUnbanReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var ip: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_WorkerIPBannedItem {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var workerIp: String = String()
+
+  public var bannedTime: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Api_Core_WorkerIPBannedListResp {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var list: [Api_Core_WorkerIPBannedItem] = []
+
+  public var total: UInt32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// 客服后台路由列表请求参数
+public struct Api_Core_WorkerRouteListRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 分页参数
+  public var batch: CommonPage {
+    get {return _batch ?? CommonPage()}
+    set {_batch = newValue}
+  }
+  /// Returns true if `batch` has been explicitly set.
+  public var hasBatch: Bool {return self._batch != nil}
+  /// Clears the value of `batch`. Subsequent reads from it will return its default value.
+  public mutating func clearBatch() {self._batch = nil}
+
+  /// name
+  public var name: String {
+    get {return _name ?? String()}
+    set {_name = newValue}
+  }
+  /// Returns true if `name` has been explicitly set.
+  public var hasName: Bool {return self._name != nil}
+  /// Clears the value of `name`. Subsequent reads from it will return its default value.
+  public mutating func clearName() {self._name = nil}
+
+  /// url
+  public var url: String {
+    get {return _url ?? String()}
+    set {_url = newValue}
+  }
+  /// Returns true if `url` has been explicitly set.
+  public var hasURL: Bool {return self._url != nil}
+  /// Clears the value of `url`. Subsequent reads from it will return its default value.
+  public mutating func clearURL() {self._url = nil}
+
+  /// pid 0:一级路由
+  public var pid: Int32 {
+    get {return _pid ?? 0}
+    set {_pid = newValue}
+  }
+  /// Returns true if `pid` has been explicitly set.
+  public var hasPid: Bool {return self._pid != nil}
+  /// Clears the value of `pid`. Subsequent reads from it will return its default value.
+  public mutating func clearPid() {self._pid = nil}
+
+  /// role_type
+  public var roleType: Api_Common_WorkerRoleType {
+    get {return _roleType ?? .wrtDefault}
+    set {_roleType = newValue}
+  }
+  /// Returns true if `roleType` has been explicitly set.
+  public var hasRoleType: Bool {return self._roleType != nil}
+  /// Clears the value of `roleType`. Subsequent reads from it will return its default value.
+  public mutating func clearRoleType() {self._roleType = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _batch: CommonPage? = nil
+  fileprivate var _name: String? = nil
+  fileprivate var _url: String? = nil
+  fileprivate var _pid: Int32? = nil
+  fileprivate var _roleType: Api_Common_WorkerRoleType? = nil
+}
+
+/// 客服后台路由列表返回参数
+public struct Api_Core_WorkerRouteListResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 分页参数
+  public var batch: CommonPage {
+    get {return _batch ?? CommonPage()}
+    set {_batch = newValue}
+  }
+  /// Returns true if `batch` has been explicitly set.
+  public var hasBatch: Bool {return self._batch != nil}
+  /// Clears the value of `batch`. Subsequent reads from it will return its default value.
+  public mutating func clearBatch() {self._batch = nil}
+
+  /// list
+  public var list: [Api_Common_WorkerRoute] = []
+
+  /// 总数
+  public var total: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _batch: CommonPage? = nil
+}
+
+/// 客服后台路由创建请求参数
+public struct Api_Core_WorkerRouteCreateRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// name
+  public var name: String = String()
+
+  /// url
+  public var url: String = String()
+
+  /// pid
+  public var pid: Int32 = 0
+
+  /// sort
+  public var sort: Int32 = 0
+
+  /// remark
+  public var remark: String = String()
+
+  /// role_type
+  public var roleType: Api_Common_WorkerRoleType = .wrtDefault
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// 客服后台路由更新请求参数
+public struct Api_Core_WorkerRouteUpdateRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// id
+  public var id: Int32 = 0
+
+  /// name
+  public var name: String = String()
+
+  /// url
+  public var url: String = String()
+
+  /// pid
+  public var pid: Int32 = 0
+
+  /// sort
+  public var sort: Int32 = 0
+
+  /// remark
+  public var remark: String = String()
+
+  /// role_type
+  public var roleType: Api_Common_WorkerRoleType = .wrtDefault
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// 客服后台路由删除返回参数
+public struct Api_Core_WorkerRouteDeleteRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var id: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// 客服后台角色列表请求参数
+public struct Api_Core_WorkerRoleListRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 分页参数
+  public var batch: CommonPage {
+    get {return _batch ?? CommonPage()}
+    set {_batch = newValue}
+  }
+  /// Returns true if `batch` has been explicitly set.
+  public var hasBatch: Bool {return self._batch != nil}
+  /// Clears the value of `batch`. Subsequent reads from it will return its default value.
+  public mutating func clearBatch() {self._batch = nil}
+
+  /// name
+  public var name: String {
+    get {return _name ?? String()}
+    set {_name = newValue}
+  }
+  /// Returns true if `name` has been explicitly set.
+  public var hasName: Bool {return self._name != nil}
+  /// Clears the value of `name`. Subsequent reads from it will return its default value.
+  public mutating func clearName() {self._name = nil}
+
+  public var listCall: Bool = false
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _batch: CommonPage? = nil
+  fileprivate var _name: String? = nil
+}
+
+/// 客服后台角色列表返回参数
+public struct Api_Core_WorkerRoleListResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 分页参数
+  public var batch: CommonPage {
+    get {return _batch ?? CommonPage()}
+    set {_batch = newValue}
+  }
+  /// Returns true if `batch` has been explicitly set.
+  public var hasBatch: Bool {return self._batch != nil}
+  /// Clears the value of `batch`. Subsequent reads from it will return its default value.
+  public mutating func clearBatch() {self._batch = nil}
+
+  /// list
+  public var list: [Api_Common_WorkerRole] = []
+
+  /// total
+  public var total: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _batch: CommonPage? = nil
+}
+
+/// 客服后台路由创建请求参数
+public struct Api_Core_WorkerRoleCreateRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// name
+  public var name: String = String()
+
+  /// 排序
+  public var sort: Int32 = 0
+
+  /// 描述
+  public var remark: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// 客服后台路由更新请求参数
+public struct Api_Core_WorkerRoleUpdateRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// id
+  public var id: Int32 = 0
+
+  /// name
+  public var name: String = String()
+
+  /// 排序
+  public var sort: Int32 = 0
+
+  /// 描述
+  public var remark: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// 客服后台路由删除返回参数
+public struct Api_Core_WorkerRoleDeleteRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var id: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// 客服后台路由列表树请求参数
+public struct Api_Core_WorkerRoleRouteRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// role_id
+  public var roleID: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// 客服后台路由列表树返回参数
+public struct Api_Core_WorkerRoleRouteTree {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 角色id
+  public var id: Int32 = 0
+
+  /// 角色name
+  public var name: String = String()
+
+  /// sort
+  public var sort: Int32 = 0
+
+  /// 描述
+  public var remark: String = String()
+
+  /// role_type路由map
+  public var routeTypeRoutes: [Api_Common_WorkerRouteTypeRoutes] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// 客服后台角色列表请求参数
+public struct Api_Core_WorkerRoleRouteUpdateRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// role_id
+  public var roleID: Int32 = 0
+
+  /// route_ids
+  public var routeIds: [Int32] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Api_Core_WorkerQueryRequest: @unchecked Sendable {}
 extension Api_Core_WorkerQueryResponse: @unchecked Sendable {}
+extension Api_Core_WorkerQueryAllResponse: @unchecked Sendable {}
 extension Api_Core_WorkerQuerySelfResponse: @unchecked Sendable {}
 extension Api_Core_NIMAccountRequest: @unchecked Sendable {}
 extension Api_Core_NIMAccountResponse: @unchecked Sendable {}
@@ -1433,8 +3873,10 @@ extension Api_Core_UnfreezeSessionResponse: @unchecked Sendable {}
 extension Api_Core_QuerySessionRequest: @unchecked Sendable {}
 extension Api_Core_QuerySessionResponse: @unchecked Sendable {}
 extension Api_Core_NotifyMessageRequest: @unchecked Sendable {}
+extension Api_Core_BatchNotifyMessageReq: @unchecked Sendable {}
 extension Api_Core_TransferMessageReq: @unchecked Sendable {}
 extension Api_Core_ThirdOrder: @unchecked Sendable {}
+extension Api_Core_ThirdUserInfo: @unchecked Sendable {}
 extension Api_Core_TransferMessageRsp: @unchecked Sendable {}
 extension Api_Core_HistoryRechargesRequest: @unchecked Sendable {}
 extension Api_Core_HistoryRechargesResponse: @unchecked Sendable {}
@@ -1452,6 +3894,69 @@ extension Api_Core_GlReq: @unchecked Sendable {}
 extension Api_Core_GlResp: @unchecked Sendable {}
 extension Api_Core_WorkerTransferAllReq: @unchecked Sendable {}
 extension Api_Core_WorkerTransferAllResp: @unchecked Sendable {}
+extension Api_Core_QualityChatsRequest: @unchecked Sendable {}
+extension Api_Core_QualityChatsResponse: @unchecked Sendable {}
+extension Api_Core_QualityChat: @unchecked Sendable {}
+extension Api_Core_NewQualityChatsRequest: @unchecked Sendable {}
+extension Api_Core_NewQualityChatsResponse: @unchecked Sendable {}
+extension Api_Core_WorkerQualitySessionsRequest: @unchecked Sendable {}
+extension Api_Core_WorkerQualitySessionsResponse: @unchecked Sendable {}
+extension Api_Core_QualitySession: @unchecked Sendable {}
+extension Api_Core_QualiyReviewedChatsRequest: @unchecked Sendable {}
+extension Api_Core_QualiyReviewedChatsResponse: @unchecked Sendable {}
+extension Api_Core_NewQualiyReviewedChatsRequest: @unchecked Sendable {}
+extension Api_Core_NewQualiyReviewedChatsResponse: @unchecked Sendable {}
+extension Api_Core_WorkerQualitySession: @unchecked Sendable {}
+extension Api_Core_WorkerQualitySessionSumResponse: @unchecked Sendable {}
+extension Api_Core_WorkerQualitySessionSumWithLevel: @unchecked Sendable {}
+extension Api_Core_WorkerQualitySessionLevelSumResponse: @unchecked Sendable {}
+extension Api_Core_ExportNewQualiyReviewedChatsRequest: @unchecked Sendable {}
+extension Api_Core_ChatReadLog: @unchecked Sendable {}
+extension Api_Core_ExportQualityChatsRequest: @unchecked Sendable {}
+extension Api_Core_AddQualitySessionReadLogRequest: @unchecked Sendable {}
+extension Api_Core_QualitySessionReadLog: @unchecked Sendable {}
+extension Api_Core_AddChatReadLogRequest: @unchecked Sendable {}
+extension Api_Core_QualityItem: @unchecked Sendable {}
+extension Api_Core_QualityTotal: @unchecked Sendable {}
+extension Api_Core_QualityQueryReq: @unchecked Sendable {}
+extension Api_Core_QualityQueryResp: @unchecked Sendable {}
+extension Api_Core_QualityCreateReq: @unchecked Sendable {}
+extension Api_Core_QualityDetailReq: @unchecked Sendable {}
+extension Api_Core_QualityDetailResp: @unchecked Sendable {}
+extension Api_Core_QualityScoreItem: @unchecked Sendable {}
+extension Api_Core_QualityDetailListResp: @unchecked Sendable {}
+extension Api_Core_WorkerQualitiesRequest: @unchecked Sendable {}
+extension Api_Core_WorkerQualitiesResponse: @unchecked Sendable {}
+extension Api_Core_WorkerQuality: @unchecked Sendable {}
+extension Api_Core_SessionMessageWorkersRequest: @unchecked Sendable {}
+extension Api_Core_SessionMessageWorkersResponse: @unchecked Sendable {}
+extension Api_Core_SessionMessageWorker: @unchecked Sendable {}
+extension Api_Core_CheckItem: @unchecked Sendable {}
+extension Api_Core_QualityCheckerResp: @unchecked Sendable {}
+extension Api_Core_TransferSessionLogReq: @unchecked Sendable {}
+extension Api_Core_TransferSessionLogResp: @unchecked Sendable {}
+extension Api_Core_TransferSessionLog: @unchecked Sendable {}
+extension Api_Core_WorkerAccountBannedListReq: @unchecked Sendable {}
+extension Api_Core_WorkerAccountUnbanReq: @unchecked Sendable {}
+extension Api_Core_WorkerAccountBannedItem: @unchecked Sendable {}
+extension Api_Core_WorkerAccountBannedListResp: @unchecked Sendable {}
+extension Api_Core_WorkerIPBannedListReq: @unchecked Sendable {}
+extension Api_Core_WorkerIPUnbanReq: @unchecked Sendable {}
+extension Api_Core_WorkerIPBannedItem: @unchecked Sendable {}
+extension Api_Core_WorkerIPBannedListResp: @unchecked Sendable {}
+extension Api_Core_WorkerRouteListRequest: @unchecked Sendable {}
+extension Api_Core_WorkerRouteListResponse: @unchecked Sendable {}
+extension Api_Core_WorkerRouteCreateRequest: @unchecked Sendable {}
+extension Api_Core_WorkerRouteUpdateRequest: @unchecked Sendable {}
+extension Api_Core_WorkerRouteDeleteRequest: @unchecked Sendable {}
+extension Api_Core_WorkerRoleListRequest: @unchecked Sendable {}
+extension Api_Core_WorkerRoleListResponse: @unchecked Sendable {}
+extension Api_Core_WorkerRoleCreateRequest: @unchecked Sendable {}
+extension Api_Core_WorkerRoleUpdateRequest: @unchecked Sendable {}
+extension Api_Core_WorkerRoleDeleteRequest: @unchecked Sendable {}
+extension Api_Core_WorkerRoleRouteRequest: @unchecked Sendable {}
+extension Api_Core_WorkerRoleRouteTree: @unchecked Sendable {}
+extension Api_Core_WorkerRoleRouteUpdateRequest: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -1561,6 +4066,38 @@ extension Api_Core_WorkerQueryResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
     if lhs.items != rhs.items {return false}
     if lhs._batch != rhs._batch {return false}
     if lhs.total != rhs.total {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerQueryAllResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerQueryAllResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "items"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.items.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.items, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerQueryAllResponse, rhs: Api_Core_WorkerQueryAllResponse) -> Bool {
+    if lhs.items != rhs.items {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1696,7 +4233,7 @@ extension Api_Core_WorkerCreateRequest: SwiftProtobuf.Message, SwiftProtobuf._Me
     1: .same(proto: "account"),
     2: .same(proto: "password"),
     3: .standard(proto: "group_ids"),
-    4: .standard(proto: "perm_mask"),
+    5: .standard(proto: "role_id"),
     6: .same(proto: "name"),
     7: .same(proto: "avatar"),
     8: .same(proto: "bneednim"),
@@ -1714,7 +4251,7 @@ extension Api_Core_WorkerCreateRequest: SwiftProtobuf.Message, SwiftProtobuf._Me
       case 1: try { try decoder.decodeSingularStringField(value: &self.account) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.password) }()
       case 3: try { try decoder.decodeRepeatedInt64Field(value: &self.groupIds) }()
-      case 4: try { try decoder.decodeSingularInt32Field(value: &self.permMask) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.roleID) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.name) }()
       case 7: try { try decoder.decodeSingularStringField(value: &self.avatar) }()
       case 8: try { try decoder.decodeSingularBoolField(value: &self._bneednim) }()
@@ -1740,8 +4277,8 @@ extension Api_Core_WorkerCreateRequest: SwiftProtobuf.Message, SwiftProtobuf._Me
     if !self.groupIds.isEmpty {
       try visitor.visitPackedInt64Field(value: self.groupIds, fieldNumber: 3)
     }
-    if self.permMask != 0 {
-      try visitor.visitSingularInt32Field(value: self.permMask, fieldNumber: 4)
+    if self.roleID != 0 {
+      try visitor.visitSingularInt32Field(value: self.roleID, fieldNumber: 5)
     }
     if !self.name.isEmpty {
       try visitor.visitSingularStringField(value: self.name, fieldNumber: 6)
@@ -1768,7 +4305,7 @@ extension Api_Core_WorkerCreateRequest: SwiftProtobuf.Message, SwiftProtobuf._Me
     if lhs.account != rhs.account {return false}
     if lhs.password != rhs.password {return false}
     if lhs.groupIds != rhs.groupIds {return false}
-    if lhs.permMask != rhs.permMask {return false}
+    if lhs.roleID != rhs.roleID {return false}
     if lhs.name != rhs.name {return false}
     if lhs.avatar != rhs.avatar {return false}
     if lhs._bneednim != rhs._bneednim {return false}
@@ -1786,7 +4323,7 @@ extension Api_Core_WorkerUpdateRequest: SwiftProtobuf.Message, SwiftProtobuf._Me
     1: .standard(proto: "worker_id"),
     2: .same(proto: "password"),
     3: .standard(proto: "group_ids"),
-    5: .standard(proto: "perm_mask"),
+    4: .standard(proto: "role_id"),
     6: .same(proto: "name"),
     7: .same(proto: "avatar"),
     8: .same(proto: "nimid"),
@@ -1804,7 +4341,7 @@ extension Api_Core_WorkerUpdateRequest: SwiftProtobuf.Message, SwiftProtobuf._Me
       case 1: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self._password) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._groupIds) }()
-      case 5: try { try decoder.decodeSingularInt32Field(value: &self._permMask) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self._roleID) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self._name) }()
       case 7: try { try decoder.decodeSingularStringField(value: &self._avatar) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self._nimid) }()
@@ -1830,8 +4367,8 @@ extension Api_Core_WorkerUpdateRequest: SwiftProtobuf.Message, SwiftProtobuf._Me
     try { if let v = self._groupIds {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
     } }()
-    try { if let v = self._permMask {
-      try visitor.visitSingularInt32Field(value: v, fieldNumber: 5)
+    try { if let v = self._roleID {
+      try visitor.visitSingularInt32Field(value: v, fieldNumber: 4)
     } }()
     try { if let v = self._name {
       try visitor.visitSingularStringField(value: v, fieldNumber: 6)
@@ -1858,7 +4395,7 @@ extension Api_Core_WorkerUpdateRequest: SwiftProtobuf.Message, SwiftProtobuf._Me
     if lhs.workerID != rhs.workerID {return false}
     if lhs._password != rhs._password {return false}
     if lhs._groupIds != rhs._groupIds {return false}
-    if lhs._permMask != rhs._permMask {return false}
+    if lhs._roleID != rhs._roleID {return false}
     if lhs._name != rhs._name {return false}
     if lhs._avatar != rhs._avatar {return false}
     if lhs._nimid != rhs._nimid {return false}
@@ -3183,9 +5720,10 @@ extension Api_Core_QuerySessionResponse: SwiftProtobuf.Message, SwiftProtobuf._M
 extension Api_Core_NotifyMessageRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".NotifyMessageRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    3: .same(proto: "consultid"),
-    4: .same(proto: "userid"),
-    5: .same(proto: "msg"),
+    1: .same(proto: "consultid"),
+    2: .same(proto: "userid"),
+    3: .same(proto: "account"),
+    4: .same(proto: "msg"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3194,23 +5732,31 @@ extension Api_Core_NotifyMessageRequest: SwiftProtobuf.Message, SwiftProtobuf._M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 3: try { try decoder.decodeSingularInt32Field(value: &self.consultid) }()
-      case 4: try { try decoder.decodeSingularInt32Field(value: &self.userid) }()
-      case 5: try { try decoder.decodeSingularStringField(value: &self.msg) }()
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.consultid) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.userid) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self._account) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.msg) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
     if self.consultid != 0 {
-      try visitor.visitSingularInt32Field(value: self.consultid, fieldNumber: 3)
+      try visitor.visitSingularInt32Field(value: self.consultid, fieldNumber: 1)
     }
     if self.userid != 0 {
-      try visitor.visitSingularInt32Field(value: self.userid, fieldNumber: 4)
+      try visitor.visitSingularInt32Field(value: self.userid, fieldNumber: 2)
     }
+    try { if let v = self._account {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+    } }()
     if !self.msg.isEmpty {
-      try visitor.visitSingularStringField(value: self.msg, fieldNumber: 5)
+      try visitor.visitSingularStringField(value: self.msg, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -3218,7 +5764,40 @@ extension Api_Core_NotifyMessageRequest: SwiftProtobuf.Message, SwiftProtobuf._M
   public static func ==(lhs: Api_Core_NotifyMessageRequest, rhs: Api_Core_NotifyMessageRequest) -> Bool {
     if lhs.consultid != rhs.consultid {return false}
     if lhs.userid != rhs.userid {return false}
+    if lhs._account != rhs._account {return false}
     if lhs.msg != rhs.msg {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_BatchNotifyMessageReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".BatchNotifyMessageReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "items"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.items.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.items, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_BatchNotifyMessageReq, rhs: Api_Core_BatchNotifyMessageReq) -> Bool {
+    if lhs.items != rhs.items {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3459,6 +6038,56 @@ extension Api_Core_ThirdOrder: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       }
       if !storagesAreEqual {return false}
     }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_ThirdUserInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ThirdUserInfo"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "child_type"),
+    2: .standard(proto: "agent_child"),
+    3: .standard(proto: "allwin_child"),
+    4: .standard(proto: "invite_friends_child"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.childType) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.agentChild) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.allwinChild) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.inviteFriendsChild) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.childType.isEmpty {
+      try visitor.visitSingularStringField(value: self.childType, fieldNumber: 1)
+    }
+    if !self.agentChild.isEmpty {
+      try visitor.visitSingularStringField(value: self.agentChild, fieldNumber: 2)
+    }
+    if !self.allwinChild.isEmpty {
+      try visitor.visitSingularStringField(value: self.allwinChild, fieldNumber: 3)
+    }
+    if !self.inviteFriendsChild.isEmpty {
+      try visitor.visitSingularStringField(value: self.inviteFriendsChild, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_ThirdUserInfo, rhs: Api_Core_ThirdUserInfo) -> Bool {
+    if lhs.childType != rhs.childType {return false}
+    if lhs.agentChild != rhs.agentChild {return false}
+    if lhs.allwinChild != rhs.allwinChild {return false}
+    if lhs.inviteFriendsChild != rhs.inviteFriendsChild {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -4151,6 +6780,4370 @@ extension Api_Core_WorkerTransferAllResp: SwiftProtobuf.Message, SwiftProtobuf._
   public static func ==(lhs: Api_Core_WorkerTransferAllResp, rhs: Api_Core_WorkerTransferAllResp) -> Bool {
     if lhs.ok != rhs.ok {return false}
     if lhs.msg != rhs.msg {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QualityChatsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QualityChatsRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "group_id"),
+    2: .standard(proto: "worker_id"),
+    3: .standard(proto: "user_id"),
+    5: .standard(proto: "start_time"),
+    6: .standard(proto: "end_time"),
+    8: .same(proto: "page"),
+    9: .same(proto: "pageSize"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.groupID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.userID) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._startTime) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._endTime) }()
+      case 8: try { try decoder.decodeSingularUInt32Field(value: &self.page) }()
+      case 9: try { try decoder.decodeSingularUInt32Field(value: &self.pageSize) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.groupID != 0 {
+      try visitor.visitSingularInt32Field(value: self.groupID, fieldNumber: 1)
+    }
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 2)
+    }
+    if self.userID != 0 {
+      try visitor.visitSingularInt32Field(value: self.userID, fieldNumber: 3)
+    }
+    try { if let v = self._startTime {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
+    try { if let v = self._endTime {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
+    if self.page != 0 {
+      try visitor.visitSingularUInt32Field(value: self.page, fieldNumber: 8)
+    }
+    if self.pageSize != 0 {
+      try visitor.visitSingularUInt32Field(value: self.pageSize, fieldNumber: 9)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QualityChatsRequest, rhs: Api_Core_QualityChatsRequest) -> Bool {
+    if lhs.groupID != rhs.groupID {return false}
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.userID != rhs.userID {return false}
+    if lhs._startTime != rhs._startTime {return false}
+    if lhs._endTime != rhs._endTime {return false}
+    if lhs.page != rhs.page {return false}
+    if lhs.pageSize != rhs.pageSize {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QualityChatsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QualityChatsResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "quality_chats"),
+    2: .same(proto: "total"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.qualityChats) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.total) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.qualityChats.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.qualityChats, fieldNumber: 1)
+    }
+    if self.total != 0 {
+      try visitor.visitSingularInt32Field(value: self.total, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QualityChatsResponse, rhs: Api_Core_QualityChatsResponse) -> Bool {
+    if lhs.qualityChats != rhs.qualityChats {return false}
+    if lhs.total != rhs.total {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QualityChat: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QualityChat"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .standard(proto: "consult_id"),
+    3: .standard(proto: "chat_id"),
+    4: .same(proto: "uid"),
+    5: .same(proto: "nickname"),
+    6: .same(proto: "ip"),
+    7: .standard(proto: "ip_address"),
+    8: .standard(proto: "client_source"),
+    9: .standard(proto: "first_start_time"),
+    10: .standard(proto: "last_end_time"),
+    11: .standard(proto: "assign_time"),
+    12: .standard(proto: "total_duration"),
+    13: .standard(proto: "worker_id"),
+    14: .standard(proto: "worker_account"),
+    15: .standard(proto: "worker_nickname"),
+    16: .standard(proto: "worker_send_count"),
+    17: .standard(proto: "user_send_count"),
+    18: .standard(proto: "score_time"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _id: UInt32 = 0
+    var _consultID: UInt32 = 0
+    var _chatID: Int64 = 0
+    var _uid: Int32 = 0
+    var _nickname: String = String()
+    var _ip: String = String()
+    var _ipAddress: String = String()
+    var _clientSource: String = String()
+    var _firstStartTime: Int64 = 0
+    var _lastEndTime: Int64 = 0
+    var _assignTime: Int64 = 0
+    var _totalDuration: String = String()
+    var _workerID: Int32 = 0
+    var _workerAccount: String = String()
+    var _workerNickname: String = String()
+    var _workerSendCount: Int32 = 0
+    var _userSendCount: Int32 = 0
+    var _scoreTime: Int64 = 0
+
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _consultID = source._consultID
+      _chatID = source._chatID
+      _uid = source._uid
+      _nickname = source._nickname
+      _ip = source._ip
+      _ipAddress = source._ipAddress
+      _clientSource = source._clientSource
+      _firstStartTime = source._firstStartTime
+      _lastEndTime = source._lastEndTime
+      _assignTime = source._assignTime
+      _totalDuration = source._totalDuration
+      _workerID = source._workerID
+      _workerAccount = source._workerAccount
+      _workerNickname = source._workerNickname
+      _workerSendCount = source._workerSendCount
+      _userSendCount = source._userSendCount
+      _scoreTime = source._scoreTime
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularUInt32Field(value: &_storage._id) }()
+        case 2: try { try decoder.decodeSingularUInt32Field(value: &_storage._consultID) }()
+        case 3: try { try decoder.decodeSingularInt64Field(value: &_storage._chatID) }()
+        case 4: try { try decoder.decodeSingularInt32Field(value: &_storage._uid) }()
+        case 5: try { try decoder.decodeSingularStringField(value: &_storage._nickname) }()
+        case 6: try { try decoder.decodeSingularStringField(value: &_storage._ip) }()
+        case 7: try { try decoder.decodeSingularStringField(value: &_storage._ipAddress) }()
+        case 8: try { try decoder.decodeSingularStringField(value: &_storage._clientSource) }()
+        case 9: try { try decoder.decodeSingularInt64Field(value: &_storage._firstStartTime) }()
+        case 10: try { try decoder.decodeSingularInt64Field(value: &_storage._lastEndTime) }()
+        case 11: try { try decoder.decodeSingularInt64Field(value: &_storage._assignTime) }()
+        case 12: try { try decoder.decodeSingularStringField(value: &_storage._totalDuration) }()
+        case 13: try { try decoder.decodeSingularInt32Field(value: &_storage._workerID) }()
+        case 14: try { try decoder.decodeSingularStringField(value: &_storage._workerAccount) }()
+        case 15: try { try decoder.decodeSingularStringField(value: &_storage._workerNickname) }()
+        case 16: try { try decoder.decodeSingularInt32Field(value: &_storage._workerSendCount) }()
+        case 17: try { try decoder.decodeSingularInt32Field(value: &_storage._userSendCount) }()
+        case 18: try { try decoder.decodeSingularInt64Field(value: &_storage._scoreTime) }()
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._id != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._id, fieldNumber: 1)
+      }
+      if _storage._consultID != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._consultID, fieldNumber: 2)
+      }
+      if _storage._chatID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._chatID, fieldNumber: 3)
+      }
+      if _storage._uid != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._uid, fieldNumber: 4)
+      }
+      if !_storage._nickname.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._nickname, fieldNumber: 5)
+      }
+      if !_storage._ip.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._ip, fieldNumber: 6)
+      }
+      if !_storage._ipAddress.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._ipAddress, fieldNumber: 7)
+      }
+      if !_storage._clientSource.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._clientSource, fieldNumber: 8)
+      }
+      if _storage._firstStartTime != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._firstStartTime, fieldNumber: 9)
+      }
+      if _storage._lastEndTime != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._lastEndTime, fieldNumber: 10)
+      }
+      if _storage._assignTime != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._assignTime, fieldNumber: 11)
+      }
+      if !_storage._totalDuration.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._totalDuration, fieldNumber: 12)
+      }
+      if _storage._workerID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._workerID, fieldNumber: 13)
+      }
+      if !_storage._workerAccount.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._workerAccount, fieldNumber: 14)
+      }
+      if !_storage._workerNickname.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._workerNickname, fieldNumber: 15)
+      }
+      if _storage._workerSendCount != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._workerSendCount, fieldNumber: 16)
+      }
+      if _storage._userSendCount != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._userSendCount, fieldNumber: 17)
+      }
+      if _storage._scoreTime != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._scoreTime, fieldNumber: 18)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QualityChat, rhs: Api_Core_QualityChat) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._consultID != rhs_storage._consultID {return false}
+        if _storage._chatID != rhs_storage._chatID {return false}
+        if _storage._uid != rhs_storage._uid {return false}
+        if _storage._nickname != rhs_storage._nickname {return false}
+        if _storage._ip != rhs_storage._ip {return false}
+        if _storage._ipAddress != rhs_storage._ipAddress {return false}
+        if _storage._clientSource != rhs_storage._clientSource {return false}
+        if _storage._firstStartTime != rhs_storage._firstStartTime {return false}
+        if _storage._lastEndTime != rhs_storage._lastEndTime {return false}
+        if _storage._assignTime != rhs_storage._assignTime {return false}
+        if _storage._totalDuration != rhs_storage._totalDuration {return false}
+        if _storage._workerID != rhs_storage._workerID {return false}
+        if _storage._workerAccount != rhs_storage._workerAccount {return false}
+        if _storage._workerNickname != rhs_storage._workerNickname {return false}
+        if _storage._workerSendCount != rhs_storage._workerSendCount {return false}
+        if _storage._userSendCount != rhs_storage._userSendCount {return false}
+        if _storage._scoreTime != rhs_storage._scoreTime {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_NewQualityChatsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".NewQualityChatsRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "group_id"),
+    2: .standard(proto: "worker_id"),
+    3: .standard(proto: "worker_account"),
+    4: .standard(proto: "user_id"),
+    5: .standard(proto: "start_time"),
+    6: .standard(proto: "end_time"),
+    7: .same(proto: "sortBy"),
+    8: .same(proto: "sortOrder"),
+    9: .same(proto: "page"),
+    10: .same(proto: "pageSize"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.groupID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.workerAccount) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.userID) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._startTime) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._endTime) }()
+      case 7: try { try decoder.decodeSingularInt32Field(value: &self.sortBy) }()
+      case 8: try { try decoder.decodeSingularInt32Field(value: &self.sortOrder) }()
+      case 9: try { try decoder.decodeSingularUInt32Field(value: &self.page) }()
+      case 10: try { try decoder.decodeSingularUInt32Field(value: &self.pageSize) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.groupID != 0 {
+      try visitor.visitSingularInt32Field(value: self.groupID, fieldNumber: 1)
+    }
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 2)
+    }
+    if !self.workerAccount.isEmpty {
+      try visitor.visitSingularStringField(value: self.workerAccount, fieldNumber: 3)
+    }
+    if self.userID != 0 {
+      try visitor.visitSingularInt32Field(value: self.userID, fieldNumber: 4)
+    }
+    try { if let v = self._startTime {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
+    try { if let v = self._endTime {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
+    if self.sortBy != 0 {
+      try visitor.visitSingularInt32Field(value: self.sortBy, fieldNumber: 7)
+    }
+    if self.sortOrder != 0 {
+      try visitor.visitSingularInt32Field(value: self.sortOrder, fieldNumber: 8)
+    }
+    if self.page != 0 {
+      try visitor.visitSingularUInt32Field(value: self.page, fieldNumber: 9)
+    }
+    if self.pageSize != 0 {
+      try visitor.visitSingularUInt32Field(value: self.pageSize, fieldNumber: 10)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_NewQualityChatsRequest, rhs: Api_Core_NewQualityChatsRequest) -> Bool {
+    if lhs.groupID != rhs.groupID {return false}
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.workerAccount != rhs.workerAccount {return false}
+    if lhs.userID != rhs.userID {return false}
+    if lhs._startTime != rhs._startTime {return false}
+    if lhs._endTime != rhs._endTime {return false}
+    if lhs.sortBy != rhs.sortBy {return false}
+    if lhs.sortOrder != rhs.sortOrder {return false}
+    if lhs.page != rhs.page {return false}
+    if lhs.pageSize != rhs.pageSize {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_NewQualityChatsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".NewQualityChatsResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "quality_chats"),
+    2: .same(proto: "total"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.qualityChats) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.total) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.qualityChats.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.qualityChats, fieldNumber: 1)
+    }
+    if self.total != 0 {
+      try visitor.visitSingularInt32Field(value: self.total, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_NewQualityChatsResponse, rhs: Api_Core_NewQualityChatsResponse) -> Bool {
+    if lhs.qualityChats != rhs.qualityChats {return false}
+    if lhs.total != rhs.total {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerQualitySessionsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerQualitySessionsRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "group_id"),
+    2: .standard(proto: "worker_id"),
+    3: .standard(proto: "worker_account"),
+    4: .standard(proto: "user_id"),
+    5: .standard(proto: "user_level"),
+    6: .standard(proto: "service_duration"),
+    7: .standard(proto: "check_type"),
+    8: .standard(proto: "start_time"),
+    9: .standard(proto: "end_time"),
+    10: .standard(proto: "check_worker_id"),
+    11: .same(proto: "sortBy"),
+    12: .same(proto: "sortOrder"),
+    13: .same(proto: "page"),
+    15: .same(proto: "pageSize"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.groupID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.workerAccount) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.userID) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.userLevel) }()
+      case 6: try { try decoder.decodeSingularUInt32Field(value: &self.serviceDuration) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self._checkType) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._startTime) }()
+      case 9: try { try decoder.decodeSingularMessageField(value: &self._endTime) }()
+      case 10: try { try decoder.decodeSingularInt32Field(value: &self.checkWorkerID) }()
+      case 11: try { try decoder.decodeSingularInt32Field(value: &self.sortBy) }()
+      case 12: try { try decoder.decodeSingularInt32Field(value: &self.sortOrder) }()
+      case 13: try { try decoder.decodeSingularUInt32Field(value: &self.page) }()
+      case 15: try { try decoder.decodeSingularUInt32Field(value: &self.pageSize) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.groupID != 0 {
+      try visitor.visitSingularInt32Field(value: self.groupID, fieldNumber: 1)
+    }
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 2)
+    }
+    if !self.workerAccount.isEmpty {
+      try visitor.visitSingularStringField(value: self.workerAccount, fieldNumber: 3)
+    }
+    if !self.userID.isEmpty {
+      try visitor.visitSingularStringField(value: self.userID, fieldNumber: 4)
+    }
+    if self.userLevel != 0 {
+      try visitor.visitSingularInt32Field(value: self.userLevel, fieldNumber: 5)
+    }
+    if self.serviceDuration != 0 {
+      try visitor.visitSingularUInt32Field(value: self.serviceDuration, fieldNumber: 6)
+    }
+    try { if let v = self._checkType {
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 7)
+    } }()
+    try { if let v = self._startTime {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
+    try { if let v = self._endTime {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+    } }()
+    if self.checkWorkerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.checkWorkerID, fieldNumber: 10)
+    }
+    if self.sortBy != 0 {
+      try visitor.visitSingularInt32Field(value: self.sortBy, fieldNumber: 11)
+    }
+    if self.sortOrder != 0 {
+      try visitor.visitSingularInt32Field(value: self.sortOrder, fieldNumber: 12)
+    }
+    if self.page != 0 {
+      try visitor.visitSingularUInt32Field(value: self.page, fieldNumber: 13)
+    }
+    if self.pageSize != 0 {
+      try visitor.visitSingularUInt32Field(value: self.pageSize, fieldNumber: 15)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerQualitySessionsRequest, rhs: Api_Core_WorkerQualitySessionsRequest) -> Bool {
+    if lhs.groupID != rhs.groupID {return false}
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.workerAccount != rhs.workerAccount {return false}
+    if lhs.userID != rhs.userID {return false}
+    if lhs.userLevel != rhs.userLevel {return false}
+    if lhs.serviceDuration != rhs.serviceDuration {return false}
+    if lhs._checkType != rhs._checkType {return false}
+    if lhs._startTime != rhs._startTime {return false}
+    if lhs._endTime != rhs._endTime {return false}
+    if lhs.checkWorkerID != rhs.checkWorkerID {return false}
+    if lhs.sortBy != rhs.sortBy {return false}
+    if lhs.sortOrder != rhs.sortOrder {return false}
+    if lhs.page != rhs.page {return false}
+    if lhs.pageSize != rhs.pageSize {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerQualitySessionsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerQualitySessionsResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "quality_sessions"),
+    2: .same(proto: "total"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.qualitySessions) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.total) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.qualitySessions.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.qualitySessions, fieldNumber: 1)
+    }
+    if self.total != 0 {
+      try visitor.visitSingularInt32Field(value: self.total, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerQualitySessionsResponse, rhs: Api_Core_WorkerQualitySessionsResponse) -> Bool {
+    if lhs.qualitySessions != rhs.qualitySessions {return false}
+    if lhs.total != rhs.total {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QualitySession: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QualitySession"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .standard(proto: "binding_session_id"),
+    3: .standard(proto: "consult_id"),
+    4: .standard(proto: "chat_id"),
+    5: .same(proto: "uid"),
+    6: .same(proto: "nickname"),
+    7: .same(proto: "ip"),
+    8: .standard(proto: "ip_address"),
+    9: .standard(proto: "client_source"),
+    10: .standard(proto: "user_level"),
+    11: .standard(proto: "user_register_source"),
+    12: .standard(proto: "first_send_time"),
+    14: .standard(proto: "last_reply_time"),
+    15: .standard(proto: "last_end_time"),
+    16: .standard(proto: "total_duration"),
+    17: .standard(proto: "last_push_time"),
+    18: .standard(proto: "worker_id"),
+    19: .standard(proto: "worker_account"),
+    21: .standard(proto: "worker_nickname"),
+    22: .standard(proto: "worker_send_count"),
+    23: .standard(proto: "user_send_count"),
+    24: .standard(proto: "read_duration"),
+    26: .standard(proto: "check_type"),
+    27: .standard(proto: "check_worker_id"),
+    28: .standard(proto: "check_worker_account"),
+    29: .standard(proto: "check_worker_nickname"),
+    30: .standard(proto: "question_titles"),
+    31: .standard(proto: "created_at"),
+    33: .standard(proto: "recharge_order_no"),
+    35: .standard(proto: "recharge_order_time"),
+    37: .standard(proto: "assign_time"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _id: UInt32 = 0
+    var _bindingSessionID: UInt32 = 0
+    var _consultID: UInt32 = 0
+    var _chatID: Int64 = 0
+    var _uid: Int32 = 0
+    var _nickname: String = String()
+    var _ip: String = String()
+    var _ipAddress: String = String()
+    var _clientSource: String = String()
+    var _userLevel: Int32 = 0
+    var _userRegisterSource: String = String()
+    var _firstSendTime: UInt32 = 0
+    var _lastReplyTime: UInt32 = 0
+    var _lastEndTime: UInt32 = 0
+    var _totalDuration: String = String()
+    var _lastPushTime: UInt32 = 0
+    var _workerID: Int32 = 0
+    var _workerAccount: String = String()
+    var _workerNickname: String = String()
+    var _workerSendCount: Int32 = 0
+    var _userSendCount: Int32 = 0
+    var _readDuration: UInt32 = 0
+    var _checkType: Api_Common_WorkerCheckType = .wqtCommon
+    var _checkWorkerID: Int32 = 0
+    var _checkWorkerAccount: String = String()
+    var _checkWorkerNickname: String = String()
+    var _questionTitles: [String] = []
+    var _createdAt: UInt32 = 0
+    var _rechargeOrderNo: String = String()
+    var _rechargeOrderTime: String = String()
+    var _assignTime: UInt32 = 0
+
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _bindingSessionID = source._bindingSessionID
+      _consultID = source._consultID
+      _chatID = source._chatID
+      _uid = source._uid
+      _nickname = source._nickname
+      _ip = source._ip
+      _ipAddress = source._ipAddress
+      _clientSource = source._clientSource
+      _userLevel = source._userLevel
+      _userRegisterSource = source._userRegisterSource
+      _firstSendTime = source._firstSendTime
+      _lastReplyTime = source._lastReplyTime
+      _lastEndTime = source._lastEndTime
+      _totalDuration = source._totalDuration
+      _lastPushTime = source._lastPushTime
+      _workerID = source._workerID
+      _workerAccount = source._workerAccount
+      _workerNickname = source._workerNickname
+      _workerSendCount = source._workerSendCount
+      _userSendCount = source._userSendCount
+      _readDuration = source._readDuration
+      _checkType = source._checkType
+      _checkWorkerID = source._checkWorkerID
+      _checkWorkerAccount = source._checkWorkerAccount
+      _checkWorkerNickname = source._checkWorkerNickname
+      _questionTitles = source._questionTitles
+      _createdAt = source._createdAt
+      _rechargeOrderNo = source._rechargeOrderNo
+      _rechargeOrderTime = source._rechargeOrderTime
+      _assignTime = source._assignTime
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularUInt32Field(value: &_storage._id) }()
+        case 2: try { try decoder.decodeSingularUInt32Field(value: &_storage._bindingSessionID) }()
+        case 3: try { try decoder.decodeSingularUInt32Field(value: &_storage._consultID) }()
+        case 4: try { try decoder.decodeSingularInt64Field(value: &_storage._chatID) }()
+        case 5: try { try decoder.decodeSingularInt32Field(value: &_storage._uid) }()
+        case 6: try { try decoder.decodeSingularStringField(value: &_storage._nickname) }()
+        case 7: try { try decoder.decodeSingularStringField(value: &_storage._ip) }()
+        case 8: try { try decoder.decodeSingularStringField(value: &_storage._ipAddress) }()
+        case 9: try { try decoder.decodeSingularStringField(value: &_storage._clientSource) }()
+        case 10: try { try decoder.decodeSingularInt32Field(value: &_storage._userLevel) }()
+        case 11: try { try decoder.decodeSingularStringField(value: &_storage._userRegisterSource) }()
+        case 12: try { try decoder.decodeSingularUInt32Field(value: &_storage._firstSendTime) }()
+        case 14: try { try decoder.decodeSingularUInt32Field(value: &_storage._lastReplyTime) }()
+        case 15: try { try decoder.decodeSingularUInt32Field(value: &_storage._lastEndTime) }()
+        case 16: try { try decoder.decodeSingularStringField(value: &_storage._totalDuration) }()
+        case 17: try { try decoder.decodeSingularUInt32Field(value: &_storage._lastPushTime) }()
+        case 18: try { try decoder.decodeSingularInt32Field(value: &_storage._workerID) }()
+        case 19: try { try decoder.decodeSingularStringField(value: &_storage._workerAccount) }()
+        case 21: try { try decoder.decodeSingularStringField(value: &_storage._workerNickname) }()
+        case 22: try { try decoder.decodeSingularInt32Field(value: &_storage._workerSendCount) }()
+        case 23: try { try decoder.decodeSingularInt32Field(value: &_storage._userSendCount) }()
+        case 24: try { try decoder.decodeSingularUInt32Field(value: &_storage._readDuration) }()
+        case 26: try { try decoder.decodeSingularEnumField(value: &_storage._checkType) }()
+        case 27: try { try decoder.decodeSingularInt32Field(value: &_storage._checkWorkerID) }()
+        case 28: try { try decoder.decodeSingularStringField(value: &_storage._checkWorkerAccount) }()
+        case 29: try { try decoder.decodeSingularStringField(value: &_storage._checkWorkerNickname) }()
+        case 30: try { try decoder.decodeRepeatedStringField(value: &_storage._questionTitles) }()
+        case 31: try { try decoder.decodeSingularUInt32Field(value: &_storage._createdAt) }()
+        case 33: try { try decoder.decodeSingularStringField(value: &_storage._rechargeOrderNo) }()
+        case 35: try { try decoder.decodeSingularStringField(value: &_storage._rechargeOrderTime) }()
+        case 37: try { try decoder.decodeSingularUInt32Field(value: &_storage._assignTime) }()
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._id != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._id, fieldNumber: 1)
+      }
+      if _storage._bindingSessionID != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._bindingSessionID, fieldNumber: 2)
+      }
+      if _storage._consultID != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._consultID, fieldNumber: 3)
+      }
+      if _storage._chatID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._chatID, fieldNumber: 4)
+      }
+      if _storage._uid != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._uid, fieldNumber: 5)
+      }
+      if !_storage._nickname.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._nickname, fieldNumber: 6)
+      }
+      if !_storage._ip.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._ip, fieldNumber: 7)
+      }
+      if !_storage._ipAddress.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._ipAddress, fieldNumber: 8)
+      }
+      if !_storage._clientSource.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._clientSource, fieldNumber: 9)
+      }
+      if _storage._userLevel != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._userLevel, fieldNumber: 10)
+      }
+      if !_storage._userRegisterSource.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._userRegisterSource, fieldNumber: 11)
+      }
+      if _storage._firstSendTime != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._firstSendTime, fieldNumber: 12)
+      }
+      if _storage._lastReplyTime != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._lastReplyTime, fieldNumber: 14)
+      }
+      if _storage._lastEndTime != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._lastEndTime, fieldNumber: 15)
+      }
+      if !_storage._totalDuration.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._totalDuration, fieldNumber: 16)
+      }
+      if _storage._lastPushTime != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._lastPushTime, fieldNumber: 17)
+      }
+      if _storage._workerID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._workerID, fieldNumber: 18)
+      }
+      if !_storage._workerAccount.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._workerAccount, fieldNumber: 19)
+      }
+      if !_storage._workerNickname.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._workerNickname, fieldNumber: 21)
+      }
+      if _storage._workerSendCount != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._workerSendCount, fieldNumber: 22)
+      }
+      if _storage._userSendCount != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._userSendCount, fieldNumber: 23)
+      }
+      if _storage._readDuration != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._readDuration, fieldNumber: 24)
+      }
+      if _storage._checkType != .wqtCommon {
+        try visitor.visitSingularEnumField(value: _storage._checkType, fieldNumber: 26)
+      }
+      if _storage._checkWorkerID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._checkWorkerID, fieldNumber: 27)
+      }
+      if !_storage._checkWorkerAccount.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._checkWorkerAccount, fieldNumber: 28)
+      }
+      if !_storage._checkWorkerNickname.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._checkWorkerNickname, fieldNumber: 29)
+      }
+      if !_storage._questionTitles.isEmpty {
+        try visitor.visitRepeatedStringField(value: _storage._questionTitles, fieldNumber: 30)
+      }
+      if _storage._createdAt != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._createdAt, fieldNumber: 31)
+      }
+      if !_storage._rechargeOrderNo.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._rechargeOrderNo, fieldNumber: 33)
+      }
+      if !_storage._rechargeOrderTime.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._rechargeOrderTime, fieldNumber: 35)
+      }
+      if _storage._assignTime != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._assignTime, fieldNumber: 37)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QualitySession, rhs: Api_Core_QualitySession) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._bindingSessionID != rhs_storage._bindingSessionID {return false}
+        if _storage._consultID != rhs_storage._consultID {return false}
+        if _storage._chatID != rhs_storage._chatID {return false}
+        if _storage._uid != rhs_storage._uid {return false}
+        if _storage._nickname != rhs_storage._nickname {return false}
+        if _storage._ip != rhs_storage._ip {return false}
+        if _storage._ipAddress != rhs_storage._ipAddress {return false}
+        if _storage._clientSource != rhs_storage._clientSource {return false}
+        if _storage._userLevel != rhs_storage._userLevel {return false}
+        if _storage._userRegisterSource != rhs_storage._userRegisterSource {return false}
+        if _storage._firstSendTime != rhs_storage._firstSendTime {return false}
+        if _storage._lastReplyTime != rhs_storage._lastReplyTime {return false}
+        if _storage._lastEndTime != rhs_storage._lastEndTime {return false}
+        if _storage._totalDuration != rhs_storage._totalDuration {return false}
+        if _storage._lastPushTime != rhs_storage._lastPushTime {return false}
+        if _storage._workerID != rhs_storage._workerID {return false}
+        if _storage._workerAccount != rhs_storage._workerAccount {return false}
+        if _storage._workerNickname != rhs_storage._workerNickname {return false}
+        if _storage._workerSendCount != rhs_storage._workerSendCount {return false}
+        if _storage._userSendCount != rhs_storage._userSendCount {return false}
+        if _storage._readDuration != rhs_storage._readDuration {return false}
+        if _storage._checkType != rhs_storage._checkType {return false}
+        if _storage._checkWorkerID != rhs_storage._checkWorkerID {return false}
+        if _storage._checkWorkerAccount != rhs_storage._checkWorkerAccount {return false}
+        if _storage._checkWorkerNickname != rhs_storage._checkWorkerNickname {return false}
+        if _storage._questionTitles != rhs_storage._questionTitles {return false}
+        if _storage._createdAt != rhs_storage._createdAt {return false}
+        if _storage._rechargeOrderNo != rhs_storage._rechargeOrderNo {return false}
+        if _storage._rechargeOrderTime != rhs_storage._rechargeOrderTime {return false}
+        if _storage._assignTime != rhs_storage._assignTime {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QualiyReviewedChatsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QualiyReviewedChatsRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "group_id"),
+    2: .standard(proto: "worker_id"),
+    3: .standard(proto: "user_id"),
+    5: .standard(proto: "start_time"),
+    6: .standard(proto: "end_time"),
+    7: .standard(proto: "auditor_account"),
+    8: .same(proto: "sortBy"),
+    9: .same(proto: "sortOrder"),
+    10: .same(proto: "page"),
+    11: .same(proto: "pageSize"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.groupID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.userID) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._startTime) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._endTime) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.auditorAccount) }()
+      case 8: try { try decoder.decodeSingularInt32Field(value: &self.sortBy) }()
+      case 9: try { try decoder.decodeSingularInt32Field(value: &self.sortOrder) }()
+      case 10: try { try decoder.decodeSingularUInt32Field(value: &self.page) }()
+      case 11: try { try decoder.decodeSingularUInt32Field(value: &self.pageSize) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.groupID != 0 {
+      try visitor.visitSingularInt32Field(value: self.groupID, fieldNumber: 1)
+    }
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 2)
+    }
+    if self.userID != 0 {
+      try visitor.visitSingularInt32Field(value: self.userID, fieldNumber: 3)
+    }
+    try { if let v = self._startTime {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
+    try { if let v = self._endTime {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
+    if !self.auditorAccount.isEmpty {
+      try visitor.visitSingularStringField(value: self.auditorAccount, fieldNumber: 7)
+    }
+    if self.sortBy != 0 {
+      try visitor.visitSingularInt32Field(value: self.sortBy, fieldNumber: 8)
+    }
+    if self.sortOrder != 0 {
+      try visitor.visitSingularInt32Field(value: self.sortOrder, fieldNumber: 9)
+    }
+    if self.page != 0 {
+      try visitor.visitSingularUInt32Field(value: self.page, fieldNumber: 10)
+    }
+    if self.pageSize != 0 {
+      try visitor.visitSingularUInt32Field(value: self.pageSize, fieldNumber: 11)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QualiyReviewedChatsRequest, rhs: Api_Core_QualiyReviewedChatsRequest) -> Bool {
+    if lhs.groupID != rhs.groupID {return false}
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.userID != rhs.userID {return false}
+    if lhs._startTime != rhs._startTime {return false}
+    if lhs._endTime != rhs._endTime {return false}
+    if lhs.auditorAccount != rhs.auditorAccount {return false}
+    if lhs.sortBy != rhs.sortBy {return false}
+    if lhs.sortOrder != rhs.sortOrder {return false}
+    if lhs.page != rhs.page {return false}
+    if lhs.pageSize != rhs.pageSize {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QualiyReviewedChatsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QualiyReviewedChatsResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "quality_reviewed_chats"),
+    2: .same(proto: "total"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.qualityReviewedChats) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.total) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.qualityReviewedChats.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.qualityReviewedChats, fieldNumber: 1)
+    }
+    if self.total != 0 {
+      try visitor.visitSingularInt32Field(value: self.total, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QualiyReviewedChatsResponse, rhs: Api_Core_QualiyReviewedChatsResponse) -> Bool {
+    if lhs.qualityReviewedChats != rhs.qualityReviewedChats {return false}
+    if lhs.total != rhs.total {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_NewQualiyReviewedChatsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".NewQualiyReviewedChatsRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "start_time"),
+    2: .standard(proto: "end_time"),
+    3: .standard(proto: "group_id"),
+    4: .standard(proto: "worker_id"),
+    5: .standard(proto: "worker_account"),
+    6: .standard(proto: "user_level"),
+    7: .standard(proto: "user_id"),
+    8: .standard(proto: "score_worker_id"),
+    9: .standard(proto: "service_duration"),
+    10: .standard(proto: "read_duration"),
+    11: .standard(proto: "score_type"),
+    12: .standard(proto: "check_type"),
+    13: .standard(proto: "is_review"),
+    14: .same(proto: "sortBy"),
+    15: .same(proto: "sortOrder"),
+    16: .same(proto: "page"),
+    17: .same(proto: "pageSize"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _startTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+    var _endTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+    var _groupID: Int32 = 0
+    var _workerID: Int32 = 0
+    var _workerAccount: String = String()
+    var _userLevel: Int32 = 0
+    var _userID: String = String()
+    var _scoreWorkerID: Int32 = 0
+    var _serviceDuration: UInt32 = 0
+    var _readDuration: UInt32 = 0
+    var _scoreType: Api_Common_WorkerScoreType = .wstUnknown
+    var _checkType: Api_Common_WorkerCheckType? = nil
+    var _isReview: CommonBoolStatus = .boolDefault
+    var _sortBy: Api_Common_WorkerQualitySessionSortField = .qualitySessionDefault
+    var _sortOrder: CommonSortOrder = .default
+    var _page: UInt32 = 0
+    var _pageSize: UInt32 = 0
+
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _startTime = source._startTime
+      _endTime = source._endTime
+      _groupID = source._groupID
+      _workerID = source._workerID
+      _workerAccount = source._workerAccount
+      _userLevel = source._userLevel
+      _userID = source._userID
+      _scoreWorkerID = source._scoreWorkerID
+      _serviceDuration = source._serviceDuration
+      _readDuration = source._readDuration
+      _scoreType = source._scoreType
+      _checkType = source._checkType
+      _isReview = source._isReview
+      _sortBy = source._sortBy
+      _sortOrder = source._sortOrder
+      _page = source._page
+      _pageSize = source._pageSize
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularMessageField(value: &_storage._startTime) }()
+        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._endTime) }()
+        case 3: try { try decoder.decodeSingularInt32Field(value: &_storage._groupID) }()
+        case 4: try { try decoder.decodeSingularInt32Field(value: &_storage._workerID) }()
+        case 5: try { try decoder.decodeSingularStringField(value: &_storage._workerAccount) }()
+        case 6: try { try decoder.decodeSingularInt32Field(value: &_storage._userLevel) }()
+        case 7: try { try decoder.decodeSingularStringField(value: &_storage._userID) }()
+        case 8: try { try decoder.decodeSingularInt32Field(value: &_storage._scoreWorkerID) }()
+        case 9: try { try decoder.decodeSingularUInt32Field(value: &_storage._serviceDuration) }()
+        case 10: try { try decoder.decodeSingularUInt32Field(value: &_storage._readDuration) }()
+        case 11: try { try decoder.decodeSingularEnumField(value: &_storage._scoreType) }()
+        case 12: try { try decoder.decodeSingularEnumField(value: &_storage._checkType) }()
+        case 13: try { try decoder.decodeSingularEnumField(value: &_storage._isReview) }()
+        case 14: try { try decoder.decodeSingularEnumField(value: &_storage._sortBy) }()
+        case 15: try { try decoder.decodeSingularEnumField(value: &_storage._sortOrder) }()
+        case 16: try { try decoder.decodeSingularUInt32Field(value: &_storage._page) }()
+        case 17: try { try decoder.decodeSingularUInt32Field(value: &_storage._pageSize) }()
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      try { if let v = _storage._startTime {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      } }()
+      try { if let v = _storage._endTime {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      } }()
+      if _storage._groupID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._groupID, fieldNumber: 3)
+      }
+      if _storage._workerID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._workerID, fieldNumber: 4)
+      }
+      if !_storage._workerAccount.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._workerAccount, fieldNumber: 5)
+      }
+      if _storage._userLevel != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._userLevel, fieldNumber: 6)
+      }
+      if !_storage._userID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._userID, fieldNumber: 7)
+      }
+      if _storage._scoreWorkerID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._scoreWorkerID, fieldNumber: 8)
+      }
+      if _storage._serviceDuration != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._serviceDuration, fieldNumber: 9)
+      }
+      if _storage._readDuration != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._readDuration, fieldNumber: 10)
+      }
+      if _storage._scoreType != .wstUnknown {
+        try visitor.visitSingularEnumField(value: _storage._scoreType, fieldNumber: 11)
+      }
+      try { if let v = _storage._checkType {
+        try visitor.visitSingularEnumField(value: v, fieldNumber: 12)
+      } }()
+      if _storage._isReview != .boolDefault {
+        try visitor.visitSingularEnumField(value: _storage._isReview, fieldNumber: 13)
+      }
+      if _storage._sortBy != .qualitySessionDefault {
+        try visitor.visitSingularEnumField(value: _storage._sortBy, fieldNumber: 14)
+      }
+      if _storage._sortOrder != .default {
+        try visitor.visitSingularEnumField(value: _storage._sortOrder, fieldNumber: 15)
+      }
+      if _storage._page != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._page, fieldNumber: 16)
+      }
+      if _storage._pageSize != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._pageSize, fieldNumber: 17)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_NewQualiyReviewedChatsRequest, rhs: Api_Core_NewQualiyReviewedChatsRequest) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._startTime != rhs_storage._startTime {return false}
+        if _storage._endTime != rhs_storage._endTime {return false}
+        if _storage._groupID != rhs_storage._groupID {return false}
+        if _storage._workerID != rhs_storage._workerID {return false}
+        if _storage._workerAccount != rhs_storage._workerAccount {return false}
+        if _storage._userLevel != rhs_storage._userLevel {return false}
+        if _storage._userID != rhs_storage._userID {return false}
+        if _storage._scoreWorkerID != rhs_storage._scoreWorkerID {return false}
+        if _storage._serviceDuration != rhs_storage._serviceDuration {return false}
+        if _storage._readDuration != rhs_storage._readDuration {return false}
+        if _storage._scoreType != rhs_storage._scoreType {return false}
+        if _storage._checkType != rhs_storage._checkType {return false}
+        if _storage._isReview != rhs_storage._isReview {return false}
+        if _storage._sortBy != rhs_storage._sortBy {return false}
+        if _storage._sortOrder != rhs_storage._sortOrder {return false}
+        if _storage._page != rhs_storage._page {return false}
+        if _storage._pageSize != rhs_storage._pageSize {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_NewQualiyReviewedChatsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".NewQualiyReviewedChatsResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "quality_reviewed_chats"),
+    2: .same(proto: "total"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.qualityReviewedChats) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.total) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.qualityReviewedChats.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.qualityReviewedChats, fieldNumber: 1)
+    }
+    if self.total != 0 {
+      try visitor.visitSingularInt32Field(value: self.total, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_NewQualiyReviewedChatsResponse, rhs: Api_Core_NewQualiyReviewedChatsResponse) -> Bool {
+    if lhs.qualityReviewedChats != rhs.qualityReviewedChats {return false}
+    if lhs.total != rhs.total {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerQualitySession: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerQualitySession"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .standard(proto: "binding_session_id"),
+    3: .standard(proto: "tenant_id"),
+    4: .standard(proto: "consult_id"),
+    5: .standard(proto: "chat_id"),
+    6: .same(proto: "uid"),
+    7: .same(proto: "nickname"),
+    8: .same(proto: "ip"),
+    9: .standard(proto: "ip_address"),
+    10: .standard(proto: "client_source"),
+    11: .standard(proto: "check_type"),
+    12: .standard(proto: "worker_id"),
+    13: .standard(proto: "worker_account"),
+    14: .standard(proto: "worker_nickname"),
+    15: .standard(proto: "worker_send_count"),
+    16: .standard(proto: "user_send_count"),
+    17: .standard(proto: "read_duration"),
+    18: .standard(proto: "total_read_duration"),
+    19: .standard(proto: "chat_read_logs"),
+    20: .standard(proto: "user_role"),
+    21: .standard(proto: "user_level"),
+    22: .standard(proto: "score_type"),
+    23: .standard(proto: "review_score_type"),
+    24: .standard(proto: "question_titles"),
+    25: .standard(proto: "created_at"),
+    26: .standard(proto: "score_content"),
+    27: .standard(proto: "review_content"),
+    28: .standard(proto: "score_time"),
+    29: .standard(proto: "review_time"),
+    30: .standard(proto: "score_worker_id"),
+    31: .standard(proto: "auditor_account"),
+    32: .standard(proto: "auditor_nickname"),
+    33: .standard(proto: "review_worker_id"),
+    34: .standard(proto: "review_account"),
+    35: .standard(proto: "review_nickname"),
+    36: .same(proto: "firstSendTime"),
+    37: .same(proto: "lastReplyTime"),
+    38: .same(proto: "lastEndTime"),
+    39: .standard(proto: "last_push_time"),
+    40: .standard(proto: "service_duration"),
+    41: .standard(proto: "total_duration"),
+    42: .same(proto: "workerQualitySessions"),
+    43: .standard(proto: "recharge_order_no"),
+    44: .standard(proto: "recharge_order_time"),
+    45: .standard(proto: "user_register_source"),
+    46: .standard(proto: "assign_time"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _id: Int64 = 0
+    var _bindingSessionID: Int64 = 0
+    var _tenantID: Int32 = 0
+    var _consultID: Int32 = 0
+    var _chatID: Int64 = 0
+    var _uid: Int32 = 0
+    var _nickname: String = String()
+    var _ip: String = String()
+    var _ipAddress: String = String()
+    var _clientSource: String = String()
+    var _checkType: Api_Common_WorkerCheckType = .wqtCommon
+    var _workerID: Int32 = 0
+    var _workerAccount: String = String()
+    var _workerNickname: String = String()
+    var _workerSendCount: Int32 = 0
+    var _userSendCount: Int32 = 0
+    var _readDuration: Int32 = 0
+    var _totalReadDuration: String = String()
+    var _chatReadLogs: [Api_Core_QualitySessionReadLog] = []
+    var _userRole: Int32 = 0
+    var _userLevel: String = String()
+    var _scoreType: Api_Common_WorkerScoreType = .wstUnknown
+    var _reviewScoreType: Api_Common_WorkerScoreType = .wstUnknown
+    var _questionTitles: [String] = []
+    var _createdAt: Int64 = 0
+    var _scoreContent: String = String()
+    var _reviewContent: String = String()
+    var _scoreTime: Int64 = 0
+    var _reviewTime: Int64 = 0
+    var _scoreWorkerID: Int32 = 0
+    var _auditorAccount: String = String()
+    var _auditorNickname: String = String()
+    var _reviewWorkerID: Int32 = 0
+    var _reviewAccount: String = String()
+    var _reviewNickname: String = String()
+    var _firstSendTime: UInt32 = 0
+    var _lastReplyTime: UInt32 = 0
+    var _lastEndTime: UInt32 = 0
+    var _lastPushTime: UInt32 = 0
+    var _serviceDuration: UInt32 = 0
+    var _totalDuration: String = String()
+    var _workerQualitySessions: [SwiftProtobuf.Google_Protobuf_Any] = []
+    var _rechargeOrderNo: String = String()
+    var _rechargeOrderTime: String = String()
+    var _userRegisterSource: String = String()
+    var _assignTime: UInt32 = 0
+
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _bindingSessionID = source._bindingSessionID
+      _tenantID = source._tenantID
+      _consultID = source._consultID
+      _chatID = source._chatID
+      _uid = source._uid
+      _nickname = source._nickname
+      _ip = source._ip
+      _ipAddress = source._ipAddress
+      _clientSource = source._clientSource
+      _checkType = source._checkType
+      _workerID = source._workerID
+      _workerAccount = source._workerAccount
+      _workerNickname = source._workerNickname
+      _workerSendCount = source._workerSendCount
+      _userSendCount = source._userSendCount
+      _readDuration = source._readDuration
+      _totalReadDuration = source._totalReadDuration
+      _chatReadLogs = source._chatReadLogs
+      _userRole = source._userRole
+      _userLevel = source._userLevel
+      _scoreType = source._scoreType
+      _reviewScoreType = source._reviewScoreType
+      _questionTitles = source._questionTitles
+      _createdAt = source._createdAt
+      _scoreContent = source._scoreContent
+      _reviewContent = source._reviewContent
+      _scoreTime = source._scoreTime
+      _reviewTime = source._reviewTime
+      _scoreWorkerID = source._scoreWorkerID
+      _auditorAccount = source._auditorAccount
+      _auditorNickname = source._auditorNickname
+      _reviewWorkerID = source._reviewWorkerID
+      _reviewAccount = source._reviewAccount
+      _reviewNickname = source._reviewNickname
+      _firstSendTime = source._firstSendTime
+      _lastReplyTime = source._lastReplyTime
+      _lastEndTime = source._lastEndTime
+      _lastPushTime = source._lastPushTime
+      _serviceDuration = source._serviceDuration
+      _totalDuration = source._totalDuration
+      _workerQualitySessions = source._workerQualitySessions
+      _rechargeOrderNo = source._rechargeOrderNo
+      _rechargeOrderTime = source._rechargeOrderTime
+      _userRegisterSource = source._userRegisterSource
+      _assignTime = source._assignTime
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularInt64Field(value: &_storage._id) }()
+        case 2: try { try decoder.decodeSingularInt64Field(value: &_storage._bindingSessionID) }()
+        case 3: try { try decoder.decodeSingularInt32Field(value: &_storage._tenantID) }()
+        case 4: try { try decoder.decodeSingularInt32Field(value: &_storage._consultID) }()
+        case 5: try { try decoder.decodeSingularInt64Field(value: &_storage._chatID) }()
+        case 6: try { try decoder.decodeSingularInt32Field(value: &_storage._uid) }()
+        case 7: try { try decoder.decodeSingularStringField(value: &_storage._nickname) }()
+        case 8: try { try decoder.decodeSingularStringField(value: &_storage._ip) }()
+        case 9: try { try decoder.decodeSingularStringField(value: &_storage._ipAddress) }()
+        case 10: try { try decoder.decodeSingularStringField(value: &_storage._clientSource) }()
+        case 11: try { try decoder.decodeSingularEnumField(value: &_storage._checkType) }()
+        case 12: try { try decoder.decodeSingularInt32Field(value: &_storage._workerID) }()
+        case 13: try { try decoder.decodeSingularStringField(value: &_storage._workerAccount) }()
+        case 14: try { try decoder.decodeSingularStringField(value: &_storage._workerNickname) }()
+        case 15: try { try decoder.decodeSingularInt32Field(value: &_storage._workerSendCount) }()
+        case 16: try { try decoder.decodeSingularInt32Field(value: &_storage._userSendCount) }()
+        case 17: try { try decoder.decodeSingularInt32Field(value: &_storage._readDuration) }()
+        case 18: try { try decoder.decodeSingularStringField(value: &_storage._totalReadDuration) }()
+        case 19: try { try decoder.decodeRepeatedMessageField(value: &_storage._chatReadLogs) }()
+        case 20: try { try decoder.decodeSingularInt32Field(value: &_storage._userRole) }()
+        case 21: try { try decoder.decodeSingularStringField(value: &_storage._userLevel) }()
+        case 22: try { try decoder.decodeSingularEnumField(value: &_storage._scoreType) }()
+        case 23: try { try decoder.decodeSingularEnumField(value: &_storage._reviewScoreType) }()
+        case 24: try { try decoder.decodeRepeatedStringField(value: &_storage._questionTitles) }()
+        case 25: try { try decoder.decodeSingularInt64Field(value: &_storage._createdAt) }()
+        case 26: try { try decoder.decodeSingularStringField(value: &_storage._scoreContent) }()
+        case 27: try { try decoder.decodeSingularStringField(value: &_storage._reviewContent) }()
+        case 28: try { try decoder.decodeSingularInt64Field(value: &_storage._scoreTime) }()
+        case 29: try { try decoder.decodeSingularInt64Field(value: &_storage._reviewTime) }()
+        case 30: try { try decoder.decodeSingularInt32Field(value: &_storage._scoreWorkerID) }()
+        case 31: try { try decoder.decodeSingularStringField(value: &_storage._auditorAccount) }()
+        case 32: try { try decoder.decodeSingularStringField(value: &_storage._auditorNickname) }()
+        case 33: try { try decoder.decodeSingularInt32Field(value: &_storage._reviewWorkerID) }()
+        case 34: try { try decoder.decodeSingularStringField(value: &_storage._reviewAccount) }()
+        case 35: try { try decoder.decodeSingularStringField(value: &_storage._reviewNickname) }()
+        case 36: try { try decoder.decodeSingularUInt32Field(value: &_storage._firstSendTime) }()
+        case 37: try { try decoder.decodeSingularUInt32Field(value: &_storage._lastReplyTime) }()
+        case 38: try { try decoder.decodeSingularUInt32Field(value: &_storage._lastEndTime) }()
+        case 39: try { try decoder.decodeSingularUInt32Field(value: &_storage._lastPushTime) }()
+        case 40: try { try decoder.decodeSingularUInt32Field(value: &_storage._serviceDuration) }()
+        case 41: try { try decoder.decodeSingularStringField(value: &_storage._totalDuration) }()
+        case 42: try { try decoder.decodeRepeatedMessageField(value: &_storage._workerQualitySessions) }()
+        case 43: try { try decoder.decodeSingularStringField(value: &_storage._rechargeOrderNo) }()
+        case 44: try { try decoder.decodeSingularStringField(value: &_storage._rechargeOrderTime) }()
+        case 45: try { try decoder.decodeSingularStringField(value: &_storage._userRegisterSource) }()
+        case 46: try { try decoder.decodeSingularUInt32Field(value: &_storage._assignTime) }()
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._id != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._id, fieldNumber: 1)
+      }
+      if _storage._bindingSessionID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._bindingSessionID, fieldNumber: 2)
+      }
+      if _storage._tenantID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._tenantID, fieldNumber: 3)
+      }
+      if _storage._consultID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._consultID, fieldNumber: 4)
+      }
+      if _storage._chatID != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._chatID, fieldNumber: 5)
+      }
+      if _storage._uid != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._uid, fieldNumber: 6)
+      }
+      if !_storage._nickname.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._nickname, fieldNumber: 7)
+      }
+      if !_storage._ip.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._ip, fieldNumber: 8)
+      }
+      if !_storage._ipAddress.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._ipAddress, fieldNumber: 9)
+      }
+      if !_storage._clientSource.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._clientSource, fieldNumber: 10)
+      }
+      if _storage._checkType != .wqtCommon {
+        try visitor.visitSingularEnumField(value: _storage._checkType, fieldNumber: 11)
+      }
+      if _storage._workerID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._workerID, fieldNumber: 12)
+      }
+      if !_storage._workerAccount.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._workerAccount, fieldNumber: 13)
+      }
+      if !_storage._workerNickname.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._workerNickname, fieldNumber: 14)
+      }
+      if _storage._workerSendCount != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._workerSendCount, fieldNumber: 15)
+      }
+      if _storage._userSendCount != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._userSendCount, fieldNumber: 16)
+      }
+      if _storage._readDuration != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._readDuration, fieldNumber: 17)
+      }
+      if !_storage._totalReadDuration.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._totalReadDuration, fieldNumber: 18)
+      }
+      if !_storage._chatReadLogs.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._chatReadLogs, fieldNumber: 19)
+      }
+      if _storage._userRole != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._userRole, fieldNumber: 20)
+      }
+      if !_storage._userLevel.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._userLevel, fieldNumber: 21)
+      }
+      if _storage._scoreType != .wstUnknown {
+        try visitor.visitSingularEnumField(value: _storage._scoreType, fieldNumber: 22)
+      }
+      if _storage._reviewScoreType != .wstUnknown {
+        try visitor.visitSingularEnumField(value: _storage._reviewScoreType, fieldNumber: 23)
+      }
+      if !_storage._questionTitles.isEmpty {
+        try visitor.visitRepeatedStringField(value: _storage._questionTitles, fieldNumber: 24)
+      }
+      if _storage._createdAt != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._createdAt, fieldNumber: 25)
+      }
+      if !_storage._scoreContent.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._scoreContent, fieldNumber: 26)
+      }
+      if !_storage._reviewContent.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._reviewContent, fieldNumber: 27)
+      }
+      if _storage._scoreTime != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._scoreTime, fieldNumber: 28)
+      }
+      if _storage._reviewTime != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._reviewTime, fieldNumber: 29)
+      }
+      if _storage._scoreWorkerID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._scoreWorkerID, fieldNumber: 30)
+      }
+      if !_storage._auditorAccount.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._auditorAccount, fieldNumber: 31)
+      }
+      if !_storage._auditorNickname.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._auditorNickname, fieldNumber: 32)
+      }
+      if _storage._reviewWorkerID != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._reviewWorkerID, fieldNumber: 33)
+      }
+      if !_storage._reviewAccount.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._reviewAccount, fieldNumber: 34)
+      }
+      if !_storage._reviewNickname.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._reviewNickname, fieldNumber: 35)
+      }
+      if _storage._firstSendTime != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._firstSendTime, fieldNumber: 36)
+      }
+      if _storage._lastReplyTime != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._lastReplyTime, fieldNumber: 37)
+      }
+      if _storage._lastEndTime != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._lastEndTime, fieldNumber: 38)
+      }
+      if _storage._lastPushTime != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._lastPushTime, fieldNumber: 39)
+      }
+      if _storage._serviceDuration != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._serviceDuration, fieldNumber: 40)
+      }
+      if !_storage._totalDuration.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._totalDuration, fieldNumber: 41)
+      }
+      if !_storage._workerQualitySessions.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._workerQualitySessions, fieldNumber: 42)
+      }
+      if !_storage._rechargeOrderNo.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._rechargeOrderNo, fieldNumber: 43)
+      }
+      if !_storage._rechargeOrderTime.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._rechargeOrderTime, fieldNumber: 44)
+      }
+      if !_storage._userRegisterSource.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._userRegisterSource, fieldNumber: 45)
+      }
+      if _storage._assignTime != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._assignTime, fieldNumber: 46)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerQualitySession, rhs: Api_Core_WorkerQualitySession) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._bindingSessionID != rhs_storage._bindingSessionID {return false}
+        if _storage._tenantID != rhs_storage._tenantID {return false}
+        if _storage._consultID != rhs_storage._consultID {return false}
+        if _storage._chatID != rhs_storage._chatID {return false}
+        if _storage._uid != rhs_storage._uid {return false}
+        if _storage._nickname != rhs_storage._nickname {return false}
+        if _storage._ip != rhs_storage._ip {return false}
+        if _storage._ipAddress != rhs_storage._ipAddress {return false}
+        if _storage._clientSource != rhs_storage._clientSource {return false}
+        if _storage._checkType != rhs_storage._checkType {return false}
+        if _storage._workerID != rhs_storage._workerID {return false}
+        if _storage._workerAccount != rhs_storage._workerAccount {return false}
+        if _storage._workerNickname != rhs_storage._workerNickname {return false}
+        if _storage._workerSendCount != rhs_storage._workerSendCount {return false}
+        if _storage._userSendCount != rhs_storage._userSendCount {return false}
+        if _storage._readDuration != rhs_storage._readDuration {return false}
+        if _storage._totalReadDuration != rhs_storage._totalReadDuration {return false}
+        if _storage._chatReadLogs != rhs_storage._chatReadLogs {return false}
+        if _storage._userRole != rhs_storage._userRole {return false}
+        if _storage._userLevel != rhs_storage._userLevel {return false}
+        if _storage._scoreType != rhs_storage._scoreType {return false}
+        if _storage._reviewScoreType != rhs_storage._reviewScoreType {return false}
+        if _storage._questionTitles != rhs_storage._questionTitles {return false}
+        if _storage._createdAt != rhs_storage._createdAt {return false}
+        if _storage._scoreContent != rhs_storage._scoreContent {return false}
+        if _storage._reviewContent != rhs_storage._reviewContent {return false}
+        if _storage._scoreTime != rhs_storage._scoreTime {return false}
+        if _storage._reviewTime != rhs_storage._reviewTime {return false}
+        if _storage._scoreWorkerID != rhs_storage._scoreWorkerID {return false}
+        if _storage._auditorAccount != rhs_storage._auditorAccount {return false}
+        if _storage._auditorNickname != rhs_storage._auditorNickname {return false}
+        if _storage._reviewWorkerID != rhs_storage._reviewWorkerID {return false}
+        if _storage._reviewAccount != rhs_storage._reviewAccount {return false}
+        if _storage._reviewNickname != rhs_storage._reviewNickname {return false}
+        if _storage._firstSendTime != rhs_storage._firstSendTime {return false}
+        if _storage._lastReplyTime != rhs_storage._lastReplyTime {return false}
+        if _storage._lastEndTime != rhs_storage._lastEndTime {return false}
+        if _storage._lastPushTime != rhs_storage._lastPushTime {return false}
+        if _storage._serviceDuration != rhs_storage._serviceDuration {return false}
+        if _storage._totalDuration != rhs_storage._totalDuration {return false}
+        if _storage._workerQualitySessions != rhs_storage._workerQualitySessions {return false}
+        if _storage._rechargeOrderNo != rhs_storage._rechargeOrderNo {return false}
+        if _storage._rechargeOrderTime != rhs_storage._rechargeOrderTime {return false}
+        if _storage._userRegisterSource != rhs_storage._userRegisterSource {return false}
+        if _storage._assignTime != rhs_storage._assignTime {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerQualitySessionSumResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerQualitySessionSumResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "total"),
+    2: .standard(proto: "user_level"),
+    3: .standard(proto: "worker_sum"),
+    4: .standard(proto: "session_sum"),
+    5: .standard(proto: "quality_duration_sum"),
+    6: .standard(proto: "must_sum"),
+    7: .standard(proto: "union_sum"),
+    8: .standard(proto: "review_sum"),
+    9: .standard(proto: "perfect_sum"),
+    10: .standard(proto: "normal_sum"),
+    11: .standard(proto: "poor_sum"),
+    12: .standard(proto: "very_poor_sum"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.total) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.userLevel) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.workerSum) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.sessionSum) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.qualityDurationSum) }()
+      case 6: try { try decoder.decodeSingularInt32Field(value: &self.mustSum) }()
+      case 7: try { try decoder.decodeSingularInt32Field(value: &self.unionSum) }()
+      case 8: try { try decoder.decodeSingularInt32Field(value: &self.reviewSum) }()
+      case 9: try { try decoder.decodeSingularInt32Field(value: &self.perfectSum) }()
+      case 10: try { try decoder.decodeSingularInt32Field(value: &self.normalSum) }()
+      case 11: try { try decoder.decodeSingularInt32Field(value: &self.poorSum) }()
+      case 12: try { try decoder.decodeSingularInt32Field(value: &self.veryPoorSum) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.total != 0 {
+      try visitor.visitSingularInt32Field(value: self.total, fieldNumber: 1)
+    }
+    if self.userLevel != 0 {
+      try visitor.visitSingularInt32Field(value: self.userLevel, fieldNumber: 2)
+    }
+    if self.workerSum != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerSum, fieldNumber: 3)
+    }
+    if self.sessionSum != 0 {
+      try visitor.visitSingularInt32Field(value: self.sessionSum, fieldNumber: 4)
+    }
+    if self.qualityDurationSum != 0 {
+      try visitor.visitSingularInt32Field(value: self.qualityDurationSum, fieldNumber: 5)
+    }
+    if self.mustSum != 0 {
+      try visitor.visitSingularInt32Field(value: self.mustSum, fieldNumber: 6)
+    }
+    if self.unionSum != 0 {
+      try visitor.visitSingularInt32Field(value: self.unionSum, fieldNumber: 7)
+    }
+    if self.reviewSum != 0 {
+      try visitor.visitSingularInt32Field(value: self.reviewSum, fieldNumber: 8)
+    }
+    if self.perfectSum != 0 {
+      try visitor.visitSingularInt32Field(value: self.perfectSum, fieldNumber: 9)
+    }
+    if self.normalSum != 0 {
+      try visitor.visitSingularInt32Field(value: self.normalSum, fieldNumber: 10)
+    }
+    if self.poorSum != 0 {
+      try visitor.visitSingularInt32Field(value: self.poorSum, fieldNumber: 11)
+    }
+    if self.veryPoorSum != 0 {
+      try visitor.visitSingularInt32Field(value: self.veryPoorSum, fieldNumber: 12)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerQualitySessionSumResponse, rhs: Api_Core_WorkerQualitySessionSumResponse) -> Bool {
+    if lhs.total != rhs.total {return false}
+    if lhs.userLevel != rhs.userLevel {return false}
+    if lhs.workerSum != rhs.workerSum {return false}
+    if lhs.sessionSum != rhs.sessionSum {return false}
+    if lhs.qualityDurationSum != rhs.qualityDurationSum {return false}
+    if lhs.mustSum != rhs.mustSum {return false}
+    if lhs.unionSum != rhs.unionSum {return false}
+    if lhs.reviewSum != rhs.reviewSum {return false}
+    if lhs.perfectSum != rhs.perfectSum {return false}
+    if lhs.normalSum != rhs.normalSum {return false}
+    if lhs.poorSum != rhs.poorSum {return false}
+    if lhs.veryPoorSum != rhs.veryPoorSum {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerQualitySessionSumWithLevel: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerQualitySessionSumWithLevel"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "user_level"),
+    2: .same(proto: "total"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.userLevel) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.total) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.userLevel != 0 {
+      try visitor.visitSingularInt32Field(value: self.userLevel, fieldNumber: 1)
+    }
+    if self.total != 0 {
+      try visitor.visitSingularInt32Field(value: self.total, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerQualitySessionSumWithLevel, rhs: Api_Core_WorkerQualitySessionSumWithLevel) -> Bool {
+    if lhs.userLevel != rhs.userLevel {return false}
+    if lhs.total != rhs.total {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerQualitySessionLevelSumResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerQualitySessionLevelSumResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "quality_session_sums"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.qualitySessionSums) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.qualitySessionSums.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.qualitySessionSums, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerQualitySessionLevelSumResponse, rhs: Api_Core_WorkerQualitySessionLevelSumResponse) -> Bool {
+    if lhs.qualitySessionSums != rhs.qualitySessionSums {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_ExportNewQualiyReviewedChatsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ExportNewQualiyReviewedChatsRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "group_id"),
+    2: .standard(proto: "worker_id"),
+    3: .standard(proto: "worker_account"),
+    4: .standard(proto: "user_id"),
+    5: .standard(proto: "start_time"),
+    6: .standard(proto: "end_time"),
+    7: .standard(proto: "auditor_account"),
+    8: .same(proto: "sortBy"),
+    9: .same(proto: "sortOrder"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.groupID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.workerAccount) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.userID) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._startTime) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._endTime) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.auditorAccount) }()
+      case 8: try { try decoder.decodeSingularInt32Field(value: &self.sortBy) }()
+      case 9: try { try decoder.decodeSingularInt32Field(value: &self.sortOrder) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.groupID != 0 {
+      try visitor.visitSingularInt32Field(value: self.groupID, fieldNumber: 1)
+    }
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 2)
+    }
+    if !self.workerAccount.isEmpty {
+      try visitor.visitSingularStringField(value: self.workerAccount, fieldNumber: 3)
+    }
+    if self.userID != 0 {
+      try visitor.visitSingularInt32Field(value: self.userID, fieldNumber: 4)
+    }
+    try { if let v = self._startTime {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
+    try { if let v = self._endTime {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
+    if !self.auditorAccount.isEmpty {
+      try visitor.visitSingularStringField(value: self.auditorAccount, fieldNumber: 7)
+    }
+    if self.sortBy != 0 {
+      try visitor.visitSingularInt32Field(value: self.sortBy, fieldNumber: 8)
+    }
+    if self.sortOrder != 0 {
+      try visitor.visitSingularInt32Field(value: self.sortOrder, fieldNumber: 9)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_ExportNewQualiyReviewedChatsRequest, rhs: Api_Core_ExportNewQualiyReviewedChatsRequest) -> Bool {
+    if lhs.groupID != rhs.groupID {return false}
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.workerAccount != rhs.workerAccount {return false}
+    if lhs.userID != rhs.userID {return false}
+    if lhs._startTime != rhs._startTime {return false}
+    if lhs._endTime != rhs._endTime {return false}
+    if lhs.auditorAccount != rhs.auditorAccount {return false}
+    if lhs.sortBy != rhs.sortBy {return false}
+    if lhs.sortOrder != rhs.sortOrder {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_ChatReadLog: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ChatReadLog"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "auditor_account"),
+    2: .standard(proto: "auditor_nickname"),
+    3: .standard(proto: "start_time"),
+    4: .standard(proto: "end_time"),
+    5: .standard(proto: "read_duration"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.auditorAccount) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.auditorNickname) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.startTime) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self.endTime) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.readDuration) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.auditorAccount.isEmpty {
+      try visitor.visitSingularStringField(value: self.auditorAccount, fieldNumber: 1)
+    }
+    if !self.auditorNickname.isEmpty {
+      try visitor.visitSingularStringField(value: self.auditorNickname, fieldNumber: 2)
+    }
+    if self.startTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.startTime, fieldNumber: 3)
+    }
+    if self.endTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.endTime, fieldNumber: 4)
+    }
+    if !self.readDuration.isEmpty {
+      try visitor.visitSingularStringField(value: self.readDuration, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_ChatReadLog, rhs: Api_Core_ChatReadLog) -> Bool {
+    if lhs.auditorAccount != rhs.auditorAccount {return false}
+    if lhs.auditorNickname != rhs.auditorNickname {return false}
+    if lhs.startTime != rhs.startTime {return false}
+    if lhs.endTime != rhs.endTime {return false}
+    if lhs.readDuration != rhs.readDuration {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_ExportQualityChatsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ExportQualityChatsRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "group_id"),
+    2: .standard(proto: "worker_id"),
+    3: .standard(proto: "user_id"),
+    5: .standard(proto: "start_time"),
+    6: .standard(proto: "end_time"),
+    7: .standard(proto: "auditor_account"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.groupID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.userID) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._startTime) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._endTime) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.auditorAccount) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.groupID != 0 {
+      try visitor.visitSingularInt32Field(value: self.groupID, fieldNumber: 1)
+    }
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 2)
+    }
+    if self.userID != 0 {
+      try visitor.visitSingularInt32Field(value: self.userID, fieldNumber: 3)
+    }
+    try { if let v = self._startTime {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
+    try { if let v = self._endTime {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
+    if !self.auditorAccount.isEmpty {
+      try visitor.visitSingularStringField(value: self.auditorAccount, fieldNumber: 7)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_ExportQualityChatsRequest, rhs: Api_Core_ExportQualityChatsRequest) -> Bool {
+    if lhs.groupID != rhs.groupID {return false}
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.userID != rhs.userID {return false}
+    if lhs._startTime != rhs._startTime {return false}
+    if lhs._endTime != rhs._endTime {return false}
+    if lhs.auditorAccount != rhs.auditorAccount {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_AddQualitySessionReadLogRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".AddQualitySessionReadLogRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "quality_session_id"),
+    2: .standard(proto: "worker_id"),
+    3: .standard(proto: "start_time"),
+    4: .standard(proto: "end_time"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.qualitySessionID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 3: try { try decoder.decodeSingularUInt32Field(value: &self.startTime) }()
+      case 4: try { try decoder.decodeSingularUInt32Field(value: &self.endTime) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.qualitySessionID != 0 {
+      try visitor.visitSingularInt64Field(value: self.qualitySessionID, fieldNumber: 1)
+    }
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 2)
+    }
+    if self.startTime != 0 {
+      try visitor.visitSingularUInt32Field(value: self.startTime, fieldNumber: 3)
+    }
+    if self.endTime != 0 {
+      try visitor.visitSingularUInt32Field(value: self.endTime, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_AddQualitySessionReadLogRequest, rhs: Api_Core_AddQualitySessionReadLogRequest) -> Bool {
+    if lhs.qualitySessionID != rhs.qualitySessionID {return false}
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.startTime != rhs.startTime {return false}
+    if lhs.endTime != rhs.endTime {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QualitySessionReadLog: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QualitySessionReadLog"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "check_worker_account"),
+    2: .standard(proto: "check_worker_nickname"),
+    3: .standard(proto: "start_time"),
+    4: .standard(proto: "end_time"),
+    5: .standard(proto: "read_duration"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.checkWorkerAccount) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.checkWorkerNickname) }()
+      case 3: try { try decoder.decodeSingularUInt32Field(value: &self.startTime) }()
+      case 4: try { try decoder.decodeSingularUInt32Field(value: &self.endTime) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.readDuration) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.checkWorkerAccount.isEmpty {
+      try visitor.visitSingularStringField(value: self.checkWorkerAccount, fieldNumber: 1)
+    }
+    if !self.checkWorkerNickname.isEmpty {
+      try visitor.visitSingularStringField(value: self.checkWorkerNickname, fieldNumber: 2)
+    }
+    if self.startTime != 0 {
+      try visitor.visitSingularUInt32Field(value: self.startTime, fieldNumber: 3)
+    }
+    if self.endTime != 0 {
+      try visitor.visitSingularUInt32Field(value: self.endTime, fieldNumber: 4)
+    }
+    if !self.readDuration.isEmpty {
+      try visitor.visitSingularStringField(value: self.readDuration, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QualitySessionReadLog, rhs: Api_Core_QualitySessionReadLog) -> Bool {
+    if lhs.checkWorkerAccount != rhs.checkWorkerAccount {return false}
+    if lhs.checkWorkerNickname != rhs.checkWorkerNickname {return false}
+    if lhs.startTime != rhs.startTime {return false}
+    if lhs.endTime != rhs.endTime {return false}
+    if lhs.readDuration != rhs.readDuration {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_AddChatReadLogRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".AddChatReadLogRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "worker_id"),
+    2: .standard(proto: "chat_id"),
+    3: .standard(proto: "start_time"),
+    4: .standard(proto: "end_time"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.startTime) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self.endTime) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 1)
+    }
+    if self.chatID != 0 {
+      try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 2)
+    }
+    if self.startTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.startTime, fieldNumber: 3)
+    }
+    if self.endTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.endTime, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_AddChatReadLogRequest, rhs: Api_Core_AddChatReadLogRequest) -> Bool {
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.chatID != rhs.chatID {return false}
+    if lhs.startTime != rhs.startTime {return false}
+    if lhs.endTime != rhs.endTime {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QualityItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QualityItem"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "worker_id"),
+    2: .standard(proto: "worker_detail"),
+    3: .standard(proto: "user_sum"),
+    4: .standard(proto: "chat_sum"),
+    5: .standard(proto: "quality_sum"),
+    6: .standard(proto: "quality_radio"),
+    7: .standard(proto: "quality_union"),
+    8: .standard(proto: "quality_must"),
+    9: .standard(proto: "quality_review"),
+    10: .standard(proto: "very_pool"),
+    11: .same(proto: "poor"),
+    12: .same(proto: "normal"),
+    13: .same(proto: "excellent"),
+    14: .standard(proto: "qualification_percent"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.workerDetail) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.userSum) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.chatSum) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.qualitySum) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.qualityRadio) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.qualityUnion) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.qualityMust) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.qualityReview) }()
+      case 10: try { try decoder.decodeSingularStringField(value: &self.veryPool) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.poor) }()
+      case 12: try { try decoder.decodeSingularStringField(value: &self.normal) }()
+      case 13: try { try decoder.decodeSingularStringField(value: &self.excellent) }()
+      case 14: try { try decoder.decodeSingularStringField(value: &self.qualificationPercent) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 1)
+    }
+    if !self.workerDetail.isEmpty {
+      try visitor.visitSingularStringField(value: self.workerDetail, fieldNumber: 2)
+    }
+    if self.userSum != 0 {
+      try visitor.visitSingularInt32Field(value: self.userSum, fieldNumber: 3)
+    }
+    if self.chatSum != 0 {
+      try visitor.visitSingularInt32Field(value: self.chatSum, fieldNumber: 4)
+    }
+    if self.qualitySum != 0 {
+      try visitor.visitSingularInt32Field(value: self.qualitySum, fieldNumber: 5)
+    }
+    if !self.qualityRadio.isEmpty {
+      try visitor.visitSingularStringField(value: self.qualityRadio, fieldNumber: 6)
+    }
+    if !self.qualityUnion.isEmpty {
+      try visitor.visitSingularStringField(value: self.qualityUnion, fieldNumber: 7)
+    }
+    if !self.qualityMust.isEmpty {
+      try visitor.visitSingularStringField(value: self.qualityMust, fieldNumber: 8)
+    }
+    if !self.qualityReview.isEmpty {
+      try visitor.visitSingularStringField(value: self.qualityReview, fieldNumber: 9)
+    }
+    if !self.veryPool.isEmpty {
+      try visitor.visitSingularStringField(value: self.veryPool, fieldNumber: 10)
+    }
+    if !self.poor.isEmpty {
+      try visitor.visitSingularStringField(value: self.poor, fieldNumber: 11)
+    }
+    if !self.normal.isEmpty {
+      try visitor.visitSingularStringField(value: self.normal, fieldNumber: 12)
+    }
+    if !self.excellent.isEmpty {
+      try visitor.visitSingularStringField(value: self.excellent, fieldNumber: 13)
+    }
+    if !self.qualificationPercent.isEmpty {
+      try visitor.visitSingularStringField(value: self.qualificationPercent, fieldNumber: 14)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QualityItem, rhs: Api_Core_QualityItem) -> Bool {
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.workerDetail != rhs.workerDetail {return false}
+    if lhs.userSum != rhs.userSum {return false}
+    if lhs.chatSum != rhs.chatSum {return false}
+    if lhs.qualitySum != rhs.qualitySum {return false}
+    if lhs.qualityRadio != rhs.qualityRadio {return false}
+    if lhs.qualityUnion != rhs.qualityUnion {return false}
+    if lhs.qualityMust != rhs.qualityMust {return false}
+    if lhs.qualityReview != rhs.qualityReview {return false}
+    if lhs.veryPool != rhs.veryPool {return false}
+    if lhs.poor != rhs.poor {return false}
+    if lhs.normal != rhs.normal {return false}
+    if lhs.excellent != rhs.excellent {return false}
+    if lhs.qualificationPercent != rhs.qualificationPercent {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QualityTotal: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QualityTotal"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "worker_total"),
+    2: .standard(proto: "user_total"),
+    3: .standard(proto: "chat_total"),
+    4: .standard(proto: "quality_total"),
+    5: .standard(proto: "quality_radio_total"),
+    6: .standard(proto: "quality_union_total"),
+    7: .standard(proto: "quality_must_total"),
+    8: .standard(proto: "quality_review_total"),
+    9: .standard(proto: "very_pool_total"),
+    10: .standard(proto: "poor_total"),
+    11: .standard(proto: "normal_total"),
+    12: .standard(proto: "excellent_total"),
+    13: .standard(proto: "qualification_percent_total"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.workerTotal) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.userTotal) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.chatTotal) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.qualityTotal) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.qualityRadioTotal) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.qualityUnionTotal) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.qualityMustTotal) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.qualityReviewTotal) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.veryPoolTotal) }()
+      case 10: try { try decoder.decodeSingularStringField(value: &self.poorTotal) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.normalTotal) }()
+      case 12: try { try decoder.decodeSingularStringField(value: &self.excellentTotal) }()
+      case 13: try { try decoder.decodeSingularStringField(value: &self.qualificationPercentTotal) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.workerTotal != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerTotal, fieldNumber: 1)
+    }
+    if self.userTotal != 0 {
+      try visitor.visitSingularInt32Field(value: self.userTotal, fieldNumber: 2)
+    }
+    if self.chatTotal != 0 {
+      try visitor.visitSingularInt32Field(value: self.chatTotal, fieldNumber: 3)
+    }
+    if self.qualityTotal != 0 {
+      try visitor.visitSingularInt32Field(value: self.qualityTotal, fieldNumber: 4)
+    }
+    if !self.qualityRadioTotal.isEmpty {
+      try visitor.visitSingularStringField(value: self.qualityRadioTotal, fieldNumber: 5)
+    }
+    if !self.qualityUnionTotal.isEmpty {
+      try visitor.visitSingularStringField(value: self.qualityUnionTotal, fieldNumber: 6)
+    }
+    if !self.qualityMustTotal.isEmpty {
+      try visitor.visitSingularStringField(value: self.qualityMustTotal, fieldNumber: 7)
+    }
+    if !self.qualityReviewTotal.isEmpty {
+      try visitor.visitSingularStringField(value: self.qualityReviewTotal, fieldNumber: 8)
+    }
+    if !self.veryPoolTotal.isEmpty {
+      try visitor.visitSingularStringField(value: self.veryPoolTotal, fieldNumber: 9)
+    }
+    if !self.poorTotal.isEmpty {
+      try visitor.visitSingularStringField(value: self.poorTotal, fieldNumber: 10)
+    }
+    if !self.normalTotal.isEmpty {
+      try visitor.visitSingularStringField(value: self.normalTotal, fieldNumber: 11)
+    }
+    if !self.excellentTotal.isEmpty {
+      try visitor.visitSingularStringField(value: self.excellentTotal, fieldNumber: 12)
+    }
+    if !self.qualificationPercentTotal.isEmpty {
+      try visitor.visitSingularStringField(value: self.qualificationPercentTotal, fieldNumber: 13)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QualityTotal, rhs: Api_Core_QualityTotal) -> Bool {
+    if lhs.workerTotal != rhs.workerTotal {return false}
+    if lhs.userTotal != rhs.userTotal {return false}
+    if lhs.chatTotal != rhs.chatTotal {return false}
+    if lhs.qualityTotal != rhs.qualityTotal {return false}
+    if lhs.qualityRadioTotal != rhs.qualityRadioTotal {return false}
+    if lhs.qualityUnionTotal != rhs.qualityUnionTotal {return false}
+    if lhs.qualityMustTotal != rhs.qualityMustTotal {return false}
+    if lhs.qualityReviewTotal != rhs.qualityReviewTotal {return false}
+    if lhs.veryPoolTotal != rhs.veryPoolTotal {return false}
+    if lhs.poorTotal != rhs.poorTotal {return false}
+    if lhs.normalTotal != rhs.normalTotal {return false}
+    if lhs.excellentTotal != rhs.excellentTotal {return false}
+    if lhs.qualificationPercentTotal != rhs.qualificationPercentTotal {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QualityQueryReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QualityQueryReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "page"),
+    2: .same(proto: "pageSize"),
+    3: .standard(proto: "start_time"),
+    4: .standard(proto: "end_time"),
+    5: .standard(proto: "group_pid"),
+    6: .standard(proto: "worker_id"),
+    9: .same(proto: "SortName"),
+    10: .same(proto: "SortType"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.page) }()
+      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.pageSize) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._startTime) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._endTime) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.groupPid) }()
+      case 6: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.sortName) }()
+      case 10: try { try decoder.decodeSingularInt32Field(value: &self.sortType) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.page != 0 {
+      try visitor.visitSingularUInt32Field(value: self.page, fieldNumber: 1)
+    }
+    if self.pageSize != 0 {
+      try visitor.visitSingularUInt32Field(value: self.pageSize, fieldNumber: 2)
+    }
+    try { if let v = self._startTime {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._endTime {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    if self.groupPid != 0 {
+      try visitor.visitSingularInt32Field(value: self.groupPid, fieldNumber: 5)
+    }
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 6)
+    }
+    if !self.sortName.isEmpty {
+      try visitor.visitSingularStringField(value: self.sortName, fieldNumber: 9)
+    }
+    if self.sortType != 0 {
+      try visitor.visitSingularInt32Field(value: self.sortType, fieldNumber: 10)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QualityQueryReq, rhs: Api_Core_QualityQueryReq) -> Bool {
+    if lhs.page != rhs.page {return false}
+    if lhs.pageSize != rhs.pageSize {return false}
+    if lhs._startTime != rhs._startTime {return false}
+    if lhs._endTime != rhs._endTime {return false}
+    if lhs.groupPid != rhs.groupPid {return false}
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.sortName != rhs.sortName {return false}
+    if lhs.sortType != rhs.sortType {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QualityQueryResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QualityQueryResp"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "items"),
+    3: .same(proto: "total"),
+    4: .standard(proto: "quality_total"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.total) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._qualityTotal) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.items.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.items, fieldNumber: 1)
+    }
+    if self.total != 0 {
+      try visitor.visitSingularInt32Field(value: self.total, fieldNumber: 3)
+    }
+    try { if let v = self._qualityTotal {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QualityQueryResp, rhs: Api_Core_QualityQueryResp) -> Bool {
+    if lhs.items != rhs.items {return false}
+    if lhs.total != rhs.total {return false}
+    if lhs._qualityTotal != rhs._qualityTotal {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QualityCreateReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QualityCreateReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "chat_id"),
+    2: .standard(proto: "source_id"),
+    3: .same(proto: "score"),
+    4: .same(proto: "content"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.sourceID) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.score) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.content) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.chatID != 0 {
+      try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 1)
+    }
+    if self.sourceID != 0 {
+      try visitor.visitSingularInt64Field(value: self.sourceID, fieldNumber: 2)
+    }
+    if self.score != .wstUnknown {
+      try visitor.visitSingularEnumField(value: self.score, fieldNumber: 3)
+    }
+    if !self.content.isEmpty {
+      try visitor.visitSingularStringField(value: self.content, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QualityCreateReq, rhs: Api_Core_QualityCreateReq) -> Bool {
+    if lhs.chatID != rhs.chatID {return false}
+    if lhs.sourceID != rhs.sourceID {return false}
+    if lhs.score != rhs.score {return false}
+    if lhs.content != rhs.content {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QualityDetailReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QualityDetailReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "source_id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.sourceID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.sourceID != 0 {
+      try visitor.visitSingularInt64Field(value: self.sourceID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QualityDetailReq, rhs: Api_Core_QualityDetailReq) -> Bool {
+    if lhs.sourceID != rhs.sourceID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QualityDetailResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QualityDetailResp"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "source_id"),
+    3: .same(proto: "score"),
+    4: .same(proto: "content"),
+    5: .standard(proto: "review_score"),
+    6: .standard(proto: "review_content"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.sourceID) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.score) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.content) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.reviewScore) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.reviewContent) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.sourceID != 0 {
+      try visitor.visitSingularInt64Field(value: self.sourceID, fieldNumber: 1)
+    }
+    if self.score != .wstUnknown {
+      try visitor.visitSingularEnumField(value: self.score, fieldNumber: 3)
+    }
+    if !self.content.isEmpty {
+      try visitor.visitSingularStringField(value: self.content, fieldNumber: 4)
+    }
+    if self.reviewScore != .wstUnknown {
+      try visitor.visitSingularEnumField(value: self.reviewScore, fieldNumber: 5)
+    }
+    if !self.reviewContent.isEmpty {
+      try visitor.visitSingularStringField(value: self.reviewContent, fieldNumber: 6)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QualityDetailResp, rhs: Api_Core_QualityDetailResp) -> Bool {
+    if lhs.sourceID != rhs.sourceID {return false}
+    if lhs.score != rhs.score {return false}
+    if lhs.content != rhs.content {return false}
+    if lhs.reviewScore != rhs.reviewScore {return false}
+    if lhs.reviewContent != rhs.reviewContent {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QualityScoreItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QualityScoreItem"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "quality_worker_id"),
+    2: .standard(proto: "quality_worker_name"),
+    3: .same(proto: "score"),
+    4: .same(proto: "content"),
+    5: .standard(proto: "review_score"),
+    6: .standard(proto: "review_content"),
+    7: .standard(proto: "quality_session_id"),
+    8: .standard(proto: "quality_worker_account"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.qualityWorkerID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.qualityWorkerName) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.score) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.content) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.reviewScore) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.reviewContent) }()
+      case 7: try { try decoder.decodeSingularInt64Field(value: &self.qualitySessionID) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.qualityWorkerAccount) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.qualityWorkerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.qualityWorkerID, fieldNumber: 1)
+    }
+    if !self.qualityWorkerName.isEmpty {
+      try visitor.visitSingularStringField(value: self.qualityWorkerName, fieldNumber: 2)
+    }
+    if self.score != .wstUnknown {
+      try visitor.visitSingularEnumField(value: self.score, fieldNumber: 3)
+    }
+    if !self.content.isEmpty {
+      try visitor.visitSingularStringField(value: self.content, fieldNumber: 4)
+    }
+    if self.reviewScore != .wstUnknown {
+      try visitor.visitSingularEnumField(value: self.reviewScore, fieldNumber: 5)
+    }
+    if !self.reviewContent.isEmpty {
+      try visitor.visitSingularStringField(value: self.reviewContent, fieldNumber: 6)
+    }
+    if self.qualitySessionID != 0 {
+      try visitor.visitSingularInt64Field(value: self.qualitySessionID, fieldNumber: 7)
+    }
+    if !self.qualityWorkerAccount.isEmpty {
+      try visitor.visitSingularStringField(value: self.qualityWorkerAccount, fieldNumber: 8)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QualityScoreItem, rhs: Api_Core_QualityScoreItem) -> Bool {
+    if lhs.qualityWorkerID != rhs.qualityWorkerID {return false}
+    if lhs.qualityWorkerName != rhs.qualityWorkerName {return false}
+    if lhs.score != rhs.score {return false}
+    if lhs.content != rhs.content {return false}
+    if lhs.reviewScore != rhs.reviewScore {return false}
+    if lhs.reviewContent != rhs.reviewContent {return false}
+    if lhs.qualitySessionID != rhs.qualitySessionID {return false}
+    if lhs.qualityWorkerAccount != rhs.qualityWorkerAccount {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QualityDetailListResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QualityDetailListResp"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "item"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.item) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.item.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.item, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QualityDetailListResp, rhs: Api_Core_QualityDetailListResp) -> Bool {
+    if lhs.item != rhs.item {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerQualitiesRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerQualitiesRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "worker_id"),
+    2: .standard(proto: "chat_id"),
+    3: .standard(proto: "auditor_account"),
+    4: .standard(proto: "start_time"),
+    5: .standard(proto: "end_time"),
+    6: .same(proto: "page"),
+    7: .same(proto: "pageSize"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.auditorAccount) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self.startTime) }()
+      case 5: try { try decoder.decodeSingularInt64Field(value: &self.endTime) }()
+      case 6: try { try decoder.decodeSingularUInt32Field(value: &self.page) }()
+      case 7: try { try decoder.decodeSingularUInt32Field(value: &self.pageSize) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 1)
+    }
+    if self.chatID != 0 {
+      try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 2)
+    }
+    if !self.auditorAccount.isEmpty {
+      try visitor.visitSingularStringField(value: self.auditorAccount, fieldNumber: 3)
+    }
+    if self.startTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.startTime, fieldNumber: 4)
+    }
+    if self.endTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.endTime, fieldNumber: 5)
+    }
+    if self.page != 0 {
+      try visitor.visitSingularUInt32Field(value: self.page, fieldNumber: 6)
+    }
+    if self.pageSize != 0 {
+      try visitor.visitSingularUInt32Field(value: self.pageSize, fieldNumber: 7)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerQualitiesRequest, rhs: Api_Core_WorkerQualitiesRequest) -> Bool {
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.chatID != rhs.chatID {return false}
+    if lhs.auditorAccount != rhs.auditorAccount {return false}
+    if lhs.startTime != rhs.startTime {return false}
+    if lhs.endTime != rhs.endTime {return false}
+    if lhs.page != rhs.page {return false}
+    if lhs.pageSize != rhs.pageSize {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerQualitiesResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerQualitiesResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "worker_qualities"),
+    2: .same(proto: "total"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.workerQualities) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.total) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.workerQualities.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.workerQualities, fieldNumber: 1)
+    }
+    if self.total != 0 {
+      try visitor.visitSingularInt32Field(value: self.total, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerQualitiesResponse, rhs: Api_Core_WorkerQualitiesResponse) -> Bool {
+    if lhs.workerQualities != rhs.workerQualities {return false}
+    if lhs.total != rhs.total {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerQuality: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerQuality"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "consult_id"),
+    2: .standard(proto: "chat_id"),
+    3: .standard(proto: "score_time"),
+    4: .standard(proto: "worker_id"),
+    5: .standard(proto: "worker_account"),
+    6: .standard(proto: "worker_nickname"),
+    7: .standard(proto: "start_time"),
+    8: .standard(proto: "end_time"),
+    9: .standard(proto: "read_duration"),
+    10: .same(proto: "score"),
+    11: .same(proto: "content"),
+    12: .standard(proto: "score_date"),
+    13: .standard(proto: "auditor_account"),
+    14: .standard(proto: "auditor_nickname"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.consultID) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.scoreTime) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.workerAccount) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.workerNickname) }()
+      case 7: try { try decoder.decodeSingularInt64Field(value: &self.startTime) }()
+      case 8: try { try decoder.decodeSingularInt64Field(value: &self.endTime) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.readDuration) }()
+      case 10: try { try decoder.decodeSingularFloatField(value: &self.score) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.content) }()
+      case 12: try { try decoder.decodeSingularStringField(value: &self.scoreDate) }()
+      case 13: try { try decoder.decodeSingularStringField(value: &self.auditorAccount) }()
+      case 14: try { try decoder.decodeSingularStringField(value: &self.auditorNickname) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.consultID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.consultID, fieldNumber: 1)
+    }
+    if self.chatID != 0 {
+      try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 2)
+    }
+    if self.scoreTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.scoreTime, fieldNumber: 3)
+    }
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 4)
+    }
+    if !self.workerAccount.isEmpty {
+      try visitor.visitSingularStringField(value: self.workerAccount, fieldNumber: 5)
+    }
+    if !self.workerNickname.isEmpty {
+      try visitor.visitSingularStringField(value: self.workerNickname, fieldNumber: 6)
+    }
+    if self.startTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.startTime, fieldNumber: 7)
+    }
+    if self.endTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.endTime, fieldNumber: 8)
+    }
+    if !self.readDuration.isEmpty {
+      try visitor.visitSingularStringField(value: self.readDuration, fieldNumber: 9)
+    }
+    if self.score != 0 {
+      try visitor.visitSingularFloatField(value: self.score, fieldNumber: 10)
+    }
+    if !self.content.isEmpty {
+      try visitor.visitSingularStringField(value: self.content, fieldNumber: 11)
+    }
+    if !self.scoreDate.isEmpty {
+      try visitor.visitSingularStringField(value: self.scoreDate, fieldNumber: 12)
+    }
+    if !self.auditorAccount.isEmpty {
+      try visitor.visitSingularStringField(value: self.auditorAccount, fieldNumber: 13)
+    }
+    if !self.auditorNickname.isEmpty {
+      try visitor.visitSingularStringField(value: self.auditorNickname, fieldNumber: 14)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerQuality, rhs: Api_Core_WorkerQuality) -> Bool {
+    if lhs.consultID != rhs.consultID {return false}
+    if lhs.chatID != rhs.chatID {return false}
+    if lhs.scoreTime != rhs.scoreTime {return false}
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.workerAccount != rhs.workerAccount {return false}
+    if lhs.workerNickname != rhs.workerNickname {return false}
+    if lhs.startTime != rhs.startTime {return false}
+    if lhs.endTime != rhs.endTime {return false}
+    if lhs.readDuration != rhs.readDuration {return false}
+    if lhs.score != rhs.score {return false}
+    if lhs.content != rhs.content {return false}
+    if lhs.scoreDate != rhs.scoreDate {return false}
+    if lhs.auditorAccount != rhs.auditorAccount {return false}
+    if lhs.auditorNickname != rhs.auditorNickname {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_SessionMessageWorkersRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SessionMessageWorkersRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "worker_id"),
+    2: .standard(proto: "chat_id"),
+    7: .standard(proto: "start_time"),
+    8: .standard(proto: "end_time"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
+      case 7: try { try decoder.decodeSingularInt64Field(value: &self.startTime) }()
+      case 8: try { try decoder.decodeSingularInt64Field(value: &self.endTime) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 1)
+    }
+    if self.chatID != 0 {
+      try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 2)
+    }
+    if self.startTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.startTime, fieldNumber: 7)
+    }
+    if self.endTime != 0 {
+      try visitor.visitSingularInt64Field(value: self.endTime, fieldNumber: 8)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_SessionMessageWorkersRequest, rhs: Api_Core_SessionMessageWorkersRequest) -> Bool {
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.chatID != rhs.chatID {return false}
+    if lhs.startTime != rhs.startTime {return false}
+    if lhs.endTime != rhs.endTime {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_SessionMessageWorkersResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SessionMessageWorkersResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "session_message_workers"),
+    2: .same(proto: "total"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.sessionMessageWorkers) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.total) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.sessionMessageWorkers.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.sessionMessageWorkers, fieldNumber: 1)
+    }
+    if self.total != 0 {
+      try visitor.visitSingularInt32Field(value: self.total, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_SessionMessageWorkersResponse, rhs: Api_Core_SessionMessageWorkersResponse) -> Bool {
+    if lhs.sessionMessageWorkers != rhs.sessionMessageWorkers {return false}
+    if lhs.total != rhs.total {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_SessionMessageWorker: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SessionMessageWorker"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "chat_id"),
+    2: .standard(proto: "worker_id"),
+    3: .standard(proto: "worker_account"),
+    4: .standard(proto: "worker_nickname"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.chatID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.workerID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.workerAccount) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.workerNickname) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.chatID != 0 {
+      try visitor.visitSingularInt64Field(value: self.chatID, fieldNumber: 1)
+    }
+    if self.workerID != 0 {
+      try visitor.visitSingularInt32Field(value: self.workerID, fieldNumber: 2)
+    }
+    if !self.workerAccount.isEmpty {
+      try visitor.visitSingularStringField(value: self.workerAccount, fieldNumber: 3)
+    }
+    if !self.workerNickname.isEmpty {
+      try visitor.visitSingularStringField(value: self.workerNickname, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_SessionMessageWorker, rhs: Api_Core_SessionMessageWorker) -> Bool {
+    if lhs.chatID != rhs.chatID {return false}
+    if lhs.workerID != rhs.workerID {return false}
+    if lhs.workerAccount != rhs.workerAccount {return false}
+    if lhs.workerNickname != rhs.workerNickname {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_CheckItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CheckItem"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "account"),
+    2: .standard(proto: "nick_name"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.account) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.nickName) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.account.isEmpty {
+      try visitor.visitSingularStringField(value: self.account, fieldNumber: 1)
+    }
+    if !self.nickName.isEmpty {
+      try visitor.visitSingularStringField(value: self.nickName, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_CheckItem, rhs: Api_Core_CheckItem) -> Bool {
+    if lhs.account != rhs.account {return false}
+    if lhs.nickName != rhs.nickName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_QualityCheckerResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".QualityCheckerResp"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "items"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.items.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.items, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_QualityCheckerResp, rhs: Api_Core_QualityCheckerResp) -> Bool {
+    if lhs.items != rhs.items {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_TransferSessionLogReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TransferSessionLogReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "page"),
+    2: .same(proto: "pageSize"),
+    3: .standard(proto: "from_worker_account"),
+    4: .standard(proto: "chat_id"),
+    5: .standard(proto: "user_id"),
+    6: .same(proto: "start"),
+    7: .same(proto: "end"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.page) }()
+      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.pageSize) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self._fromWorkerAccount) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self._chatID) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self._userID) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self._start) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self._end) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.page != 0 {
+      try visitor.visitSingularUInt32Field(value: self.page, fieldNumber: 1)
+    }
+    if self.pageSize != 0 {
+      try visitor.visitSingularUInt32Field(value: self.pageSize, fieldNumber: 2)
+    }
+    try { if let v = self._fromWorkerAccount {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._chatID {
+      try visitor.visitSingularInt64Field(value: v, fieldNumber: 4)
+    } }()
+    try { if let v = self._userID {
+      try visitor.visitSingularInt32Field(value: v, fieldNumber: 5)
+    } }()
+    try { if let v = self._start {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 6)
+    } }()
+    try { if let v = self._end {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 7)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_TransferSessionLogReq, rhs: Api_Core_TransferSessionLogReq) -> Bool {
+    if lhs.page != rhs.page {return false}
+    if lhs.pageSize != rhs.pageSize {return false}
+    if lhs._fromWorkerAccount != rhs._fromWorkerAccount {return false}
+    if lhs._chatID != rhs._chatID {return false}
+    if lhs._userID != rhs._userID {return false}
+    if lhs._start != rhs._start {return false}
+    if lhs._end != rhs._end {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_TransferSessionLogResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TransferSessionLogResp"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "items"),
+    2: .same(proto: "total"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
+      case 2: try { try decoder.decodeSingularUInt64Field(value: &self.total) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.items.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.items, fieldNumber: 1)
+    }
+    if self.total != 0 {
+      try visitor.visitSingularUInt64Field(value: self.total, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_TransferSessionLogResp, rhs: Api_Core_TransferSessionLogResp) -> Bool {
+    if lhs.items != rhs.items {return false}
+    if lhs.total != rhs.total {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_TransferSessionLog: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TransferSessionLog"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "user_id"),
+    2: .standard(proto: "from_worker"),
+    3: .standard(proto: "to_worker"),
+    4: .standard(proto: "session_id"),
+    5: .standard(proto: "transfer_date"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.userID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.fromWorker) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.toWorker) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self.sessionID) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.transferDate) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.userID != 0 {
+      try visitor.visitSingularInt32Field(value: self.userID, fieldNumber: 1)
+    }
+    if !self.fromWorker.isEmpty {
+      try visitor.visitSingularStringField(value: self.fromWorker, fieldNumber: 2)
+    }
+    if !self.toWorker.isEmpty {
+      try visitor.visitSingularStringField(value: self.toWorker, fieldNumber: 3)
+    }
+    if self.sessionID != 0 {
+      try visitor.visitSingularInt64Field(value: self.sessionID, fieldNumber: 4)
+    }
+    if !self.transferDate.isEmpty {
+      try visitor.visitSingularStringField(value: self.transferDate, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_TransferSessionLog, rhs: Api_Core_TransferSessionLog) -> Bool {
+    if lhs.userID != rhs.userID {return false}
+    if lhs.fromWorker != rhs.fromWorker {return false}
+    if lhs.toWorker != rhs.toWorker {return false}
+    if lhs.sessionID != rhs.sessionID {return false}
+    if lhs.transferDate != rhs.transferDate {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerAccountBannedListReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerAccountBannedListReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "page"),
+    2: .same(proto: "pageSize"),
+    3: .standard(proto: "worker_account"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.page) }()
+      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.pageSize) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self._workerAccount) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.page != 0 {
+      try visitor.visitSingularUInt32Field(value: self.page, fieldNumber: 1)
+    }
+    if self.pageSize != 0 {
+      try visitor.visitSingularUInt32Field(value: self.pageSize, fieldNumber: 2)
+    }
+    try { if let v = self._workerAccount {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerAccountBannedListReq, rhs: Api_Core_WorkerAccountBannedListReq) -> Bool {
+    if lhs.page != rhs.page {return false}
+    if lhs.pageSize != rhs.pageSize {return false}
+    if lhs._workerAccount != rhs._workerAccount {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerAccountUnbanReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerAccountUnbanReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "worker_account"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.workerAccount) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.workerAccount.isEmpty {
+      try visitor.visitSingularStringField(value: self.workerAccount, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerAccountUnbanReq, rhs: Api_Core_WorkerAccountUnbanReq) -> Bool {
+    if lhs.workerAccount != rhs.workerAccount {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerAccountBannedItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerAccountBannedItem"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "worker_account"),
+    2: .standard(proto: "worker_name"),
+    3: .standard(proto: "worker_groups"),
+    4: .standard(proto: "attempted_ip"),
+    5: .standard(proto: "banned_time"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.workerAccount) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.workerName) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.workerGroups) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.attemptedIp) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.bannedTime) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.workerAccount.isEmpty {
+      try visitor.visitSingularStringField(value: self.workerAccount, fieldNumber: 1)
+    }
+    if !self.workerName.isEmpty {
+      try visitor.visitSingularStringField(value: self.workerName, fieldNumber: 2)
+    }
+    if !self.workerGroups.isEmpty {
+      try visitor.visitSingularStringField(value: self.workerGroups, fieldNumber: 3)
+    }
+    if !self.attemptedIp.isEmpty {
+      try visitor.visitSingularStringField(value: self.attemptedIp, fieldNumber: 4)
+    }
+    if !self.bannedTime.isEmpty {
+      try visitor.visitSingularStringField(value: self.bannedTime, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerAccountBannedItem, rhs: Api_Core_WorkerAccountBannedItem) -> Bool {
+    if lhs.workerAccount != rhs.workerAccount {return false}
+    if lhs.workerName != rhs.workerName {return false}
+    if lhs.workerGroups != rhs.workerGroups {return false}
+    if lhs.attemptedIp != rhs.attemptedIp {return false}
+    if lhs.bannedTime != rhs.bannedTime {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerAccountBannedListResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerAccountBannedListResp"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "list"),
+    2: .same(proto: "total"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.list) }()
+      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.total) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.list.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.list, fieldNumber: 1)
+    }
+    if self.total != 0 {
+      try visitor.visitSingularUInt32Field(value: self.total, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerAccountBannedListResp, rhs: Api_Core_WorkerAccountBannedListResp) -> Bool {
+    if lhs.list != rhs.list {return false}
+    if lhs.total != rhs.total {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerIPBannedListReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerIPBannedListReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "page"),
+    2: .same(proto: "pageSize"),
+    3: .standard(proto: "worker_ip"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.page) }()
+      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.pageSize) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self._workerIp) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.page != 0 {
+      try visitor.visitSingularUInt32Field(value: self.page, fieldNumber: 1)
+    }
+    if self.pageSize != 0 {
+      try visitor.visitSingularUInt32Field(value: self.pageSize, fieldNumber: 2)
+    }
+    try { if let v = self._workerIp {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerIPBannedListReq, rhs: Api_Core_WorkerIPBannedListReq) -> Bool {
+    if lhs.page != rhs.page {return false}
+    if lhs.pageSize != rhs.pageSize {return false}
+    if lhs._workerIp != rhs._workerIp {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerIPUnbanReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerIPUnbanReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "ip"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.ip) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.ip.isEmpty {
+      try visitor.visitSingularStringField(value: self.ip, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerIPUnbanReq, rhs: Api_Core_WorkerIPUnbanReq) -> Bool {
+    if lhs.ip != rhs.ip {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerIPBannedItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerIPBannedItem"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "worker_ip"),
+    2: .standard(proto: "banned_time"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.workerIp) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.bannedTime) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.workerIp.isEmpty {
+      try visitor.visitSingularStringField(value: self.workerIp, fieldNumber: 1)
+    }
+    if !self.bannedTime.isEmpty {
+      try visitor.visitSingularStringField(value: self.bannedTime, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerIPBannedItem, rhs: Api_Core_WorkerIPBannedItem) -> Bool {
+    if lhs.workerIp != rhs.workerIp {return false}
+    if lhs.bannedTime != rhs.bannedTime {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerIPBannedListResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerIPBannedListResp"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "list"),
+    2: .same(proto: "total"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.list) }()
+      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.total) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.list.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.list, fieldNumber: 1)
+    }
+    if self.total != 0 {
+      try visitor.visitSingularUInt32Field(value: self.total, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerIPBannedListResp, rhs: Api_Core_WorkerIPBannedListResp) -> Bool {
+    if lhs.list != rhs.list {return false}
+    if lhs.total != rhs.total {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerRouteListRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRouteListRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "batch"),
+    2: .same(proto: "name"),
+    3: .same(proto: "url"),
+    4: .same(proto: "pid"),
+    5: .standard(proto: "role_type"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._batch) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self._name) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self._url) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self._pid) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self._roleType) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._batch {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._name {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._url {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._pid {
+      try visitor.visitSingularInt32Field(value: v, fieldNumber: 4)
+    } }()
+    try { if let v = self._roleType {
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 5)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerRouteListRequest, rhs: Api_Core_WorkerRouteListRequest) -> Bool {
+    if lhs._batch != rhs._batch {return false}
+    if lhs._name != rhs._name {return false}
+    if lhs._url != rhs._url {return false}
+    if lhs._pid != rhs._pid {return false}
+    if lhs._roleType != rhs._roleType {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerRouteListResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRouteListResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "batch"),
+    2: .same(proto: "list"),
+    3: .same(proto: "total"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._batch) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.list) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.total) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._batch {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    if !self.list.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.list, fieldNumber: 2)
+    }
+    if self.total != 0 {
+      try visitor.visitSingularInt32Field(value: self.total, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerRouteListResponse, rhs: Api_Core_WorkerRouteListResponse) -> Bool {
+    if lhs._batch != rhs._batch {return false}
+    if lhs.list != rhs.list {return false}
+    if lhs.total != rhs.total {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerRouteCreateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRouteCreateRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "name"),
+    2: .same(proto: "url"),
+    3: .same(proto: "pid"),
+    4: .same(proto: "sort"),
+    5: .same(proto: "remark"),
+    6: .standard(proto: "role_type"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.pid) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.sort) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.remark) }()
+      case 6: try { try decoder.decodeSingularEnumField(value: &self.roleType) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
+    }
+    if !self.url.isEmpty {
+      try visitor.visitSingularStringField(value: self.url, fieldNumber: 2)
+    }
+    if self.pid != 0 {
+      try visitor.visitSingularInt32Field(value: self.pid, fieldNumber: 3)
+    }
+    if self.sort != 0 {
+      try visitor.visitSingularInt32Field(value: self.sort, fieldNumber: 4)
+    }
+    if !self.remark.isEmpty {
+      try visitor.visitSingularStringField(value: self.remark, fieldNumber: 5)
+    }
+    if self.roleType != .wrtDefault {
+      try visitor.visitSingularEnumField(value: self.roleType, fieldNumber: 6)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerRouteCreateRequest, rhs: Api_Core_WorkerRouteCreateRequest) -> Bool {
+    if lhs.name != rhs.name {return false}
+    if lhs.url != rhs.url {return false}
+    if lhs.pid != rhs.pid {return false}
+    if lhs.sort != rhs.sort {return false}
+    if lhs.remark != rhs.remark {return false}
+    if lhs.roleType != rhs.roleType {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerRouteUpdateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRouteUpdateRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "name"),
+    3: .same(proto: "url"),
+    4: .same(proto: "pid"),
+    5: .same(proto: "sort"),
+    6: .same(proto: "remark"),
+    7: .standard(proto: "role_type"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.pid) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.sort) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.remark) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.roleType) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.id != 0 {
+      try visitor.visitSingularInt32Field(value: self.id, fieldNumber: 1)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    }
+    if !self.url.isEmpty {
+      try visitor.visitSingularStringField(value: self.url, fieldNumber: 3)
+    }
+    if self.pid != 0 {
+      try visitor.visitSingularInt32Field(value: self.pid, fieldNumber: 4)
+    }
+    if self.sort != 0 {
+      try visitor.visitSingularInt32Field(value: self.sort, fieldNumber: 5)
+    }
+    if !self.remark.isEmpty {
+      try visitor.visitSingularStringField(value: self.remark, fieldNumber: 6)
+    }
+    if self.roleType != .wrtDefault {
+      try visitor.visitSingularEnumField(value: self.roleType, fieldNumber: 7)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerRouteUpdateRequest, rhs: Api_Core_WorkerRouteUpdateRequest) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.url != rhs.url {return false}
+    if lhs.pid != rhs.pid {return false}
+    if lhs.sort != rhs.sort {return false}
+    if lhs.remark != rhs.remark {return false}
+    if lhs.roleType != rhs.roleType {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerRouteDeleteRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRouteDeleteRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.id) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.id != 0 {
+      try visitor.visitSingularInt32Field(value: self.id, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerRouteDeleteRequest, rhs: Api_Core_WorkerRouteDeleteRequest) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerRoleListRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRoleListRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "batch"),
+    2: .same(proto: "name"),
+    3: .same(proto: "listCall"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._batch) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self._name) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.listCall) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._batch {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._name {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+    } }()
+    if self.listCall != false {
+      try visitor.visitSingularBoolField(value: self.listCall, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerRoleListRequest, rhs: Api_Core_WorkerRoleListRequest) -> Bool {
+    if lhs._batch != rhs._batch {return false}
+    if lhs._name != rhs._name {return false}
+    if lhs.listCall != rhs.listCall {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerRoleListResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRoleListResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "batch"),
+    2: .same(proto: "list"),
+    3: .same(proto: "total"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._batch) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.list) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.total) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._batch {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    if !self.list.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.list, fieldNumber: 2)
+    }
+    if self.total != 0 {
+      try visitor.visitSingularInt32Field(value: self.total, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerRoleListResponse, rhs: Api_Core_WorkerRoleListResponse) -> Bool {
+    if lhs._batch != rhs._batch {return false}
+    if lhs.list != rhs.list {return false}
+    if lhs.total != rhs.total {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerRoleCreateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRoleCreateRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "name"),
+    2: .same(proto: "sort"),
+    3: .same(proto: "remark"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.sort) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.remark) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
+    }
+    if self.sort != 0 {
+      try visitor.visitSingularInt32Field(value: self.sort, fieldNumber: 2)
+    }
+    if !self.remark.isEmpty {
+      try visitor.visitSingularStringField(value: self.remark, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerRoleCreateRequest, rhs: Api_Core_WorkerRoleCreateRequest) -> Bool {
+    if lhs.name != rhs.name {return false}
+    if lhs.sort != rhs.sort {return false}
+    if lhs.remark != rhs.remark {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerRoleUpdateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRoleUpdateRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "name"),
+    3: .same(proto: "sort"),
+    4: .same(proto: "remark"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.sort) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.remark) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.id != 0 {
+      try visitor.visitSingularInt32Field(value: self.id, fieldNumber: 1)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    }
+    if self.sort != 0 {
+      try visitor.visitSingularInt32Field(value: self.sort, fieldNumber: 3)
+    }
+    if !self.remark.isEmpty {
+      try visitor.visitSingularStringField(value: self.remark, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerRoleUpdateRequest, rhs: Api_Core_WorkerRoleUpdateRequest) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.sort != rhs.sort {return false}
+    if lhs.remark != rhs.remark {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerRoleDeleteRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRoleDeleteRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.id) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.id != 0 {
+      try visitor.visitSingularInt32Field(value: self.id, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerRoleDeleteRequest, rhs: Api_Core_WorkerRoleDeleteRequest) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerRoleRouteRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRoleRouteRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "role_id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.roleID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.roleID != 0 {
+      try visitor.visitSingularInt32Field(value: self.roleID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerRoleRouteRequest, rhs: Api_Core_WorkerRoleRouteRequest) -> Bool {
+    if lhs.roleID != rhs.roleID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerRoleRouteTree: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRoleRouteTree"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "name"),
+    3: .same(proto: "sort"),
+    4: .same(proto: "remark"),
+    5: .standard(proto: "route_type_routes"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.sort) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.remark) }()
+      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.routeTypeRoutes) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.id != 0 {
+      try visitor.visitSingularInt32Field(value: self.id, fieldNumber: 1)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    }
+    if self.sort != 0 {
+      try visitor.visitSingularInt32Field(value: self.sort, fieldNumber: 3)
+    }
+    if !self.remark.isEmpty {
+      try visitor.visitSingularStringField(value: self.remark, fieldNumber: 4)
+    }
+    if !self.routeTypeRoutes.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.routeTypeRoutes, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerRoleRouteTree, rhs: Api_Core_WorkerRoleRouteTree) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.sort != rhs.sort {return false}
+    if lhs.remark != rhs.remark {return false}
+    if lhs.routeTypeRoutes != rhs.routeTypeRoutes {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Core_WorkerRoleRouteUpdateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WorkerRoleRouteUpdateRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "role_id"),
+    2: .standard(proto: "route_ids"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.roleID) }()
+      case 2: try { try decoder.decodeRepeatedInt32Field(value: &self.routeIds) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.roleID != 0 {
+      try visitor.visitSingularInt32Field(value: self.roleID, fieldNumber: 1)
+    }
+    if !self.routeIds.isEmpty {
+      try visitor.visitPackedInt32Field(value: self.routeIds, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Core_WorkerRoleRouteUpdateRequest, rhs: Api_Core_WorkerRoleRouteUpdateRequest) -> Bool {
+    if lhs.roleID != rhs.roleID {return false}
+    if lhs.routeIds != rhs.routeIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

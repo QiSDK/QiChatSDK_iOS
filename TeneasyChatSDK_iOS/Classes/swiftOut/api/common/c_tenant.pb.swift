@@ -20,6 +20,179 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+/// 通用配置状态
+public enum Api_Common_CommonConfigStatus: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// @String(未知)
+  case vcsUnknown // = 0
+
+  /// @String(启用)
+  case vcsEnable // = 1
+
+  /// @String(禁用)
+  case vcsDisable // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .vcsUnknown
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .vcsUnknown
+    case 1: self = .vcsEnable
+    case 2: self = .vcsDisable
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .vcsUnknown: return 0
+    case .vcsEnable: return 1
+    case .vcsDisable: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_CommonConfigStatus: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_CommonConfigStatus] = [
+    .vcsUnknown,
+    .vcsEnable,
+    .vcsDisable,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// 是否超管
+public enum Api_Common_TenantIsSuper: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// 默认
+  case isSuperDefault // = 0
+
+  /// 否
+  case isSuperNo // = 1
+
+  /// 是
+  case isSuperYes // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .isSuperDefault
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .isSuperDefault
+    case 1: self = .isSuperNo
+    case 2: self = .isSuperYes
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .isSuperDefault: return 0
+    case .isSuperNo: return 1
+    case .isSuperYes: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_TenantIsSuper: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_TenantIsSuper] = [
+    .isSuperDefault,
+    .isSuperNo,
+    .isSuperYes,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// 商户复制类型
+public enum Api_Common_TenantCopyType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// 未知
+  case tctUnknown // = 0
+
+  /// uid
+  case tctUid // = 1
+
+  /// 用户账号
+  case tctAccount // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .tctUnknown
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .tctUnknown
+    case 1: self = .tctUid
+    case 2: self = .tctAccount
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .tctUnknown: return 0
+    case .tctUid: return 1
+    case .tctAccount: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Api_Common_TenantCopyType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Api_Common_TenantCopyType] = [
+    .tctUnknown,
+    .tctUid,
+    .tctAccount,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// ws建立连接请求扩展字段
+public struct Api_Common_WSConnCustom {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// 用户账号
+  public var username: String = String()
+
+  /// 用户平台 1-IOS 2-安卓端;
+  public var platform: Int32 = 0
+
+  /// 用户层级标识
+  public var userlevel: UInt32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 /// 商户线路组
 public struct Api_Common_TenantsLineGroup {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -101,13 +274,302 @@ public struct Api_Common_TenantsLineGroup {
   fileprivate var _deleteAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
+/// 商户后台路由
+public struct Api_Common_TenantRoute {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var id: Int32 = 0
+
+  /// name
+  public var name: String = String()
+
+  /// url
+  public var url: String = String()
+
+  /// pid
+  public var pid: Int32 = 0
+
+  /// sort
+  public var sort: Int32 = 0
+
+  /// 创建时间
+  public var createAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _createAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_createAt = newValue}
+  }
+  /// Returns true if `createAt` has been explicitly set.
+  public var hasCreateAt: Bool {return self._createAt != nil}
+  /// Clears the value of `createAt`. Subsequent reads from it will return its default value.
+  public mutating func clearCreateAt() {self._createAt = nil}
+
+  /// 更新时间
+  public var updateAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _updateAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_updateAt = newValue}
+  }
+  /// Returns true if `updateAt` has been explicitly set.
+  public var hasUpdateAt: Bool {return self._updateAt != nil}
+  /// Clears the value of `updateAt`. Subsequent reads from it will return its default value.
+  public mutating func clearUpdateAt() {self._updateAt = nil}
+
+  /// is_bind
+  public var bindingStatus: CommonBindStatus = .default
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _createAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _updateAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+/// 商户后台路由
+public struct Api_Common_TenantRouteWithItem {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var id: Int32 = 0
+
+  /// name
+  public var name: String = String()
+
+  /// url
+  public var url: String = String()
+
+  /// pid
+  public var pid: Int32 = 0
+
+  /// sort
+  public var sort: Int32 = 0
+
+  /// 创建时间
+  public var createAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _createAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_createAt = newValue}
+  }
+  /// Returns true if `createAt` has been explicitly set.
+  public var hasCreateAt: Bool {return self._createAt != nil}
+  /// Clears the value of `createAt`. Subsequent reads from it will return its default value.
+  public mutating func clearCreateAt() {self._createAt = nil}
+
+  /// 更新时间
+  public var updateAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _updateAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_updateAt = newValue}
+  }
+  /// Returns true if `updateAt` has been explicitly set.
+  public var hasUpdateAt: Bool {return self._updateAt != nil}
+  /// Clears the value of `updateAt`. Subsequent reads from it will return its default value.
+  public mutating func clearUpdateAt() {self._updateAt = nil}
+
+  /// 子路由列表
+  public var items: [Api_Common_TenantRoute] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _createAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _updateAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+/// 商户后台角色表
+public struct Api_Common_TenantRole {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var id: Int32 = 0
+
+  /// name
+  public var name: String = String()
+
+  /// is_super
+  public var isSuper: Api_Common_TenantIsSuper = .isSuperDefault
+
+  /// 创建时间
+  public var createAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _createAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_createAt = newValue}
+  }
+  /// Returns true if `createAt` has been explicitly set.
+  public var hasCreateAt: Bool {return self._createAt != nil}
+  /// Clears the value of `createAt`. Subsequent reads from it will return its default value.
+  public mutating func clearCreateAt() {self._createAt = nil}
+
+  /// 更新时间
+  public var updateAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _updateAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_updateAt = newValue}
+  }
+  /// Returns true if `updateAt` has been explicitly set.
+  public var hasUpdateAt: Bool {return self._updateAt != nil}
+  /// Clears the value of `updateAt`. Subsequent reads from it will return its default value.
+  public mutating func clearUpdateAt() {self._updateAt = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _createAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _updateAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+/// 商户后台角色路由绑定表
+public struct Api_Common_TenantRoleRoute {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// role_id
+  public var roleID: Int32 = 0
+
+  /// route_id
+  public var routeID: Int32 = 0
+
+  /// route_url
+  public var routeURL: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// 商户后台管理员表
+public struct Api_Common_TenantManager {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var id: Int32 = 0
+
+  /// account
+  public var account: String = String()
+
+  /// password
+  public var password: String = String()
+
+  /// role_id
+  public var roleID: Int32 = 0
+
+  /// status
+  public var status: CommonDisableStatus = .default
+
+  /// 创建时间
+  public var createAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _createAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_createAt = newValue}
+  }
+  /// Returns true if `createAt` has been explicitly set.
+  public var hasCreateAt: Bool {return self._createAt != nil}
+  /// Clears the value of `createAt`. Subsequent reads from it will return its default value.
+  public mutating func clearCreateAt() {self._createAt = nil}
+
+  /// 更新时间
+  public var updateAt: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _updateAt ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_updateAt = newValue}
+  }
+  /// Returns true if `updateAt` has been explicitly set.
+  public var hasUpdateAt: Bool {return self._updateAt != nil}
+  /// Clears the value of `updateAt`. Subsequent reads from it will return its default value.
+  public mutating func clearUpdateAt() {self._updateAt = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _createAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _updateAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
+extension Api_Common_CommonConfigStatus: @unchecked Sendable {}
+extension Api_Common_TenantIsSuper: @unchecked Sendable {}
+extension Api_Common_TenantCopyType: @unchecked Sendable {}
+extension Api_Common_WSConnCustom: @unchecked Sendable {}
 extension Api_Common_TenantsLineGroup: @unchecked Sendable {}
+extension Api_Common_TenantRoute: @unchecked Sendable {}
+extension Api_Common_TenantRouteWithItem: @unchecked Sendable {}
+extension Api_Common_TenantRole: @unchecked Sendable {}
+extension Api_Common_TenantRoleRoute: @unchecked Sendable {}
+extension Api_Common_TenantManager: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "api.common"
+
+extension Api_Common_CommonConfigStatus: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "VCS_UNKNOWN"),
+    1: .same(proto: "VCS_ENABLE"),
+    2: .same(proto: "VCS_DISABLE"),
+  ]
+}
+
+extension Api_Common_TenantIsSuper: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "IS_SUPER_DEFAULT"),
+    1: .same(proto: "IS_SUPER_NO"),
+    2: .same(proto: "IS_SUPER_YES"),
+  ]
+}
+
+extension Api_Common_TenantCopyType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "TCT_UNKNOWN"),
+    1: .same(proto: "TCT_UID"),
+    2: .same(proto: "TCT_ACCOUNT"),
+  ]
+}
+
+extension Api_Common_WSConnCustom: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".WSConnCustom"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "username"),
+    2: .same(proto: "platform"),
+    3: .same(proto: "userlevel"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.username) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.platform) }()
+      case 3: try { try decoder.decodeSingularUInt32Field(value: &self.userlevel) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.username.isEmpty {
+      try visitor.visitSingularStringField(value: self.username, fieldNumber: 1)
+    }
+    if self.platform != 0 {
+      try visitor.visitSingularInt32Field(value: self.platform, fieldNumber: 2)
+    }
+    if self.userlevel != 0 {
+      try visitor.visitSingularUInt32Field(value: self.userlevel, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Common_WSConnCustom, rhs: Api_Common_WSConnCustom) -> Bool {
+    if lhs.username != rhs.username {return false}
+    if lhs.platform != rhs.platform {return false}
+    if lhs.userlevel != rhs.userlevel {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
 
 extension Api_Common_TenantsLineGroup: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".TenantsLineGroup"
@@ -194,6 +656,338 @@ extension Api_Common_TenantsLineGroup: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if lhs._updateAt != rhs._updateAt {return false}
     if lhs._deleteAt != rhs._deleteAt {return false}
     if lhs.operateName != rhs.operateName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Common_TenantRoute: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TenantRoute"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "name"),
+    3: .same(proto: "url"),
+    4: .same(proto: "pid"),
+    5: .same(proto: "sort"),
+    6: .standard(proto: "create_at"),
+    7: .standard(proto: "update_at"),
+    8: .same(proto: "bindingStatus"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.pid) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.sort) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._createAt) }()
+      case 7: try { try decoder.decodeSingularMessageField(value: &self._updateAt) }()
+      case 8: try { try decoder.decodeSingularEnumField(value: &self.bindingStatus) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.id != 0 {
+      try visitor.visitSingularInt32Field(value: self.id, fieldNumber: 1)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    }
+    if !self.url.isEmpty {
+      try visitor.visitSingularStringField(value: self.url, fieldNumber: 3)
+    }
+    if self.pid != 0 {
+      try visitor.visitSingularInt32Field(value: self.pid, fieldNumber: 4)
+    }
+    if self.sort != 0 {
+      try visitor.visitSingularInt32Field(value: self.sort, fieldNumber: 5)
+    }
+    try { if let v = self._createAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
+    try { if let v = self._updateAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+    } }()
+    if self.bindingStatus != .default {
+      try visitor.visitSingularEnumField(value: self.bindingStatus, fieldNumber: 8)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Common_TenantRoute, rhs: Api_Common_TenantRoute) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.url != rhs.url {return false}
+    if lhs.pid != rhs.pid {return false}
+    if lhs.sort != rhs.sort {return false}
+    if lhs._createAt != rhs._createAt {return false}
+    if lhs._updateAt != rhs._updateAt {return false}
+    if lhs.bindingStatus != rhs.bindingStatus {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Common_TenantRouteWithItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TenantRouteWithItem"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "name"),
+    3: .same(proto: "url"),
+    4: .same(proto: "pid"),
+    5: .same(proto: "sort"),
+    6: .standard(proto: "create_at"),
+    7: .standard(proto: "update_at"),
+    9: .same(proto: "items"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.pid) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.sort) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._createAt) }()
+      case 7: try { try decoder.decodeSingularMessageField(value: &self._updateAt) }()
+      case 9: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.id != 0 {
+      try visitor.visitSingularInt32Field(value: self.id, fieldNumber: 1)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    }
+    if !self.url.isEmpty {
+      try visitor.visitSingularStringField(value: self.url, fieldNumber: 3)
+    }
+    if self.pid != 0 {
+      try visitor.visitSingularInt32Field(value: self.pid, fieldNumber: 4)
+    }
+    if self.sort != 0 {
+      try visitor.visitSingularInt32Field(value: self.sort, fieldNumber: 5)
+    }
+    try { if let v = self._createAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
+    try { if let v = self._updateAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+    } }()
+    if !self.items.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.items, fieldNumber: 9)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Common_TenantRouteWithItem, rhs: Api_Common_TenantRouteWithItem) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.url != rhs.url {return false}
+    if lhs.pid != rhs.pid {return false}
+    if lhs.sort != rhs.sort {return false}
+    if lhs._createAt != rhs._createAt {return false}
+    if lhs._updateAt != rhs._updateAt {return false}
+    if lhs.items != rhs.items {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Common_TenantRole: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TenantRole"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "name"),
+    3: .standard(proto: "is_super"),
+    4: .standard(proto: "create_at"),
+    5: .standard(proto: "update_at"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.isSuper) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._createAt) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._updateAt) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.id != 0 {
+      try visitor.visitSingularInt32Field(value: self.id, fieldNumber: 1)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    }
+    if self.isSuper != .isSuperDefault {
+      try visitor.visitSingularEnumField(value: self.isSuper, fieldNumber: 3)
+    }
+    try { if let v = self._createAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    try { if let v = self._updateAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Common_TenantRole, rhs: Api_Common_TenantRole) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.isSuper != rhs.isSuper {return false}
+    if lhs._createAt != rhs._createAt {return false}
+    if lhs._updateAt != rhs._updateAt {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Common_TenantRoleRoute: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TenantRoleRoute"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "role_id"),
+    2: .standard(proto: "route_id"),
+    3: .standard(proto: "route_url"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.roleID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.routeID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.routeURL) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.roleID != 0 {
+      try visitor.visitSingularInt32Field(value: self.roleID, fieldNumber: 1)
+    }
+    if self.routeID != 0 {
+      try visitor.visitSingularInt32Field(value: self.routeID, fieldNumber: 2)
+    }
+    if !self.routeURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.routeURL, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Common_TenantRoleRoute, rhs: Api_Common_TenantRoleRoute) -> Bool {
+    if lhs.roleID != rhs.roleID {return false}
+    if lhs.routeID != rhs.routeID {return false}
+    if lhs.routeURL != rhs.routeURL {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Api_Common_TenantManager: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".TenantManager"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "account"),
+    3: .same(proto: "password"),
+    4: .standard(proto: "role_id"),
+    5: .same(proto: "status"),
+    6: .standard(proto: "create_at"),
+    7: .standard(proto: "update_at"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.account) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.password) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.roleID) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.status) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._createAt) }()
+      case 7: try { try decoder.decodeSingularMessageField(value: &self._updateAt) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.id != 0 {
+      try visitor.visitSingularInt32Field(value: self.id, fieldNumber: 1)
+    }
+    if !self.account.isEmpty {
+      try visitor.visitSingularStringField(value: self.account, fieldNumber: 2)
+    }
+    if !self.password.isEmpty {
+      try visitor.visitSingularStringField(value: self.password, fieldNumber: 3)
+    }
+    if self.roleID != 0 {
+      try visitor.visitSingularInt32Field(value: self.roleID, fieldNumber: 4)
+    }
+    if self.status != .default {
+      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 5)
+    }
+    try { if let v = self._createAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
+    try { if let v = self._updateAt {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Api_Common_TenantManager, rhs: Api_Common_TenantManager) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.account != rhs.account {return false}
+    if lhs.password != rhs.password {return false}
+    if lhs.roleID != rhs.roleID {return false}
+    if lhs.status != rhs.status {return false}
+    if lhs._createAt != rhs._createAt {return false}
+    if lhs._updateAt != rhs._updateAt {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

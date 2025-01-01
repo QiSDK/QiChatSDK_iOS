@@ -69,6 +69,55 @@ extension CommonDisableStatus: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+/// 是/否
+public enum CommonBoolStatus: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case boolDefault // = 0
+
+  /// 是
+  case boolEnable // = 1
+
+  /// 否
+  case boolDisable // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .boolDefault
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .boolDefault
+    case 1: self = .boolEnable
+    case 2: self = .boolDisable
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .boolDefault: return 0
+    case .boolEnable: return 1
+    case .boolDisable: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension CommonBoolStatus: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [CommonBoolStatus] = [
+    .boolDefault,
+    .boolEnable,
+    .boolDisable,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 /// 上一页/下一页
 public enum CommonPageUpDown: SwiftProtobuf.Enum {
   public typealias RawValue = Int
@@ -113,6 +162,153 @@ extension CommonPageUpDown: CaseIterable {
     .pudDefault,
     .pudUp,
     .pudDown,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// 绑定状态
+public enum CommonBindStatus: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// 默认状态
+  case `default` // = 0
+
+  /// 已绑定
+  case bound // = 1
+
+  /// 未绑定
+  case unbound // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .default
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .default
+    case 1: self = .bound
+    case 2: self = .unbound
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .default: return 0
+    case .bound: return 1
+    case .unbound: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension CommonBindStatus: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [CommonBindStatus] = [
+    .default,
+    .bound,
+    .unbound,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// 排序类型
+public enum CommonSortType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// 降序
+  case descend // = 0
+
+  /// 升序
+  case ascend // = 1
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .descend
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .descend
+    case 1: self = .ascend
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .descend: return 0
+    case .ascend: return 1
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension CommonSortType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [CommonSortType] = [
+    .descend,
+    .ascend,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// 排序方式
+public enum CommonSortOrder: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// 默认排序
+  case `default` // = 0
+
+  /// 升序
+  case asc // = 1
+
+  /// 降序
+  case desc // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .default
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .default
+    case 1: self = .asc
+    case 2: self = .desc
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .default: return 0
+    case .asc: return 1
+    case .desc: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension CommonSortOrder: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [CommonSortOrder] = [
+    .default,
+    .asc,
+    .desc,
   ]
 }
 
@@ -254,7 +450,11 @@ public struct CommonSetString {
 
 #if swift(>=5.5) && canImport(_Concurrency)
 extension CommonDisableStatus: @unchecked Sendable {}
+extension CommonBoolStatus: @unchecked Sendable {}
 extension CommonPageUpDown: @unchecked Sendable {}
+extension CommonBindStatus: @unchecked Sendable {}
+extension CommonSortType: @unchecked Sendable {}
+extension CommonSortOrder: @unchecked Sendable {}
 extension CommonBaseResponse: @unchecked Sendable {}
 extension CommonPage: @unchecked Sendable {}
 extension CommonBatch: @unchecked Sendable {}
@@ -280,11 +480,42 @@ extension CommonDisableStatus: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
+extension CommonBoolStatus: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Bool_DEFAULT"),
+    1: .same(proto: "Bool_ENABLE"),
+    2: .same(proto: "Bool_DISABLE"),
+  ]
+}
+
 extension CommonPageUpDown: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "PUD_DEFAULT"),
     1: .same(proto: "PUD_UP"),
     2: .same(proto: "PUD_DOWN"),
+  ]
+}
+
+extension CommonBindStatus: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "BIND_STATUS_DEFAULT"),
+    1: .same(proto: "BIND_STATUS_BOUND"),
+    2: .same(proto: "BIND_STATUS_UNBOUND"),
+  ]
+}
+
+extension CommonSortType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "DESCEND"),
+    1: .same(proto: "ASCEND"),
+  ]
+}
+
+extension CommonSortOrder: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "SORT_ORDER_DEFAULT"),
+    1: .same(proto: "SORT_ORDER_ASC"),
+    2: .same(proto: "SORT_ORDER_DESC"),
   ]
 }
 
