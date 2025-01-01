@@ -244,7 +244,7 @@ open class ChatLib: NetworkManagerDelegate {
     }
     
     ///此接口专门发视频
-    private func sendVideoMessage(url: String, thumbnailUri: String = "", hlsUri: String = "", type: CommonMessageFormat, consultId: Int64, replyMsgId: Int64? = 0, withAutoReply: CommonWithAutoReply? = nil) {
+    public func sendVideoMessage(url: String, thumbnailUri: String = "", hlsUri: String = "", type: CommonMessageFormat, consultId: Int64, replyMsgId: Int64? = 0, withAutoReply: CommonWithAutoReply? = nil) {
         self.replyMsgId = replyMsgId ?? 0
         self.consultId = consultId;
         self.withAutoReply = withAutoReply
