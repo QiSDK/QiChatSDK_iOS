@@ -247,6 +247,7 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         
         tvChatView.text.append("how are u!")
         lib.sendMessage(msg: "how are u!", type: .msgText, consultId: 1)
+  
         
         //tvChatView.text.append("\n删除信息:\(lastMessage?.msgID ?? 0)")
         //lib.deleteMessage(msgId: lastMessage?.msgID ?? 0)//493660676493934594

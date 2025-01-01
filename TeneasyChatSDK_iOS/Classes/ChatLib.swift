@@ -166,6 +166,7 @@ open class ChatLib: NetworkManagerDelegate {
         }
     }
     
+    ///此接口不支持发视频
     public func sendMessage(msg: String, type: CommonMessageFormat, consultId: Int64, replyMsgId: Int64? = 0, withAutoReply: CommonWithAutoReply? = nil) {
         self.replyMsgId = replyMsgId ?? 0
         self.consultId = consultId;
@@ -175,14 +176,8 @@ open class ChatLib: NetworkManagerDelegate {
         switch type{
         case .msgText:
             sendTextMessage(txt: msg)
-        case .msgVoice:
-            sendVideoMessage(url: msg)
         case .msgImg:
             sendImageMessage(url: msg)
-        case .msgVideo:
-            sendVideoMessage(url: msg)
-        case .msgFile:
-            sendFileMessage(url: msg)
         default:
             sendTextMessage(txt: msg)
         }
@@ -248,7 +243,11 @@ open class ChatLib: NetworkManagerDelegate {
         sendingMsg = msg
     }
     
-    private func sendVideoMessage(url: String, thumbnailUri: String = "", hlsUri: String = ""){
+    ///此接口专门发视频
+    private func sendVideoMessage(url: String, thumbnailUri: String = "", hlsUri: String = "", type: CommonMessageFormat, consultId: Int64, replyMsgId: Int64? = 0, withAutoReply: CommonWithAutoReply? = nil) {
+        self.replyMsgId = replyMsgId ?? 0
+        self.consultId = consultId;
+        self.withAutoReply = withAutoReply
         // 第一层
         var content = CommonMessageVideo()
         content.hlsUri = hlsUri
@@ -268,6 +267,7 @@ open class ChatLib: NetworkManagerDelegate {
         
         // 临时放到一个变量
         sendingMsg = msg
+        doSend()
     }
     
     private func sendAudioMessage(url: String){
