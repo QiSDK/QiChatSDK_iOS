@@ -248,9 +248,11 @@ open class ChatLib: NetworkManagerDelegate {
         sendingMsg = msg
     }
     
-    private func sendVideoMessage(url: String){
+    private func sendVideoMessage(url: String, thumbnailUri: String = "", hlsUri: String = ""){
         // 第一层
         var content = CommonMessageVideo()
+        content.hlsUri = hlsUri
+        content.thumbnailUri = thumbnailUri
         content.uri = url
         
         // 第二层, 消息主题
