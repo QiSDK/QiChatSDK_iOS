@@ -182,7 +182,7 @@ public struct Api_Common_WSConnCustom {
   /// 用户账号
   public var username: String = String()
 
-  /// 用户平台 1-IOS 2-安卓端;
+  /// 用户平台 1-IOS 2-Android 3-H5 4-WEB_IOS 5-WEB_WINDOWS 6-WINDOWS 7-MAC
   public var platform: Int32 = 0
 
   /// 用户层级标识

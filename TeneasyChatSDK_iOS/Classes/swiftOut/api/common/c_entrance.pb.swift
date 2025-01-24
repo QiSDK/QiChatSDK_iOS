@@ -72,6 +72,7 @@ extension Api_Common_OperationsType: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+/// 用户平台 1-IOS 2-Android 3-H5 4-WEB_IOS 5-WEB_WINDOWS 6-WINDOWS 7-MAC
 public enum Api_Common_ClientType: SwiftProtobuf.Enum {
   public typealias RawValue = Int
   case unknown // = 0
@@ -82,8 +83,18 @@ public enum Api_Common_ClientType: SwiftProtobuf.Enum {
   case workerEnd // = 100
   case userBegin // = 101
   case userH5 // = 102
+
+  /// web端 兼容旧版
   case userWeb // = 103
+
+  /// app端 兼容旧版
   case userApp // = 104
+  case userWebIos // = 105
+  case userWebWindows // = 106
+  case userAppIos // = 107
+  case userAppAndroid // = 108
+  case userWindows // = 109
+  case userMac // = 110
 
   /// 用户端在此加入新类型
   case userEnd // = 200
@@ -103,6 +114,12 @@ public enum Api_Common_ClientType: SwiftProtobuf.Enum {
     case 102: self = .userH5
     case 103: self = .userWeb
     case 104: self = .userApp
+    case 105: self = .userWebIos
+    case 106: self = .userWebWindows
+    case 107: self = .userAppIos
+    case 108: self = .userAppAndroid
+    case 109: self = .userWindows
+    case 110: self = .userMac
     case 200: self = .userEnd
     default: self = .UNRECOGNIZED(rawValue)
     }
@@ -118,6 +135,12 @@ public enum Api_Common_ClientType: SwiftProtobuf.Enum {
     case .userH5: return 102
     case .userWeb: return 103
     case .userApp: return 104
+    case .userWebIos: return 105
+    case .userWebWindows: return 106
+    case .userAppIos: return 107
+    case .userAppAndroid: return 108
+    case .userWindows: return 109
+    case .userMac: return 110
     case .userEnd: return 200
     case .UNRECOGNIZED(let i): return i
     }
@@ -138,6 +161,12 @@ extension Api_Common_ClientType: CaseIterable {
     .userH5,
     .userWeb,
     .userApp,
+    .userWebIos,
+    .userWebWindows,
+    .userAppIos,
+    .userAppAndroid,
+    .userWindows,
+    .userMac,
     .userEnd,
   ]
 }
@@ -350,6 +379,12 @@ extension Api_Common_ClientType: SwiftProtobuf._ProtoNameProviding {
     102: .same(proto: "CLIENT_TYPE_USER_H5"),
     103: .same(proto: "CLIENT_TYPE_USER_WEB"),
     104: .same(proto: "CLIENT_TYPE_USER_APP"),
+    105: .same(proto: "CLIENT_TYPE_USER_WEB_IOS"),
+    106: .same(proto: "CLIENT_TYPE_USER_WEB_WINDOWS"),
+    107: .same(proto: "CLIENT_TYPE_USER_APP_IOS"),
+    108: .same(proto: "CLIENT_TYPE_USER_APP_ANDROID"),
+    109: .same(proto: "CLIENT_TYPE_USER_WINDOWS"),
+    110: .same(proto: "CLIENT_TYPE_USER_MAC"),
     200: .same(proto: "CLIENT_TYPE_USER_END"),
   ]
 }

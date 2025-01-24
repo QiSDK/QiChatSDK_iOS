@@ -148,6 +148,8 @@ public struct Gateway_CSForward {
 
   public var data: Data = Data()
 
+  public var headers: Dictionary<String,String> = [:]
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -642,6 +644,7 @@ extension Gateway_CSForward: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     2: .same(proto: "url"),
     3: .same(proto: "verb"),
     4: .same(proto: "data"),
+    5: .same(proto: "headers"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -654,6 +657,7 @@ extension Gateway_CSForward: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
       case 2: try { try decoder.decodeSingularStringField(value: &self.url) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.verb) }()
       case 4: try { try decoder.decodeSingularBytesField(value: &self.data) }()
+      case 5: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: &self.headers) }()
       default: break
       }
     }
@@ -672,6 +676,9 @@ extension Gateway_CSForward: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     if !self.data.isEmpty {
       try visitor.visitSingularBytesField(value: self.data, fieldNumber: 4)
     }
+    if !self.headers.isEmpty {
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: self.headers, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -680,6 +687,7 @@ extension Gateway_CSForward: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     if lhs.url != rhs.url {return false}
     if lhs.verb != rhs.verb {return false}
     if lhs.data != rhs.data {return false}
+    if lhs.headers != rhs.headers {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

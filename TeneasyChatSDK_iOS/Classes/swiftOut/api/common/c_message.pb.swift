@@ -246,6 +246,9 @@ public enum CommonMsgSourceType: SwiftProtobuf.Enum {
 
   /// 转接消息
   case mstSystemTransfer // = 5
+
+  /// 自动定时回复消息
+  case mstSystemAutoTransfer // = 6
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -260,6 +263,7 @@ public enum CommonMsgSourceType: SwiftProtobuf.Enum {
     case 3: self = .mstSystemWorker
     case 4: self = .mstSystemCustomer
     case 5: self = .mstSystemTransfer
+    case 6: self = .mstSystemAutoTransfer
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -272,6 +276,7 @@ public enum CommonMsgSourceType: SwiftProtobuf.Enum {
     case .mstSystemWorker: return 3
     case .mstSystemCustomer: return 4
     case .mstSystemTransfer: return 5
+    case .mstSystemAutoTransfer: return 6
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -289,6 +294,7 @@ extension CommonMsgSourceType: CaseIterable {
     .mstSystemWorker,
     .mstSystemCustomer,
     .mstSystemTransfer,
+    .mstSystemAutoTransfer,
   ]
 }
 
@@ -1078,6 +1084,7 @@ extension CommonMsgSourceType: SwiftProtobuf._ProtoNameProviding {
     3: .same(proto: "MST_SYSTEM_WORKER"),
     4: .same(proto: "MST_SYSTEM_CUSTOMER"),
     5: .same(proto: "MST_SYSTEM_TRANSFER"),
+    6: .same(proto: "MST_SYSTEM_AUTO_TRANSFER"),
   ]
 }
 
