@@ -178,6 +178,8 @@ open class ChatLib: NetworkManagerDelegate {
             sendTextMessage(txt: msg)
         case .msgImg:
             sendImageMessage(url: msg)
+        case .msgFile:
+            sendFileMessage(url: msg)
         default:
             sendTextMessage(txt: msg)
         }
@@ -367,29 +369,6 @@ open class ChatLib: NetworkManagerDelegate {
         send(binaryData: myData)
         //print("ChatLib:sending heart beat")
     }
-    
-    /*private func send(binaryData: Data) {
-        if websocket == nil || !isConnected{
-            print("ChatLib:断开了")
-            if sessionTime > maxSessionMinutes * 60 {
-                disConnected(code: 1005, msg: "会话已超时")
-                disConnect()
-            } else {
-                callWebsocket()
-                print("ChatLib:重新连接")
-            }
-        } else {
-            if sessionTime > maxSessionMinutes * 60 {
-                disConnected(code: 1005, msg: "会话已超时")
-                disConnect()
-            } else {
-                print("ChatLib:开始发送")
-                websocket?.write(data: binaryData, completion: ({
-                    print("ChatLib:msg sent")
-                }))
-            }
-        }
-    }*/
     
     private func send(binaryData: Data) {
         if websocket == nil || !isConnected{
