@@ -76,6 +76,8 @@ open class ChatLib: NetworkManagerDelegate {
     private var withAutoReply: CommonWithAutoReply?
 
     var consultId: Int64 = 0
+    var fileSize: Int32 = 0
+    var fileName: String = ""
 
     public init() {}
 
@@ -167,10 +169,12 @@ open class ChatLib: NetworkManagerDelegate {
     }
     
     ///此接口不支持发视频
-    public func sendMessage(msg: String, type: CommonMessageFormat, consultId: Int64, replyMsgId: Int64? = 0, withAutoReply: CommonWithAutoReply? = nil) {
+    public func sendMessage(msg: String, type: CommonMessageFormat, consultId: Int64, replyMsgId: Int64? = 0, withAutoReply: CommonWithAutoReply? = nil, fileSize: Int32 = 0, fileName: String = "") {
         self.replyMsgId = replyMsgId ?? 0
         self.consultId = consultId;
         self.withAutoReply = withAutoReply
+        self.fileName = fileName
+        self.fileSize = fileSize
         // 发送信息的封装，有四层
         // payload -> CSSendMessage -> common message -> CommonMessageContent
         switch type{
@@ -296,6 +300,8 @@ open class ChatLib: NetworkManagerDelegate {
         // 第一层
         var content = CommonMessageFile()
         content.uri = url
+        content.size = self.fileSize
+        content.fileName = self.fileName
         
         // 第二层, 消息主题
         var msg = CommonMessage()

@@ -214,7 +214,7 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         let wssUrl = "wss://" + baseUrl + "/v1/gateway/h5?"
         if lib.payloadId == 0{
             print("initSDK 初始化SDK")
-            lib.myinit(userId: 123, cert: "COYBEAUYASDyASiG2piD9zE.te46qua5ha2r-Caz03Vx2JXH5OLSRRV2GqdYcn9UslwibsxBSP98GhUKSGEI0Z84FRMkp16ZK8eS-y72QVE2AQ", token: "", baseUrl: wssUrl, sign: "9zgd9YUc", custom: "{\"username\":\"xiaoming\"}")
+            lib.myinit(userId: 666688, cert: "COYBEAUYASDyASiG2piD9zE.te46qua5ha2r-Caz03Vx2JXH5OLSRRV2GqdYcn9UslwibsxBSP98GhUKSGEI0Z84FRMkp16ZK8eS-y72QVE2AQ", token: "", baseUrl: wssUrl, sign: "9zgd9YUc", custom: "{\"username\":\"xiaoming\"}")
             
             lib.callWebsocket()
             lib.delegate = self
@@ -246,7 +246,8 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         //lib.sendMessage(msg: "https://www.youtube.com/watch?v=wbFHmblw9J8", type: .msgVideo, replyMsgId: lastMessage?.msgID ?? 0)
         
         tvChatView.text.append("how are u!")
-        lib.sendMessage(msg: "how are u!", type: .msgText, consultId: 1)
+        //lib.sendMessage(msg: "how are u!", type: .msgText, consultId: 1)
+        lib.sendMessage(msg: "/session/tenant_230/20250304/Documents/3137343130393736323137353066696c65d41d8cd98f00b204e9800998ecf8427e_1741097622234561429.pdf", type: .msgFile, consultId: 1, fileSize: 1989, fileName: "123.pdf")
   
         
         //tvChatView.text.append("\n删除信息:\(lastMessage?.msgID ?? 0)")
