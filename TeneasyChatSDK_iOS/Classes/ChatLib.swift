@@ -219,6 +219,7 @@ open class ChatLib: NetworkManagerDelegate {
         msg.content = content
         msg.sender = 0
         msg.replyMsgID = self.replyMsgId
+        msg.msgFmt = CommonMessageFormat.msgText
         msg.chatID = chatId
         msg.payload = .content(content)
         msg.worker = workId
@@ -240,6 +241,7 @@ open class ChatLib: NetworkManagerDelegate {
         msg.image = content
         msg.sender = 0
         msg.replyMsgID = self.replyMsgId
+        msg.msgFmt = CommonMessageFormat.msgImg
         msg.chatID = chatId
         msg.payload = .image(content)
         msg.worker = workId
@@ -266,6 +268,7 @@ open class ChatLib: NetworkManagerDelegate {
         msg.video = content
         msg.sender = 0
         msg.replyMsgID = self.replyMsgId
+        msg.msgFmt = CommonMessageFormat.msgVideo
         msg.chatID = chatId
         msg.payload = .video(content)
         msg.worker = workId
@@ -288,6 +291,7 @@ open class ChatLib: NetworkManagerDelegate {
         msg.sender = 0
         msg.replyMsgID = self.replyMsgId
         msg.chatID = chatId
+        msg.msgFmt = CommonMessageFormat.msgVoice
         msg.payload = .audio(content)
         msg.worker = 5
         msg.msgTime.seconds = Int64(Date().timeIntervalSince1970)
@@ -309,6 +313,7 @@ open class ChatLib: NetworkManagerDelegate {
         msg.file = content
         msg.sender = 0
         msg.replyMsgID = self.replyMsgId
+        msg.msgFmt = CommonMessageFormat.msgFile
         msg.chatID = chatId
         msg.payload = .file(content)
         msg.worker = 5
