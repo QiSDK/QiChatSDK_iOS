@@ -104,8 +104,10 @@ open class ChatLib: NetworkManagerDelegate {
        let urlStr = "\(baseUrl)cert=\(cert)&token=\(token)&userid=\(self.userId)&custom=\(custom)&ty=\(Api_Common_ClientType.userAppIos.rawValue)&dt=\(dt)&sign=\(self.sign)&rd=\(rd)"
         print(urlStr)
         guard let url = URL(string: urlStr) else { return }
-        let request = URLRequest(url: url)
-        // request.setValue("chat,superchat", forHTTPHeaderField: "Sec-WebSocket-Protocol")
+        var request = URLRequest(url: url)
+       let uuid = UUID().uuidString
+        request.setValue(uuid, forHTTPHeaderField: "x-trace-id")
+       print("x-trace-id：\(uuid)")
         websocket = WebSocket(request: request)
         websocket?.request.timeoutInterval = 5 // Sets the timeout for the connection
         websocket?.delegate = self
