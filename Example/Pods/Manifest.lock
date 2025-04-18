@@ -9,8 +9,8 @@ PODS:
   - Starscream (4.0.4)
   - SwiftDate (6.3.1)
   - SwiftProtobuf (1.27.1)
-  - TeneasyChatSDK_iOS (1.6.1):
-    - Alamofire
+  - TeneasyChatSDK_iOS (1.8.2):
+    - Alamofire (~> 5.9.1)
     - HandyJSON (~> 5.0.2)
     - Starscream (= 4.0.4)
     - SwiftProtobuf (~> 1.27.0)
@@ -40,8 +40,8 @@ SPEC CHECKSUMS:
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftDate: 72d28954e8e1c6c1c0f917ccc8005e4f83c7d4b2
   SwiftProtobuf: b109bd17979d7993a84da14b1e1fdd8b0ded934a
-  TeneasyChatSDK_iOS: c31dd7ae8ce27e1201bef522773df018f1756cdd
+  TeneasyChatSDK_iOS: b95dc0373eb4b2c13f2fac47f19d5e1c2e8db461
 
 PODFILE CHECKSUM: 35503a9be7d37d2166560785bd99886ea6f6fa32
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2
