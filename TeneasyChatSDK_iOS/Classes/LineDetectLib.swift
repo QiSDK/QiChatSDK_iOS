@@ -8,123 +8,159 @@
 import Foundation
 import Alamofire
 
-
-public protocol LineDetectDelegate : AnyObject{
+public protocol LineDetectDelegate: AnyObject {
     func useTheLine(line: String)
     func lineError(error: Result)
 }
 
-public struct LineDetectLib{
-    
-    public init(_ urlStrings: String, delegate: LineDetectDelegate? = nil, tenantId: Int) {
-        self.delegate = delegate
-        self.urlList = urlStrings.split(separator: ",").map { String($0) }
-        LineDetectLib.usedLine = false
-        LineDetectLib.retryTimes = 0
-        self.tenantId = tenantId
-        bodyStr = ["gnsId": "wcs", "tenantId": tenantId]
-    }
-    
-    private var delegate: LineDetectDelegate?
-    private var urlList = [String]()
+public struct LineDetectLib {
+    // MARK: - 属性定义
+    private let delegate: LineDetectDelegate?
+    private let urlList: [String]
+    private let tenantId: Int
+    private let bodyStr: Parameters
     private static var usedLine = false
     private static var retryTimes = 0
-    var bodyStr: Parameters? = nil
-    private var tenantId: Int? = 0
- 
-    public func getLine(){
+    
+    private let maxRetries = 3 // 最大重试次数
+    private let timeout: TimeInterval = 60 // 请求超时时间
+    
+    // MARK: - 初始化方法
+    public init(_ urlStrings: String, delegate: LineDetectDelegate? = nil, tenantId: Int) {
+        self.delegate = delegate
+        self.urlList = urlStrings.split(separator: ",").map(String.init)
+        self.tenantId = tenantId
+        self.bodyStr = ["gnsId": "wcs", "tenantId": tenantId]
         
-         var foundLine = false
-       var myStep2Index = 0
-       for txtUrl in urlList {
-           if (LineDetectLib.usedLine){
-               break
-           }
-           
-           if (foundLine){
-               break
-           }
-           
-           let url = checkUrl(str: "\(txtUrl)/v1/api/verify")
-           
-           if url.isEmpty{
-               debugPrint("无效的地址：\(txtUrl)")
-               continue
-           }
-           let uuid = UUID().uuidString
-          // return ["X-Token": xToken, "Content-Type": "application/json", "x-trace-id": uuid]
-           let headers: HTTPHeaders = [
-                "Content-Type": "application/json",
-               "x-trace-id": uuid
-           ]
-           
-           AF.request(url, method: .post, parameters: bodyStr,  encoding: JSONEncoding.default, headers: headers) { $0.timeoutInterval = 60 }.response { response in
-
-               switch response.result {
-               case let .success(value):
-                   //let ddd = String(data: value!, encoding: .utf8)
-                   if let v = value,  String(data: v, encoding: .utf8)!.contains("tenantId") {//\":\(self.tenantId ?? 0)
-                       foundLine = true
-                       
-                       if !LineDetectLib.usedLine{
-                           LineDetectLib.usedLine = true
-                           var line = response.request?.url?.host ?? ""
-                           
-                           if let port = response.request?.url?.port{
-                               if port != 80 && port != 443{
-                                   line = "\(line):\(port)"
-                               }
-                           }
-                           delegate?.useTheLine(line: line)
-                           debugPrint("使用线路：\(line)")
-                       }
-                   }else{
-                       debugPrint("线路失败：\(url), 响应数据错误")
-                       myStep2Index += 1
-                       if myStep2Index == urlList.count{
-                           failedAndRetry()
-                       }
-                   }
-                 
-                   break
-               case let .failure(error):
-                   print(error)
-                   myStep2Index += 1
-                   if myStep2Index == urlList.count{
-                       failedAndRetry()
-                   }
-               }
-           }
-       }
+        LineDetectLib.usedLine = false
+        LineDetectLib.retryTimes = 0
     }
     
-    private func failedAndRetry(){
-        if LineDetectLib.usedLine{
+    // MARK: - 公开方法
+    public func getLine() {
+        guard !urlList.isEmpty else {
+            notifyError(code: 1008, message: "无可用线路")
             return
         }
-        var result = Result()
-        if LineDetectLib.retryTimes < 3{
-            LineDetectLib.retryTimes += 1
-            result.Code = 1009
-            result.Message = "线路获取失败，重试\(LineDetectLib.retryTimes)"
-            delegate?.lineError(error: result)
-            getLine()
-        }else{
-            result.Code = 1008
-            result.Message = "无可用线路"
-            delegate?.lineError(error: result)
+        
+        verifyUrls()
+    }
+    
+    // MARK: - 私有方法
+    /// 验证所有可用的URL
+    private func verifyUrls() {
+        var foundLine = false
+        var checkedCount = 0
+        
+        for txtUrl in urlList {
+            guard !LineDetectLib.usedLine else { break }
+            guard !foundLine else { break }
+            
+            let verifyUrl = makeVerifyUrl(from: txtUrl)
+            guard !verifyUrl.isEmpty else {
+                debugPrint("无效的地址：\(txtUrl)")
+                checkedCount += 1
+                continue
+            }
+            
+            makeVerifyRequest(url: verifyUrl) { success in
+                if success {
+                    foundLine = true
+                    if !LineDetectLib.usedLine {
+                        LineDetectLib.usedLine = true
+                        if let url = URL(string: txtUrl),
+                           let host = url.host {
+                            let port: Int
+                            if let urlPort = url.port {
+                                // 使用URL中指定的端口
+                                port = urlPort
+                            } else {
+                                // 根据协议设置默认端口
+                                port = url.scheme?.lowercased() == "https" ? 443 : 80
+                            }
+                            
+                            // 如果是默认端口（80或443），则不显示端口号
+                            let line = (port == 80 || port == 443) ? host : "\(host):\(port)"
+                            delegate?.useTheLine(line: line)
+                            debugPrint("使用线路：\(line)")
+                        }
+                    }
+                }
+                
+                checkedCount += 1
+                if checkedCount == urlList.count && !foundLine {
+                    failedAndRetry()
+                }
+            }
         }
     }
     
-    func checkUrl(str: String) -> String{
-        let r = (1...100000).randomElement()
-         var newStr = str.trimmingCharacters(in: .whitespacesAndNewlines)
-        newStr = "\(newStr)?\(r ?? 0)"
+    /// 构建验证URL
+    /// - Parameter baseUrl: 基础URL
+    /// - Returns: 完整的验证URL
+    private func makeVerifyUrl(from baseUrl: String) -> String {
+        let trimmedUrl = baseUrl.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard trimmedUrl.hasPrefix("http") else { return "" }
         
+        let random = (1...100000).randomElement() ?? 0
+        return "\(trimmedUrl)/v1/api/verify?\(random)"
+    }
+    
+    /// 发送验证请求
+    /// - Parameters:
+    ///   - url: 请求URL
+    ///   - completion: 完成回调，成功返回true，失败返回false
+    private func makeVerifyRequest(url: String, completion: @escaping (Bool) -> Void) {
+        let uuid = UUID().uuidString
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "x-trace-id": uuid
+        ]
         
-        if (!newStr.hasPrefix("http")){
-            newStr = ""
+        AF.request(url,
+                  method: .post,
+                  parameters: bodyStr,
+                  encoding: JSONEncoding.default,
+                  headers: headers) { $0.timeoutInterval = timeout }
+        .response { response in
+            switch response.result {
+            case .success(let value):
+                if let data = value,
+                   let responseStr = String(data: data, encoding: .utf8),
+                   responseStr.contains("tenantId") {
+                    completion(true)
+                } else {
+                    debugPrint("线路失败：\(url), 响应数据错误")
+                    completion(false)
+                }
+            case .failure(let error):
+                debugPrint("请求失败：\(error)")
+                completion(false)
+            }
         }
-        return newStr
+    }
+    
+    /// 处理失败重试逻辑
+    private func failedAndRetry() {
+        guard !LineDetectLib.usedLine else { return }
+        
+        if LineDetectLib.retryTimes < maxRetries {
+            LineDetectLib.retryTimes += 1
+            notifyError(code: 1009, message: "线路获取失败，重试\(LineDetectLib.retryTimes)")
+            getLine()
+        } else {
+            notifyError(code: 1008, message: "无可用线路")
+        }
+    }
+    
+    /// 通知错误信息
+    /// - Parameters:
+    ///   - code: 错误码
+    ///   - message: 错误信息
+    private func notifyError(code: Int, message: String) {
+        var result = Result()
+        result.Code = code
+        result.Message = message
+        delegate?.lineError(error: result)
     }
 }
