@@ -289,28 +289,28 @@ public struct UploadUtil {
  }
 
 public class FilePath: HandyJSON {
-    var filepath: String?
+    public  var filepath: String?
     required public init() {}
 }
 
 public class UploadPercent : HandyJSON {
-    var percentage: Int = 0
+    public  var percentage: Int = 0
     //var path: String? = ""
     var data: Urls?
     required public init() {}
 }
 
 public class Urls: HandyJSON {
-    var uri: String? = ""
-    var hlsUri: String? = ""
-    var thumbnailUri = ""
+    public var uri: String? = ""
+    public var hlsUri: String? = ""
+    public var thumbnailUri = ""
     required public init() {}
 }
 
 
 public class BaseRequestResult<T>: HandyJSON {
-    var code: Int?
-    var msg: String?
-    var data: T?
+    public var code: Int?
+    public var msg: String?
+    public var data: T?
     required public init() {}
 }
