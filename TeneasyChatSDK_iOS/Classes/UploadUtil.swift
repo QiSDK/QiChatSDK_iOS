@@ -38,7 +38,7 @@
   */
  
  /// 全局上传进度变量，表示当前上传的百分比
- var uploadProgress = 0;
+public var uploadProgress = 0;
 
 var imageTypes = ["jpg", "jpeg", "png", "webp", "gif", "bmp", "jfif", "heic"] // 图片
 var videoTypes = ["mp4", "avi", "mkv", "mov", "wmv", "flv", "webm"] // 视频
@@ -55,17 +55,17 @@ public struct UploadUtil {
     }
      
      /// 上传监听器，接收上传状态回调
-   public var listener : UploadListener?
+    var listener : UploadListener?
      /// 本地文件路径
-    public var filePath: String
+     var filePath: String
      /// 文件数据
-    public var fileData: Data
+     var fileData: Data
      
-    public var xToken: String = ""
-    public var baseUrl: String = ""
+     var xToken: String = ""
+     var baseUrl: String = ""
      
     /// 上传文件方法，支持图片、视频和文件类型
-    func upload() {
+   public func upload() {
         uploadProgress = 1
         // 获取文件扩展名，转为小写
         let ext = filePath.split(separator: ".").last?.lowercased() ?? "$"

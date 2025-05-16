@@ -1,6 +1,6 @@
 {
   "name": "TeneasyChatSDK_iOS",
-  "version": "1.8.2",
+  "version": "1.9.0",
   "summary": "A short description of TeneasyChatSDK_iOS.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/7938813/TeneasyChatSDK_iOS",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/QiSDK/QiChatSDK_iOS.git",
-    "tag": "1.8.2"
+    "tag": "1.9.0"
   },
   "platforms": {
     "ios": "12.0"
@@ -28,7 +28,7 @@
       "~> 1.27.0"
     ],
     "Alamofire": [
-      "~> 5.9.1"
+
     ],
     "HandyJSON": [
       "~> 5.0.2"

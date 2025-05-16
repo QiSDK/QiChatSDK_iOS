@@ -261,9 +261,9 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         //lib.sendMessage(msg: "how are u!", type: .msgText, consultId: 1)
         lib.sendMessage(msg: "/session/tenant_230/20250304/Documents/3137343130393736323137353066696c65d41d8cd98f00b204e9800998ecf8427e_1741097622234561429.pdf", type: .msgFile, consultId: 1, fileSize: 1989, fileName: "123.pdf")
         
-        var upload = UploadUtil(listener: self, filePath: "dd", fileData: Data(), xToken: "dd", baseUrl: "")
+        UploadUtil(listener: self, filePath: "dd", fileData: Data(), xToken: "dd", baseUrl: "").upload()
         
-        
+        let d = uploadProgress;
   
         
         //tvChatView.text.append("\n删除信息:\(lastMessage?.msgID ?? 0)")
