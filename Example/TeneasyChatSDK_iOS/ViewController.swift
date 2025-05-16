@@ -10,7 +10,19 @@ import UIKit
 import TeneasyChatSDK_iOS
 import SwiftDate
 
-class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, readTextDelegate {
+class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, readTextDelegate, UploadListener {
+    func uploadSuccess(paths: TeneasyChatSDK_iOS.Urls, filePath: String, size: Int) {
+        print("uploadSuccess")
+    }
+    
+    func updateProgress(progress: Int) {
+        print("upload \(progress)%")
+    }
+    
+    func uploadFailed(msg: String) {
+        print("upload failed")
+    }
+    
     func receivedText(msg: String) {
         tvChatView.text.append(msg)
         appendMsgScroll()
@@ -248,6 +260,10 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         tvChatView.text.append("how are u!")
         //lib.sendMessage(msg: "how are u!", type: .msgText, consultId: 1)
         lib.sendMessage(msg: "/session/tenant_230/20250304/Documents/3137343130393736323137353066696c65d41d8cd98f00b204e9800998ecf8427e_1741097622234561429.pdf", type: .msgFile, consultId: 1, fileSize: 1989, fileName: "123.pdf")
+        
+        var upload = UploadUtil(listener: self, filePath: "dd", fileData: Data(), xToken: "dd", baseUrl: "")
+        
+        
   
         
         //tvChatView.text.append("\n删除信息:\(lastMessage?.msgID ?? 0)")

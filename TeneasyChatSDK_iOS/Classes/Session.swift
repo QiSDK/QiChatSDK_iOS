@@ -20,3 +20,5 @@ public struct Result{
    public var Code = 0
     public var Message = ""
 }
+
+
