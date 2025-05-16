@@ -40,9 +40,9 @@
  /// 全局上传进度变量，表示当前上传的百分比
 public var uploadProgress = 0;
 
-var imageTypes = ["jpg", "jpeg", "png", "webp", "gif", "bmp", "jfif", "heic"] // 图片
-var videoTypes = ["mp4", "avi", "mkv", "mov", "wmv", "flv", "webm"] // 视频
-var fileTypes = ["docx", "doc", "pdf", "xls", "xlsx", "csv"] // 文件
+public var imageTypes = ["jpg", "jpeg", "png", "webp", "gif", "bmp", "jfif", "heic"] // 图片
+public var videoTypes = ["mp4", "avi", "mkv", "mov", "wmv", "flv", "webm"] // 视频
+public var fileTypes = ["docx", "doc", "pdf", "xls", "xlsx", "csv"] // 文件
  
  /// 上传工具结构体，封装上传相关功能
 public struct UploadUtil {
