@@ -237,8 +237,10 @@ public struct UploadUtil {
                                   }
                               } else {
                                   // 上传中，更新进度
-                                  listener?.updateProgress(progress: myResult.percentage);
-                                  print("UploadUtil 上传进度：\(myResult.percentage)")
+                                  if (myResult.percentage > uploadProgress){
+                                      listener?.updateProgress(progress: myResult.percentage);
+                                      print("UploadUtil 上传进度：\(myResult.percentage)")
+                                  }
                               }
                           }
                       }
