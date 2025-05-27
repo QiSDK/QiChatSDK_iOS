@@ -58,6 +58,9 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
     //收到对方的消息
     func receivedMsg(msg: CommonMessage) {
         print(msg)
+        if (msg.msgSourceType == CommonMsgSourceType.mstAi){
+            print("AI消息")
+        }
         
         //let time = displayLocalTime(from: msg.msgTime.timeIntervalSince1970)
         let time = displayLocalTime(from: msg.msgTime.date)

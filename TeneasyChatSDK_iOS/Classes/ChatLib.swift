@@ -550,7 +550,7 @@ extension ChatLib: WebSocketDelegate {
                         // 第二层, 消息主题
                         var msg = CommonMessage()
                         //msg.msgID = -1
-                        msg.msgID = cMsg.msgID
+                        msg.msgID = Int64(cMsg.msgID)
                         msg.msgOp = .msgOpDelete
                         msg.chatID = cMsg.chatID
                         delegate?.msgDeleted(msg: msg, payloadId: payLoad.id, errMsg: nil)
@@ -564,7 +564,7 @@ extension ChatLib: WebSocketDelegate {
                         // 第二层, 消息主题
                         var msg = CommonMessage()
                         //msg.msgID = -1
-                        msg.msgID = cMsg.msgID
+                        msg.msgID = Int64(cMsg.msgID)
                         msg.msgOp = .msgOpDelete
                         msg.chatID = cMsg.chatID
                         delegate?.msgDeleted(msg: msg, payloadId: payLoad.id, errMsg: nil)
@@ -583,7 +583,7 @@ extension ChatLib: WebSocketDelegate {
                         
                         if msgList[payLoad.id] != nil{
                             var cMsg = msgList[payLoad.id]
-                            cMsg?.msgID = scMsg.msgID
+                            cMsg?.msgID = Int64(scMsg.msgID)
                             cMsg?.msgTime = scMsg.msgTime
                             chatId = scMsg.chatID
                             print("ChatLib:消息回执Step 2")
