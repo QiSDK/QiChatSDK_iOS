@@ -113,7 +113,7 @@ open class ChatLib: NetworkManagerDelegate {
          request.setValue("Everything is Awesome!", forHTTPHeaderField: "My-Awesome-Header")
          */
         startTimer()
-        print("ChatLib:call web socket")
+        print("ChatLib:call web socket - \(Date())")
     }
     
     public func reConnect(){
