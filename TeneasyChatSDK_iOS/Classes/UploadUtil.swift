@@ -128,6 +128,10 @@ public struct UploadUtil {
                    print(strData)
                  
                     let dic = strData.convertToDictionary()
+                   if dic == nil{
+                       listener?.uploadFailed(msg: "上传失败：\(strData)");
+                       return
+                   }
 
                     if data.response?.statusCode == 200{
                         // 解析成功返回的文件路径
@@ -198,9 +202,6 @@ public struct UploadUtil {
               switch stream.result {
                   
               case .success(let response):
-                  
-                   
-                  
                   // 解析服务器推送的事件数据
                   if let strData = String(data: response, encoding: .utf8) {
     #if DEBUG
@@ -279,16 +280,23 @@ public struct UploadUtil {
  }
  
  /// String扩展，增加将JSON字符串转换为字典的方法
- extension String {
-     /// 将JSON格式的字符串转换为字典
-     /// - Returns: 字典类型，如果转换失败返回nil
-     func convertToDictionary() -> [String: Any]? {
-         if let data = data(using: .utf8) {
-             return try! JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-         }
-         return nil
-     }
- }
+extension String {
+    /// 将JSON格式的字符串转换为字典
+    /// - Returns: 字典类型，如果转换失败返回nil
+    func convertToDictionary() -> [String: Any]? {
+        guard let data = self.data(using: .utf8) else {
+            return nil
+        }
+        
+        do {
+            let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
+            return jsonObject as? [String: Any]
+        } catch {
+            print("JSON转换失败: \(error.localizedDescription)")
+            return nil
+        }
+    }
+}
 
 public class FilePath: HandyJSON {
     public  var filepath: String?
