@@ -130,7 +130,7 @@
 		5B3BB9963D690FC2015346D42B200A38 /* JSONMapEncodingVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794CA352C92E3B63C27D17694456EEB9 /* JSONMapEncodingVisitor.swift */; };
 		5BD9533D9E2B02C051C51206C74C07C2 /* Date+Compare.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46F8E8BC25D8B8512BEA34C427C971 /* Date+Compare.swift */; };
 		5C2A4B3895CED0811BDF835BFF384227 /* JSONScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361D11BC73CEFF3FBCF719451788F179 /* JSONScanner.swift */; };
-		5CD127F101529C336A07D45CE1106A54 /* Alamofire-Alamofire in Resources */ = {isa = PBXBuildFile; fileRef = 085DBCE7DD98588B2ED103B1C1F36026 /* Alamofire-Alamofire */; };
+		5CD127F101529C336A07D45CE1106A54 /* Alamofire.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 085DBCE7DD98588B2ED103B1C1F36026 /* Alamofire.bundle */; };
 		5D80FE596C2D63DB4B6D3CC2093C9CB3 /* VerifyBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706999B4730F3A36E7FAAB9EA96E08C /* VerifyBody.swift */; };
 		5E3BF3CD746500154FDA877D440B6D28 /* Message+JSONAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A4FFD3591E6C6D4A41017262EA1C84 /* Message+JSONAdditions.swift */; };
 		5E3CD8B70A07B5AD560F2203E4FE0D19 /* NSDecimalNumberTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54AC4CD73581F13C0D3F4D7071B87DB9 /* NSDecimalNumberTransform.swift */; };
@@ -265,7 +265,7 @@
 		C4CA4D78CD31E0FB95C5606CA67E51E3 /* Transformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFD034CB54E0939760023E5EE098DFC /* Transformable.swift */; };
 		C6E542DE6D61F7CD41340049F2D8FFDE /* AuthenticationInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBCC853A1D2F84315760531DCD55A05 /* AuthenticationInterceptor.swift */; };
 		C854DCFE49B6E853CB09485F8B02AA19 /* TeneasyChatSDK_iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E560186298F1FC18158AE911D3C84C4F /* TeneasyChatSDK_iOS-dummy.m */; };
-		C87BA627F6FBEC8220A01A37943A608F /* SwiftProtobuf-SwiftProtobuf in Resources */ = {isa = PBXBuildFile; fileRef = 38DFD12C0DE83AD51C78858605BBA299 /* SwiftProtobuf-SwiftProtobuf */; };
+		C87BA627F6FBEC8220A01A37943A608F /* SwiftProtobuf.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 38DFD12C0DE83AD51C78858605BBA299 /* SwiftProtobuf.bundle */; };
 		C8AAE2B368A62A3F8FD2985E42948582 /* consult.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400E9466DA223554B289BA68044D0A64 /* consult.pb.swift */; };
 		C8CE5D211EBA6674DAAD0E1C5720EB64 /* chat.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = E945B897DD63217E87EDF3E15AEBA088 /* chat.pb.swift */; };
 		C9F23E02AFB65FA4631CDBA7DFC4F3CD /* c_worker.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBB5C0D5144C958863D8710D134644F /* c_worker.pb.swift */; };
@@ -296,6 +296,7 @@
 		DBED967F20685FD958475ACF198258DB /* Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF269239C97D1F6D4CD2645D673188C /* Compression.swift */; };
 		DC116AC0C3BC808A198B9C1704FA8C84 /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4381BB99AE771493486C74C4B63C73EC /* RequestInterceptor.swift */; };
 		DCC31EDA96E49D3E90EB35EDBB94D5BD /* Deserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B627A33226E03C8D9B2FA4724E621CB9 /* Deserializer.swift */; };
+		DCDE44592E83D59B00B3B5FF /* TeneasySDKDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE44582E83D59A00B3B5FF /* TeneasySDKDelegate.swift */; };
 		DE4B8F8293330D49854BC0935B75ACBE /* Google_Protobuf_Any+Registry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C3C1F139CB66196C435EEF4225F234 /* Google_Protobuf_Any+Registry.swift */; };
 		DEA0E2799D9F6AA075C66D57BA5AD245 /* Pods-TeneasyChatSDK_iOS_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED951A4F096B26B2A320AAD11AC9108 /* Pods-TeneasyChatSDK_iOS_Example-dummy.m */; };
 		DFFD1598F5816522DC21329916927B1C /* AnyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC28E7926A050B48552E9E8AFD4F4DF /* AnyExtensions.swift */; };
@@ -452,7 +453,7 @@
 		0705AE8B4CEBC9BD320377C1A29F70FC /* api.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = api.pb.swift; path = Sources/SwiftProtobuf/api.pb.swift; sourceTree = "<group>"; };
 		0706999B4730F3A36E7FAAB9EA96E08C /* VerifyBody.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VerifyBody.swift; path = TeneasyChatSDK_iOS/Classes/VerifyBody.swift; sourceTree = "<group>"; };
 		07C2917C6D01240534A43029976E0A01 /* FBSnapshotTestCase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FBSnapshotTestCase.release.xcconfig; sourceTree = "<group>"; };
-		085DBCE7DD98588B2ED103B1C1F36026 /* Alamofire-Alamofire */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "Alamofire-Alamofire"; path = Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		085DBCE7DD98588B2ED103B1C1F36026 /* Alamofire.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alamofire.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		09D322AB5BEEBF5E4133E89D7403DF37 /* Date.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Date.swift; path = Sources/SwiftDate/Date/Date.swift; sourceTree = "<group>"; };
 		0A2199578B6BF8F881325D306A1AAA00 /* CBridge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CBridge.swift; path = Source/CBridge.swift; sourceTree = "<group>"; };
 		0A4E15CCDB80398C7B9464562A54E810 /* DispatchQueue+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DispatchQueue+Alamofire.swift"; path = "Source/Extensions/DispatchQueue+Alamofire.swift"; sourceTree = "<group>"; };
@@ -470,7 +471,7 @@
 		129F329074BD67ED5C66F70043B2B786 /* HexColorTransform.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HexColorTransform.swift; path = Source/HexColorTransform.swift; sourceTree = "<group>"; };
 		13014815446C1EBAC80B9BF6F61F3EBC /* FBSnapshotTestCase-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FBSnapshotTestCase-prefix.pch"; sourceTree = "<group>"; };
 		158CB7737C882AEC4B280D99C2D8C8AF /* Google_Protobuf_Any+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Google_Protobuf_Any+Extensions.swift"; path = "Sources/SwiftProtobuf/Google_Protobuf_Any+Extensions.swift"; sourceTree = "<group>"; };
-		16D74E0E0E4B166995B3C266D42BF6EE /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		16D74E0E0E4B166995B3C266D42BF6EE /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		16D98129636AD1E9ABB83CB609751747 /* SwiftDate-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftDate-prefix.pch"; sourceTree = "<group>"; };
 		16FB898E07EB0D77B764C768269022B4 /* TeneasyChatSDK_iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TeneasyChatSDK_iOS-umbrella.h"; sourceTree = "<group>"; };
 		173DB6FFF18E8B67D468058D7C3A0EDE /* DataParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataParser.swift; path = TeneasyChatSDK_iOS/Classes/DataParser.swift; sourceTree = "<group>"; };
@@ -527,11 +528,11 @@
 		361D11BC73CEFF3FBCF719451788F179 /* JSONScanner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONScanner.swift; path = Sources/SwiftProtobuf/JSONScanner.swift; sourceTree = "<group>"; };
 		37210E2ED061593840D0C50ED122E88C /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Source/Core/Request.swift; sourceTree = "<group>"; };
 		37F9EBA60BDB03D0F43219C405551B2B /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/Features/ResponseSerialization.swift; sourceTree = "<group>"; };
-		38DFD12C0DE83AD51C78858605BBA299 /* SwiftProtobuf-SwiftProtobuf */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "SwiftProtobuf-SwiftProtobuf"; path = SwiftProtobuf.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		38DFD12C0DE83AD51C78858605BBA299 /* SwiftProtobuf.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftProtobuf.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		39B7DCB9DC40235197FA29F869C5A47C /* SwiftDate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftDate.swift; path = Sources/SwiftDate/SwiftDate.swift; sourceTree = "<group>"; };
 		3B9CC9AC734722F896C4DCE68B0D4F90 /* Message+TextFormatAdditions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Message+TextFormatAdditions.swift"; path = "Sources/SwiftProtobuf/Message+TextFormatAdditions.swift"; sourceTree = "<group>"; };
 		3C3287F0D1554E1440523988C2E8A9DE /* auto_reply.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = auto_reply.pb.swift; sourceTree = "<group>"; };
-		3C6963532492DC0F1399AD514A131D3A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = Sources/SwiftProtobuf/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		3C6963532492DC0F1399AD514A131D3A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Sources/SwiftProtobuf/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		3CDB0807339E8562FDF03F0BAD545ADE /* Starscream-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Starscream-Info.plist"; sourceTree = "<group>"; };
 		3D2C5C99EA76AEE3662C47A306249C40 /* Pods-TeneasyChatSDK_iOS_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TeneasyChatSDK_iOS_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		3EA4B911C113551016E25EA32C96864D /* JSONEncodingOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONEncodingOptions.swift; path = Sources/SwiftProtobuf/JSONEncodingOptions.swift; sourceTree = "<group>"; };
@@ -576,18 +577,18 @@
 		577B37C13B19EDF2FA00A1653675E0EF /* Int+DateComponents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Int+DateComponents.swift"; path = "Sources/SwiftDate/Foundation+Extras/Int+DateComponents.swift"; sourceTree = "<group>"; };
 		585859741A4563B34FFE429C0620CD00 /* Pods-TeneasyChatSDK_iOS_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TeneasyChatSDK_iOS_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		58659235A7376430585BBFFCF73FA1C4 /* HandyJSON.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HandyJSON.release.xcconfig; sourceTree = "<group>"; };
-		58AE0544E0C381DDBD09356C357EC82B /* SwiftDate */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftDate; path = SwiftDate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		58AE0544E0C381DDBD09356C357EC82B /* SwiftDate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftDate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		59469E2162FC37A578DEBBFB50FD108F /* g_gateway.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = g_gateway.pb.swift; sourceTree = "<group>"; };
 		59C5B8FE178DB5536FBFCF6130AABE24 /* Locales.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Locales.swift; path = Sources/SwiftDate/Supports/Locales.swift; sourceTree = "<group>"; };
 		5B4605918FA11064F3EB95BFE81BC8E5 /* TCPTransport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TCPTransport.swift; path = Sources/Transport/TCPTransport.swift; sourceTree = "<group>"; };
-		5C4F31330DFA99D699E4BDC8C3573D73 /* FBSnapshotTestCase */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FBSnapshotTestCase; path = FBSnapshotTestCase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C4F31330DFA99D699E4BDC8C3573D73 /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FBSnapshotTestCase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C54BCA5757A25B1C7C864CCD5315E7D /* SwiftProtobuf-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftProtobuf-dummy.m"; sourceTree = "<group>"; };
 		5CEB659FC11D698FA7D1A4DDEC593D5F /* UploadRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UploadRequest.swift; path = Source/Core/UploadRequest.swift; sourceTree = "<group>"; };
-		5D797E9A5C5782CE845840781FA1CC81 /* Alamofire */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC4B66A72494990D9F8709EFFA24306 /* c_asset.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = c_asset.pb.swift; sourceTree = "<group>"; };
 		5F4162D249456407DFE2F58C9A478F09 /* PointerType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PointerType.swift; path = Source/PointerType.swift; sourceTree = "<group>"; };
 		5F5F44DA461CA3ED14B8EA9C33A75E29 /* Alamofire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.debug.xcconfig; sourceTree = "<group>"; };
-		614728EA68AE69FDCA41D0E27020B465 /* langs */ = {isa = PBXFileReference; includeInIndex = 1; name = langs; path = Sources/SwiftDate/Formatters/RelativeFormatter/langs; sourceTree = "<group>"; };
+		614728EA68AE69FDCA41D0E27020B465 /* langs */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = langs; path = Sources/SwiftDate/Formatters/RelativeFormatter/langs; sourceTree = "<group>"; };
 		61D34813C4E6216DC08BE80449BAAAE9 /* UIImage+Diff.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Diff.m"; path = "FBSnapshotTestCase/Categories/UIImage+Diff.m"; sourceTree = "<group>"; };
 		61E413833215300644457BA07FC8DB47 /* any.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = any.pb.swift; path = Sources/SwiftProtobuf/any.pb.swift; sourceTree = "<group>"; };
 		621FDFBAA4481B106C8D1A5921D23F46 /* chat_quality.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = chat_quality.pb.swift; sourceTree = "<group>"; };
@@ -604,7 +605,7 @@
 		6BC71DA14528782E31FBFF9980BC3532 /* UIImage+Snapshot.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Snapshot.h"; path = "FBSnapshotTestCase/Categories/UIImage+Snapshot.h"; sourceTree = "<group>"; };
 		6BD00314F560033227B92905E96C0F6B /* tenant_group.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = tenant_group.pb.swift; sourceTree = "<group>"; };
 		6DA03CFEDE9D75FC38E256A062C00F62 /* struct.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = struct.pb.swift; path = Sources/SwiftProtobuf/struct.pb.swift; sourceTree = "<group>"; };
-		6DDE94E009BE9E95E97F91663CAC7C21 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = Source/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		6DDE94E009BE9E95E97F91663CAC7C21 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Source/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		6E242DD19389A8BD7913760D7E291F82 /* metric.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = metric.pb.swift; sourceTree = "<group>"; };
 		6F5A2B36B165B7B37985C58A0BC56DB2 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		6F7E05FCA37A225C6E40283D836C254C /* UnknownStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UnknownStorage.swift; path = Sources/SwiftProtobuf/UnknownStorage.swift; sourceTree = "<group>"; };
@@ -644,7 +645,7 @@
 		8849D0F0C37350979010D30BC1B2B667 /* c_qr_code.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = c_qr_code.pb.swift; sourceTree = "<group>"; };
 		889433843024272159E26893D4FE8631 /* JSONDecoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONDecoder.swift; path = Sources/SwiftProtobuf/JSONDecoder.swift; sourceTree = "<group>"; };
 		88C7B41CB50D01AADDEF155169934C41 /* JSONEncodingVisitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONEncodingVisitor.swift; path = Sources/SwiftProtobuf/JSONEncodingVisitor.swift; sourceTree = "<group>"; };
-		891B2270823847ED23F2ECFC28F935EC /* Starscream */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Starscream; path = Starscream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		891B2270823847ED23F2ECFC28F935EC /* Starscream.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Starscream.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		894E7AF0A8158D4711BC2948516EFB17 /* SwiftDate.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftDate.modulemap; sourceTree = "<group>"; };
 		89E41266898B5CEC077D514ABD58659C /* c_chat.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = c_chat.pb.swift; sourceTree = "<group>"; };
 		8A595C15E1115BD350B49C7BB00BC22F /* Engine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Engine.swift; path = Sources/Engine/Engine.swift; sourceTree = "<group>"; };
@@ -661,7 +662,7 @@
 		90D14311DC269895FB6BDC0D8983FC87 /* URLTransform.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = URLTransform.swift; path = Source/URLTransform.swift; sourceTree = "<group>"; };
 		9405A43C4A886B5425EDB92EF6E67A0A /* Google_Protobuf_Wrappers+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Google_Protobuf_Wrappers+Extensions.swift"; path = "Sources/SwiftProtobuf/Google_Protobuf_Wrappers+Extensions.swift"; sourceTree = "<group>"; };
 		943936BF72BFAF753307B161645CBFC4 /* Commons.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Commons.swift; path = Sources/SwiftDate/Supports/Commons.swift; sourceTree = "<group>"; };
-		943D347E61A2E181A4FA2CA894307B6E /* SwiftProtobuf */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftProtobuf; path = SwiftProtobuf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		943D347E61A2E181A4FA2CA894307B6E /* SwiftProtobuf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftProtobuf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96AFFA7278AB65D592EBF29B39C95E61 /* c_device.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = c_device.pb.swift; sourceTree = "<group>"; };
 		971F4255E1534ECD4AE35275C6C8DC87 /* c_message.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = c_message.pb.swift; sourceTree = "<group>"; };
 		976ACFA7A665B080A70365D29EBD4DB3 /* DataRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataRequest.swift; path = Source/Core/DataRequest.swift; sourceTree = "<group>"; };
@@ -674,7 +675,7 @@
 		9BA26ECC1FC454EBEC0F1D2008203844 /* TimePeriod+Support.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "TimePeriod+Support.swift"; path = "Sources/SwiftDate/TimePeriod/TimePeriod+Support.swift"; sourceTree = "<group>"; };
 		9C35DA418743849EDF7DCA875AEE8B53 /* Date+Create.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Create.swift"; path = "Sources/SwiftDate/Date/Date+Create.swift"; sourceTree = "<group>"; };
 		9CF269239C97D1F6D4CD2645D673188C /* Compression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Compression.swift; path = Sources/Compression/Compression.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DE78A85EB8FE6D3B71F7FCDF15CC555 /* NativeEngine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NativeEngine.swift; path = Sources/Engine/NativeEngine.swift; sourceTree = "<group>"; };
 		9E06AFD9BA81F0C0523459AF5074403A /* Session.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Session.swift; path = Source/Core/Session.swift; sourceTree = "<group>"; };
 		9F85A53825ADDB6EA7BC48F8A9B82324 /* BuiltInBridgeType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BuiltInBridgeType.swift; path = Source/BuiltInBridgeType.swift; sourceTree = "<group>"; };
@@ -691,7 +692,7 @@
 		A56A7E99B83E360B9C3845B6DCCCCF6E /* TextFormatDecodingOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextFormatDecodingOptions.swift; path = Sources/SwiftProtobuf/TextFormatDecodingOptions.swift; sourceTree = "<group>"; };
 		A56B8117526DC12B303240F3807D209E /* Session.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Session.swift; path = TeneasyChatSDK_iOS/Classes/Session.swift; sourceTree = "<group>"; };
 		A5FE425CEC810FE4BB736CBF64EC6B46 /* AFError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AFError.swift; path = Source/Core/AFError.swift; sourceTree = "<group>"; };
-		A6E35AF6B612CC74ECF30D133C55C466 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		A6E35AF6B612CC74ECF30D133C55C466 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A818ED99B6F777F2FE204CFFA923B37F /* AssociatedValues.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AssociatedValues.swift; path = Sources/SwiftDate/Supports/AssociatedValues.swift; sourceTree = "<group>"; };
 		A8B9D8AAF402BE56B9BDC301AAE1DD93 /* UnsafeRawPointer+Shims.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UnsafeRawPointer+Shims.swift"; path = "Sources/SwiftProtobuf/UnsafeRawPointer+Shims.swift"; sourceTree = "<group>"; };
 		A94C37567740129672B5CDE41CEC3307 /* ResourceBundle-Alamofire-Alamofire-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-Alamofire-Alamofire-Info.plist"; sourceTree = "<group>"; };
@@ -747,7 +748,7 @@
 		CAF4EBCEEB738AB0B633D8E2A1D42B27 /* URLRequest+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "URLRequest+Alamofire.swift"; path = "Source/Extensions/URLRequest+Alamofire.swift"; sourceTree = "<group>"; };
 		CB17C96EE864737DAA99D0E44295432A /* MessageExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MessageExtension.swift; path = Sources/SwiftProtobuf/MessageExtension.swift; sourceTree = "<group>"; };
 		CBCDDE4DD6728B2DA55177BE5C31724A /* TransformType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TransformType.swift; path = Source/TransformType.swift; sourceTree = "<group>"; };
-		CD54121DDA84872534168702B5F92950 /* HandyJSON */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HandyJSON; path = HandyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD54121DDA84872534168702B5F92950 /* HandyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HandyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4F11680957C5B36FCDB2D51871FF3D /* HandyJSON-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HandyJSON-prefix.pch"; sourceTree = "<group>"; };
 		CE675DC89EA6FFD50879898EE77A99D6 /* Server.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Server.swift; path = Sources/Server/Server.swift; sourceTree = "<group>"; };
 		CF1E5AE79E787634A730616015294B70 /* TimeInterval+Formatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "TimeInterval+Formatter.swift"; path = "Sources/SwiftDate/Foundation+Extras/TimeInterval+Formatter.swift"; sourceTree = "<group>"; };
@@ -759,18 +760,19 @@
 		D50852F278219A6EBABEB32F511E2282 /* BinaryEncodingSizeVisitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BinaryEncodingSizeVisitor.swift; path = Sources/SwiftProtobuf/BinaryEncodingSizeVisitor.swift; sourceTree = "<group>"; };
 		D61AA6C52018BD7CA50A8720C84A3D37 /* HandyJSON.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = HandyJSON.modulemap; sourceTree = "<group>"; };
 		D70B48FE5336BE50F0964802537881F2 /* Google_Protobuf_Value+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Google_Protobuf_Value+Extensions.swift"; path = "Sources/SwiftProtobuf/Google_Protobuf_Value+Extensions.swift"; sourceTree = "<group>"; };
-		D757C2043D570AF317ECA0FB620C5227 /* Pods-TeneasyChatSDK_iOS_Tests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-TeneasyChatSDK_iOS_Tests"; path = Pods_TeneasyChatSDK_iOS_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D757C2043D570AF317ECA0FB620C5227 /* Pods_TeneasyChatSDK_iOS_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeneasyChatSDK_iOS_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D758EAF67589CDE1459A95A1B027D2B1 /* HTTPHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HTTPHandler.swift; path = Sources/Framer/HTTPHandler.swift; sourceTree = "<group>"; };
 		D7E4B8D70557BF27955E85929956548D /* DateInRegion+Components.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DateInRegion+Components.swift"; path = "Sources/SwiftDate/DateInRegion/DateInRegion+Components.swift"; sourceTree = "<group>"; };
 		D824152B4255F9E9588A93ED5BE2D761 /* JSONDecodingOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONDecodingOptions.swift; path = Sources/SwiftProtobuf/JSONDecodingOptions.swift; sourceTree = "<group>"; };
-		D9828AF8906FDCD1E0996D2230C81214 /* TeneasyChatSDK_iOS.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = TeneasyChatSDK_iOS.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D9828AF8906FDCD1E0996D2230C81214 /* TeneasyChatSDK_iOS.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = TeneasyChatSDK_iOS.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D9CD785BAA83316562635999086D627C /* Alamofire-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-prefix.pch"; sourceTree = "<group>"; };
 		DA737903A512C5448297DED4BA578841 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		DACA8591656AC149BEFA20DC04082D62 /* Response.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Response.swift; path = Source/Core/Response.swift; sourceTree = "<group>"; };
 		DB94382EEE485C0A54F36A12AAE9A56D /* Pods-TeneasyChatSDK_iOS_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TeneasyChatSDK_iOS_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		DB9726387873D6B2F897CF4D9E70F09D /* BinaryDelimited.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BinaryDelimited.swift; path = Sources/SwiftProtobuf/BinaryDelimited.swift; sourceTree = "<group>"; };
 		DC1BB58FE0FB8DCE6418732741A6D5C1 /* Serializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Serializer.swift; path = Source/Serializer.swift; sourceTree = "<group>"; };
-		DC368C5840FED321EE40385D32B2AA6C /* Pods-TeneasyChatSDK_iOS_Example */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-TeneasyChatSDK_iOS_Example"; path = Pods_TeneasyChatSDK_iOS_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC368C5840FED321EE40385D32B2AA6C /* Pods_TeneasyChatSDK_iOS_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeneasyChatSDK_iOS_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCDE44582E83D59A00B3B5FF /* TeneasySDKDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeneasySDKDelegate.swift; sourceTree = "<group>"; };
 		DE2A6A8F0CEEFD4738CF8AFBA26C70DE /* DateInRegion+Math.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DateInRegion+Math.swift"; path = "Sources/SwiftDate/DateInRegion/DateInRegion+Math.swift"; sourceTree = "<group>"; };
 		DEC3EF642D86F270F4BFF20CABF1747C /* Result+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Result+Alamofire.swift"; path = "Source/Extensions/Result+Alamofire.swift"; sourceTree = "<group>"; };
 		E00AE30C5E27760B03B33D38961AE546 /* DataTransform.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataTransform.swift; path = Source/DataTransform.swift; sourceTree = "<group>"; };
@@ -817,7 +819,7 @@
 		F95998212BA440656F9CEC6EE15AD7FD /* Alamofire-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Alamofire-dummy.m"; sourceTree = "<group>"; };
 		FA2390D8FDAB79CEDF61C246098E3CEF /* TeneasyChatSDK_iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = TeneasyChatSDK_iOS.modulemap; sourceTree = "<group>"; };
 		FA34E16184B6765222C0B4C2AC7055BE /* Date+Math.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Math.swift"; path = "Sources/SwiftDate/Date/Date+Math.swift"; sourceTree = "<group>"; };
-		FAC11C3BDCA2996FAADB849DA4F8CFE4 /* TeneasyChatSDK_iOS */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TeneasyChatSDK_iOS; path = TeneasyChatSDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAC11C3BDCA2996FAADB849DA4F8CFE4 /* TeneasyChatSDK_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TeneasyChatSDK_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB8EC99C94BDD5D7DB84A2B398A69DF7 /* Alamofire.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.release.xcconfig; sourceTree = "<group>"; };
 		FC46F8E8BC25D8B8512BEA34C427C971 /* Date+Compare.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Date+Compare.swift"; path = "Sources/SwiftDate/Date/Date+Compare.swift"; sourceTree = "<group>"; };
 		FD1F539042C4938FFD3A115A30C672B8 /* ISO8601DateTransform.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ISO8601DateTransform.swift; path = Source/ISO8601DateTransform.swift; sourceTree = "<group>"; };
@@ -950,7 +952,6 @@
 			children = (
 				EA160F1E80E9FF962402E04911CAA0D5 /* validate.pb.swift */,
 			);
-			name = validate;
 			path = validate;
 			sourceTree = "<group>";
 		};
@@ -958,6 +959,7 @@
 			isa = PBXGroup;
 			children = (
 				2D958243C45499991A5E9A3E22163A22 /* ChatLib.swift */,
+				DCDE44582E83D59A00B3B5FF /* TeneasySDKDelegate.swift */,
 				CA40F3363E3B19A632A17EA3AC26190A /* Config.swift */,
 				173DB6FFF18E8B67D468058D7C3A0EDE /* DataParser.swift */,
 				497917C41FCC4E3F898584C291FB06E1 /* LineDetectLib.swift */,
@@ -1089,7 +1091,6 @@
 				63DFFB381CDDEEC4D4B72F13E4CE9177 /* core */,
 				BA62188828F9370A15AC4E30C6DD9F1F /* sentry */,
 			);
-			name = api;
 			path = api;
 			sourceTree = "<group>";
 		};
@@ -1124,7 +1125,6 @@
 				428401C637E28644449FA1B465A90DA6 /* worker.pb.swift */,
 				699F9FAAA87CB45027748E3102C589B4 /* worker_group.pb.swift */,
 			);
-			name = core;
 			path = core;
 			sourceTree = "<group>";
 		};
@@ -1133,7 +1133,6 @@
 			children = (
 				21816EE6954CFF89D81324B39610FDA8 /* asset.pb.swift */,
 			);
-			name = asset;
 			path = asset;
 			sourceTree = "<group>";
 		};
@@ -1203,7 +1202,6 @@
 				0CE25AA5E1B7F54EDBF01C943DB50F3E /* Resources */,
 				4BB4655ED0A91047F797FFE7FAF6A121 /* Support Files */,
 			);
-			name = SwiftDate;
 			path = SwiftDate;
 			sourceTree = "<group>";
 		};
@@ -1245,7 +1243,6 @@
 				2B5957D3FB4738660051157E3F7B9A87 /* c_verify.pb.swift */,
 				8CBB5C0D5144C958863D8710D134644F /* c_worker.pb.swift */,
 			);
-			name = common;
 			path = common;
 			sourceTree = "<group>";
 		};
@@ -1269,17 +1266,17 @@
 		AC98D2801016B01BC09487664724C7CB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5D797E9A5C5782CE845840781FA1CC81 /* Alamofire */,
-				085DBCE7DD98588B2ED103B1C1F36026 /* Alamofire-Alamofire */,
-				5C4F31330DFA99D699E4BDC8C3573D73 /* FBSnapshotTestCase */,
-				CD54121DDA84872534168702B5F92950 /* HandyJSON */,
-				DC368C5840FED321EE40385D32B2AA6C /* Pods-TeneasyChatSDK_iOS_Example */,
-				D757C2043D570AF317ECA0FB620C5227 /* Pods-TeneasyChatSDK_iOS_Tests */,
-				891B2270823847ED23F2ECFC28F935EC /* Starscream */,
-				58AE0544E0C381DDBD09356C357EC82B /* SwiftDate */,
-				943D347E61A2E181A4FA2CA894307B6E /* SwiftProtobuf */,
-				38DFD12C0DE83AD51C78858605BBA299 /* SwiftProtobuf-SwiftProtobuf */,
-				FAC11C3BDCA2996FAADB849DA4F8CFE4 /* TeneasyChatSDK_iOS */,
+				5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */,
+				085DBCE7DD98588B2ED103B1C1F36026 /* Alamofire.bundle */,
+				5C4F31330DFA99D699E4BDC8C3573D73 /* FBSnapshotTestCase.framework */,
+				CD54121DDA84872534168702B5F92950 /* HandyJSON.framework */,
+				DC368C5840FED321EE40385D32B2AA6C /* Pods_TeneasyChatSDK_iOS_Example.framework */,
+				D757C2043D570AF317ECA0FB620C5227 /* Pods_TeneasyChatSDK_iOS_Tests.framework */,
+				891B2270823847ED23F2ECFC28F935EC /* Starscream.framework */,
+				58AE0544E0C381DDBD09356C357EC82B /* SwiftDate.framework */,
+				943D347E61A2E181A4FA2CA894307B6E /* SwiftProtobuf.framework */,
+				38DFD12C0DE83AD51C78858605BBA299 /* SwiftProtobuf.bundle */,
+				FAC11C3BDCA2996FAADB849DA4F8CFE4 /* TeneasyChatSDK_iOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1307,7 +1304,6 @@
 			children = (
 				3F4529DB7947A1435E56A740C2C2339D /* sentry.pb.swift */,
 			);
-			name = sentry;
 			path = sentry;
 			sourceTree = "<group>";
 		};
@@ -1339,7 +1335,6 @@
 				348B1E4F291BDD933C6F85E2DED92453 /* Support Files */,
 				5EA595BD3A9F74E1EF58F32E432C9B18 /* SwiftSupport */,
 			);
-			name = FBSnapshotTestCase;
 			path = FBSnapshotTestCase;
 			sourceTree = "<group>";
 		};
@@ -1380,7 +1375,6 @@
 				985B19DFD8B1EFF29E056D489657D7B2 /* WSEngine.swift */,
 				E9CEF76142C9B55460C276673B9FBA86 /* Support Files */,
 			);
-			name = Starscream;
 			path = Starscream;
 			sourceTree = "<group>";
 		};
@@ -1432,7 +1426,6 @@
 				448A18D03277133320A736800D89B8ED /* Resources */,
 				DBB545798916D3DBC2860233ECEF96B4 /* Support Files */,
 			);
-			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -1444,7 +1437,6 @@
 				EB7DFCEDEF1DBA042850B7D139CC9B3A /* g_payload.pb.swift */,
 				54C0DF926D310795629416815B740798 /* g_pubsub.pb.swift */,
 			);
-			name = gateway;
 			path = gateway;
 			sourceTree = "<group>";
 		};
@@ -1543,7 +1535,6 @@
 				60FEFF6AA7817A6B8E431956EAB5C569 /* Resources */,
 				154588BA81BAF807EB8AA0D1BEDAFE94 /* Support Files */,
 			);
-			name = SwiftProtobuf;
 			path = SwiftProtobuf;
 			sourceTree = "<group>";
 		};
@@ -1583,7 +1574,6 @@
 			children = (
 				18B8E3C015830FB641B85292C977E295 /* validate */,
 			);
-			name = include;
 			path = include;
 			sourceTree = "<group>";
 		};
@@ -1628,7 +1618,6 @@
 				90D14311DC269895FB6BDC0D8983FC87 /* URLTransform.swift */,
 				82611C996EE5C38EBDC8774F388BDE31 /* Support Files */,
 			);
-			name = HandyJSON;
 			path = HandyJSON;
 			sourceTree = "<group>";
 		};
@@ -1733,7 +1722,7 @@
 			);
 			name = HandyJSON;
 			productName = HandyJSON;
-			productReference = CD54121DDA84872534168702B5F92950 /* HandyJSON */;
+			productReference = CD54121DDA84872534168702B5F92950 /* HandyJSON.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		6038CE6006EFBE9D905454CF01909C42 /* SwiftDate */ = {
@@ -1751,7 +1740,7 @@
 			);
 			name = SwiftDate;
 			productName = SwiftDate;
-			productReference = 58AE0544E0C381DDBD09356C357EC82B /* SwiftDate */;
+			productReference = 58AE0544E0C381DDBD09356C357EC82B /* SwiftDate.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		92F160BD880D642E587E236BE270074F /* Pods-TeneasyChatSDK_iOS_Tests */ = {
@@ -1771,7 +1760,7 @@
 			);
 			name = "Pods-TeneasyChatSDK_iOS_Tests";
 			productName = Pods_TeneasyChatSDK_iOS_Tests;
-			productReference = D757C2043D570AF317ECA0FB620C5227 /* Pods-TeneasyChatSDK_iOS_Tests */;
+			productReference = D757C2043D570AF317ECA0FB620C5227 /* Pods_TeneasyChatSDK_iOS_Tests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		976126A1CE06DC6E162563800E1BDF14 /* Alamofire-Alamofire */ = {
@@ -1788,7 +1777,7 @@
 			);
 			name = "Alamofire-Alamofire";
 			productName = Alamofire;
-			productReference = 085DBCE7DD98588B2ED103B1C1F36026 /* Alamofire-Alamofire */;
+			productReference = 085DBCE7DD98588B2ED103B1C1F36026 /* Alamofire.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 		98A98149697C80CEF8D5772791E92E66 /* FBSnapshotTestCase */ = {
@@ -1806,7 +1795,7 @@
 			);
 			name = FBSnapshotTestCase;
 			productName = FBSnapshotTestCase;
-			productReference = 5C4F31330DFA99D699E4BDC8C3573D73 /* FBSnapshotTestCase */;
+			productReference = 5C4F31330DFA99D699E4BDC8C3573D73 /* FBSnapshotTestCase.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		9B78EE4AF6AE03E79D88886319853FF7 /* Starscream */ = {
@@ -1824,7 +1813,7 @@
 			);
 			name = Starscream;
 			productName = Starscream;
-			productReference = 891B2270823847ED23F2ECFC28F935EC /* Starscream */;
+			productReference = 891B2270823847ED23F2ECFC28F935EC /* Starscream.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		A5F702E0DA383BC1479572581615A916 /* SwiftProtobuf */ = {
@@ -1843,7 +1832,7 @@
 			);
 			name = SwiftProtobuf;
 			productName = SwiftProtobuf;
-			productReference = 943D347E61A2E181A4FA2CA894307B6E /* SwiftProtobuf */;
+			productReference = 943D347E61A2E181A4FA2CA894307B6E /* SwiftProtobuf.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		ADC1D5EF2AF1FFA1EC94BB12634D20C0 /* TeneasyChatSDK_iOS */ = {
@@ -1865,7 +1854,7 @@
 			);
 			name = TeneasyChatSDK_iOS;
 			productName = TeneasyChatSDK_iOS;
-			productReference = FAC11C3BDCA2996FAADB849DA4F8CFE4 /* TeneasyChatSDK_iOS */;
+			productReference = FAC11C3BDCA2996FAADB849DA4F8CFE4 /* TeneasyChatSDK_iOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		E2F6117B18B59B0C850F5D4C585FCA77 /* Pods-TeneasyChatSDK_iOS_Example */ = {
@@ -1889,7 +1878,7 @@
 			);
 			name = "Pods-TeneasyChatSDK_iOS_Example";
 			productName = Pods_TeneasyChatSDK_iOS_Example;
-			productReference = DC368C5840FED321EE40385D32B2AA6C /* Pods-TeneasyChatSDK_iOS_Example */;
+			productReference = DC368C5840FED321EE40385D32B2AA6C /* Pods_TeneasyChatSDK_iOS_Example.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		EAAA1AD3A8A1B59AB91319EE40752C6D /* Alamofire */ = {
@@ -1908,7 +1897,7 @@
 			);
 			name = Alamofire;
 			productName = Alamofire;
-			productReference = 5D797E9A5C5782CE845840781FA1CC81 /* Alamofire */;
+			productReference = 5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		FA0CBCD9613A8E95F24D86AAD4A86E26 /* SwiftProtobuf-SwiftProtobuf */ = {
@@ -1925,7 +1914,7 @@
 			);
 			name = "SwiftProtobuf-SwiftProtobuf";
 			productName = SwiftProtobuf;
-			productReference = 38DFD12C0DE83AD51C78858605BBA299 /* SwiftProtobuf-SwiftProtobuf */;
+			productReference = 38DFD12C0DE83AD51C78858605BBA299 /* SwiftProtobuf.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -1946,8 +1935,6 @@
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			minimizedProjectReferenceProxies = 0;
-			preferredProjectObjectVersion = 77;
 			productRefGroup = AC98D2801016B01BC09487664724C7CB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1980,7 +1967,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C87BA627F6FBEC8220A01A37943A608F /* SwiftProtobuf-SwiftProtobuf in Resources */,
+				C87BA627F6FBEC8220A01A37943A608F /* SwiftProtobuf.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1995,7 +1982,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CD127F101529C336A07D45CE1106A54 /* Alamofire-Alamofire in Resources */,
+				5CD127F101529C336A07D45CE1106A54 /* Alamofire.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2293,6 +2280,7 @@
 				CC850C427F9BF3BCDD6CD9CAF6E2C792 /* g_action.pb.swift in Sources */,
 				AB9EA81D561F0C49B9DDF8BEB88C1882 /* g_gateway.pb.swift in Sources */,
 				163DBEA12C85077DE65BA2FE8564E399 /* g_payload.pb.swift in Sources */,
+				DCDE44592E83D59B00B3B5FF /* TeneasySDKDelegate.swift in Sources */,
 				7A6343FA39BC55F365FEDAD79E1DBEB4 /* g_pubsub.pb.swift in Sources */,
 				824E6E1BEBA305BD1EC140F702DDBC6F /* gateway.pb.swift in Sources */,
 				3F47F7C7685A0A0E4511AE4556F8460D /* LineDetectLib.swift in Sources */,
@@ -2865,8 +2853,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};

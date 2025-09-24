@@ -119,7 +119,7 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         if msg.msgID == 0{
             tvChatView.text.append("                    发送失败")
         }else{
-            tvChatView.text.append("                    发送成功\(msg.msgID)")
+            tvChatView.text.append("                    发送成功\(payloadId)")
         }
       
         let time = displayLocalTime(from: msg.msgTime.date)
@@ -261,8 +261,9 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         //lib.sendMessage(msg: "https://www.youtube.com/watch?v=wbFHmblw9J8", type: .msgVideo, replyMsgId: lastMessage?.msgID ?? 0)
         
         tvChatView.text.append("how are u!")
-        //lib.sendMessage(msg: "how are u!", type: .msgText, consultId: 1)
-        lib.sendMessage(msg: "/session/tenant_230/20250304/Documents/3137343130393736323137353066696c65d41d8cd98f00b204e9800998ecf8427e_1741097622234561429.pdf", type: .msgFile, consultId: 1, fileSize: 1989, fileName: "123.pdf")
+        lib.sendMessage(msg: "how are u!", type: .msgText, consultId: 1)
+        tvChatView.text.append("\(lib.payloadId)")
+        //lib.sendMessage(msg: "/session/tenant_230/20250304/Documents/3137343130393736323137353066696c65d41d8cd98f00b204e9800998ecf8427e_1741097622234561429.pdf", type: .msgFile, consultId: 1, fileSize: 1989, fileName: "123.pdf")
         
         //UploadUtil(listener: self, filePath: "dd", fileData: Data(), xToken: "dd", baseUrl: "").upload()
         
