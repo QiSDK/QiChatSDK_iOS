@@ -183,7 +183,9 @@ open class ChatLib: NetworkManagerDelegate {
             
             // 设置定时器事件处理
             self.dispatchTimer?.setEventHandler { [weak self] in
+                if ((self?.isConnected ?? false)) {
                 self?.updateSecond()
+              }
             }
             
             // 启动定时器
