@@ -297,6 +297,7 @@
 		DC116AC0C3BC808A198B9C1704FA8C84 /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4381BB99AE771493486C74C4B63C73EC /* RequestInterceptor.swift */; };
 		DCC31EDA96E49D3E90EB35EDBB94D5BD /* Deserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B627A33226E03C8D9B2FA4724E621CB9 /* Deserializer.swift */; };
 		DCDE44592E83D59B00B3B5FF /* TeneasySDKDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE44582E83D59A00B3B5FF /* TeneasySDKDelegate.swift */; };
+		DCDE445B2E86666000B3B5FF /* ChatLib_WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDE445A2E86664600B3B5FF /* ChatLib_WebSocket.swift */; };
 		DE4B8F8293330D49854BC0935B75ACBE /* Google_Protobuf_Any+Registry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C3C1F139CB66196C435EEF4225F234 /* Google_Protobuf_Any+Registry.swift */; };
 		DEA0E2799D9F6AA075C66D57BA5AD245 /* Pods-TeneasyChatSDK_iOS_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED951A4F096B26B2A320AAD11AC9108 /* Pods-TeneasyChatSDK_iOS_Example-dummy.m */; };
 		DFFD1598F5816522DC21329916927B1C /* AnyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC28E7926A050B48552E9E8AFD4F4DF /* AnyExtensions.swift */; };
@@ -773,6 +774,7 @@
 		DC1BB58FE0FB8DCE6418732741A6D5C1 /* Serializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Serializer.swift; path = Source/Serializer.swift; sourceTree = "<group>"; };
 		DC368C5840FED321EE40385D32B2AA6C /* Pods_TeneasyChatSDK_iOS_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeneasyChatSDK_iOS_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCDE44582E83D59A00B3B5FF /* TeneasySDKDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeneasySDKDelegate.swift; sourceTree = "<group>"; };
+		DCDE445A2E86664600B3B5FF /* ChatLib_WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLib_WebSocket.swift; sourceTree = "<group>"; };
 		DE2A6A8F0CEEFD4738CF8AFBA26C70DE /* DateInRegion+Math.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DateInRegion+Math.swift"; path = "Sources/SwiftDate/DateInRegion/DateInRegion+Math.swift"; sourceTree = "<group>"; };
 		DEC3EF642D86F270F4BFF20CABF1747C /* Result+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Result+Alamofire.swift"; path = "Source/Extensions/Result+Alamofire.swift"; sourceTree = "<group>"; };
 		E00AE30C5E27760B03B33D38961AE546 /* DataTransform.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataTransform.swift; path = Source/DataTransform.swift; sourceTree = "<group>"; };
@@ -959,6 +961,7 @@
 			isa = PBXGroup;
 			children = (
 				2D958243C45499991A5E9A3E22163A22 /* ChatLib.swift */,
+				DCDE445A2E86664600B3B5FF /* ChatLib_WebSocket.swift */,
 				DCDE44582E83D59A00B3B5FF /* TeneasySDKDelegate.swift */,
 				CA40F3363E3B19A632A17EA3AC26190A /* Config.swift */,
 				173DB6FFF18E8B67D468058D7C3A0EDE /* DataParser.swift */,
@@ -2262,6 +2265,7 @@
 				8FC8831FC0F72B5D0C19AFB772E24C5A /* c_operate.pb.swift in Sources */,
 				D7E760FFE891E021F59F60E3B6446CEF /* c_phonenumber.pb.swift in Sources */,
 				A6DCEDCD1B3BBBB0E1C1006165EBA2A2 /* c_qr_code.pb.swift in Sources */,
+				DCDE445B2E86666000B3B5FF /* ChatLib_WebSocket.swift in Sources */,
 				F6C2B650F8A5E84A8B35100D207533C1 /* c_reply.pb.swift in Sources */,
 				48C490AD37FE081ED7EED4172C41B43F /* c_tenant.pb.swift in Sources */,
 				D3234CCD6AC27F05ED9BA60789369145 /* c_verify.pb.swift in Sources */,
