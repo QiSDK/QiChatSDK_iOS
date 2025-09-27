@@ -24,50 +24,51 @@ open class ChatLib: NetworkManagerDelegate {
         }
     }
     
-    public private(set) var text = "Teneasy Chat SDK 启动"
-    private var baseUrl = "wss://csapi.xdev.stream/v1/gateway/h5?token="
-    var websocket: WebSocket?
-    var isConnected = false
+    public private(set) var text = "Teneasy Chat SDK 启动" // SDK启动状态文本
+    private var baseUrl = "wss://csapi.xdev.stream/v1/gateway/h5?token=" // WebSocket连接基础URL
+    var websocket: WebSocket? // WebSocket连接实例
+    var isConnected = false // 连接状态标识
     // weak var delegate: WebSocketDelegate?
-    public weak var delegate: teneasySDKDelegate?
-    open var payloadId: UInt64 = 0
-    public var sendingMsg: CommonMessage?
-    var msgList: [UInt64: CommonMessage] = [:]
-    var chatId: Int64 = 0
-    public var token: String = ""
-    var session = Session()
+    public weak var delegate: teneasySDKDelegate? // SDK回调代理
+    open var payloadId: UInt64 = 0 // 消息载荷ID
+    public var sendingMsg: CommonMessage? // 当前发送的消息
+    var msgList: [UInt64: CommonMessage] = [:] // 消息列表缓存
+    var chatId: Int64 = 0 // 聊天会话ID
+    public var token: String = "" // 认证令牌
+    var session = Session() // 会话信息
     
-    var dispatchTimer: DispatchSourceTimer?
-    private var sessionTime: Int = 0
+    var dispatchTimer: DispatchSourceTimer? // 定时器实例
+    private var sessionTime: Int = 0 // 会话持续时间（秒）
     //var chooseImg: UIImage?
-    var beatTimes = 0
-    private var maxSessionMinutes = 90000000//相当于不设置会话超时时间 //90
-    var workId: Int32 = 5
-    private var replyMsgId: Int64 = 0
-    private var userId: Int32 = 0
-    private var custom: String = ""
-    private var sign: String = ""
-    private var cert: String = ""
-    private var networkManager = NetworkManager()
-    public static let shared = ChatLib()
-    private var withAutoReply: CommonWithAutoReply?
+    var beatTimes = 0 // 心跳次数计数
+    private var maxSessionMinutes = 90000000 // 最大会话时长（分钟）相当于不设置会话超时时间
+    var workId: Int32 = 5 // 工作人员ID
+    private var replyMsgId: Int64 = 0 // 回复消息ID
+    private var userId: Int32 = 0 // 用户ID
+    private var custom: String = "" // 自定义参数
+    private var sign: String = "" // 签名
+    private var cert: String = "" // 证书
+    private var networkManager = NetworkManager() // 网络管理器
+    public static let shared = ChatLib() // 单例实例
+    private var withAutoReply: CommonWithAutoReply? // 自动回复配置
     
-    // DispatchQueue for thread management
-    let websocketQueue = DispatchQueue(label: "com.teneasy.websocket", qos: .userInitiated)
-    let messageQueue = DispatchQueue(label: "com.teneasy.message", qos: .userInitiated)
-    let timerQueue = DispatchQueue(label: "com.teneasy.timer", qos: .utility)
-    let networkQueue = DispatchQueue(label: "com.teneasy.network", qos: .background)
-    let stateQueue = DispatchQueue(label: "com.teneasy.state")
+    // DispatchQueue for thread management 线程管理队列
+    let websocketQueue = DispatchQueue(label: "com.teneasy.websocket", qos: .userInitiated) // WebSocket操作队列
+    let messageQueue = DispatchQueue(label: "com.teneasy.message", qos: .userInitiated) // 消息处理队列
+    let timerQueue = DispatchQueue(label: "com.teneasy.timer", qos: .utility) // 定时器队列
+    let networkQueue = DispatchQueue(label: "com.teneasy.network", qos: .background) // 网络操作队列
+    let stateQueue = DispatchQueue(label: "com.teneasy.state") // 状态管理队列
 
-    var pendingPayloads: [(id: UInt64?, data: Data)] = []
-    var isConnecting = false
+    var pendingPayloads: [(id: UInt64?, data: Data)] = [] // 待发送的数据队列
+    var isConnecting = false // 正在连接状态标识
 
-    var consultId: Int64 = 0
-    private var fileSize: Int32 = 0
-    private var fileName: String = ""
+    var consultId: Int64 = 0 // 咨询会话ID
+    private var fileSize: Int32 = 0 // 文件大小
+    private var fileName: String = "" // 文件名称
 
     public init() {}
 
+    // 初始化SDK配置参数
     public func myinit(userId:Int32, cert: String, token: String, baseUrl: String, sign: String, chatId: Int64 = 0, custom: String = "", maxSessionMinutes: Int = 90000000) {
         self.chatId = chatId
         self.cert = cert
@@ -84,6 +85,7 @@ open class ChatLib: NetworkManagerDelegate {
                networkManager.startNetworkReachabilityObserver()
     }
 
+   // 建立WebSocket连接
    public func callWebsocket() {
         stateQueue.async { [weak self] in
             guard let self = self else { return }
@@ -93,6 +95,7 @@ open class ChatLib: NetworkManagerDelegate {
         }
     }
 
+    // 将WebSocket连接加入队列
     private func enqueueWebsocketConnection() {
         websocketQueue.async { [weak self] in
             guard let self = self else { return }
@@ -137,7 +140,7 @@ open class ChatLib: NetworkManagerDelegate {
             var request = URLRequest(url: url)
             let uuid = UUID().uuidString
             request.setValue(uuid, forHTTPHeaderField: "x-trace-id")
-            debugPrint("x-trace-id：\(uuid)")
+            debugPrint("wss：\(url) x-trace-id：\(uuid)")
 
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
@@ -152,6 +155,7 @@ open class ChatLib: NetworkManagerDelegate {
         }
     }
     
+    // 重新连接WebSocket
     public func reConnect(){
         websocketQueue.async { [weak self] in
             self?.callWebsocket()
@@ -165,6 +169,7 @@ open class ChatLib: NetworkManagerDelegate {
         }
     }
     
+    // 启动定时器
     func startTimer() {
         timerQueue.async { [weak self] in
             guard let self = self else { return }
@@ -195,7 +200,7 @@ open class ChatLib: NetworkManagerDelegate {
     }
 
     
-    // DispatchSourceTimer 不需要 @objc，因为不使用 selector
+    // 更新秒数计数器（DispatchSourceTimer 不需要 @objc，因为不使用 selector）
     private func updateSecond() {
         sessionTime += 1
         
@@ -218,6 +223,7 @@ open class ChatLib: NetworkManagerDelegate {
         updateSecond()
     }
 
+    // 停止定时器
     private func stopTimer() {
         timerQueue.async { [weak self] in
             guard let self = self else { return }
@@ -234,6 +240,7 @@ open class ChatLib: NetworkManagerDelegate {
         }
     }
     
+    // 重置会话时间
     public func resetSessionTime(){
         timerQueue.async { [weak self] in
             guard let self = self else { return }
@@ -241,7 +248,7 @@ open class ChatLib: NetworkManagerDelegate {
         }
     }
     
-    ///此接口不支持发视频
+    // 发送消息（此接口不支持发视频）
     public func sendMessage(msg: String, type: CommonMessageFormat, consultId: Int64, replyMsgId: Int64? = 0, withAutoReply: CommonWithAutoReply? = nil, fileSize: Int32 = 0, fileName: String = "") {
         self.replyMsgId = replyMsgId ?? 0
         self.consultId = consultId;
@@ -264,6 +271,7 @@ open class ChatLib: NetworkManagerDelegate {
         doSend()
     }
     
+    // 删除消息
     public func deleteMessage(msgId: Int64){
         // 第一层
         //var content = CommonMessageContent()
@@ -281,6 +289,7 @@ open class ChatLib: NetworkManagerDelegate {
         doSend()
     }
     
+    // 发送文本消息
     private func sendTextMessage(txt: String){
         // 第一层
         var content = CommonMessageContent()
@@ -303,6 +312,7 @@ open class ChatLib: NetworkManagerDelegate {
         sendingMsg = msg
     }
     
+    // 发送图片消息
     private func sendImageMessage(url: String){
         // 第一层
         var content = CommonMessageImage()
@@ -324,7 +334,7 @@ open class ChatLib: NetworkManagerDelegate {
         sendingMsg = msg
     }
     
-    ///此接口专门发视频
+    // 发送视频消息（此接口专门发视频）
     public func sendVideoMessage(url: String, thumbnailUri: String = "", hlsUri: String = "", consultId: Int64, replyMsgId: Int64? = 0, withAutoReply: CommonWithAutoReply? = nil) {
         self.replyMsgId = replyMsgId ?? 0
         self.consultId = consultId;
@@ -352,6 +362,7 @@ open class ChatLib: NetworkManagerDelegate {
         doSend()
     }
     
+    // 发送音频消息
     private func sendAudioMessage(url: String){
         // 第一层
         var content = CommonMessageAudio()
@@ -373,6 +384,7 @@ open class ChatLib: NetworkManagerDelegate {
         sendingMsg = msg
     }
     
+    // 发送文件消息
     private func sendFileMessage(url: String){
         // 第一层
         var content = CommonMessageFile()
@@ -396,8 +408,15 @@ open class ChatLib: NetworkManagerDelegate {
         sendingMsg = msg
     }
     
-    private func doSend(payload_Id: UInt64 = 0){
+    // 执行发送操作
+    private func doSend(resendPayloadId: UInt64 = 0){
         guard var msg = sendingMsg else {
+            return
+        }
+        
+        if self.payloadId == 0{ //说明还没有被初始化成功
+            delegate?.systemMsg(result: Result(Code: 1007, Message: "SDK尚未初始化"))
+            debugPrint("SDK尚未初始化")
             return
         }
 
@@ -406,17 +425,17 @@ open class ChatLib: NetworkManagerDelegate {
             msg.withAutoReplies = withAutoReplies
         }
 
-        var payloadIdentifier = payload_Id
+        var payloadIdentifier = resendPayloadId
         var shouldTrackMessage = false
 
         stateQueue.sync {
-            if msg.msgOp == .msgOpPost && payload_Id == 0 {
+            if msg.msgOp == .msgOpPost && resendPayloadId == 0 {
                 self.payloadId += 1
                 payloadIdentifier = self.payloadId
                 self.msgList[payloadIdentifier] = msg
                 shouldTrackMessage = true
                 debugPrint("ChatLib:payloadID + 1:" + String(self.payloadId))
-            } else if payload_Id == 0 {
+            } else if resendPayloadId == 0 {
                 payloadIdentifier = self.payloadId
             } else if msg.msgOp == .msgOpPost {
                 shouldTrackMessage = true
@@ -445,12 +464,14 @@ open class ChatLib: NetworkManagerDelegate {
         }
     }
     
+   // 重发消息
    public func resendMsg(msg: CommonMessage, payloadId: UInt64) {
         // 临时放到一个变量
         sendingMsg = msg
-        doSend(payload_Id: payloadId)
+        doSend(resendPayloadId: payloadId)
     }
  
+    // 发送心跳包
     private func sendHeartBeat() {
         let array: [UInt8] = [0]
 
@@ -459,6 +480,7 @@ open class ChatLib: NetworkManagerDelegate {
         //debugPrint("ChatLib:sending heart beat")
     }
     
+    // 发送二进制数据
     private func send(binaryData: Data, payloadId: UInt64? = nil) {
         var shouldSendNow = false
         var shouldConnect = false
@@ -482,6 +504,7 @@ open class ChatLib: NetworkManagerDelegate {
         }
     }
 
+    // 写入Socket数据
     private func writeToSocket(data: Data, payloadId: UInt64?) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -513,6 +536,7 @@ open class ChatLib: NetworkManagerDelegate {
         }
     }
 
+     // 刷新待发送的数据队列
      func flushPendingPayloads() {
         let queuedItems: [(id: UInt64?, data: Data)] = stateQueue.sync {
             let items = self.pendingPayloads
@@ -524,6 +548,7 @@ open class ChatLib: NetworkManagerDelegate {
         }
     }
 
+     // 处理断开连接事件
      func disConnected(code: Int = 1006, msg: String = "已断开通信") {
         messageQueue.async { [weak self] in
             guard let self = self else { return }
@@ -547,7 +572,7 @@ open class ChatLib: NetworkManagerDelegate {
         }
     }
     
-    ///手动断开连接、清理会话中所有数据
+    // 手动断开连接、清理会话中所有数据
     public func disConnect() {
         websocketQueue.async { [weak self] in
             guard let self = self else { return }
@@ -583,7 +608,7 @@ open class ChatLib: NetworkManagerDelegate {
 
 
     
-    ///显示一个文本消息，无需经过服务器
+    // 创建本地文本消息，无需经过服务器
     public func composeALocalMessage(textMsg: String) -> CommonMessage {
         // 第一层
         var content = CommonMessageContent()
