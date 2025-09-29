@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (5.9.1)
+  - Alamofire (5.10.2)
   - FBSnapshotTestCase (2.1.4):
     - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
   - FBSnapshotTestCase/Core (2.1.4)
@@ -9,7 +9,7 @@ PODS:
   - Starscream (4.0.4)
   - SwiftDate (6.3.1)
   - SwiftProtobuf (1.27.1)
-  - TeneasyChatSDK_iOS (1.9.0):
+  - TeneasyChatSDK_iOS (2.0.0):
     - Alamofire
     - HandyJSON (~> 5.0.2)
     - Starscream (= 4.0.4)
@@ -34,13 +34,13 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  Alamofire: 7193b3b92c74a07f85569e1a6c4f4237291e7496
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftDate: 72d28954e8e1c6c1c0f917ccc8005e4f83c7d4b2
   SwiftProtobuf: b109bd17979d7993a84da14b1e1fdd8b0ded934a
-  TeneasyChatSDK_iOS: e9da9913a89d3ff4942c83ef7d7aa700fcd184a5
+  TeneasyChatSDK_iOS: 6dff4e1c05056d99aebeec452dba6c1894d08e2e
 
 PODFILE CHECKSUM: 35503a9be7d37d2166560785bd99886ea6f6fa32
 

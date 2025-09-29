@@ -35,3 +35,4 @@ Carthage/Build
 #
 # Pods/
 .build/checkouts/Starscream/
+/Example/Pods/
