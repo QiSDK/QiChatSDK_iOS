@@ -125,7 +125,7 @@ public struct UploadUtil {
             case .success:
                if let resData = data.data {
                    guard let strData = String(data: resData, encoding: String.Encoding.utf8) else {   listener?.uploadFailed(msg: "上传失败，无法转换为UTF-8字符串"); return}
-                   print(strData)
+                   //print(strData)
                  
                     let dic = strData.convertToDictionary()
                    if dic == nil{
@@ -177,7 +177,7 @@ public struct UploadUtil {
     private func subscribeToSSE(uploadId: String, isVideo: Bool){
  
           let api_url = baseUrl + "/v1/assets/upload-v4?uploadId=" + uploadId
-          print("SSE 视频 url \(api_url) ---#")
+          debugPrint("SSE 视频 url \(api_url) ---#")
           guard let url = URL(string: api_url) else {
               listener?.uploadFailed(msg: "API URL无效")
               return
@@ -247,7 +247,7 @@ public struct UploadUtil {
                       }
                       
                       if let event = event, let data = data {
-                          print("Event: \(event), Data: \(data)")
+                          debugPrint("Event: \(event), Data: \(data)")
                       }
                   } else {
                       print("视频上传失败：")
