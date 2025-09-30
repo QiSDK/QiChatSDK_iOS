@@ -27,7 +27,7 @@ open class ChatLib: NetworkManagerDelegate {
     public private(set) var text = "Teneasy Chat SDK 启动" // SDK启动状态文本
     private var baseUrl = "wss://csapi.xdev.stream/v1/gateway/h5?token=" // WebSocket连接基础URL
     var websocket: WebSocket? // WebSocket连接实例
-    var isConnected = false // 连接状态标识
+    open private(set) var isConnected = false // 连接状态标识
     // weak var delegate: WebSocketDelegate?
     public weak var delegate: teneasySDKDelegate? // SDK回调代理
     open var payloadId: UInt64 = 0 // 消息载荷ID
