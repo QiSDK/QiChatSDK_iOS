@@ -248,6 +248,11 @@ open class ChatLib: NetworkManagerDelegate {
         }
     }
     
+    // 内部方法：更新连接状态
+    internal func updateConnectionState(_ connected: Bool) {
+        isConnected = connected
+    }
+    
     // 发送消息（此接口不支持发视频）
     public func sendMessage(msg: String, type: CommonMessageFormat, consultId: Int64, replyMsgId: Int64? = 0, withAutoReply: CommonWithAutoReply? = nil, fileSize: Int32 = 0, fileName: String = "") {
         self.replyMsgId = replyMsgId ?? 0
@@ -522,7 +527,7 @@ open class ChatLib: NetworkManagerDelegate {
                         self.isConnecting = true
                         shouldConnect = true
                     }
-                    self.isConnected = false
+                    self.updateConnectionState(false)
                 }
                 if shouldConnect {
                     self.enqueueWebsocketConnection()
@@ -589,7 +594,7 @@ open class ChatLib: NetworkManagerDelegate {
 
                 self.stateQueue.async { [weak self] in
                     guard let self = self else { return }
-                    self.isConnected = false
+                    self.updateConnectionState(false)
                     self.isConnecting = false
                     self.pendingPayloads.removeAll()
                     self.msgList.removeAll()

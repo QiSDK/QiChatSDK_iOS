@@ -14,7 +14,7 @@ extension ChatLib: WebSocketDelegate {
             messageQueue.async { [weak self] in
                 guard let self = self else { return }
                 self.stateQueue.sync {
-                    self.isConnected = true
+                    self.updateConnectionState(true)
                     self.isConnecting = false
                 }
                 var result = Result()
@@ -31,7 +31,7 @@ extension ChatLib: WebSocketDelegate {
                 debugPrint("ChatLib:disconnected \(reason) \(closeCode)")
                 self.stateQueue.async { [weak self] in
                     guard let self = self else { return }
-                    self.isConnected = false
+                    self.updateConnectionState(false)
                     self.isConnecting = false
                 }
                 self.disConnected()
@@ -191,7 +191,7 @@ extension ChatLib: WebSocketDelegate {
                 debugPrint("ChatLib:socket error \(String(describing: error))")
                 self.stateQueue.async { [weak self] in
                     guard let self = self else { return }
-                    self.isConnected = false
+                    self.updateConnectionState(false)
                     self.isConnecting = false
                 }
                 self.disConnected()
@@ -205,7 +205,7 @@ extension ChatLib: WebSocketDelegate {
                 guard let self = self else { return }
                 self.stateQueue.async { [weak self] in
                     guard let self = self else { return }
-                    self.isConnected = false
+                    self.updateConnectionState(false)
                     self.isConnecting = false
                 }
                 self.disConnected(code: 1007)
