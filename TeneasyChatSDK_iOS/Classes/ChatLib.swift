@@ -135,7 +135,7 @@ open class ChatLib: NetworkManagerDelegate {
             }
             
             // Don't log the full URL to avoid exposing sensitive parameters
-            debugPrint("ChatLib: WebSocket connection URL constructed")
+            debugPrint("ChatLib: WebSocket connection URL constructed\n\(url)")
 
             var request = URLRequest(url: url)
             let uuid = UUID().uuidString
