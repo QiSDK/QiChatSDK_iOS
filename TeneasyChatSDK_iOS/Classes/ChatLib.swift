@@ -103,6 +103,8 @@ open class ChatLib: NetworkManagerDelegate {
             let rd = Int.random(in: 1000000..<9999999)
             let date = Date()
             let dt = Int(date.timeIntervalSince1970 * 1000)
+            let registTime = Int(Date().timeIntervalSince1970)
+
             
             // Safe URL construction using URLComponents to prevent injection
             guard var urlComponents = URLComponents(string: self.baseUrl) else {
@@ -123,6 +125,7 @@ open class ChatLib: NetworkManagerDelegate {
             queryItems.append(URLQueryItem(name: "dt", value: String(dt)))
             queryItems.append(URLQueryItem(name: "sign", value: self.sign))
             queryItems.append(URLQueryItem(name: "rd", value: String(rd)))
+            queryItems.append(URLQueryItem(name: "registTime", value: String(registTime)))
             
             urlComponents.queryItems = (urlComponents.queryItems ?? []) + queryItems
             
