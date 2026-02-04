@@ -65,11 +65,11 @@ open class ChatLib: NetworkManagerDelegate {
     var consultId: Int64 = 0 // 咨询会话ID
     private var fileSize: Int32 = 0 // 文件大小
     private var fileName: String = "" // 文件名称
-
+    private var registTime: Int = 0
     public init() {}
-
+//registTime=1769174999
     // 初始化SDK配置参数
-    public func myinit(userId:Int32, cert: String, token: String, baseUrl: String, sign: String, chatId: Int64 = 0, custom: String = "", maxSessionMinutes: Int = 90000000) {
+    public func myinit(userId:Int32, cert: String, token: String, baseUrl: String, sign: String, chatId: Int64 = 0, custom: String = "", maxSessionMinutes: Int = 90000000, registTime: Int = 0) {
         self.chatId = chatId
         self.cert = cert
         self.baseUrl = baseUrl
@@ -78,6 +78,7 @@ open class ChatLib: NetworkManagerDelegate {
         self.token = token
         self.custom = custom
         self.maxSessionMinutes = maxSessionMinutes
+        self.registTime = registTime
         beatTimes = 0
         debugPrint(text)
         
@@ -103,9 +104,6 @@ open class ChatLib: NetworkManagerDelegate {
             let rd = Int.random(in: 1000000..<9999999)
             let date = Date()
             let dt = Int(date.timeIntervalSince1970 * 1000)
-            let registTime = Int(Date().timeIntervalSince1970)
-
-            
             // Safe URL construction using URLComponents to prevent injection
             guard var urlComponents = URLComponents(string: self.baseUrl) else {
                 self.stateQueue.async { [weak self] in
