@@ -41,7 +41,6 @@ TODO: Add long description of the pod here.
    s.dependency 'Starscream', '4.0.4'
    s.dependency 'SwiftProtobuf', '~> 1.27.0'
    s.dependency 'Alamofire'
-   s.dependency 'HandyJSON', '~> 5.0.2'
    # pod 'SwiftProtobuf', '~> 1.0'
    
    

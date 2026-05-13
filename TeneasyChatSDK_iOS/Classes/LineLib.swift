@@ -55,8 +55,9 @@ private struct LineLib{
                         //有加密，需解密
                         //let base64 = String(data: value!, encoding: .utf8)
                         if let base64 = String(data: value!, encoding: .utf8) {
-                            if let contents = base64ToString(base64String: base64), contents.contains("VITE_API_BASE_URL") {
-                                if let c = AppConfig.deserialize(from: contents) {
+                            if let contents = base64ToString(base64String: base64), contents.contains("VITE_API_BASE_URL"),
+                               let contentsData = contents.data(using: .utf8) {
+                                if let c = try? JSONDecoder().decode(AppConfig.self, from: contentsData) {
                                     var lineStrs: [Line] = []
                                     for l in c.lines{
                                         if l.VITE_API_BASE_URL.contains("https"){

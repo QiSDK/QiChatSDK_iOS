@@ -9,7 +9,6 @@
  import Network
  import PhotosUI
  import UIKit
- import HandyJSON
 
  /// 上传监听协议，定义上传成功、进度更新和失败的回调方法
  public protocol UploadListener {
@@ -126,24 +125,18 @@ public struct UploadUtil {
                if let resData = data.data {
                    guard let strData = String(data: resData, encoding: String.Encoding.utf8) else {   listener?.uploadFailed(msg: "上传失败，无法转换为UTF-8字符串"); return}
                    //print(strData)
-                 
-                    let dic = strData.convertToDictionary()
-                   if dic == nil{
-                       listener?.uploadFailed(msg: "上传失败：\(strData)");
-                       return
-                   }
 
                     if data.response?.statusCode == 200{
                         // 解析成功返回的文件路径
-                        let myResult = BaseRequestResult<FilePath>.deserialize(from: dic)
-                        
+                        let myResult = try? JSONDecoder().decode(BaseRequestResult<FilePath>.self, from: resData)
+
                         if let path = myResult?.data?.filepath{
                             let urls = Urls()
                             urls.uri = path
                             listener?.uploadSuccess(paths: urls, filePath: filePath, size: fileData.count)
                             return
                         }
-          
+
                     }else if data.response?.statusCode == 202{
                         // 处理视频上传的分段进度
                         if uploadProgress < 70{
@@ -152,7 +145,7 @@ public struct UploadUtil {
                             uploadProgress += 10
                         }
                         listener?.updateProgress(progress: uploadProgress)
-                        let myResult = BaseRequestResult<String>.deserialize(from: dic)
+                        let myResult = try? JSONDecoder().decode(BaseRequestResult<String>.self, from: resData)
                         if !(myResult?.data ?? "").isEmpty{
                             // 开始订阅视频上传的服务器推送事件
                            self.subscribeToSSE(uploadId: myResult?.data ?? "", isVideo: true)
@@ -221,8 +214,8 @@ public struct UploadUtil {
                           } else if line.starts(with: "data:") {
                               data = String(line.dropFirst("data: ".count))
                               
-                              guard let dic = data?.convertToDictionary(),
-                                    let myResult = UploadPercent.deserialize(from: dic) else {
+                              guard let payload = data?.data(using: .utf8),
+                                    let myResult = try? JSONDecoder().decode(UploadPercent.self, from: payload) else {
                                   listener?.uploadFailed(msg: "反序列化SSE数据失败")
                                   return
                               }
@@ -298,27 +291,45 @@ extension String {
     }
 }
 
-public class FilePath: HandyJSON {
+public class FilePath: Codable {
     public  var filepath: String?
     required public init() {}
 }
 
-public class UploadPercent : HandyJSON {
-    public  var percentage: Int = 0
+public struct UploadPercent: Codable {
+    public var percentage: Int = 0
     //var path: String? = ""
     var data: Urls?
-    required public init() {}
+    public init() {}
 }
 
-public class Urls: HandyJSON {
+public class Urls: Codable {
     public var uri: String? = ""
     public var hlsUri: String? = ""
     public var thumbnailUri = ""
     required public init() {}
+
+    private enum CodingKeys: String, CodingKey {
+        case uri, hlsUri, thumbnailUri
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        uri = try container.decodeIfPresent(String.self, forKey: .uri)
+        hlsUri = try container.decodeIfPresent(String.self, forKey: .hlsUri)
+        thumbnailUri = try container.decodeIfPresent(String.self, forKey: .thumbnailUri) ?? ""
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(uri, forKey: .uri)
+        try container.encodeIfPresent(hlsUri, forKey: .hlsUri)
+        try container.encode(thumbnailUri, forKey: .thumbnailUri)
+    }
 }
 
 
-public class BaseRequestResult<T>: HandyJSON {
+public class BaseRequestResult<T: Codable>: Codable {
     public var code: Int?
     public var msg: String?
     public var data: T?

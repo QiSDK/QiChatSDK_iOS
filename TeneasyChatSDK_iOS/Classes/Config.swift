@@ -6,12 +6,11 @@
 //
 
 import Foundation
-import HandyJSON
 
-struct AppConfig: Codable, HandyJSON  {
+struct AppConfig: Codable {
      init() {
     }
-    
+
     var code: Int = 0
     var version: String = ""
     var name: String = ""
@@ -20,7 +19,7 @@ struct AppConfig: Codable, HandyJSON  {
     var lines: [Line] = []
 }
 
- public struct Line: Codable, HandyJSON  {
+ public struct Line: Codable {
      public init() {
     }
      public var VITE_API_BASE_URL: String = ""
