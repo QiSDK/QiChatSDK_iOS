@@ -265,7 +265,7 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         //lib.sendMessage(msg: "https://www.youtube.com/watch?v=wbFHmblw9J8", type: .msgVideo, replyMsgId: lastMessage?.msgID ?? 0)
         
         tvChatView.text.append("how are u!")
-        lib.sendMessage(msg: "how are u!", type: .msgText, consultId: 1)
+        lib.sendMessage(msg: "how are u!", type: .msgText, consultId: 1, msgSourceType: .mstCard)
         tvChatView.text.append("\(lib.payloadId)")
         //lib.sendMessage(msg: "/session/tenant_230/20250304/Documents/3137343130393736323137353066696c65d41d8cd98f00b204e9800998ecf8427e_1741097622234561429.pdf", type: .msgFile, consultId: 1, fileSize: 1989, fileName: "123.pdf")
         

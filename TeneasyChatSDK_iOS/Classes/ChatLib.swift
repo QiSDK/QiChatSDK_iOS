@@ -51,6 +51,7 @@ open class ChatLib: NetworkManagerDelegate {
     private var networkManager = NetworkManager() // 网络管理器
     public static let shared = ChatLib() // 单例实例
     private var withAutoReply: CommonWithAutoReply? // 自动回复配置
+    private var msgSourceType: CommonMsgSourceType? // 消息源类型
     
     // DispatchQueue for thread management 线程管理队列
     let websocketQueue = DispatchQueue(label: "com.teneasy.websocket", qos: .userInitiated) // WebSocket操作队列
@@ -255,7 +256,7 @@ open class ChatLib: NetworkManagerDelegate {
     }
     
     // 发送消息（此接口不支持发视频）
-    public func sendMessage(msg: String, type: CommonMessageFormat, consultId: Int64, replyMsgId: Int64? = 0, withAutoReply: CommonWithAutoReply? = nil, fileSize: Int32 = 0, fileName: String = "") {
+    public func sendMessage(msg: String, type: CommonMessageFormat, consultId: Int64, replyMsgId: Int64? = 0, withAutoReply: CommonWithAutoReply? = nil, fileSize: Int32 = 0, fileName: String = "", msgSourceType: CommonMsgSourceType? = nil) {
         self.replyMsgId = replyMsgId ?? 0
         self.consultId = consultId;
         self.withAutoReply = withAutoReply
@@ -311,7 +312,7 @@ open class ChatLib: NetworkManagerDelegate {
         msg.chatID = chatId
         msg.payload = .content(content)
         msg.worker = workId
-        
+        msg.msgSourceType = self.msgSourceType ?? CommonMsgSourceType.mstDefault
         msg.msgTime.seconds = Int64(Date().timeIntervalSince1970)
         
         // 临时放到一个变量
