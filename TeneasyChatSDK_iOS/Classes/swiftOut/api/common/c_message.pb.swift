@@ -250,8 +250,11 @@ public enum CommonMsgSourceType: SwiftProtobuf.Enum, Swift.CaseIterable {
   /// 触发评价消息
   case mstEvaluate // = 12
 
-  /// 卡片消息
+  /// 用户卡片消息
   case mstCard // = 13
+
+  /// 客服自动回复的卡片消息
+  case mstAutoCard // = 14
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -274,6 +277,7 @@ public enum CommonMsgSourceType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case 11: self = .mstAiBegin
     case 12: self = .mstEvaluate
     case 13: self = .mstCard
+    case 14: self = .mstAutoCard
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -294,6 +298,7 @@ public enum CommonMsgSourceType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case .mstAiBegin: return 11
     case .mstEvaluate: return 12
     case .mstCard: return 13
+    case .mstAutoCard: return 14
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -314,6 +319,7 @@ public enum CommonMsgSourceType: SwiftProtobuf.Enum, Swift.CaseIterable {
     .mstAiBegin,
     .mstEvaluate,
     .mstCard,
+    .mstAutoCard,
   ]
 
 }
@@ -1094,6 +1100,7 @@ extension CommonMsgSourceType: SwiftProtobuf._ProtoNameProviding {
     11: .same(proto: "MST_AI_BEGIN"),
     12: .same(proto: "MST_EVALUATE"),
     13: .same(proto: "MST_CARD"),
+    14: .same(proto: "MST_AUTO_CARD"),
   ]
 }
 
