@@ -262,6 +262,7 @@ open class ChatLib: NetworkManagerDelegate {
         self.withAutoReply = withAutoReply
         self.fileName = fileName
         self.fileSize = fileSize
+        self.msgSourceType = msgSourceType
         // 发送信息的封装，有四层
         // payload -> CSSendMessage -> common message -> CommonMessageContent
         switch type{
