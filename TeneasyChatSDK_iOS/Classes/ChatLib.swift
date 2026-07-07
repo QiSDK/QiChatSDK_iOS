@@ -46,6 +46,7 @@ open class ChatLib: NetworkManagerDelegate {
     private var replyMsgId: Int64 = 0 // 回复消息ID
     private var userId: Int32 = 0 // 用户ID
     private var custom: String = "" // 自定义参数
+    private var sitecode: String = "" // 站点码
     private var sign: String = "" // 签名
     private var cert: String = "" // 证书
     private var networkManager = NetworkManager() // 网络管理器
@@ -70,7 +71,7 @@ open class ChatLib: NetworkManagerDelegate {
     public init() {}
 //registTime=1769174999
     // 初始化SDK配置参数
-    public func myinit(userId:Int32, cert: String, token: String, baseUrl: String, sign: String, chatId: Int64 = 0, custom: String = "", maxSessionMinutes: Int = 90000000, registTime: Int = 0) {
+    public func myinit(userId:Int32, cert: String, token: String, baseUrl: String, sign: String, chatId: Int64 = 0, custom: String = "", maxSessionMinutes: Int = 90000000, registTime: Int = 0, sitecode: String = "") {
         self.chatId = chatId
         self.cert = cert
         self.baseUrl = baseUrl
@@ -78,6 +79,7 @@ open class ChatLib: NetworkManagerDelegate {
         self.sign = sign
         self.token = token
         self.custom = custom
+        self.sitecode = sitecode
         self.maxSessionMinutes = maxSessionMinutes
         self.registTime = registTime
         beatTimes = 0
@@ -120,6 +122,7 @@ open class ChatLib: NetworkManagerDelegate {
             queryItems.append(URLQueryItem(name: "token", value: self.token))
             queryItems.append(URLQueryItem(name: "userid", value: String(self.userId)))
             queryItems.append(URLQueryItem(name: "custom", value: self.custom))
+            queryItems.append(URLQueryItem(name: "siteCode", value: self.sitecode))
             queryItems.append(URLQueryItem(name: "ty", value: String(Api_Common_ClientType.userAppIos.rawValue)))
             queryItems.append(URLQueryItem(name: "dt", value: String(dt)))
             queryItems.append(URLQueryItem(name: "sign", value: self.sign))
