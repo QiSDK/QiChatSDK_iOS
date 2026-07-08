@@ -209,7 +209,7 @@ class ViewController: UIViewController, teneasySDKDelegate, LineDetectDelegate, 
         
         //let lines = tvInputText.text.split(separator: ",").map { String($0) }
     //httos://csh5.hfxg.xyz,https://csapi.xdev.stream
-        let lines = "https://wcsapi.qixin14.xyz,https://csapi.hfxg.xyz"
+        let lines = "https://csh5-3-test.qlbig05.xyz,https://csapi.hfxg.xyz"
         
         //let lines = "https://61.184.8.23:7040,https://csapi.hfxg.xyz,https://csapi04.yxvtyk.com,https://ikeapi.qlbig29.xyz,https://csapi.qlbig29.xyz,https://csapi.qlbig30.xyz"
         //let lines = "https://61.184.8.23:7040"

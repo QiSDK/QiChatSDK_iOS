@@ -122,7 +122,7 @@ open class ChatLib: NetworkManagerDelegate {
             queryItems.append(URLQueryItem(name: "token", value: self.token))
             queryItems.append(URLQueryItem(name: "userid", value: String(self.userId)))
             queryItems.append(URLQueryItem(name: "custom", value: self.custom))
-            queryItems.append(URLQueryItem(name: "siteCode", value: self.sitecode))
+            queryItems.append(URLQueryItem(name: "sitecode", value: self.sitecode))
             queryItems.append(URLQueryItem(name: "ty", value: String(Api_Common_ClientType.userAppIos.rawValue)))
             queryItems.append(URLQueryItem(name: "dt", value: String(dt)))
             queryItems.append(URLQueryItem(name: "sign", value: self.sign))
